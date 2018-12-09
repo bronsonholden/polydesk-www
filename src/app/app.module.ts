@@ -10,11 +10,15 @@ import {
 
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { TopbarBrandComponent } from './topbar/topbar-brand/topbar-brand.component';
+import { TopbarActionsComponent } from './topbar/topbar-actions/topbar-actions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopbarComponent
+    TopbarComponent,
+    TopbarBrandComponent,
+    TopbarActionsComponent
   ],
   imports: [
     BrowserModule,
