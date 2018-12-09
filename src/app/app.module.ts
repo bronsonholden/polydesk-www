@@ -9,12 +9,12 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
