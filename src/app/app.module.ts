@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Import Material components
 import {
   MatButtonModule,
+  MatCheckboxModule,
   MatSidenavModule,
   MatTableModule,
   MatTabsModule,
@@ -47,6 +48,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatSidenavModule,
     MatTableModule,
     MatTabsModule,

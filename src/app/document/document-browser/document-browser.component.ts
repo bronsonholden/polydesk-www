@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
+
+export interface DocumentElement {
+  name: string;
+}
 
 @Component({
   selector: 'app-document-browser',
@@ -7,19 +13,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentBrowserComponent implements OnInit {
 
-  documentList = [];
+  documentList = new MatTableDataSource<DocumentElement>();
+  selection = new SelectionModel<DocumentElement>(true, []);
 
-  displayedColumns: String = [
+  displayedColumns = [
+    'select',
     'name'
   ];
 
   constructor() {
     for (var i = 0; i < 100; ++i) {
-      this.documentList.push({ name: `Document #${i + 1}.pdf` });
+      this.documentList.data.push({ name: `Document #${i + 1}.pdf` });
     }
   }
 
   ngOnInit() {
+  }
+
+  /* Check if all rows in the document list are selected */
+  isAllSelected() {
+    return this.selection.selected.length === this.documentList.data.length;
+  }
+
+  selectAll() {
+    this.documentList.data.forEach(row => this.selection.select(row));
+  }
+
+  masterToggle() {
+    this.isAllSelected() ? this.selection.clear() : this.selectAll();
   }
 
 }
