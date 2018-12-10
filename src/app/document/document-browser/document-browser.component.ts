@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentBrowserComponent implements OnInit {
 
-  constructor() { }
+  documentList = [];
+
+  displayedColumns: String = [
+    'name'
+  ];
+
+  constructor() {
+    for (var i = 0; i < 100; ++i) {
+      this.documentList.push({ name: `Document #${i + 1}.pdf` });
+    }
+  }
 
   ngOnInit() {
   }

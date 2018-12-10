@@ -9,3 +9,28 @@
 mat-sidenav.document-browser-drawer {
   width: 300px;
 }
+
+.document-table {
+  width: 100%;
+}
+
+.document-table-wrapper {
+  position: absolute;
+  top: 64px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow-y: scroll;
+}
+
+#document-table-toolbar {
+  overflow-x: scroll;
+}
+
+#document-table-toolbar button {
+  margin-right: 8px;
+}
+
+.document-table-header-row {
+  margin-top: 48px;
+}
