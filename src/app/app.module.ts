@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Import Material components
 import {
   MatButtonModule,
+  MatSidenavModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -50,6 +51,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatSidenavModule,
     MatTabsModule,
     MatToolbarModule,
     RouterModule.forRoot(routes)
