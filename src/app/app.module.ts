@@ -22,11 +22,6 @@ import { DocumentBrowserComponent } from './document/document-browser/document-b
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomePageComponent,
-    pathMatch: 'full'
-  },
-  {
     path: 'dashboard',
     component: DashboardComponent
   },
