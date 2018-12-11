@@ -10,6 +10,19 @@ mat-sidenav.document-browser-drawer {
   width: 300px;
 }
 
+.grabber {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: ew-resize;
+  margin-left: -10px;
+  width: 8px;
+  height: 100%;
+  overflow: hidden;
+  background-color: #eff0f1;
+}
+
 .document-table {
   width: 100%;
 }

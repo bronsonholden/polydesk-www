@@ -1,5 +1,9 @@
-<mat-sidenav-container class="document-browser">
-  <mat-sidenav class="document-browser-drawer" mode="side" opened>
+<mat-sidenav-container class="document-browser" (mousemove)="onMouseMove($event)">
+  <mat-sidenav
+      [style.width.px]="drawerWidth"
+      class="document-browser-drawer"
+      mode="side"
+      opened>
     <ul>
       <li>a</li>
       <li>a</li>
@@ -13,8 +17,9 @@
       <li>a</li>
       <li>a</li>
     </ul>
+    <div class="grabber" (mousedown)="onGrabberMouseDown($event)"></div>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [style.marginLeft.px]="drawerWidth">
     <mat-toolbar id="document-table-toolbar" style="height: 64px;">
       <mat-toolbar-row>
         <button mat-raised-button class="mat-raised-button">Favorite</button>
