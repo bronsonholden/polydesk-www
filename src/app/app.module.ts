@@ -13,6 +13,8 @@ import {
   MatToolbarModule
 } from '@angular/material';
 
+import { ResizableModule } from 'angular-resizable-element';
+
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TopbarBrandComponent } from './topbar/topbar-brand/topbar-brand.component';
@@ -53,6 +55,7 @@ const routes: Routes = [
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    ResizableModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

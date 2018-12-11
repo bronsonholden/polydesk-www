@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
+import { ResizeEvent } from 'angular-resizable-element';
 
 export interface DocumentElement {
   name: string;
@@ -12,6 +13,8 @@ export interface DocumentElement {
   styleUrls: ['./document-browser.component.scss']
 })
 export class DocumentBrowserComponent implements OnInit {
+  @ViewChild('documentBrowserSidenav') documentBrowserSidenav: ElementRef;
+  @ViewChild('documentBrowserContent') documentBrowserContent: ElementRef;
 
   documentList = new MatTableDataSource<DocumentElement>();
   selection = new SelectionModel<DocumentElement>(true, []);
@@ -41,6 +44,20 @@ export class DocumentBrowserComponent implements OnInit {
 
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : this.selectAll();
+  }
+
+  onResizeEnd(event: ResizeEvent) {
+    console.log(this.documentBrowserContent);
+    let sidenav = this.documentBrowserSidenav._elementRef.nativeElement;
+    let content = this.documentBrowserContent.elementRef.nativeElement;
+    let width = sidenav.clientWidth + event.edges.right;
+    let margin = parseInt(content.style['margin-left']) + event.edges.right;
+
+    width = Math.max(Math.min(width, 800), 300);
+    margin = Math.max(Math.min(margin, 800), 300);
+
+    sidenav.style.width = `${width}px`;
+    content.style['margin-left'] = `${margin}px`;
   }
 
 }

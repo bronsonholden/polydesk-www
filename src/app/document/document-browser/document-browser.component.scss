@@ -6,8 +6,16 @@
   bottom: 0px;
 }
 
-mat-sidenav.document-browser-drawer {
-  width: 300px;
+.document-browser-drawer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  min-width: 300px;
+  max-width: 800px;
+}
+
+mwlResizable {
+  box-sizing: border-box;
 }
 
 .document-table {

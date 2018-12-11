@@ -1,5 +1,16 @@
 <mat-sidenav-container class="document-browser">
-  <mat-sidenav class="document-browser-drawer" mode="side" opened>
+  <mat-sidenav
+      #documentBrowserSidenav
+      mwlResizable
+      mode="side"
+      opened
+      fixedInViewport
+      fixedTopGap="0"
+      fixedBottomGap="0"
+      class="document-browser-drawer"
+      [enableGhostResize]="true"
+      [resizeEdges]="{ top: false, left: false, right: true, bottom: false }"
+      (resizeEnd)="onResizeEnd($event)">
     <ul>
       <li>a</li>
       <li>a</li>
@@ -14,7 +25,7 @@
       <li>a</li>
     </ul>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content #documentBrowserContent>
     <mat-toolbar id="document-table-toolbar" style="height: 64px;">
       <mat-toolbar-row>
         <button mat-raised-button class="mat-raised-button">Favorite</button>
