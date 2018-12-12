@@ -1,9 +1,17 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 export interface DocumentElement {
   name: string;
+}
+
+export interface FolderElement {
+  name: string;
+  type: any;
+  children: FolderElement[];
 }
 
 @Component({
@@ -23,6 +31,28 @@ export class DocumentBrowserComponent implements OnInit {
   documentList = new MatTableDataSource<DocumentElement>();
   selection = new SelectionModel<DocumentElement>(true, []);
 
+  folderList: FolderElement[] = [
+    {
+      name: 'Test 1',
+      children: []
+    },
+    {
+      name: 'Test 2',
+      children: [
+        {
+          name: 'Test 3',
+          children: []
+        },
+        {
+          name: 'Test Doc.pdf',
+          type: 'pdf'
+        }
+      ]
+    }
+  ]
+  nestedTreeControl: NestedTreeControl<FileNode>;
+  nestedDataSource: MatTreeNestedDataSource<FileNode>;
+
   displayedColumns = [
     'select',
     'name'
@@ -32,6 +62,10 @@ export class DocumentBrowserComponent implements OnInit {
     for (var i = 0; i < 100; ++i) {
       this.documentList.data.push({ name: `Document #${i + 1}.pdf` });
     }
+
+    this.nestedTreeControl = new NestedTreeControl<FileNode>(this._getChildren);
+    this.nestedDataSource = new MatTreeNestedDataSource();
+    this.nestedDataSource.data = this.folderList;
   }
 
   ngOnInit() {
@@ -72,5 +106,11 @@ export class DocumentBrowserComponent implements OnInit {
       this.drawerWidth = Math.min(Math.max(300, width), 800);
     }
   }
+
+  hasNestedChild = (_: number, element: FolderElement) => {
+    return !element.type
+  }
+
+  private _getChildren = (element: FileElement) => element.children;
 
 }

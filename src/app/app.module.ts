@@ -7,10 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   MatButtonModule,
   MatCheckboxModule,
+  MatIconModule,
   MatSidenavModule,
   MatTableModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTreeModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -49,10 +51,12 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatIconModule,
     MatSidenavModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTreeModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

@@ -43,3 +43,14 @@ mat-sidenav.document-browser-drawer {
 .document-table-header-row {
   margin-top: 48px;
 }
+
+.folder-tree-invisible {
+  display: none;
+}
+
+.document-browser ul,
+.document-browser li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
