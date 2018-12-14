@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   MatButtonModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatIconModule,
   MatSidenavModule,
   MatTableModule,
@@ -23,6 +24,9 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DocumentComponent } from './document/document.component';
 import { DocumentBrowserComponent } from './document/document-browser/document-browser.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { LoginComponent } from './auth-dialog/login/login.component';
+import { SignupComponent } from './auth-dialog/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -44,13 +48,21 @@ const routes: Routes = [
     HomePageComponent,
     DashboardComponent,
     DocumentComponent,
-    DocumentBrowserComponent
+    DocumentBrowserComponent,
+    AuthDialogComponent,
+    LoginComponent,
+    SignupComponent
+  ],
+  entryComponents: [
+    AuthDialogComponent,
+    TopbarActionsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatIconModule,
     MatSidenavModule,
     MatTableModule,
