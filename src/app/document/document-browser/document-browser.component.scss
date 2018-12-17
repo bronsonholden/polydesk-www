@@ -8,6 +8,7 @@
 
 mat-sidenav.document-browser-drawer {
   width: 300px;
+  padding-right: 4px;
 }
 
 .grabber {
@@ -17,10 +18,10 @@ mat-sidenav.document-browser-drawer {
   right: 0px;
   cursor: ew-resize;
   margin-left: -10px;
-  width: 8px;
+  width: 4px;
   height: 100%;
   overflow: hidden;
-  background-color: #eff0f1;
+  background-color: #dfe0e1;
 }
 
 .document-table {

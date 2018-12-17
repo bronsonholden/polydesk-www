@@ -64,6 +64,13 @@ export class DocumentBrowserComponent implements OnInit {
       this.documentList.data.push({ name: `Document #${i + 1}.pdf` });
     }
 
+    for (let i = 0; i < 50; ++i) {
+      this.folderList.push({
+        name: `Additional Folder #${i + 1}`,
+        children: []
+      });
+    }
+
     this.nestedTreeControl = new NestedTreeControl<FolderElement>(this._getChildren);
     this.nestedDataSource = new MatTreeNestedDataSource();
     this.nestedDataSource.data = this.folderList;
