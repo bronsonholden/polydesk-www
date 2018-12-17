@@ -27,6 +27,8 @@ import { DocumentBrowserComponent } from './document/document-browser/document-b
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { LoginComponent } from './auth-dialog/login/login.component';
 import { SignupComponent } from './auth-dialog/signup/signup.component';
+import { ReportComponent } from './report/report.component';
+import { ReportListComponent } from './report/report-list/report-list.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,10 @@ const routes: Routes = [
   {
     path: 'documents',
     component: DocumentBrowserComponent
+  },
+  {
+    path: 'reports',
+    component: ReportListComponent
   }
 ]
 
@@ -51,7 +57,9 @@ const routes: Routes = [
     DocumentBrowserComponent,
     AuthDialogComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ReportComponent,
+    ReportListComponent
   ],
   entryComponents: [
     AuthDialogComponent,

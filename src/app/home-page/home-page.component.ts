@@ -15,6 +15,10 @@ export class HomePageComponent implements OnInit {
     {
       path: '/documents',
       label: 'Documents'
+    },
+    {
+      path: '/reports',
+      label: 'Reports'
     }
   ]
 
