@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
       path: '/reports',
       label: 'Reports'
     }
-  ]
+  ];
 
   constructor() { }
 

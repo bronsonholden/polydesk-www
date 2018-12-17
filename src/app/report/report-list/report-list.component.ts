@@ -22,7 +22,7 @@ export class ReportListComponent implements OnInit {
   ];
 
   constructor() {
-    for (var i = 0; i < 100; ++i) {
+    for (let i = 0; i < 100; ++i) {
       this.reportList.data.push({ name: `Report #${i + 1}` });
     }
   }

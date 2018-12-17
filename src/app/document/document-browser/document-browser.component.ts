@@ -21,12 +21,12 @@ export class FolderElement {
 })
 export class DocumentBrowserComponent implements OnInit {
 
-  resizing: boolean = false;
+  resizing = false;
   // Screen x position when resizing started
-  resizingAnchor: number = -1;
+  resizingAnchor = -1;
   // Width we started resizing at
-  resizingFrom: number = 300;
-  drawerWidth: number = 300;
+  resizingFrom = 300;
+  drawerWidth = 300;
 
   documentList = new MatTableDataSource<DocumentElement>();
   selection = new SelectionModel<DocumentElement>(true, []);
@@ -60,7 +60,7 @@ export class DocumentBrowserComponent implements OnInit {
   ];
 
   constructor() {
-    for (var i = 0; i < 100; ++i) {
+    for (let i = 0; i < 100; ++i) {
       this.documentList.data.push({ name: `Document #${i + 1}.pdf` });
     }
 
@@ -100,8 +100,8 @@ export class DocumentBrowserComponent implements OnInit {
   @HostListener('document:mousemove', [ '$event' ])
   onMouseMove(e) {
     if (this.resizing) {
-      let dx = e.screenX - this.resizingAnchor;
-      let width = this.resizingFrom + dx;
+      const dx = e.screenX - this.resizingAnchor;
+      const width = this.resizingFrom + dx;
 
       // Clamp
       this.drawerWidth = Math.min(Math.max(300, width), 800);
@@ -109,7 +109,7 @@ export class DocumentBrowserComponent implements OnInit {
   }
 
   hasNestedChild = (_: number, element: FolderElement) => {
-    return !element.type
+    return !element.type;
   }
 
   private _getChildren = (element: FolderElement) => element.children;

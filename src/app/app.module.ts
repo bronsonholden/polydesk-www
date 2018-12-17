@@ -43,7 +43,7 @@ const routes: Routes = [
     path: 'reports',
     component: ReportListComponent
   }
-]
+];
 
 @NgModule({
   declarations: [
