@@ -18,12 +18,27 @@ export class ReportListComponent implements OnInit {
 
   displayedColumns = [
     'select',
-    'name'
+    'name',
+    'createdOn',
+    'createdBy',
+    'schedules'
   ];
 
   constructor() {
     for (let i = 0; i < 100; ++i) {
-      this.reportList.data.push({ name: `Report #${i + 1}` });
+      this.reportList.data.push({
+        name: `Report #${i + 1}`,
+        createdOn: '1/1/2000 08:00 PM -08:00',
+        createdBy: 'John Doe',
+        schedules: [
+          {
+            name: 'Example schedule'
+          },
+          {
+            name: 'Another schedule'
+          }
+        ]
+      });
     }
   }
 
