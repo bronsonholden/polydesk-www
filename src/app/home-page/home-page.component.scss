@@ -4,6 +4,9 @@
 }
 
 .home-page-nav-bar {
-  position: relative;
+  position: fixed;
+  top: 64px;
+  left: 0px;
+  right: 0px;
   z-index: 2;
 }

@@ -1,12 +1,42 @@
-.report-table {
-  width: 100%;
-}
-
 .report-table-wrapper {
   position: absolute;
   top: 49px;
   left: 0px;
-  right: 0px;
   bottom: 0px;
   overflow-y: scroll;
+}
+
+.report-table td, .report-table th {
+  box-sizing: border-box;
+}
+
+.report-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table.report-table {
+  table-layout: fixed;
+}
+
+[mat-header-cell]:last-child .column-grabber {
+  display: none;
+}
+
+[mat-header-cell], [mat-cell] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.column-grabber {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: ew-resize;
+  width: 4px;
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid #dfe0e1;
 }

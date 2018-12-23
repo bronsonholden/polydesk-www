@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 
@@ -16,6 +16,13 @@ export class ReportListComponent implements OnInit {
   reportList = new MatTableDataSource<ReportElement>();
   selection = new SelectionModel<ReportElement>(true, []);
 
+  resizingColumn = null;
+  resizing = false;
+  // Screen x position when resizing started
+  resizingAnchor = -1;
+  // Width we started resizing at
+  resizingFrom = 300;
+
   displayedColumns = [
     'select',
     'name',
@@ -23,6 +30,13 @@ export class ReportListComponent implements OnInit {
     'createdBy',
     'schedules'
   ];
+
+  columnWidths = {
+    name: 100,
+    createdOn: 100,
+    createdBy: 100,
+    schedules: 100
+  }
 
   constructor() {
     for (let i = 0; i < 100; ++i) {
@@ -56,6 +70,30 @@ export class ReportListComponent implements OnInit {
 
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : this.selectAll();
+  }
+
+  onGrabberMouseDown(e, columnName) {
+    this.resizingColumn = columnName;
+    this.resizing = true;
+    this.resizingAnchor = e.screenX;
+    this.resizingFrom = this.columnWidths[columnName];
+    e.preventDefault();
+  }
+
+  @HostListener('document:mouseup', [ '$event' ])
+  onMouseUp(e) {
+    this.resizing = false;
+  }
+
+  @HostListener('document:mousemove', [ '$event' ])
+  onMouseMove(e) {
+    if (this.resizing) {
+      const dx = e.screenX - this.resizingAnchor;
+      const width = this.resizingFrom + dx;
+      const columnIndex = this.displayedColumns.indexOf(this.resizingColumn);
+
+      this.columnWidths[this.resizingColumn] = Math.max(100, width);
+    }
   }
 
 }

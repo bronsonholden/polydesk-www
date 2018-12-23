@@ -22,26 +22,59 @@
 
     <!-- Report name column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let report">{{ report.name }}</td>
+      <th mat-header-cell *matHeaderCellDef>
+        Name
+        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'name')"></div>
+      </th>
+      <td
+          [style.minWidth.px]="columnWidths.name"
+          [style.maxWidth.px]="columnWidths.name"
+          mat-cell *matCellDef="let report">
+        {{ report.name }}
+      </td>
     </ng-container>
 
     <!-- Created on column -->
     <ng-container matColumnDef="createdOn">
-      <th mat-header-cell *matHeaderCellDef>Created On</th>
-      <td mat-cell *matCellDef="let report">{{ report.createdOn }}</td>
+      <th
+          mat-header-cell *matHeaderCellDef>
+        Created On
+        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'createdOn')"></div>
+      </th>
+      <td
+          [style.minWidth.px]="columnWidths.createdOn"
+          [style.maxWidth.px]="columnWidths.createdOn"
+          mat-cell *matCellDef="let report">
+        {{ report.createdOn }}
+      </td>
     </ng-container>
 
     <!-- Created by column -->
     <ng-container matColumnDef="createdBy">
-      <th mat-header-cell *matHeaderCellDef>Created By</th>
-      <td mat-cell *matCellDef="let report">{{ report.createdBy }}</td>
+      <th mat-header-cell *matHeaderCellDef>
+        Created By
+        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'createdBy')"></div>
+      </th>
+      <td
+          [style.minWidth.px]="columnWidths.createdBy"
+          [style.maxWidth.px]="columnWidths.createdBy"
+          mat-cell *matCellDef="let report">
+        {{ report.createdBy }}
+      </td>
     </ng-container>
 
     <!-- Schedule count column -->
     <ng-container matColumnDef="schedules">
-      <th mat-header-cell *matHeaderCellDef>Schedules</th>
-      <td mat-cell *matCellDef="let report">{{ report.schedules.length }}</td>
+      <th mat-header-cell *matHeaderCellDef>
+        Schedules
+        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'schedules')"></div>
+      </th>
+      <td
+          [style.minWidth.px]="columnWidths.schedules"
+          [style.maxWidth.px]="columnWidths.schedules"
+          mat-cell *matCellDef="let report">
+        {{ report.schedules.length }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

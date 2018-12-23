@@ -4,6 +4,7 @@ body {
   margin: 0px;
 }
 
-.select-column {
-  width: 40px;
+th.select-column {
+  max-width: 56px;
+  min-width: 56px;
 }
