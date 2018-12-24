@@ -1,4 +1,5 @@
-<div class="report-table-wrapper">
+<div id="hiddenScrollable" #hiddenScrollable></div>
+<div id="reportListContainer" #reportListContainer>
   <table class="report-table" mat-table [dataSource]="reportList">
     <!-- Checkbox column -->
     <ng-container matColumnDef="select">
