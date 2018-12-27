@@ -1,4 +1,23 @@
 <div id="hiddenScrollable" #hiddenScrollable></div>
+<mat-toolbar id="report-list-toolbar" style="height: 64px;">
+  <mat-toolbar-row>
+    <button mat-raised-button class="mat-raised-button">Favorite</button>
+
+    <!-- Export menu -->
+    <mat-menu #exportMenu="matMenu">
+      <button mat-menu-item>CSV</button>
+      <button mat-menu-item>PDF</button>
+      <button mat-menu-item>XLSX</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="exportMenu" class="mat-raised-button">Export</button>
+
+    <!-- Fill -->
+    <div class="h-fill"></div>
+
+    <button mat-raised-button class="mat-raised-button">Edit</button>
+    <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div id="reportListContainer" #reportListContainer>
   <table class="report-table" mat-table [dataSource]="reportList">
     <!-- Checkbox column -->
