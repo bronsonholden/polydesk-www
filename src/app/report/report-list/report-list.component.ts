@@ -4,6 +4,9 @@ import { MatTableDataSource } from '@angular/material';
 
 export class ReportElement {
   name: string;
+  createdOn: string;
+  createdBy: string;
+  schedules: any[];
 }
 
 @Component({
