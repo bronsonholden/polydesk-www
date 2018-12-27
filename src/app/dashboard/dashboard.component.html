@@ -1,0 +1,23 @@
+<div id="dashboard-wrapper">
+  <mat-form-field>
+    <mat-select placeholder="Show" [formControl]="showTypes" multiple>
+      <mat-select-trigger>
+        {{ showAll ? 'All' : getVisibleTypes() }}
+      </mat-select-trigger>
+      <mat-checkbox
+          class="mat-option"
+          color="primary"
+          (click)="toggleAll()"
+          [checked]="showAll"
+          [indeterminate]="!allTypesSelected() && !noTypesSelected()">
+        All
+      </mat-checkbox>
+      <mat-option
+          *ngFor="let itemType of itemTypes"
+          [value]="itemType"
+          (click)="toggleTypeSelected()">
+        {{ itemType }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

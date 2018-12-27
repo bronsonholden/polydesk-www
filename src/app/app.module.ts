@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Import Material components
 import {
@@ -10,6 +11,7 @@ import {
   MatDialogModule,
   MatIconModule,
   MatMenuModule,
+  MatSelectModule,
   MatSidenavModule,
   MatTableModule,
   MatTabsModule,
@@ -69,16 +71,19 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
+    MatSelectModule,
     MatSidenavModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatTreeModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
