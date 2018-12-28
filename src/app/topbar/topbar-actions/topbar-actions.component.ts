@@ -14,10 +14,11 @@ export class TopbarActionsComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(): void {
+  openDialog(mode): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
       width: '400px',
       data: {
+        mode: mode,
         email: this.email,
         password: this.password
       }
