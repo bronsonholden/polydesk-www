@@ -125,8 +125,6 @@ export class ReportListComponent implements OnInit {
       // Add remaining width to first filler
       this.columnWidths[firstFiller] += width - occupied - (fillerWidth * fillers);
     }
-
-    console.log(occupied, fillers, width, scrollbarWidth);
   }
 
   /* Check if all rows in the document list are selected */
