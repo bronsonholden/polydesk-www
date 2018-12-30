@@ -5,6 +5,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 export class DocumentElement {
+  id: number;
   name: string;
 }
 
@@ -61,7 +62,10 @@ export class DocumentBrowserComponent implements OnInit {
 
   constructor() {
     for (let i = 0; i < 100; ++i) {
-      this.documentList.data.push({ name: `Document #${i + 1}.pdf` });
+      this.documentList.data.push({
+        id: i + 1,
+        name: `Document #${i + 1}.pdf`
+      });
     }
 
     for (let i = 0; i < 50; ++i) {

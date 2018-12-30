@@ -71,7 +71,11 @@
         <!-- Document name column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.name }}</td>
+          <td mat-cell *matCellDef="let doc">
+            <a mat-flat-button class="mat-flat-button" disableRipple="true" routerLink="/documents/{{ doc.id }}">
+              <span class="primary-color">{{ doc.name }}</span>
+            </a>
+          </td>
         </ng-container>
 
         <tr class="document-table-header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

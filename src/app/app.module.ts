@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'reports',
     component: ReportListComponent
+  },
+  {
+    path: 'documents/:id',
+    component: DocumentComponent
   }
 ];
 

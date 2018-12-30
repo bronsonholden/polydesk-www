@@ -3,10 +3,12 @@
       *ngFor="let tab of tabs"
       [routerLink]="tab.path"
       routerLinkActive #rla="routerLinkActive"
-      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLinkActiveOptions]="{ exact: tab.exact }"
       [active]="rla.isActive">
     {{ tab.label }}
   </a>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="mat-typography">
+  <router-outlet></router-outlet>
+</div>
