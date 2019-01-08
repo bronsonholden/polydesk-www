@@ -22,6 +22,16 @@ export class HomePageComponent implements OnInit {
       path: '/reports',
       label: 'Reports',
       exact: false
+    },
+    {
+      path: '/workflows',
+      label: 'Workflows',
+      exact: false
+    },
+    {
+      path: '/forms',
+      label: 'Forms',
+      exact: false
     }
   ];
 
