@@ -1,24 +1,121 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnInit, HostListener, Injectable } from '@angular/core';
+import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
-import { NestedTreeControl } from '@angular/cdk/tree';
-import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { BehaviorSubject, Observable, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class DocumentElement {
   id: number;
   name: string;
 }
 
-export class FolderElement {
+export class DynamicFlatNode {
   name: string;
-  type?: string;
-  children?: FolderElement[];
+
+  constructor(public item: number, public level = 1, public expandable = false, public isLoading = false) {
+    this.name = `Folder ${item}`;
+  }
+}
+
+export class DynamicDatabase {
+  dataMap = new Map<number, number[]>([
+    [1, [2, 3, 4]],
+    [5, [6, 7]],
+    [8, [9, 10, 11, 12, 13, 14, 15, 16, 17]],
+    [15, [18, 19, 20]],
+    [20, [21, 22, 23, 24, 25, 26]]
+  ]);
+
+  rootLevelNodes: number[] = [1, 8];
+
+  initialData(): DynamicFlatNode[] {
+    return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
+  }
+
+  getChildren(node: number): number[] | undefined {
+    return this.dataMap.get(node);
+  }
+
+  isExpandable(node: number): boolean {
+    return this.dataMap.has(node);
+  }
+}
+
+@Injectable()
+export class DynamicDataSource {
+
+  dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
+
+  get data(): DynamicFlatNode[] { return this.dataChange.value; }
+  set data(value: DynamicFlatNode[]) {
+    this.treeControl.dataNodes = value;
+    this.dataChange.next(value);
+  }
+
+  constructor(private treeControl: FlatTreeControl<DynamicFlatNode>,
+              private database: DynamicDatabase) {}
+
+  connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
+    this.treeControl.expansionModel.onChange.subscribe(change => {
+      if ((change as SelectionChange<DynamicFlatNode>).added ||
+        (change as SelectionChange<DynamicFlatNode>).removed) {
+        this.handleTreeControl(change as SelectionChange<DynamicFlatNode>);
+      }
+    });
+
+    return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => this.data));
+  }
+
+  /** Handle expand/collapse behaviors */
+  handleTreeControl(change: SelectionChange<DynamicFlatNode>) {
+    if (change.added) {
+      change.added.forEach(node => this.toggleNode(node, true));
+    }
+    if (change.removed) {
+      change.removed.slice().reverse().forEach(node => this.toggleNode(node, false));
+    }
+  }
+
+  /**
+   * Toggle the node, remove from display list
+   */
+  toggleNode(node: DynamicFlatNode, expand: boolean) {
+    const children = this.database.getChildren(node.item);
+    const index = this.data.indexOf(node);
+
+    if (!children || index < 0) {
+      return;
+    }
+
+    node.isLoading = true;
+
+    if (expand) {
+      setTimeout(() => {
+        const nodes = children.map(name => new DynamicFlatNode(name, node.level + 1, this.database.isExpandable(name)));
+        this.data.splice(index + 1, 0, ...nodes);
+        this.dataChange.next(this.data);
+        node.isLoading = false;
+      }, 1000);
+    } else {
+      let count = 0;
+
+      // Get range of elements to remove from tree
+      for (let i = index + 1; i < this.data.length && this.data[i].level > node.level; i++, count++) {}
+      // Remove
+      this.data.splice(index + 1, count);
+      this.dataChange.next(this.data);
+      node.isLoading = false;
+    }
+  }
 }
 
 @Component({
   selector: 'app-document-browser',
   templateUrl: './document-browser.component.html',
-  styleUrls: ['./document-browser.component.scss']
+  styleUrls: ['./document-browser.component.scss'],
+  providers: [DynamicDatabase]
 })
 export class DocumentBrowserComponent implements OnInit {
 
@@ -32,53 +129,23 @@ export class DocumentBrowserComponent implements OnInit {
   documentList = new MatTableDataSource<DocumentElement>();
   selection = new SelectionModel<DocumentElement>(true, []);
 
-  folderList: FolderElement[] = [
-    {
-      name: 'Test 1',
-      children: new Array<FolderElement>()
-    },
-    {
-      name: 'Test 2',
-      children: [
-        {
-          name: 'Test 3',
-          children: new Array<FolderElement>()
-        },
-        {
-          name: 'Test Doc.pdf',
-          type: 'pdf'
-        }
-      ]
-    }
-  ];
-
-  nestedTreeControl: NestedTreeControl<FolderElement>;
-  nestedDataSource: MatTreeNestedDataSource<FolderElement>;
-
   displayedColumns = [
     'select',
     'name'
   ];
 
-  constructor() {
-    for (let i = 0; i < 100; ++i) {
-      this.documentList.data.push({
-        id: i + 1,
-        name: `Document #${i + 1}.pdf`
-      });
-    }
+  constructor(database: DynamicDatabase) {
+    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new DynamicDataSource(this.treeControl, database);
 
-    for (let i = 0; i < 50; ++i) {
-      this.folderList.push({
-        name: `Additional Folder #${i + 1}`,
-        children: []
-      });
-    }
-
-    this.nestedTreeControl = new NestedTreeControl<FolderElement>(this._getChildren);
-    this.nestedDataSource = new MatTreeNestedDataSource();
-    this.nestedDataSource.data = this.folderList;
+    this.dataSource.data = database.initialData();
   }
+
+  treeControl: FlatTreeControl<DynamicFlatNode>;
+  dataSource: DynamicDataSource;
+  getLevel = (node: DynamicFlatNode) => node.level;
+  isExpandable = (node: DynamicFlatNode) => node.expandable;
+  hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
   ngOnInit() {
   }
@@ -118,11 +185,5 @@ export class DocumentBrowserComponent implements OnInit {
       this.drawerWidth = Math.min(Math.max(300, width), 800);
     }
   }
-
-  hasNestedChild = (_: number, element: FolderElement) => {
-    return !element.type;
-  }
-
-  private _getChildren = (element: FolderElement) => element.children;
 
 }
