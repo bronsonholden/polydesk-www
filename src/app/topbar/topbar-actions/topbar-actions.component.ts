@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AuthDialogComponent } from '../../auth-dialog/auth-dialog.component';
+import { Angular2TokenService } from 'angular2-token';
 
 @Component({
   selector: 'app-topbar-actions',
@@ -8,24 +9,19 @@ import { AuthDialogComponent } from '../../auth-dialog/auth-dialog.component';
   styleUrls: ['./topbar-actions.component.scss']
 })
 export class TopbarActionsComponent {
-
-  email: string;
-  password: string;
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private tokenService: Angular2TokenService) { }
 
   openDialog(mode): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
       width: '400px',
       data: {
-        mode: mode,
-        email: this.email,
-        password: this.password
+        mode: mode
       }
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+  logOut() {
+    this.tokenService.signOut();
   }
 
 }

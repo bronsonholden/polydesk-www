@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTabModule } from '@zerohouse/router-tab';
+import { Angular2TokenService } from 'angular2-token';
 
 // Import Material components
 import {
@@ -96,6 +98,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -114,7 +117,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     RouterTabModule
   ],
-  providers: [],
+  providers: [
+    Angular2TokenService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
