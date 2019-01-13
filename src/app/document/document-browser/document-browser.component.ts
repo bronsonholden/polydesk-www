@@ -182,7 +182,7 @@ export class DocumentBrowserComponent implements OnInit {
       const width = this.resizingFrom + dx;
 
       // Clamp
-      this.drawerWidth = Math.min(Math.max(300, width), 800);
+      this.drawerWidth = Math.max(100, width);
     }
   }
 

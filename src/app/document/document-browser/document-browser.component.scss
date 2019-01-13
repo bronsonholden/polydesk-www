@@ -7,8 +7,13 @@
 }
 
 mat-sidenav.document-browser-drawer {
-  width: 300px;
   padding-right: 4px;
+  white-space: nowrap;
+}
+
+.document-browser-tree {
+  display: table;
+  padding-right: 16px;
 }
 
 .grabber {
