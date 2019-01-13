@@ -35,4 +35,12 @@ export class AuthDialogComponent {
     this.dialogRef.close();
   }
 
+  switchToLogIn(e) {
+    this.data.mode = 'login';
+  }
+
+  switchToSignUp(e) {
+    this.data.mode = 'signup';
+  }
+
 }

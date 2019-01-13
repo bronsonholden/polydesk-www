@@ -11,6 +11,7 @@ export class SignupComponent implements OnInit {
   passwordConfirmation: string;
 
   @Output() signUp: EventEmitter<any> = new EventEmitter();
+  @Output() switchToLogIn: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -23,6 +24,10 @@ export class SignupComponent implements OnInit {
       password: this.password,
       passwordConfirmation: this.passwordConfirmation
     });
+  }
+
+  clickLogInInstead() {
+    this.switchToLogIn.emit();
   }
 
 }

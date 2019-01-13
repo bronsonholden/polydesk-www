@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
   @Output() logIn: EventEmitter<any> = new EventEmitter();
+  @Output() switchToSignUp: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     });
+  }
+
+  clickSignUpInstead() {
+    this.switchToSignUp.emit();
   }
 
 }

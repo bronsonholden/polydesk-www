@@ -1,8 +1,8 @@
 <div>
   <div *ngIf="data.mode === 'login'">
-    <app-login (logIn)="logIn($event)"></app-login>
+    <app-login (logIn)="logIn($event)" (switchToSignUp)="switchToSignUp($event)"></app-login>
   </div>
   <div *ngIf="data.mode === 'signup'">
-    <app-signup (signUp)="signUp($event)"></app-signup>
+    <app-signup (signUp)="signUp($event)" (switchToLogIn)="switchToLogIn($event)"></app-signup>
   </div>
 </div>

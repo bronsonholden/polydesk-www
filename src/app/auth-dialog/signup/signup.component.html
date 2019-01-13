@@ -10,4 +10,8 @@
     <input matInput [(ngModel)]="passwordConfirmation" placeholder="Confirm password" name="passwordConfirmation" type="password" required="true">
   </mat-form-field>
   <button color="primary" mat-raised-button class="mat-raised-button" (click)="submitSignUp">Sign up</button>
+  <span class="spacer-24"></span>
+  <span class="mat-typography">
+    <a routerLink="" class="primary-color" (click)="clickLogInInstead()">I already have an account.</a>
+  </span>
 </form>
