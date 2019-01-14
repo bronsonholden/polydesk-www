@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from '@zerohouse/router-tab';
 import { Angular2TokenService } from 'angular2-token';
 
@@ -15,6 +17,7 @@ import {
   MatDividerModule,
   MatGridListModule,
   MatIconModule,
+  MatIconRegistry,
   MatInputModule,
   MatMenuModule,
   MatProgressBarModule,
@@ -100,6 +103,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -124,4 +128,8 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
+  }
+}
