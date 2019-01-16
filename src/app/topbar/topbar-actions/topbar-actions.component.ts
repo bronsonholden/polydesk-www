@@ -9,7 +9,7 @@ import { Angular2TokenService } from 'angular2-token';
   styleUrls: ['./topbar-actions.component.scss']
 })
 export class TopbarActionsComponent {
-  constructor(public dialog: MatDialog, private tokenService: Angular2TokenService) { }
+  constructor(public dialog: MatDialog, public tokenService: Angular2TokenService) { }
 
   openDialog(mode): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {

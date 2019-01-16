@@ -36,7 +36,7 @@ export class HomePageComponent implements OnInit {
     }
   ];
 
-  constructor(private tokenService: Angular2TokenService) { }
+  constructor(public tokenService: Angular2TokenService) { }
 
   ngOnInit() {
   }
