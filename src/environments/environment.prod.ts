@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  tokenAuthConfig: {
+    apiBase: 'http://localhost:3000'
+  }
 };
