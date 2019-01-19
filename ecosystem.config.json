@@ -2,14 +2,10 @@
   "apps" : [
     {
       "name": "polydesk-www",
-      "script": "npm",
-      "args": "run http-server -- current/dist/polydesk-www -p 4200",
+      "script": "./run.sh",
       "watch": true,
-      "ignore_watch" : [
-        "node_modules"
-      ],
       "watch_options": {
-        "followSymlinks": false
+        "followSymlinks": true
       },
       "env": {
         "NODE_ENV": "development"
