@@ -1,9 +1,10 @@
 {
   "apps" : [
     {
-      "name"        : "polydesk-www",
-      "script"      : "http-server current/dist/polydesk-www -p 4200",
-      "watch"       : true,
+      "name": "polydesk-www",
+      "script": "http-server",
+      "args": "current/dist/polydesk-www -p 4200",
+      "watch": true,
       "ignore_watch" : [
         "node_modules"
       ],
