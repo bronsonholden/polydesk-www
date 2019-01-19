@@ -2,8 +2,8 @@
   "apps" : [
     {
       "name": "polydesk-www",
-      "script": "http-server",
-      "args": "current/dist/polydesk-www -p 4200",
+      "script": "npm",
+      "args": "run http-server -- current/dist/polydesk-www -p 4200",
       "watch": true,
       "ignore_watch" : [
         "node_modules"
@@ -12,12 +12,10 @@
         "followSymlinks": false
       },
       "env": {
-        "NODE_ENV": "development",
-        "PATH": "$PATH:$(npm bin -g)"
+        "NODE_ENV": "development"
       },
       "env_production" : {
-         "NODE_ENV": "production",
-         "PATH": "$PATH:$(npm bin -g)"
+         "NODE_ENV": "production"
       }
     }
   ]
