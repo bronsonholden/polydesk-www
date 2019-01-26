@@ -120,7 +120,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatTreeModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     RouterTabModule
   ],
   providers: [
