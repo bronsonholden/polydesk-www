@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "http-server current/dist/polydesk-www -p 4200"
+    "prod": "http-server dist/polydesk-www -p 4200"
   },
   "private": true,
   "dependencies": {
