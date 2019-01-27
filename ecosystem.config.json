@@ -3,6 +3,7 @@
     {
       "name": "polydesk-www",
       "script": "./run.sh",
+      "cwd": "/var/www/polydesk-www/current",
       "watch": true,
       "watch_options": {
         "followSymlinks": true
