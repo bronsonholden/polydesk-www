@@ -28,7 +28,7 @@ export class AuthDialogComponent {
     this.tokenService.signIn(e).subscribe(result => {
       console.log(result);
       this.dialogRef.close();
-    })
+    });
   }
 
   signUp(e) {
