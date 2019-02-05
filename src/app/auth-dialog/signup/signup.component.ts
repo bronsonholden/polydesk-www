@@ -6,6 +6,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  accountName: string;
+  accountIdentifier: string;
+  userName: string;
   email: string;
   password: string;
   passwordConfirmation: string;
@@ -20,9 +23,12 @@ export class SignupComponent implements OnInit {
 
   submitSignUp() {
     this.signUp.emit({
-      email: this.email,
+      account_name: this.accountName,
+      account_identifier: this.accountIdentifier,
+      user_name: this.userName,
+      user_email: this.email,
       password: this.password,
-      passwordConfirmation: this.passwordConfirmation
+      password_confirmation: this.passwordConfirmation
     });
   }
 

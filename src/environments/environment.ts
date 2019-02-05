@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   tokenAuthConfig: {
-    apiBase: 'http://localhost:3000'
+    apiBase: 'http://localhost:3000',
+    registerAccountPath: '/accounts'
   }
 };
 

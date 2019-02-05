@@ -32,7 +32,10 @@ export class AuthDialogComponent {
   }
 
   signUp(e) {
-    this.dialogRef.close();
+    this.tokenService.registerAccount(e).subscribe(result => {
+      console.log(result);
+      this.dialogRef.close();
+    });
   }
 
   switchToLogIn(e) {

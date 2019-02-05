@@ -1,6 +1,15 @@
 <h2 class="mat-h2">Sign up</h2>
 <form id="login-form">
   <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="accountName" placeholder="Account Name" name="accountName" type="string" required="true">
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="accountIdentifier" placeholder="Account Identifier" name="accountIdentifier" type="string" required="true">
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="userName" placeholder="Your Name" name="name" type="string" required="true">
+  </mat-form-field>
+  <mat-form-field class="w-100">
     <input matInput [(ngModel)]="email" placeholder="Email" name="email" type="email" required="true">
   </mat-form-field>
   <mat-form-field class="w-100">
@@ -9,7 +18,7 @@
   <mat-form-field class="w-100">
     <input matInput [(ngModel)]="passwordConfirmation" placeholder="Confirm password" name="passwordConfirmation" type="password" required="true">
   </mat-form-field>
-  <button color="primary" mat-raised-button class="mat-raised-button" (click)="submitSignUp">Sign up</button>
+  <button color="primary" mat-raised-button class="mat-raised-button" (click)="submitSignUp()">Sign up</button>
   <span class="spacer-24"></span>
   <span class="mat-typography">
     <a routerLink="" class="primary-color" (click)="clickLogInInstead()">I already have an account.</a>
