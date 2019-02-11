@@ -1,5 +1,5 @@
 <div class="mat-typography">
-  <div *ngIf="true">
+  <div *ngIf="tokenService.userSignedIn()">
     <mat-tab-group class="home-page-nav-bar" routerTabs>
       <mat-tab *ngFor="let tab of tabs"
           [label]="tab.label"
@@ -11,7 +11,7 @@
 
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="false">
+  <div *ngIf="!tokenService.userSignedIn()">
     <mat-grid-list cols="4" class="front-page-body">
       <mat-grid-tile colspan="1"></mat-grid-tile>
       <mat-grid-tile colspan="2">
