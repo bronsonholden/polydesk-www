@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Angular2TokenService } from 'angular2-token';
 
 export interface AuthData {
@@ -18,7 +18,8 @@ export class AuthDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AuthDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AuthData,
-    private tokenService: Angular2TokenService) { }
+    private tokenService: Angular2TokenService,
+    private snackBar: MatSnackBar) { }
 
   onClose() {
     this.dialogRef.close();
@@ -26,15 +27,21 @@ export class AuthDialogComponent {
 
   logIn(e) {
     this.tokenService.signIn(e).subscribe(result => {
-      console.log(result);
       this.dialogRef.close();
+    }, result => {
+      this.snackBar.open(result.json().errors[0], 'OK', {
+        duration: 3000
+      });
     });
   }
 
   signUp(e) {
     this.tokenService.registerAccount(e).subscribe(result => {
-      console.log(result);
       this.dialogRef.close();
+    }, result => {
+      this.snackBar.open(result.json().errors[0], 'OK', {
+        duration: 3000
+      });
     });
   }
 
