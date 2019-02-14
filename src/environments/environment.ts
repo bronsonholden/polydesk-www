@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiBase: 'http://localhost/api',
+  apiBase: 'http://api.lvh.me',
   tokenAuthConfig: {
-    apiBase: 'http://localhost/api',
+    apiBase: 'http://api.lvh.me',
     registerAccountPath: '/accounts'
   }
 };
