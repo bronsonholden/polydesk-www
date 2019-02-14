@@ -7,7 +7,7 @@ export const environment = {
   apiBase: 'http://api.lvh.me',
   tokenAuthConfig: {
     apiBase: 'http://api.lvh.me',
-    registerAccountPath: '/accounts'
+    registerAccountPath: 'accounts'
   }
 };
 
