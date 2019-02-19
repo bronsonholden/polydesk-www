@@ -9,22 +9,4 @@
     </mat-tab-group>
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="!tokenService.userSignedIn()">
-    <mat-grid-list cols="4" class="front-page-body">
-      <mat-grid-tile colspan="1"></mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <div>
-          <h1 class="mat-display-4">Polydesk</h1>
-          <p class="mat-body-1">
-            Polydesk is a powerful cloud workspace for individuals and
-            organizations designed with productivity and simplicity in mind.
-            Upload, share, and collaborate on your documents in a cloud-first
-            environment that removes the worries of paper and share drives.
-            Empower your users and accelerate your business processes with
-            workflows and customized web forms.
-          </p>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
 </div>

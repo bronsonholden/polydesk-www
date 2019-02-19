@@ -10,27 +10,27 @@ export class HomePageComponent implements OnInit {
 
   tabs = [
     {
-      path: '/dashboard',
+      path: 'dashboard',
       label: 'Dashboard',
       exact: true
     },
     {
-      path: '/documents',
+      path: 'documents',
       label: 'Documents',
       exact: false
     },
     {
-      path: '/reports',
+      path: 'reports',
       label: 'Reports',
       exact: false
     },
     {
-      path: '/workflows',
+      path: 'workflows',
       label: 'Workflows',
       exact: false
     },
     {
-      path: '/forms',
+      path: 'forms',
       label: 'Forms',
       exact: false
     }

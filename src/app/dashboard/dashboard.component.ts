@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Angular2TokenService } from 'angular2-token';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   showAll = false;
   showTypes = new FormControl(this.itemTypes);
 
-  constructor() { }
+  constructor(private tokenService: Angular2TokenService) { }
 
   ngOnInit() {
     this.showAll = this.allTypesSelected();

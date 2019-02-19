@@ -50,28 +50,34 @@ import { FormListComponent } from './form/form-list/form-list.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    component: DashboardComponent
-  },
-  {
-    path: 'documents',
-    component: DocumentBrowserComponent
-  },
-  {
-    path: 'reports',
-    component: ReportListComponent
-  },
-  {
-    path: 'documents/:id',
-    component: DocumentComponent
-  },
-  {
-    path: 'workflows',
-    component: WorkflowListComponent
-  },
-  {
-    path: 'forms',
-    component: FormListComponent
+    path: ':account',
+    component: HomePageComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'documents',
+        component: DocumentBrowserComponent
+      },
+      {
+        path: 'reports',
+        component: ReportListComponent
+      },
+      {
+        path: 'documents/:id',
+        component: DocumentComponent
+      },
+      {
+        path: 'workflows',
+        component: WorkflowListComponent
+      },
+      {
+        path: 'forms',
+        component: FormListComponent
+      }
+    ]
   }
 ];
 
