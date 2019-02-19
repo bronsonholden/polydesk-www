@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
+import { Angular2TokenService } from 'angular2-token';
 import { map } from 'rxjs/operators';
 
 export class DocumentElement {
@@ -19,6 +20,7 @@ export class DynamicFlatNode {
   }
 }
 
+@Injectable()
 export class DynamicDatabase {
   dataMap = new Map<number, number[]>([
     [1, [2, 3, 4]],
@@ -29,6 +31,8 @@ export class DynamicDatabase {
   ]);
 
   rootLevelNodes: number[] = [1, 8];
+
+  constructor (private tokenService: Angular2TokenService) {}
 
   initialData(): DynamicFlatNode[] {
     return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
