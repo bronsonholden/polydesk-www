@@ -5,6 +5,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
 import { Angular2TokenService } from 'angular2-token';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 export class DocumentElement {
@@ -15,35 +16,29 @@ export class DocumentElement {
 export class DynamicFlatNode {
   name: string;
 
-  constructor(public item: number, public level = 1, public expandable = false, public isLoading = false) {
-    this.name = `Folder ${item}`;
-  }
+  constructor(public name: string, public level = 0, public expandable = false, public isLoading = false) {}
 }
 
 @Injectable()
 export class DynamicDatabase {
-  dataMap = new Map<number, number[]>([
-    [1, [2, 3, 4]],
-    [5, [6, 7]],
-    [8, [9, 10, 11, 12, 13, 14, 15, 16, 17]],
-    [15, [18, 19, 20]],
-    [20, [21, 22, 23, 24, 25, 26]]
-  ]);
-
   rootLevelNodes: number[] = [1, 8];
 
-  constructor (private tokenService: Angular2TokenService) {}
+  constructor (private tokenService: Angular2TokenService, private route: ActivatedRoute) {
 
-  initialData(): DynamicFlatNode[] {
-    return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
+  }
+
+  initialData() {
+    var accountIdentifier = this.route.snapshot.parent.params.account;
+
+    return this.tokenService.get(`/${accountIdentifier}/folders`);
   }
 
   getChildren(node: number): number[] | undefined {
-    return this.dataMap.get(node);
+    return [];
   }
 
   isExpandable(node: number): boolean {
-    return this.dataMap.has(node);
+    return false;
   }
 }
 
@@ -142,7 +137,9 @@ export class DocumentBrowserComponent implements OnInit {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, database);
 
-    this.dataSource.data = database.initialData();
+    database.initialData().subscribe(res => {
+      this.dataSource.data = res.json().data.map(folder => new DynamicFlatNode(folder.attributes.name));
+    });
   }
 
   treeControl: FlatTreeControl<DynamicFlatNode>;
