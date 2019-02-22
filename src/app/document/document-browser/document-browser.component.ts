@@ -14,8 +14,6 @@ export class DocumentElement {
 }
 
 export class DynamicFlatNode {
-  name: string;
-
   constructor(public name: string, public level = 0, public expandable = false, public isLoading = false) {}
 }
 
@@ -33,11 +31,11 @@ export class DynamicDatabase {
     return this.tokenService.get(`/${accountIdentifier}/folders`);
   }
 
-  getChildren(node: number): number[] | undefined {
+  getChildren(node) {
     return [];
   }
 
-  isExpandable(node: number): boolean {
+  isExpandable(node): boolean {
     return false;
   }
 }
@@ -81,7 +79,7 @@ export class DynamicDataSource {
    * Toggle the node, remove from display list
    */
   toggleNode(node: DynamicFlatNode, expand: boolean) {
-    const children = this.database.getChildren(node.item);
+    const children = this.database.getChildren(node);
     const index = this.data.indexOf(node);
 
     if (!children || index < 0) {
