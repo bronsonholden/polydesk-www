@@ -45,7 +45,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>
         Name
-        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'name')"></div>
+        <div class="column-grabber" [(resizeColumns)]="columnWidths.name" [(nextColumn)]="columnWidths.createdOn"></div>
       </th>
       <td
           [style.minWidth.px]="columnWidths.name"
@@ -60,7 +60,7 @@
       <th
           mat-header-cell *matHeaderCellDef>
         Created On
-        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'createdOn')"></div>
+        <div class="column-grabber" [(resizeColumns)]="columnWidths.createdOn" [(nextColumn)]="columnWidths.createdBy"></div>
       </th>
       <td
           [style.minWidth.px]="columnWidths.createdOn"
@@ -74,7 +74,7 @@
     <ng-container matColumnDef="createdBy">
       <th mat-header-cell *matHeaderCellDef>
         Created By
-        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'createdBy')"></div>
+        <div class="column-grabber" [(resizeColumns)]="columnWidths.createdBy" [(nextColumn)]="columnWidths.schedules"></div>
       </th>
       <td
           [style.minWidth.px]="columnWidths.createdBy"
@@ -88,7 +88,7 @@
     <ng-container matColumnDef="schedules">
       <th mat-header-cell *matHeaderCellDef>
         Schedules
-        <div class="column-grabber" (mousedown)="onGrabberMouseDown($event, 'schedules')"></div>
+        <div class="column-grabber"></div>
       </th>
       <td
           [style.minWidth.px]="columnWidths.schedules"

@@ -22,19 +22,6 @@ export class ReportListComponent implements OnInit {
   reportList = new MatTableDataSource<ReportElement>();
   selection = new SelectionModel<ReportElement>(true, []);
 
-  resizingColumn = null;
-  resizing = false;
-  // Screen x position when resizing started
-  resizingAnchor = -1;
-  // Width we started resizing at
-  resizingFrom = 300;
-  // Name of column immediately following the one we are resizing
-  resizingNextColumn = null;
-  // Width of the next column when resizing started
-  resizingNextFrom = -1;
-  // Maintain next column width?
-  resizingMaintainNextWidth = false;
-
   displayedColumns = [
     'select',
     'name',
@@ -138,55 +125,6 @@ export class ReportListComponent implements OnInit {
 
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : this.selectAll();
-  }
-
-  onGrabberMouseDown(e, columnName) {
-    this.resizingColumn = columnName;
-    this.resizing = true;
-    this.resizingAnchor = e.screenX;
-    this.resizingFrom = this.columnWidths[columnName];
-
-    const columnIndex = this.displayedColumns.indexOf(columnName);
-
-    this.resizingNextColumn = this.displayedColumns[columnIndex + 1];
-    this.resizingNextFrom = this.columnWidths[this.resizingNextColumn];
-
-    this.resizingMaintainNextWidth = e.shiftKey;
-
-    e.preventDefault();
-  }
-
-  @HostListener('document:mouseup', [ '$event' ])
-  onMouseUp(e) {
-    this.resizing = false;
-  }
-
-  @HostListener('document:mousemove', [ '$event' ])
-  onMouseMove(e) {
-    if (this.resizing) {
-      // Allow swapping between maintaining or not mid-resize
-      this.resizingMaintainNextWidth = e.shiftKey;
-
-      const dx = e.screenX - this.resizingAnchor;
-      const width = Math.max(100, this.resizingFrom + dx);
-      const columnIndex = this.displayedColumns.indexOf(this.resizingColumn);
-      const nextColumn = this.displayedColumns[columnIndex + 1];
-
-      const dw = width - this.resizingFrom;
-
-      this.columnWidths[this.resizingColumn] = width;
-      this.resizingFrom = width;
-
-      if (!this.resizingMaintainNextWidth) {
-        // Give/take width of next column
-        let nextWidth = Math.max(100, this.resizingNextFrom - dw);
-
-        this.columnWidths[nextColumn] = nextWidth;
-        this.resizingNextFrom = nextWidth;
-      }
-
-      this.resizingAnchor = e.screenX;
-    }
   }
 
 }
