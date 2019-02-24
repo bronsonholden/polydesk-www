@@ -1,6 +1,6 @@
 .document-browser {
   position: absolute;
-  top: 48px;
+  top: 49px;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -38,27 +38,6 @@ mat-sidenav.document-browser-drawer {
   height: 100%;
   overflow: hidden;
   background-color: #dfe0e1;
-}
-
-.document-table {
-  width: 100%;
-}
-
-.document-table-wrapper {
-  position: absolute;
-  top: 64px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  overflow-y: scroll;
-}
-
-#document-table-toolbar button {
-  margin-right: 8px;
-}
-
-.document-table-header-row {
-  margin-top: 48px;
 }
 
 .folder-tree-invisible {

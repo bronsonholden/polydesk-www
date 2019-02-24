@@ -6,7 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RouterTabModule } from '@zerohouse/router-tab';
+//import { RouterTabModule } from '@zerohouse/router-tab';
+import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
 
 // Import Material components
@@ -47,6 +48,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
 import { FormComponent } from './form/form.component';
 import { WorkflowListComponent } from './workflow/workflow-list/workflow-list.component';
 import { FormListComponent } from './form/form-list/form-list.component';
+import { DocumentListComponent } from './document/document-browser/document-list/document-list.component';
 
 const routes: Routes = [
   {
@@ -59,7 +61,13 @@ const routes: Routes = [
       },
       {
         path: 'documents',
-        component: DocumentBrowserComponent
+        component: DocumentBrowserComponent,
+        children: [
+          {
+            path: 'folder/:id',
+            component: DocumentListComponent
+          }
+        ]
       },
       {
         path: 'reports',
@@ -91,6 +99,7 @@ const routes: Routes = [
     DashboardComponent,
     DocumentComponent,
     DocumentBrowserComponent,
+    DocumentListComponent,
     AuthDialogComponent,
     LoginComponent,
     SignupComponent,

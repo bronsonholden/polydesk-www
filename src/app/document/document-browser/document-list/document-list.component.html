@@ -1,0 +1,49 @@
+<mat-toolbar id="document-table-toolbar" style="height: 64px;">
+  <mat-toolbar-row>
+    <button mat-raised-button color="primary" class="mat-raised-button">Upload</button>
+    <button mat-raised-button class="mat-raised-button">Favorite</button>
+    <button mat-raised-button class="mat-raised-button">Download</button>
+    <button mat-raised-button class="mat-raised-button">Check out</button>
+
+    <!-- Fill -->
+    <div class="h-fill"></div>
+
+    <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="document-table-wrapper">
+  <table class="document-table" mat-table [dataSource]="documentList">
+    <!-- Checkbox column -->
+    <ng-container matColumnDef="select">
+      <th class="select-column" mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          color="primary"
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td class="select-column" mat-cell *matCellDef="let row">
+        <mat-checkbox
+          color="primary"
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Document name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let doc">
+        <a class="primary-color" routerLink="/documents/{{ doc.id }}">
+          {{ doc.name }}
+        </a>
+      </td>
+    </ng-container>
+
+    <tr class="document-table-header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -1,0 +1,13 @@
+.hide-tab-wrapper .mat-tab-body-wrapper {
+  display: none !important;
+}
+
+.router-tab {
+  border-bottom: 1px solid black;
+}
+
+.router-tab-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
