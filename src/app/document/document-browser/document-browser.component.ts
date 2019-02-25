@@ -14,7 +14,11 @@ export class DocumentElement {
 }
 
 export class DynamicFlatNode {
-  constructor(public name: string, public level = 0, public expandable = false, public isLoading = false) {}
+  constructor(public id: number,
+              public name: string,
+              public level = 0,
+              public expandable = false,
+              public isLoading = false) {}
 }
 
 @Injectable()
@@ -28,11 +32,13 @@ export class DynamicDatabase {
   initialData() {
     var accountIdentifier = this.route.snapshot.parent.params.account;
 
-    return this.tokenService.get(`/${accountIdentifier}/folders`);
+    return this.tokenService.get(`/${accountIdentifier}/folders?root=true`);
   }
 
   getChildren(node) {
-    return [];
+    var accountIdentifier = this.route.snapshot.parent.params.account;
+
+    return this.tokenService.get(`/${accountIdentifier}/folders/${node.id}/folders`);
   }
 
   isExpandable(node): boolean {
@@ -79,22 +85,20 @@ export class DynamicDataSource {
    * Toggle the node, remove from display list
    */
   toggleNode(node: DynamicFlatNode, expand: boolean) {
-    const children = this.database.getChildren(node);
     const index = this.data.indexOf(node);
 
-    if (!children || index < 0) {
+    if (index < 0) {
       return;
     }
 
-    node.isLoading = true;
-
     if (expand) {
-      setTimeout(() => {
-        const nodes = children.map(name => new DynamicFlatNode(name, node.level + 1, this.database.isExpandable(name)));
-        this.data.splice(index + 1, 0, ...nodes);
+      this.database.getChildren(node).subscribe(res => {
+        let children = res.json().data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name, node.level + 1));
+
+        // Insert children into folder list
+        this.data.splice(index + 1, 0, ...children);
         this.dataChange.next(this.data);
-        node.isLoading = false;
-      }, 1000);
+      });
     } else {
       let count = 0;
 
@@ -136,7 +140,7 @@ export class DocumentBrowserComponent implements OnInit {
     this.dataSource = new DynamicDataSource(this.treeControl, database);
 
     database.initialData().subscribe(res => {
-      this.dataSource.data = res.json().data.map(folder => new DynamicFlatNode(folder.attributes.name));
+      this.dataSource.data = res.json().data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name));
     });
   }
 

@@ -13,10 +13,7 @@
           <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="chevron-right"></mat-icon>
           <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="chevron-down"></mat-icon>
         </button>
-        <div *ngIf="node.isLoading" class="document-tree-icon">
-          <mat-icon svgIcon="timer-sand-empty"></mat-icon>
-        </div>
-        <div *ngIf="!node.isLoading" class="document-tree-icon">
+        <div class="document-tree-icon">
           <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="folder-open"></mat-icon>
           <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="folder"></mat-icon>
         </div>
