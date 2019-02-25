@@ -49,7 +49,7 @@ import { FormComponent } from './form/form.component';
 import { WorkflowListComponent } from './workflow/workflow-list/workflow-list.component';
 import { FormListComponent } from './form/form-list/form-list.component';
 import { DocumentListComponent } from './document/document-browser/document-list/document-list.component';
-import { ResizeColumnsDirective } from './resize-columns.directive';
+import { ResizeColumnDirective } from './resize-column.directive';
 
 const routes: Routes = [
   {
@@ -110,7 +110,7 @@ const routes: Routes = [
     FormComponent,
     WorkflowListComponent,
     FormListComponent,
-    ResizeColumnsDirective
+    ResizeColumnDirective
   ],
   entryComponents: [
     AuthDialogComponent,

@@ -1,12 +1,12 @@
 import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
 
 @Directive({
-  selector: '[resizeColumns]'
+  selector: '[resizeColumn]'
 })
-export class ResizeColumnsDirective {
+export class ResizeColumnDirective {
 
-  @Input() resizeColumns: number;
-  @Output() resizeColumnsChange: EventEmitter<number> = new EventEmitter<number>();
+  @Input() resizeColumn: number;
+  @Output() resizeColumnChange: EventEmitter<number> = new EventEmitter<number>();
   @Input() nextColumn: number;
   @Output() nextColumnChange: EventEmitter<number> = new EventEmitter<number>();
 
@@ -25,7 +25,7 @@ export class ResizeColumnsDirective {
   @HostListener('mousedown', [ '$event' ]) onGrabberMouseDown(e) {
     this.resizing = true;
     this.resizingAnchor = e.screenX;
-    this.resizingFrom = this.resizeColumns;
+    this.resizingFrom = this.resizeColumn;
 
     this.resizingNextFrom = this.nextColumn;
 
@@ -49,7 +49,7 @@ export class ResizeColumnsDirective {
       const width = Math.max(100, this.resizingFrom + dx);
       const dw = width - this.resizingFrom;
 
-      this.resizeColumnsChange.emit(width);
+      this.resizeColumnChange.emit(width);
       this.resizingFrom = width;
 
       if (!this.resizingMaintainNextWidth) {
