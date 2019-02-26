@@ -19,6 +19,10 @@ export class DynamicFlatNode {
               public level = 0,
               public expandable = false,
               public isLoading = false) {}
+
+  get path(): string {
+    return `folder/${this.id}`;
+  }
 }
 
 @Injectable()

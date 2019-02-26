@@ -18,7 +18,7 @@
           <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="folder"></mat-icon>
         </div>
         <span class="spacer-14"></span>
-        {{ node.name }}
+        <a class="color-black mat-body-2" [routerLink]="node.path">{{ node.name }}</a>
       </mat-tree-node>
     </mat-tree>
     <div class="grabber" (mousedown)="onGrabberMouseDown($event)"></div>
