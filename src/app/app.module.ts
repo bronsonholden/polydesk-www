@@ -65,6 +65,10 @@ const routes: Routes = [
         component: DocumentBrowserComponent,
         children: [
           {
+            path: '',
+            component: DocumentListComponent
+          },
+          {
             path: 'folder/:id',
             component: DocumentListComponent
           }
