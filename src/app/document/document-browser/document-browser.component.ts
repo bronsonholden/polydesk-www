@@ -27,8 +27,6 @@ export class DynamicFlatNode {
 
 @Injectable()
 export class DynamicDatabase {
-  rootLevelNodes: number[] = [1, 8];
-
   constructor (private tokenService: Angular2TokenService, private route: ActivatedRoute) {
 
   }
