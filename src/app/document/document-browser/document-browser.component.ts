@@ -1,17 +1,10 @@
 import { Component, OnInit, HostListener, Injectable } from '@angular/core';
-import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
 import { Angular2TokenService } from 'angular2-token';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-
-export class DocumentElement {
-  id: number;
-  name: string;
-}
 
 export class DynamicFlatNode {
   constructor(public id: number,
@@ -129,14 +122,6 @@ export class DocumentBrowserComponent implements OnInit {
   resizingFrom = 300;
   drawerWidth = 300;
 
-  documentList = new MatTableDataSource<DocumentElement>();
-  selection = new SelectionModel<DocumentElement>(true, []);
-
-  displayedColumns = [
-    'select',
-    'name'
-  ];
-
   constructor(database: DynamicDatabase) {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, database);
@@ -153,19 +138,6 @@ export class DocumentBrowserComponent implements OnInit {
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
   ngOnInit() {
-  }
-
-  /* Check if all rows in the document list are selected */
-  isAllSelected() {
-    return this.selection.selected.length === this.documentList.data.length;
-  }
-
-  selectAll() {
-    this.documentList.data.forEach(row => this.selection.select(row));
-  }
-
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.selectAll();
   }
 
   onGrabberMouseDown(e) {
