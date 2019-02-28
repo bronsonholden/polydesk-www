@@ -37,7 +37,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let doc">
-        <a class="primary-color" routerLink="/documents/{{ doc.id }}">
+        <a class="primary-color" routerLink="{{ pathFor(doc) }}">
           {{ doc.name }}
         </a>
       </td>

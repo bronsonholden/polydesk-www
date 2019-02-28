@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
+import { Angular2TokenService } from 'angular2-token';
+import { ActivatedRoute } from '@angular/router';
 
 export class DocumentElement {
-  id: number;
-  name: string;
+  constructor(public id: number, public name: string, public type: string) { }
+
+  get path(): string {
+    return `${this.type}/${this.id}`;
+  }
 }
 
 @Component({
@@ -14,7 +19,8 @@ export class DocumentElement {
 })
 export class DocumentListComponent implements OnInit {
 
-  documentList = new MatTableDataSource<DocumentElement>();
+  data: DocumentElement[] = [];
+  documentList: MatTableDataSource<DocumentElement>;
   selection = new SelectionModel<DocumentElement>(true, []);
 
   displayedColumns = [
@@ -22,9 +28,33 @@ export class DocumentListComponent implements OnInit {
     'name'
   ];
 
-  constructor() { }
+  constructor(private tokenService: Angular2TokenService, private route: ActivatedRoute) { }
+
+  pathFor(doc) {
+    if (this.route.snapshot.params.folder) {
+      return `../../${doc.path}`;
+    } else {
+      return doc.path;
+    }
+  }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      let accountIdentifier = this.route.snapshot.parent.parent.params.account;
+      let folderId = this.route.snapshot.params.folder;
+      let path;
+
+      if (folderId) {
+        path = `/${accountIdentifier}/folders/${folderId}/folders`;
+      } else {
+        path = `/${accountIdentifier}/folders?root=true`;
+      }
+
+      this.tokenService.get(path).subscribe(res => {
+        this.data = res.json().data.map(folder => new DocumentElement(folder.id, folder.attributes.name, 'folder'));
+        this.documentList = new MatTableDataSource<DocumentElement>(this.data);
+      });
+    });
   }
 
   /* Check if all rows in the document list are selected */

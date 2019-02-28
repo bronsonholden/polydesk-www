@@ -69,7 +69,7 @@ const routes: Routes = [
             component: DocumentListComponent
           },
           {
-            path: 'folder/:id',
+            path: 'folder/:folder',
             component: DocumentListComponent
           }
         ]
