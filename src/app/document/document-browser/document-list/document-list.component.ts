@@ -25,6 +25,7 @@ export class DocumentListComponent implements OnInit {
 
   displayedColumns = [
     'select',
+    'icon',
     'name'
   ];
 

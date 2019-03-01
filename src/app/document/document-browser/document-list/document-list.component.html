@@ -33,11 +33,18 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="icon">
+      <th class="icon-column" mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let doc">
+        <mat-icon class="document-list-icon" svgIcon="folder"></mat-icon>
+      </td>
+    </ng-container>
+
     <!-- Document name column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let doc">
-        <a class="primary-color" routerLink="{{ pathFor(doc) }}">
+        <a class="primary-color mat-body-2" routerLink="{{ pathFor(doc) }}">
           {{ doc.name }}
         </a>
       </td>

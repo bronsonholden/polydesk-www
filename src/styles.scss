@@ -6,6 +6,13 @@ body {
 }
 
 th.select-column {
+  max-width: 72px;
+  min-width: 72px;
+  width: 72px;
+  box-sizing: border-box;
+}
+
+th.icon-column {
   max-width: 56px;
   min-width: 56px;
   width: 56px;
