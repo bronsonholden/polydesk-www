@@ -3,12 +3,17 @@ import { MatTableDataSource } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { Angular2TokenService } from 'angular2-token';
 import { ActivatedRoute } from '@angular/router';
+import { concat } from 'rxjs/operators';
 
-export class DocumentElement {
+export class ContentElement {
   constructor(public id: number, public name: string, public type: string) { }
 
   get path(): string {
-    return `${this.type}/${this.id}`;
+    if (this.type === 'folder') {
+      return `${this.type}/${this.id}`;
+    } else if (this.type === 'document') {
+      return `${this.id}`;
+    }
   }
 }
 
@@ -19,9 +24,9 @@ export class DocumentElement {
 })
 export class FolderContentsComponent implements OnInit {
 
-  data: DocumentElement[] = [];
-  documentList: MatTableDataSource<DocumentElement>;
-  selection = new SelectionModel<DocumentElement>(true, []);
+  data: ContentElement[] = [];
+  documentList: MatTableDataSource<ContentElement>;
+  selection = new SelectionModel<ContentElement>(true, []);
 
   displayedColumns = [
     'select',
@@ -41,6 +46,8 @@ export class FolderContentsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.data = [];
+
       let accountIdentifier = this.route.snapshot.parent.parent.params.account;
       let folderId = this.route.snapshot.params.folder;
       let path;
@@ -51,9 +58,12 @@ export class FolderContentsComponent implements OnInit {
         path = `/${accountIdentifier}/folders?root=true`;
       }
 
-      this.tokenService.get(path).subscribe(res => {
-        this.data = res.json().data.map(folder => new DocumentElement(folder.id, folder.attributes.name, 'folder'));
-        this.documentList = new MatTableDataSource<DocumentElement>(this.data);
+      let source = this.tokenService.get(path).pipe(concat(this.tokenService.get(`/${accountIdentifier}/documents`)));
+
+      source.subscribe(res => {
+        console.log(res.json());
+        this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type)));
+        this.documentList = new MatTableDataSource<ContentElement>(this.data);
       });
     });
   }
