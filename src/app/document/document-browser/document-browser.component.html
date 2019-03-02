@@ -4,24 +4,7 @@
       class="document-browser-drawer"
       mode="side"
       opened>
-    <mat-tree class="document-browser-tree" [dataSource]="dataSource" [treeControl]="treeControl">
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button
-            mat-icon-button
-            matTreeNodeToggle
-            [attr.aria-label]="'toggle ' + node.filename">
-          <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="chevron-right"></mat-icon>
-          <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="chevron-down"></mat-icon>
-        </button>
-        <div class="document-tree-icon">
-          <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="folder-open"></mat-icon>
-          <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="folder"></mat-icon>
-        </div>
-        <span class="spacer-14"></span>
-        <a class="color-black mat-body-2" [routerLink]="node.path">{{ node.name }}</a>
-      </mat-tree-node>
-    </mat-tree>
-    <div class="grabber" (mousedown)="onGrabberMouseDown($event)"></div>
+    <app-folder-tree></app-folder-tree>
   </mat-sidenav>
   <mat-sidenav-content [style.marginLeft.px]="drawerWidth">
     <router-outlet></router-outlet>

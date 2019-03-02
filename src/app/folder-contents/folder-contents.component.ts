@@ -13,11 +13,11 @@ export class DocumentElement {
 }
 
 @Component({
-  selector: 'app-document-list',
-  templateUrl: './document-list.component.html',
-  styleUrls: ['./document-list.component.scss']
+  selector: 'app-folder-contents',
+  templateUrl: './folder-contents.component.html',
+  styleUrls: ['./folder-contents.component.scss']
 })
-export class DocumentListComponent implements OnInit {
+export class FolderContentsComponent implements OnInit {
 
   data: DocumentElement[] = [];
   documentList: MatTableDataSource<DocumentElement>;

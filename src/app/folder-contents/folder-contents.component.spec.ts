@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentListComponent } from './document-list.component';
+import { FolderContentsComponent } from './folder-contents.component';
 
-describe('DocumentListComponent', () => {
-  let component: DocumentListComponent;
-  let fixture: ComponentFixture<DocumentListComponent>;
+describe('FolderContentsComponent', () => {
+  let component: FolderContentsComponent;
+  let fixture: ComponentFixture<FolderContentsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentListComponent ]
+      declarations: [ FolderContentsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentListComponent);
+    fixture = TestBed.createComponent(FolderContentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

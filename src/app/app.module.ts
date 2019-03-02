@@ -39,6 +39,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DocumentComponent } from './document/document.component';
 import { DocumentBrowserComponent } from './document/document-browser/document-browser.component';
+import { FolderTreeComponent } from './folder-tree/folder-tree.component';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { LoginComponent } from './auth-dialog/login/login.component';
 import { SignupComponent } from './auth-dialog/signup/signup.component';
@@ -48,7 +49,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
 import { FormComponent } from './form/form.component';
 import { WorkflowListComponent } from './workflow/workflow-list/workflow-list.component';
 import { FormListComponent } from './form/form-list/form-list.component';
-import { DocumentListComponent } from './document/document-browser/document-list/document-list.component';
+import { FolderContentsComponent } from './folder-contents/folder-contents.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 
 const routes: Routes = [
@@ -66,11 +67,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: DocumentListComponent
+            component: FolderContentsComponent
           },
           {
             path: 'folder/:folder',
-            component: DocumentListComponent
+            component: FolderContentsComponent
           }
         ]
       },
@@ -104,7 +105,8 @@ const routes: Routes = [
     DashboardComponent,
     DocumentComponent,
     DocumentBrowserComponent,
-    DocumentListComponent,
+    FolderTreeComponent,
+    FolderContentsComponent,
     AuthDialogComponent,
     LoginComponent,
     SignupComponent,
