@@ -50,18 +50,22 @@ export class FolderContentsComponent implements OnInit {
 
       let accountIdentifier = this.route.snapshot.parent.parent.params.account;
       let folderId = this.route.snapshot.params.folder;
-      let path;
+      let foldersRequestPath;
+      let documentsRequestPath;
 
       if (folderId) {
-        path = `/${accountIdentifier}/folders/${folderId}/folders`;
+        foldersRequestPath = `/${accountIdentifier}/folders/${folderId}/folders`;
+        documentsRequestPath = `/${accountIdentifier}/folders/${folderId}/documents`;
       } else {
-        path = `/${accountIdentifier}/folders?root=true`;
+        foldersRequestPath = `/${accountIdentifier}/folders?root=true`;
+        documentsRequestPath = `/${accountIdentifier}/documents?root=true`;
       }
 
-      let source = this.tokenService.get(path).pipe(concat(this.tokenService.get(`/${accountIdentifier}/documents`)));
+      let folderSource = this.tokenService.get(foldersRequestPath);
+      let documentSource = this.tokenService.get(documentsRequestPath);
+      let source = folderSource.pipe(concat(documentSource));
 
       source.subscribe(res => {
-        console.log(res.json());
         this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type)));
         this.documentList = new MatTableDataSource<ContentElement>(this.data);
       });
