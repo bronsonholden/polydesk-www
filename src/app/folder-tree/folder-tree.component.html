@@ -1,5 +1,5 @@
 <mat-tree class="document-browser-tree" [dataSource]="dataSource" [treeControl]="treeControl">
-<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+<mat-tree-node *matTreeNodeDef="let node" routerLinkActive="selected" matTreeNodePadding class="document-browser-node">
   <button
       mat-icon-button
       matTreeNodeToggle
@@ -15,4 +15,3 @@
   <a class="color-black mat-body-2" [routerLink]="node.path">{{ node.name }}</a>
 </mat-tree-node>
 </mat-tree>
-<div class="grabber" (mousedown)="onGrabberMouseDown($event)"></div>

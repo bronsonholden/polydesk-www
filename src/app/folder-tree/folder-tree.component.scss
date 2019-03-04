@@ -1,8 +1,12 @@
 .document-browser-tree {
   display: table;
+  padding-right: 16px;
+  width: 100%;
+}
+
+.document-browser-node {
   padding-left: 8px;
   padding-top: 4px;
-  padding-right: 16px;
 }
 
 .document-tree-icon {
@@ -16,4 +20,8 @@
 
 .color-black {
   color: #000;
+}
+
+.selected {
+  background-color: #eee;
 }

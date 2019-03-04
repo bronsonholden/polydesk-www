@@ -122,7 +122,7 @@ export class FolderTreeComponent implements OnInit {
   isExpandable = (node: DynamicFlatNode) => node.expandable;
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
-  constructor(database: DynamicDatabase) {
+  constructor(database: DynamicDatabase, private route: ActivatedRoute) {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, database);
 
@@ -132,5 +132,9 @@ export class FolderTreeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  isSelected() {
+    return false;
+  }
 
 }
