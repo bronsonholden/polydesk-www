@@ -37,7 +37,7 @@
       <th class="icon-column" mat-header-cell *matHeaderCellDef>Type</th>
       <td mat-cell *matCellDef="let doc">
         <mat-icon *ngIf="doc.type == 'folder'" class="document-list-icon" svgIcon="folder-outline"></mat-icon>
-        <mat-icon *ngIf="doc.type == 'document'" class="document-list-icon" svgIcon="file-document-outline"></mat-icon>
+        <mat-icon *ngIf="doc.type == 'document'" class="document-list-icon" [svgIcon]="doc.icon"></mat-icon>
       </td>
     </ng-container>
 

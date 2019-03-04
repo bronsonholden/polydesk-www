@@ -157,5 +157,6 @@ export class AppModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
     matIconRegistry.addSvgIcon('folder-open-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/folder-open-outline.svg'));
+    matIconRegistry.addSvgIcon('file-pdf-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-pdf-outline.svg'));
   }
 }

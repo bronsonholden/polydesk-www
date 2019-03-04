@@ -6,13 +6,28 @@ import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs/operators';
 
 export class ContentElement {
-  constructor(public id: number, public name: string, public type: string) { }
+  constructor(public id: number,
+              public name: string,
+              public type: string,
+              public content_type: string) { }
 
   get path(): string {
     if (this.type === 'folder') {
       return `${this.type}/${this.id}`;
     } else if (this.type === 'document') {
       return `${this.id}`;
+    }
+  }
+
+  get icon(): string {
+    if (this.type === 'folder') {
+      return 'folder-outline';
+    } else {
+      if (this.content_type === 'application/pdf') {
+        return 'file-pdf-outline';
+      } else {
+        return 'file-document-outline';
+      }
     }
   }
 }
@@ -66,7 +81,7 @@ export class FolderContentsComponent implements OnInit {
       let source = folderSource.pipe(concat(documentSource));
 
       source.subscribe(res => {
-        this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type)));
+        this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
         this.documentList = new MatTableDataSource<ContentElement>(this.data);
       });
     });
