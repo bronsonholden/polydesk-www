@@ -8,8 +8,8 @@
     <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="chevron-down"></mat-icon>
   </button>
   <div class="document-tree-icon">
-    <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="folder-open"></mat-icon>
-    <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="folder"></mat-icon>
+    <mat-icon *ngIf="treeControl.isExpanded(node)" svgIcon="folder-open-outline"></mat-icon>
+    <mat-icon *ngIf="!treeControl.isExpanded(node)" svgIcon="folder-outline"></mat-icon>
   </div>
   <span class="spacer-14"></span>
   <a class="color-black mat-body-2" [routerLink]="node.path">{{ node.name }}</a>
