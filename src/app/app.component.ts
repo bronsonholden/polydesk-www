@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   title = 'polydesk-www';
 
-  constructor(private tokenService: Angular2TokenService) {
+  constructor(public tokenService: Angular2TokenService) {
     this.tokenService.init(environment.tokenAuthConfig);
   }
 }
