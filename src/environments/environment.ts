@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  envName: 'development',
   apiBase: 'http://localhost:3000',
   tokenAuthConfig: {
     apiBase: 'http://localhost:3000',

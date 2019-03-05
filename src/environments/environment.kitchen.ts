@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  envName: 'kitchen',
   apiBase: 'http://api.lvh.me:8080',
   tokenAuthConfig: {
     apiBase: 'http://api.lvh.me:8080',
