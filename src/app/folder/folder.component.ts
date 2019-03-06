@@ -65,8 +65,15 @@ export class FolderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       let accountIdentifier = this.route.snapshot.parent.parent.params.account;
       let folderId = this.route.snapshot.params.folder;
+      let path;
 
-      this.tokenService.post(`/${accountIdentifier}/folders/${folderId}/folders`, {
+      if (folderId) {
+        path = `/${accountIdentifier}/folders/${folderId}/folders`;
+      } else {
+        path = `/${accountIdentifier}/folders`
+      }
+
+      this.tokenService.post(path, {
         name: result
       }).subscribe(res => {
         this.loadFolderContents();
