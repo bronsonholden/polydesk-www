@@ -51,6 +51,7 @@ import { WorkflowListComponent } from './workflow/workflow-list/workflow-list.co
 import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
+import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
 
 const routes: Routes = [
   {
@@ -116,10 +117,12 @@ const routes: Routes = [
     FormComponent,
     WorkflowListComponent,
     FormListComponent,
-    ResizeColumnDirective
+    ResizeColumnDirective,
+    CreateFolderComponent
   ],
   entryComponents: [
     AuthDialogComponent,
+    CreateFolderComponent,
     TopbarActionsComponent
   ],
   imports: [

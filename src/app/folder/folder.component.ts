@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { Angular2TokenService } from 'angular2-token';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs/operators';
+import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
 
 export class ContentElement {
   constructor(public id: number,
@@ -49,7 +50,35 @@ export class FolderComponent implements OnInit {
     'name'
   ];
 
-  constructor(private tokenService: Angular2TokenService, private route: ActivatedRoute) { }
+  constructor(private tokenService: Angular2TokenService,
+              private route: ActivatedRoute,
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) { }
+
+  openCreateFolderDialog() {
+    const dialogRef = this.dialog.open(CreateFolderComponent, {
+      data: {
+        name: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      let accountIdentifier = this.route.snapshot.parent.parent.params.account;
+      let folderId = this.route.snapshot.params.folder;
+
+      this.tokenService.post(`/${accountIdentifier}/folders/${folderId}/folders`, {
+        name: result
+      }).subscribe(res => {
+        this.loadFolderContents();
+      }, res => {
+        res.json().errors.forEach(err => {
+          this.snackBar.open(err.title, 'OK', {
+            duration: 3000
+          });
+        });
+      });
+    });
+  }
 
   pathFor(doc) {
     if (this.route.snapshot.params.folder) {
@@ -59,31 +88,35 @@ export class FolderComponent implements OnInit {
     }
   }
 
+  loadFolderContents() {
+    this.data = [];
+
+    let accountIdentifier = this.route.snapshot.parent.parent.params.account;
+    let folderId = this.route.snapshot.params.folder;
+    let foldersRequestPath;
+    let documentsRequestPath;
+
+    if (folderId) {
+      foldersRequestPath = `/${accountIdentifier}/folders/${folderId}/folders`;
+      documentsRequestPath = `/${accountIdentifier}/folders/${folderId}/documents`;
+    } else {
+      foldersRequestPath = `/${accountIdentifier}/folders?root=true`;
+      documentsRequestPath = `/${accountIdentifier}/documents?root=true`;
+    }
+
+    let folderSource = this.tokenService.get(foldersRequestPath);
+    let documentSource = this.tokenService.get(documentsRequestPath);
+    let source = folderSource.pipe(concat(documentSource));
+
+    source.subscribe(res => {
+      this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
+      this.documentList = new MatTableDataSource<ContentElement>(this.data);
+    });
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.data = [];
-
-      let accountIdentifier = this.route.snapshot.parent.parent.params.account;
-      let folderId = this.route.snapshot.params.folder;
-      let foldersRequestPath;
-      let documentsRequestPath;
-
-      if (folderId) {
-        foldersRequestPath = `/${accountIdentifier}/folders/${folderId}/folders`;
-        documentsRequestPath = `/${accountIdentifier}/folders/${folderId}/documents`;
-      } else {
-        foldersRequestPath = `/${accountIdentifier}/folders?root=true`;
-        documentsRequestPath = `/${accountIdentifier}/documents?root=true`;
-      }
-
-      let folderSource = this.tokenService.get(foldersRequestPath);
-      let documentSource = this.tokenService.get(documentsRequestPath);
-      let source = folderSource.pipe(concat(documentSource));
-
-      source.subscribe(res => {
-        this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
-        this.documentList = new MatTableDataSource<ContentElement>(this.data);
-      });
+      this.loadFolderContents();
     });
   }
 
