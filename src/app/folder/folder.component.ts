@@ -33,11 +33,11 @@ export class ContentElement {
 }
 
 @Component({
-  selector: 'app-folder-contents',
-  templateUrl: './folder-contents.component.html',
-  styleUrls: ['./folder-contents.component.scss']
+  selector: 'app-folder',
+  templateUrl: './folder.component.html',
+  styleUrls: ['./folder.component.scss']
 })
-export class FolderContentsComponent implements OnInit {
+export class FolderComponent implements OnInit {
 
   data: ContentElement[] = [];
   documentList: MatTableDataSource<ContentElement>;

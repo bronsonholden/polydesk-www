@@ -49,7 +49,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
 import { FormComponent } from './form/form.component';
 import { WorkflowListComponent } from './workflow/workflow-list/workflow-list.component';
 import { FormListComponent } from './form/form-list/form-list.component';
-import { FolderContentsComponent } from './folder-contents/folder-contents.component';
+import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 
 const routes: Routes = [
@@ -67,11 +67,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: FolderContentsComponent
+            component: FolderComponent
           },
           {
             path: 'folder/:folder',
-            component: FolderContentsComponent
+            component: FolderComponent
           }
         ]
       },
@@ -106,7 +106,7 @@ const routes: Routes = [
     DocumentComponent,
     DocumentBrowserComponent,
     FolderTreeComponent,
-    FolderContentsComponent,
+    FolderComponent,
     AuthDialogComponent,
     LoginComponent,
     SignupComponent,
