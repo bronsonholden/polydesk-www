@@ -70,7 +70,7 @@ export class FolderComponent implements OnInit {
       if (folderId) {
         path = `/${accountIdentifier}/folders/${folderId}/folders`;
       } else {
-        path = `/${accountIdentifier}/folders`
+        path = `/${accountIdentifier}/folders`;
       }
 
       this.tokenService.post(path, {
