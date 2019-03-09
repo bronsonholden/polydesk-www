@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   envName: 'kitchen',
-  apiBase: 'http://api.lvh.me:8080',
+  apiBase: 'https://api.local.polydesk.io:8080',
   tokenAuthConfig: {
-    apiBase: 'http://api.lvh.me:8080',
+    apiBase: 'https://api.local.polydesk.io:8080',
     registerAccountPath: 'accounts'
   }
 };
