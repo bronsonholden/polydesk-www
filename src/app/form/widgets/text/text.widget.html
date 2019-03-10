@@ -1,0 +1,14 @@
+<mat-form-field [appearance]="schema.appearance || 'standard'">
+  <mat-label>{{ schema.title }}</mat-label>
+  <input matInput
+    fxFlex="50"
+    class="form-control"
+    [formControl]="control"
+    [placeholder]="schema.placeholder"
+    [attr.maxLength]="schema.maxLength || null"
+    [attr.minLength]="schema.minLength || null"
+    [attr.required]="schema.isRequired || null"
+    [attr.disabled]="schema.readOnly"
+    [attr.id]="id">
+  <mat-hint>{{ schema.description }}</mat-hint>
+</mat-form-field>

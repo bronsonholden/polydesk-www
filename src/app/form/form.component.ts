@@ -7,6 +7,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
+  formSchema = {
+    type: 'object',
+    properties: {
+      firstName: {
+        type: 'string',
+        title: 'First Name',
+        appearance: 'standard'
+      },
+      middleName: {
+        type: 'string',
+        title: 'Middle Name',
+        appearance: 'outline'
+      },
+      lastName: {
+        type: 'string',
+        title: 'Last Name',
+        appearance: 'fill'
+      },
+      color: {
+        type: 'string',
+        title: 'Last Name',
+        appearance: 'fill'
+      }
+    }
+  };
+
+  formData = {};
+
   constructor() { }
 
   ngOnInit() {

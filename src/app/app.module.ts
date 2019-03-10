@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
+import { SchemaFormModule, WidgetRegistry } from "ngx-schema-form";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Import Material components
 import {
@@ -51,6 +53,8 @@ import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
+import { TextWidget } from './form/widgets/text/text.widget';
+import { WidgetRegistryComponent } from './form/widget-registry/widget-registry.component';
 
 const routes: Routes = [
   {
@@ -89,7 +93,13 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormListComponent
+        component: FormListComponent,
+        children: [
+          {
+            path: ':id',
+            component: FormComponent
+          }
+        ]
       }
     ]
   }
@@ -117,16 +127,20 @@ const routes: Routes = [
     WorkflowListComponent,
     FormListComponent,
     ResizeColumnDirective,
-    CreateFolderComponent
+    CreateFolderComponent,
+    TextWidget,
+    WidgetRegistryComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     CreateFolderComponent,
-    TopbarActionsComponent
+    TopbarActionsComponent,
+    TextWidget
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
@@ -148,10 +162,15 @@ const routes: Routes = [
     MatTreeModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    RouterTabModule
+    RouterTabModule,
+    SchemaFormModule.forRoot()
   ],
   providers: [
-    Angular2TokenService
+    Angular2TokenService,
+    {
+      provide: WidgetRegistry,
+      useClass: WidgetRegistryComponent
+    }
   ],
   bootstrap: [AppComponent]
 })

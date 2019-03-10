@@ -58,3 +58,11 @@ a {
 .warn-color {
   color: mat-color(mat-palette($mat-red)) !important
 }
+
+fieldset {
+  border: 0px;
+}
+
+sf-form form {
+  width: 100%;
+}
