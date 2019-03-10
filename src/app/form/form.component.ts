@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { WidgetFactory } from './form-widget/widget-library/widget-factory';
+import { WidgetRegistry } from './form-widget/widget-library/widget-registry';
 
 @Component({
   selector: 'app-form',
@@ -7,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-  constructor() { }
+  layoutSchema = {
+    type: 'array',
+    items: {
+      type: 'object'
+    }
+  };
+
+  constructor(private widgetRegistry: WidgetRegistry, private widgetFactory: WidgetFactory) {
+  }
 
   ngOnInit() {
   }

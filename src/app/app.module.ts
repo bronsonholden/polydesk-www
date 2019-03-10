@@ -51,6 +51,10 @@ import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
+import { TextWidgetComponent } from './form/form-widget/widget-library/text-widget/text-widget.component';
+import { FormWidgetComponent } from './form/form-widget/form-widget.component';
+import { WidgetFactory } from './form/form-widget/widget-library/widget-factory';
+import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
 
 const routes: Routes = [
   {
@@ -89,7 +93,13 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormListComponent
+        component: FormListComponent,
+        children: [
+          {
+            path: ':id',
+            component: FormComponent
+          }
+        ]
       }
     ]
   }
@@ -117,12 +127,15 @@ const routes: Routes = [
     WorkflowListComponent,
     FormListComponent,
     ResizeColumnDirective,
-    CreateFolderComponent
+    CreateFolderComponent,
+    TextWidgetComponent,
+    FormWidgetComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     CreateFolderComponent,
-    TopbarActionsComponent
+    TopbarActionsComponent,
+    TextWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -151,7 +164,9 @@ const routes: Routes = [
     RouterTabModule
   ],
   providers: [
-    Angular2TokenService
+    Angular2TokenService,
+    WidgetFactory,
+    WidgetRegistry
   ],
   bootstrap: [AppComponent]
 })
