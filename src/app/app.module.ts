@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-//import { RouterTabModule } from '@zerohouse/router-tab';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
 
