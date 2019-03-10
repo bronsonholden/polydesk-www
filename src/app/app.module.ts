@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
+import { NoFrameworkModule, MaterialDesignFrameworkModule } from 'angular6-json-schema-form';
 
 // Import Material components
 import {
@@ -89,7 +90,13 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormListComponent
+        component: FormListComponent,
+        children: [
+          {
+            path: ':id',
+            component: FormComponent
+          }
+        ]
       }
     ]
   }
@@ -130,6 +137,8 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     HttpClientModule,
+    NoFrameworkModule,
+    MaterialDesignFrameworkModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
