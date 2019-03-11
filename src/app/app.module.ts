@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Import Material components
 import {
@@ -55,6 +56,7 @@ import { TextWidgetComponent } from './form/form-widget/widget-library/text-widg
 import { FormWidgetComponent } from './form/form-widget/form-widget.component';
 import { WidgetFactory } from './form/form-widget/widget-library/widget-factory';
 import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
+import { FormSubmissionComponent } from './form-submission/form-submission.component';
 
 const routes: Routes = [
   {
@@ -96,8 +98,8 @@ const routes: Routes = [
         component: FormListComponent,
         children: [
           {
-            path: ':id',
-            component: FormComponent
+            path: ':id/submit',
+            component: FormSubmissionComponent
           }
         ]
       }
@@ -129,7 +131,8 @@ const routes: Routes = [
     ResizeColumnDirective,
     CreateFolderComponent,
     TextWidgetComponent,
-    FormWidgetComponent
+    FormWidgetComponent,
+    FormSubmissionComponent
   ],
   entryComponents: [
     AuthDialogComponent,
@@ -140,6 +143,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     FormsModule,
     HttpModule,
     HttpClientModule,

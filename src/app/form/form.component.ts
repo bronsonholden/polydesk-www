@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WidgetFactory } from './form-widget/widget-library/widget-factory';
 import { WidgetRegistry } from './form-widget/widget-library/widget-registry';
+import * as Ajv from 'ajv';
+import { LAYOUT_SCHEMA } from './layout.schema';
 
 @Component({
   selector: 'app-form',
@@ -9,12 +11,9 @@ import { WidgetRegistry } from './form-widget/widget-library/widget-registry';
 })
 export class FormComponent implements OnInit {
 
-  layoutSchema = {
-    type: 'array',
-    items: {
-      type: 'object'
-    }
-  };
+  @Input() layout: any;
+  @Input() schema: any;
+  @Input() data: any;
 
   constructor(private widgetRegistry: WidgetRegistry, private widgetFactory: WidgetFactory) {
   }

@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class TextWidgetComponent implements OnInit {
 
   constructor() {
-    console.log('textwidget');
   }
 
   ngOnInit() {

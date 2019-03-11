@@ -1,1 +1,13 @@
-<app-form-widget></app-form-widget>
+<div>{{ layout | json }}</div>
+<hr>
+<div *ngFor="let section of layout.sections">
+  {{ section | json }}
+  <div
+      [fxLayout]="section.direction"
+      [fxLayoutGap]="section.spacing + 'px'"
+      fxLayoutAlign="space-between">
+    <div *ngFor="let field of section.fields" style="border:1px solid red;">
+      {{ field }}
+    </div>
+  </div>
+</div>
