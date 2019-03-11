@@ -9,7 +9,7 @@ export class SignupComponent implements OnInit {
   accountName: string;
   accountIdentifier: string;
   userName: string;
-  email: string;
+  login: string;
   password: string;
   passwordConfirmation: string;
 
@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
       account_name: this.accountName,
       account_identifier: this.accountIdentifier,
       user_name: this.userName,
-      user_email: this.email,
+      user_email: this.login,
       password: this.password,
       password_confirmation: this.passwordConfirmation
     });

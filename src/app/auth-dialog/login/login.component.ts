@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  email: string;
+  login: string;
   password: string;
 
   @Output() logIn: EventEmitter<any> = new EventEmitter();
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   submitLogIn() {
     this.logIn.emit({
-      email: this.email,
+      login: this.login,
       password: this.password
     });
   }

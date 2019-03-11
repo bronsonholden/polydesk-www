@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
@@ -50,7 +51,8 @@ export class FolderComponent implements OnInit {
     'name'
   ];
 
-  constructor(private tokenService: Angular2TokenService,
+  constructor(private http: HttpClient,
+              private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) { }
@@ -68,17 +70,17 @@ export class FolderComponent implements OnInit {
       let path;
 
       if (folderId) {
-        path = `/${accountIdentifier}/folders/${folderId}/folders`;
+        path = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/folders`;
       } else {
-        path = `/${accountIdentifier}/folders`;
+        path = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders`;
       }
 
-      this.tokenService.post(path, {
+      this.http.post(path, {
         name: result
       }).subscribe(res => {
         this.loadFolderContents();
-      }, res => {
-        res.json().errors.forEach(err => {
+      }, (json: any) => {
+        json.errors.forEach(err => {
           this.snackBar.open(err.title, 'OK', {
             duration: 3000
           });
@@ -104,19 +106,19 @@ export class FolderComponent implements OnInit {
     let documentsRequestPath;
 
     if (folderId) {
-      foldersRequestPath = `/${accountIdentifier}/folders/${folderId}/folders`;
-      documentsRequestPath = `/${accountIdentifier}/folders/${folderId}/documents`;
+      foldersRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/folders`;
+      documentsRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/documents`;
     } else {
-      foldersRequestPath = `/${accountIdentifier}/folders?root=true`;
-      documentsRequestPath = `/${accountIdentifier}/documents?root=true`;
+      foldersRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders?root=true`;
+      documentsRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/documents?root=true`;
     }
 
-    let folderSource = this.tokenService.get(foldersRequestPath);
-    let documentSource = this.tokenService.get(documentsRequestPath);
+    let folderSource = this.http.get(foldersRequestPath);
+    let documentSource = this.http.get(documentsRequestPath);
     let source = folderSource.pipe(concat(documentSource));
 
-    source.subscribe(res => {
-      this.data = this.data.concat(res.json().data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
+    source.subscribe((json: any) => {
+      this.data = this.data.concat(json.data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
       this.documentList = new MatTableDataSource<ContentElement>(this.data);
     });
   }

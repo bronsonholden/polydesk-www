@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 
 export interface AuthData {
   mode: string;
-  email: string;
+  login: string;
   password: string;
 }
 
@@ -19,7 +19,7 @@ export class AuthDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AuthDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AuthData,
-    private tokenService: Angular2TokenService,
+    private tokenService: AngularTokenService,
     private snackBar: MatSnackBar,
     private router: Router) { }
 

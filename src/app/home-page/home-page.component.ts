@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 
 @Component({
   selector: 'app-home-page',
@@ -36,7 +36,7 @@ export class HomePageComponent implements OnInit {
     }
   ];
 
-  constructor(public tokenService: Angular2TokenService) { }
+  constructor(public tokenService: AngularTokenService) { }
 
   ngOnInit() {
   }

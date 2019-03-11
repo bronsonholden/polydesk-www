@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
-import { environment } from '../environments/environment';
+import { AngularTokenService } from 'angular-token';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,5 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   title = 'polydesk-www';
 
-  constructor(public tokenService: Angular2TokenService) {
-    this.tokenService.init(environment.tokenAuthConfig);
-  }
+  constructor(public tokenService: AngularTokenService) { }
 }

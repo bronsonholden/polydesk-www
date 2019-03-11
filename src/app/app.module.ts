@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService, AngularTokenModule } from 'angular-token';
+import { environment } from '../environments/environment';
 
 // Import Material components
 import {
@@ -128,8 +128,8 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
     HttpClientModule,
+    AngularTokenModule.forRoot(environment.tokenAuthConfig),
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -151,12 +151,12 @@ const routes: Routes = [
     RouterTabModule
   ],
   providers: [
-    Angular2TokenService
+    AngularTokenModule
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
     matIconRegistry.addSvgIcon('folder-open-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/folder-open-outline.svg'));
     matIconRegistry.addSvgIcon('file-pdf-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-pdf-outline.svg'));
