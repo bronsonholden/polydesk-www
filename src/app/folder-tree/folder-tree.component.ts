@@ -1,9 +1,10 @@
 import { Component, OnInit, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -21,20 +22,20 @@ export class DynamicFlatNode {
 
 @Injectable()
 export class DynamicDatabase {
-  constructor (private tokenService: Angular2TokenService, private route: ActivatedRoute) {
-
-  }
+  constructor(private http: HttpClient,
+              private tokenService: AngularTokenService,
+              private route: ActivatedRoute) { }
 
   initialData() {
     var accountIdentifier = this.route.snapshot.parent.params.account;
 
-    return this.tokenService.get(`/${accountIdentifier}/folders?root=true`);
+    return this.http.get(`${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders?root=true`);
   }
 
   getChildren(node) {
     var accountIdentifier = this.route.snapshot.parent.params.account;
 
-    return this.tokenService.get(`/${accountIdentifier}/folders/${node.id}/folders`);
+    return this.http.get(`${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${node.id}/folders`);
   }
 
   isExpandable(node): boolean {
@@ -88,8 +89,8 @@ export class DynamicDataSource {
     }
 
     if (expand) {
-      this.database.getChildren(node).subscribe(res => {
-        let children = res.json().data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name, node.level + 1));
+      this.database.getChildren(node).subscribe((json: any) => {
+        let children = json.data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name, node.level + 1));
 
         // Insert children into folder list
         this.data.splice(index + 1, 0, ...children);
@@ -126,8 +127,8 @@ export class FolderTreeComponent implements OnInit {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, database);
 
-    database.initialData().subscribe(res => {
-      this.dataSource.data = res.json().data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name));
+    database.initialData().subscribe((json: any) => {
+      this.dataSource.data = json.data.map(folder => new DynamicFlatNode(folder.id, folder.attributes.name));
     });
   }
 

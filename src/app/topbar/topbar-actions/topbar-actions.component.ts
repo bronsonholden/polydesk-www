@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthDialogComponent } from '../../auth-dialog/auth-dialog.component';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 
 @Component({
   selector: 'app-topbar-actions',
@@ -10,7 +10,7 @@ import { Angular2TokenService } from 'angular2-token';
   styleUrls: ['./topbar-actions.component.scss']
 })
 export class TopbarActionsComponent {
-  constructor(public dialog: MatDialog, public tokenService: Angular2TokenService, private router: Router) { }
+  constructor(public dialog: MatDialog, public tokenService: AngularTokenService, private router: Router) { }
 
   openDialog(mode): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
