@@ -47,6 +47,27 @@ export class FormSubmissionComponent implements OnInit {
         }
       },
       {
+        dataSource: 'siblings2',
+        layout: {
+          presentation: 'standard',
+          sections: [
+            {
+              direction: 'row',
+              spacing: 5,
+              fields: [
+                'firstName',
+                'lastName'
+              ]
+            },
+            {
+              direction: 'row',
+              spacing: 0,
+              action: 'addSet'
+            }
+          ]
+        }
+      },
+      {
         dataSource: 'address',
         layout: {
           presentation: 'standard',
@@ -90,6 +111,16 @@ export class FormSubmissionComponent implements OnInit {
           }
         }
       },
+      siblings2: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            firstName: { type: 'string' },
+            lastName: { type: 'string' }
+          }
+        }
+      },
       address: {
         type: 'object',
         properties: {
@@ -118,6 +149,16 @@ export class FormSubmissionComponent implements OnInit {
       {
         firstName: 'Bob',
         lastName: 'Doe'
+      }
+    ],
+    siblings2: [
+      {
+        firstName: 'Jim',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Rob',
+        lastName: 'Shmoe'
       }
     ]
   };

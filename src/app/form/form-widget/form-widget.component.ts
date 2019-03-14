@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild, ViewContainerRef, Input, Output, EventEmi
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WidgetFactory } from './widget-library/widget-factory';
 
+/**
+ * A FormWidget is a component that dynamically creates form controls based
+ * on its assigned schema. For arrays, it creates a list of child FormWidgets
+ * and assigns those the schema appropriate for the items in the array.
+ */
 @Component({
   selector: 'app-form-widget',
   templateUrl: './form-widget.component.html',
@@ -19,11 +24,14 @@ export class FormWidgetComponent implements OnInit {
   constructor(private widgetFactory: WidgetFactory) { }
 
   ngOnInit() {
-    //this.widgetFactory.createWidget('text', this.container);
   }
 
   updateFieldValue(value) {
     this.fieldValueChanged.emit(value);
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 
 }

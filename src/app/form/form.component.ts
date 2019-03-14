@@ -6,6 +6,29 @@ import * as traverseSchema from 'json-schema-traverse';
 import { get, set } from 'lodash-es';
 import { LAYOUT_SCHEMA } from './layout.schema';
 
+/**
+ * Primary form component. Wraps a single form container, which generate
+ * the entire form view.
+ *
+ * Some notes on the terms/properties for forms:
+ *  - layout: A JSON object that describes how the form should appear.
+ *  - schema: A JSON schema object that specifies the data.
+ *  - data: The parent data object. FormWidgets and FormContainers have
+ *          a similar variable, but that only references the object/array
+ *          being displayed.
+ *  - schemaPointer: A path/pointer to a field schema within the root schema.
+ *  - schemaMap: Maps schema pointers (see above) to a JSON schema object for
+ *               that field/property. Propagated throughout all components
+ *               in a single form.
+ *  - fieldName: All widgets have a field name that is unique across all
+ *               widgets in that container. It is used with Lodash get/set to
+ *               read/write data to the root data object. It doesn't need to
+ *               be unique across the entire form for that.
+ *
+ * Two way data binding is implemented with custom methods. Using [(ngModel)]
+ * doesn't suffice, as we need to dynamically assign which object properties
+ * are bound to components. Lodash get/set are used for this purpose.
+ */
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',

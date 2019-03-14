@@ -1,6 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { get, set } from 'lodash-es';
 
+function createByType(type) {
+  switch (type) {
+    case 'object':
+      return {};
+    case 'array':
+      return [];
+    default:
+      return null;
+  }
+}
+
+/**
+ * A FormContainer corresponds to a specified form layout. It constructs
+ * the form from the sections of the layout (sublayouts are created with
+ * child FormContainers), and populates them with the form widgets.
+ */
 @Component({
   selector: 'app-form-container',
   templateUrl: './form-container.component.html',
@@ -48,7 +64,8 @@ export class FormContainerComponent implements OnInit {
     let obj = get(this.data, section.dataSource);
 
     if (!obj) {
-      obj = set(this.data, section.dataSource, {});
+      let schema = this.getFieldSchema(section.dataSource);
+      obj = set(this.data, section.dataSource, createByType(schema.type));
     }
 
     return obj;
