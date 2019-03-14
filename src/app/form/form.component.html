@@ -1,13 +1,37 @@
-<div>{{ layout | json }}</div>
-<hr>
-<div *ngFor="let section of layout.sections">
-  {{ section | json }}
-  <div
-      [fxLayout]="section.direction"
-      [fxLayoutGap]="section.spacing + 'px'"
-      fxLayoutAlign="space-between">
-    <div *ngFor="let field of section.fields" style="border:1px solid red;">
-      {{ field }}
+<app-form-container [layout]="layout" [schemaMap]="schemaMap" [data]="data">
+</app-form-container>
+<!-- <div *ngFor="let section of layout.sections">
+  <div *ngIf="!section.dataSource">
+    {{ data | json }}
+    <div
+        [fxLayout]="section.direction"
+        [fxLayoutGap]="section.spacing + 'px'"
+        fxLayoutAlign="space-between">
+      <div *ngFor="let field of section.fields" style="border:1px solid red;">
+        {{ field }}<br>
+        <app-form-widget [fieldName]="field" [fieldValue]="getFieldValue(field)" (fieldValueChanged)="setFieldValue(field, $event)"></app-form-widget>
+      </div>
+    </div>
+    <div>
+      shoppingList
+      <div *ngFor="let item of getFieldValue('shoppingList'); let i = index; trackBy: trackByFn">
+        <app-form-widget [fieldName]="'shoppingList[' + i +']'" [fieldValue]="getFieldValue('shoppingList[' + i + ']')" (fieldValueChanged)="setFieldValue('shoppingList[' + i + ']', $event)"></app-form-widget>
+      </div>
     </div>
   </div>
-</div>
+  <div *ngIf="section.dataSource">
+    <div *ngFor="let subsection of section.layout.sections">
+      <div
+          [fxLayout]="section.direction"
+          [fxLayoutGap]="section.spacing + 'px'"
+          fxLayoutAlign="space-between"
+          *ngFor="let siblings of getFieldValue(section.dataSource); let i = index; trackBy: trackByFn">
+        <div *ngFor="let field of subsection.fields" style="border:1px solid red;">
+          {{ section.dataSource + '.' + field }}<br>
+          <app-form-widget [fieldName]="section.dataSource + '[' + i + '].' + field" [fieldValue]="getFieldValue(section.dataSource + '[' + i + '].' + field)" (fieldValueChanged)="setFieldValue(section.dataSource + '[' + i + '].' + field, $event)"></app-form-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
+</div> -->

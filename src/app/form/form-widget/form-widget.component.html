@@ -1,2 +1,7 @@
 <div #target>
+  <mat-form-field appearance="standard">
+    <mat-label>Form Widget</mat-label>
+    <input matInput (ngModelChange)="updateFieldValue($event)" placeholder="Placeholder" [ngModel]="fieldValue" [name]="fieldName">
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
 </div>

@@ -1,0 +1,32 @@
+{{ data | json }}
+<div *ngFor="let section of layout.sections">
+  <div *ngIf="section.layout">
+    <app-form-container [layout]="section.layout" [schemaPointer]="getSchemaPointer(section)" [schemaMap]="schemaMap" [data]="getDataSource(section)">
+    </app-form-container>
+  </div>
+  <div *ngIf="!section.layout">
+    <div *ngIf="schema.type === 'array'">
+      <div
+          *ngFor="let item of data; let i = index; trackBy: trackByFn"
+          [fxLayout]="section.direction"
+          [fxLayoutGap]="section.spacing + 'px'"
+          fxLayoutAlign="space-between">
+        <div *ngFor="let field of section.fields" style="border:1px solid red;">
+          {{ field }}<br>
+          <app-form-widget [fieldSchema]="getFieldSchema(field)" [fieldName]="getFieldName(field, i)" [fieldValue]="getFieldValue(getFieldName(field, i))" (fieldValueChanged)="setFieldValue(getFieldName(field, i), $event)"></app-form-widget>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="schema.type === 'object'">
+      <div
+          [fxLayout]="section.direction"
+          [fxLayoutGap]="section.spacing + 'px'"
+          fxLayoutAlign="space-between">
+        <div *ngFor="let field of section.fields" style="border:1px solid red;">
+          {{ field }}<br>
+          <app-form-widget [fieldSchema]="getFieldSchema(field)" [fieldName]="getFieldName(field)" [fieldValue]="getFieldValue(getFieldName(field))" (fieldValueChanged)="setFieldValue(getFieldName(field), $event)"></app-form-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

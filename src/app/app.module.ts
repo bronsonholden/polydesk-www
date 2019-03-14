@@ -57,6 +57,7 @@ import { FormWidgetComponent } from './form/form-widget/form-widget.component';
 import { WidgetFactory } from './form/form-widget/widget-library/widget-factory';
 import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
+import { FormContainerComponent } from './form/form-container/form-container.component';
 
 const routes: Routes = [
   {
@@ -132,7 +133,8 @@ const routes: Routes = [
     CreateFolderComponent,
     TextWidgetComponent,
     FormWidgetComponent,
-    FormSubmissionComponent
+    FormSubmissionComponent,
+    FormContainerComponent
   ],
   entryComponents: [
     AuthDialogComponent,
