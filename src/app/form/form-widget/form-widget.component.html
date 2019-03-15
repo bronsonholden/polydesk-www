@@ -1,6 +1,6 @@
 <div #target>
   <div *ngIf="fieldSchema.type === 'string'">
-    <mat-form-field appearance="standard">
+    <mat-form-field class="schema-form-widget" appearance="outline">
       <mat-label>{{ fieldName }}</mat-label>
       <input matInput (ngModelChange)="updateFieldValue($event)" placeholder="Placeholder" [ngModel]="fieldValue" [name]="fieldName">
       <mat-hint>Hint</mat-hint>
@@ -8,7 +8,7 @@
   </div>
   <div *ngIf="fieldSchema.type === 'array'">
     <div *ngFor="let item of fieldValue; let i = index; trackBy: trackByFn">
-      <app-form-widget [fieldSchema]="fieldSchema.items" [fieldValue]="item" (fieldValueChanged)="fieldValue[i]=$event"></app-form-widget>
+      <app-form-widget [fieldName]="itemFieldName(i)" [fieldSchema]="fieldSchema.items" [fieldValue]="item" (fieldValueChanged)="fieldValue[i]=$event"></app-form-widget>
     </div>
   </div>
 </div>

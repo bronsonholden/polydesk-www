@@ -12,17 +12,23 @@ export class FormSubmissionComponent implements OnInit {
     sections: [
       {
         direction: 'row',
+        columns: 4,
         spacing: 5,
         fields: [
           'firstName',
-          'lastName'
+          'lastName',
+          'firstName',
+          'firstName',
+          'lastName',
         ]
       },
       {
         direction: 'row',
+        columns: 2,
         spacing: 5,
         fields: [
-          'shoppingList'
+          'shoppingList',
+          'toDoList'
         ]
       },
       {
@@ -32,6 +38,7 @@ export class FormSubmissionComponent implements OnInit {
           sections: [
             {
               direction: 'row',
+              columns: 3,
               spacing: 5,
               fields: [
                 'firstName',
@@ -74,6 +81,7 @@ export class FormSubmissionComponent implements OnInit {
           sections: [
             {
               direction: 'row',
+              columns: 3,
               spacing: 5,
               fields: [
                 'street1',
@@ -96,6 +104,12 @@ export class FormSubmissionComponent implements OnInit {
         type: 'string'
       },
       shoppingList: {
+        type: 'array',
+        items: {
+          type: 'string'
+        }
+      },
+      toDoList: {
         type: 'array',
         items: {
           type: 'string'
@@ -136,11 +150,8 @@ export class FormSubmissionComponent implements OnInit {
   };
 
   data = {
-    many: [
-      '1', '2', '3'
-    ],
-    it: 1,
     shoppingList: [ 'apples', 'oranges', 'potatoes' ],
+    toDoList: [ 'laundry', 'dishes', 'shopping', 'walk dog' ],
     siblings: [
       {
         firstName: 'Jane',
@@ -166,10 +177,6 @@ export class FormSubmissionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.data.many.push('4');
-      this.data.it += 1;
-    }, 2000);
   }
 
 }

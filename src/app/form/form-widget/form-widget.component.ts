@@ -34,4 +34,8 @@ export class FormWidgetComponent implements OnInit {
     return index;
   }
 
+  itemFieldName(index) {
+    return `${this.fieldName}[${index}]`;
+  }
+
 }

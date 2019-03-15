@@ -83,4 +83,36 @@ export class FormContainerComponent implements OnInit {
     return index;
   }
 
+  getRows(section) {
+    const cols = section.columns;
+    let rows = [];
+
+    if (!cols) {
+      return [
+        { fields: section.fields }
+      ];
+    }
+
+    for (let i = 0; i < section.fields.length; i += cols) {
+      rows.push({
+        fields: section.fields.slice(i, i + cols)
+      });
+    }
+
+    return rows;
+  }
+
+  getFlexWidth(section) {
+    switch (section.columns) {
+      case 2:
+        return '50';
+      case 3:
+        return '33.3';
+      case 4:
+        return '25';
+      default:
+        return '100';
+    }
+  }
+
 }
