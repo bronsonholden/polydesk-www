@@ -1,7 +1,7 @@
 <div #target>
   <div *ngIf="fieldSchema.type === 'string'">
     <mat-form-field class="schema-form-widget" appearance="outline">
-      <mat-label>{{ fieldName }}</mat-label>
+      <mat-label *ngIf="fieldSchema.title">{{ fieldSchema.title }}</mat-label>
       <input matInput (ngModelChange)="updateFieldValue($event)" placeholder="Placeholder" [ngModel]="fieldValue" [name]="fieldName">
       <mat-hint>Hint</mat-hint>
     </mat-form-field>

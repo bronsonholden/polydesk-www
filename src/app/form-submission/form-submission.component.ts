@@ -54,27 +54,6 @@ export class FormSubmissionComponent implements OnInit {
         }
       },
       {
-        dataSource: 'siblings2',
-        layout: {
-          presentation: 'standard',
-          sections: [
-            {
-              direction: 'row',
-              spacing: 5,
-              fields: [
-                'firstName',
-                'lastName'
-              ]
-            },
-            {
-              direction: 'row',
-              spacing: 0,
-              action: 'addSet'
-            }
-          ]
-        }
-      },
-      {
         dataSource: 'address',
         layout: {
           presentation: 'standard',
@@ -98,34 +77,31 @@ export class FormSubmissionComponent implements OnInit {
     type: 'object',
     properties: {
       firstName: {
-        type: 'string'
+        type: 'string',
+        title: 'First Name',
+        description: 'Your first name'
       },
       lastName: {
-        type: 'string'
+        type: 'string',
+        title: 'Last Name',
+        description: 'Your last name'
       },
       shoppingList: {
+        title: 'Shopping List',
         type: 'array',
         items: {
           type: 'string'
         }
       },
       toDoList: {
+        title: 'To-Do List',
         type: 'array',
         items: {
           type: 'string'
         }
       },
       siblings: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            firstName: { type: 'string' },
-            lastName: { type: 'string' }
-          }
-        }
-      },
-      siblings2: {
+        title: 'Siblings',
         type: 'array',
         items: {
           type: 'object',
@@ -136,13 +112,16 @@ export class FormSubmissionComponent implements OnInit {
         }
       },
       address: {
+        title: 'Address',
         type: 'object',
         properties: {
           street1: {
-            type: 'string'
+            type: 'string',
+            title: 'Address'
           },
           street2: {
-            type: 'string'
+            type: 'string',
+            title: 'Address Line 2'
           }
         }
       }

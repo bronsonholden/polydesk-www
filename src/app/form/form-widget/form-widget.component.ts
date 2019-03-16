@@ -26,6 +26,14 @@ export class FormWidgetComponent implements OnInit {
   ngOnInit() {
   }
 
+  get fieldTitle(): string {
+    if (this.fieldSchema.title) {
+      return this.fieldSchema.title;
+    }
+
+    return this.fieldName;
+  }
+
   updateFieldValue(value) {
     this.fieldValueChanged.emit(value);
   }
