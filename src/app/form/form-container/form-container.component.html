@@ -1,4 +1,3 @@
-{{ data | json }}
 <div *ngFor="let section of layout.sections">
   <div *ngIf="section.layout">
     <app-form-container [layout]="section.layout" [schemaPointer]="getSchemaPointer(section)" [schemaMap]="schemaMap" [data]="getDataSource(section)">
