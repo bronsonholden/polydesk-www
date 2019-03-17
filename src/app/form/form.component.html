@@ -1,5 +1,6 @@
 <app-form-container
   [layout]="layout"
   [schemaMap]="schemaMap"
-  [data]="data">
+  [data]="data"
+  (dataChange)="onFormDataChange($event)">
 </app-form-container>

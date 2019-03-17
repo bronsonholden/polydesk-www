@@ -1,14 +1,14 @@
 <div #target>
-  <div *ngIf="fieldSchema.type === 'string'">
+  <div *ngIf="options.schema.type === 'string'">
     <mat-form-field class="schema-form-widget" appearance="outline">
-      <mat-label *ngIf="fieldSchema.title">{{ fieldSchema.title }}</mat-label>
-      <input matInput (ngModelChange)="updateFieldValue($event)" placeholder="Placeholder" [ngModel]="fieldValue" [name]="fieldName">
+      <mat-label *ngIf="options.schema.title">{{ options.schema.title }}</mat-label>
+      <input matInput (ngModelChange)="updateFieldValue($event)" placeholder="Placeholder" [ngModel]="options.value" [name]="options.name">
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </div>
-  <div *ngIf="fieldSchema.type === 'array'">
-    <div *ngFor="let item of fieldValue; let i = index; trackBy: trackByFn">
-      <app-form-widget [fieldName]="itemFieldName(i)" [fieldSchema]="fieldSchema.items" [fieldValue]="item" (fieldValueChanged)="fieldValue[i]=$event"></app-form-widget>
+  <div *ngIf="options.schema.type === 'array'">
+    <div *ngFor="let item of options.value; let i = index; trackBy: trackByFn">
+      <app-form-widget [options]="childWidgetOptions(item, i)" (valueChange)="options.value[i]=$event"></app-form-widget>
     </div>
   </div>
 </div>

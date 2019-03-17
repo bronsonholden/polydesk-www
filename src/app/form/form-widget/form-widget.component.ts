@@ -2,6 +2,12 @@ import { Component, OnInit, ViewChild, ViewContainerRef, Input, Output, EventEmi
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WidgetFactory } from './widget-library/widget-factory';
 
+export class FormWidgetOptions {
+  schema: any;
+  name: string;
+  value: any;
+}
+
 /**
  * A FormWidget is a component that dynamically creates form controls based
  * on its assigned schema. For arrays, it creates a list of child FormWidgets
@@ -16,10 +22,8 @@ export class FormWidgetComponent implements OnInit {
 
   @ViewChild('target', { read: ViewContainerRef }) container: ViewContainerRef;
 
-  @Input() fieldSchema: any;
-  @Input() fieldName: string;
-  @Input() fieldValue: any;
-  @Output() fieldValueChanged = new EventEmitter<any>();
+  @Input() options: FormWidgetOptions;
+  @Output() valueChange = new EventEmitter<any>();
 
   constructor(private widgetFactory: WidgetFactory) { }
 
@@ -27,15 +31,15 @@ export class FormWidgetComponent implements OnInit {
   }
 
   get fieldTitle(): string {
-    if (this.fieldSchema.title) {
-      return this.fieldSchema.title;
+    if (this.options.schema.title) {
+      return this.options.schema.title;
     }
 
-    return this.fieldName;
+    return this.options.name;
   }
 
   updateFieldValue(value) {
-    this.fieldValueChanged.emit(value);
+    this.valueChange.emit(value);
   }
 
   trackByFn(index, item) {
@@ -43,7 +47,15 @@ export class FormWidgetComponent implements OnInit {
   }
 
   itemFieldName(index) {
-    return `${this.fieldName}[${index}]`;
+    return `${this.options.name}[${index}]`;
+  }
+
+  childWidgetOptions(item, i) {
+    return {
+      name: this.itemFieldName(i),
+      schema: this.options.schema.items,
+      value: item
+    };
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { get, set } from 'lodash-es';
 
 function createByType(type) {
@@ -28,6 +28,7 @@ export class FormContainerComponent implements OnInit {
   @Input() schemaMap: any;
   @Input() schemaPointer: any = '';
   @Input() data: any;
+  @Output() dataChange = new EventEmitter<any>();
   schema: any;
 
   constructor() { }
@@ -36,7 +37,7 @@ export class FormContainerComponent implements OnInit {
     this.schema = this.schemaMap[this.schemaPointer];
   }
 
-  getFieldName(field, i) {
+  getFieldName(field, i: number | undefined) {
     if (typeof i === 'number') {
       return `[${i}].${field}`;
     } else {
@@ -77,6 +78,7 @@ export class FormContainerComponent implements OnInit {
 
   setFieldValue(field, value) {
     set(this.data, field, value);
+    this.dataChange.emit(this.data);
   }
 
   trackByFn(index, item) {
@@ -112,6 +114,15 @@ export class FormContainerComponent implements OnInit {
         return '25';
       default:
         return '100';
+    }
+  }
+
+  widgetOptions(field, i: number | undefined) {
+    const fieldName = this.getFieldName(field, i);
+    return {
+      schema: this.getFieldSchema(field),
+      name: fieldName,
+      value: this.getFieldValue(fieldName)
     }
   }
 

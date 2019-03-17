@@ -20,10 +20,6 @@ import { LAYOUT_SCHEMA } from './layout.schema';
  *  - schemaMap: Maps schema pointers (see above) to a JSON schema object for
  *               that field/property. Propagated throughout all components
  *               in a single form.
- *  - fieldName: All widgets have a field name that is unique across all
- *               widgets in that container. It is used with Lodash get/set to
- *               read/write data to the root data object. It doesn't need to
- *               be unique across the entire form for that.
  *
  * Two way data binding is implemented with custom methods. Using [(ngModel)]
  * doesn't suffice, as we need to dynamically assign which object properties
@@ -36,8 +32,17 @@ import { LAYOUT_SCHEMA } from './layout.schema';
 })
 export class FormComponent implements OnInit {
 
+  /**
+   * Maps schema pointers to a JSON schema object for that field. Propagated
+  * through all child containers in a given form.
+   */
   private schemaMap = {};
   private ajv: any = new Ajv();
+
+  /**
+   * Root form schema. Assigned via schema() setter, which does validation
+   * before updating the value.
+   */
   private _schema: any;
 
   @Input() layout: any;
@@ -61,6 +66,10 @@ export class FormComponent implements OnInit {
         }
       }
     });
+  }
+
+  onFormDataChange(data) {
+    this.dataChange.emit(data);
   }
 
   constructor(private widgetRegistry: WidgetRegistry,

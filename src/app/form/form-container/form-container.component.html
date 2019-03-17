@@ -1,3 +1,4 @@
+{{ data | json }}
 <div *ngFor="let section of layout.sections">
   <div *ngIf="section.layout">
     <app-form-container [layout]="section.layout" [schemaPointer]="getSchemaPointer(section)" [schemaMap]="schemaMap" [data]="getDataSource(section)">
@@ -12,10 +13,8 @@
           fxLayoutAlign="space-after">
         <div *ngFor="let field of section.fields" [fxFlex]="getFlexWidth(section)">
           <app-form-widget
-            [fieldSchema]="getFieldSchema(field)"
-            [fieldName]="getFieldName(field, i)"
-            [fieldValue]="getFieldValue(getFieldName(field, i))"
-            (fieldValueChanged)="setFieldValue(getFieldName(field, i), $event)">
+            [options]="widgetOptions(field, i)"
+            (valueChange)="setFieldValue(getFieldName(field, i), $event)">
           </app-form-widget>
         </div>
       </div>
@@ -27,7 +26,10 @@
           fxLayoutAlign="space-after"
           *ngFor="let row of getRows(section); trackBy: trackByFn">
         <div *ngFor="let field of row.fields" [fxFlex]="getFlexWidth(section)">
-          <app-form-widget [fieldSchema]="getFieldSchema(field)" [fieldName]="getFieldName(field)" [fieldValue]="getFieldValue(getFieldName(field))" (fieldValueChanged)="setFieldValue(getFieldName(field), $event)"></app-form-widget>
+          <app-form-widget
+            [options]="widgetOptions(field)"
+            (valueChange)="setFieldValue(getFieldName(field), $event)">
+          </app-form-widget>
         </div>
       </div>
     </div>
