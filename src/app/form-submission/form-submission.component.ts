@@ -90,14 +90,16 @@ export class FormSubmissionComponent implements OnInit {
         title: 'Shopping List',
         type: 'array',
         items: {
-          type: 'string'
+          type: 'string',
+          description: 'Item to purchase'
         }
       },
       toDoList: {
         title: 'To-Do List',
         type: 'array',
         items: {
-          type: 'string'
+          type: 'string',
+          description: 'Thing to get done'
         }
       },
       siblings: {
