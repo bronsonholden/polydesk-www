@@ -131,28 +131,6 @@ export class FormSubmissionComponent implements OnInit {
   };
 
   data = {
-    shoppingList: [ 'apples', 'oranges', 'potatoes' ],
-    toDoList: [ 'laundry', 'dishes', 'shopping', 'walk dog' ],
-    siblings: [
-      {
-        firstName: 'Jane',
-        lastName: 'Doe'
-      },
-      {
-        firstName: 'Bob',
-        lastName: 'Doe'
-      }
-    ],
-    siblings2: [
-      {
-        firstName: 'Jim',
-        lastName: 'Shmoe'
-      },
-      {
-        firstName: 'Rob',
-        lastName: 'Shmoe'
-      }
-    ]
   };
 
   constructor() { }

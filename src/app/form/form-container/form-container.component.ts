@@ -1,10 +1,29 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { get, set } from 'lodash-es';
 
-function createByType(type) {
-  switch (type) {
+function buildObject(schema) {
+  if (!schema.properties) {
+    return null;
+  }
+
+  let obj = {};
+  let properties = Object.keys(schema.properties);
+
+  for (let property of properties) {
+    let child = buildObject(schema.properties[property]);
+
+    if (child) {
+      obj[property] = child;
+    }
+  }
+
+  return obj;
+}
+
+function createObject(schema) {
+  switch (schema.type) {
     case 'object':
-      return {};
+      return buildObject(schema);
     case 'array':
       return [];
     default:
@@ -66,7 +85,8 @@ export class FormContainerComponent implements OnInit {
 
     if (!obj) {
       let schema = this.getFieldSchema(section.dataSource);
-      obj = set(this.data, section.dataSource, createByType(schema.type));
+      obj = createObject(schema);
+      set(this.data, section.dataSource, obj);
     }
 
     return obj;
