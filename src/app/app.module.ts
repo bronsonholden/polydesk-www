@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { Angular2TokenService } from 'angular2-token';
+import { AceEditorModule } from 'ng2-ace-editor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Import Material components
@@ -58,6 +59,7 @@ import { WidgetFactory } from './form/form-widget/widget-library/widget-factory'
 import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
 import { FormContainerComponent } from './form/form-container/form-container.component';
+import { FormEditComponent } from './form-edit/form-edit.component';
 
 const routes: Routes = [
   {
@@ -101,6 +103,10 @@ const routes: Routes = [
           {
             path: ':id/submit',
             component: FormSubmissionComponent
+          },
+          {
+            path: ':id/edit',
+            component: FormEditComponent
           }
         ]
       }
@@ -134,7 +140,8 @@ const routes: Routes = [
     TextWidgetComponent,
     FormWidgetComponent,
     FormSubmissionComponent,
-    FormContainerComponent
+    FormContainerComponent,
+    FormEditComponent
   ],
   entryComponents: [
     AuthDialogComponent,
@@ -143,6 +150,7 @@ const routes: Routes = [
     TextWidgetComponent
   ],
   imports: [
+    AceEditorModule,
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
