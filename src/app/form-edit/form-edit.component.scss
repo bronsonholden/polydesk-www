@@ -2,10 +2,20 @@
   height: 100%;
 }
 
+#form-edit-toolbar button {
+  margin-right: 8px;
+}
+
 #form-edit-wrapper {
   position: absolute;
   top: 48px;
   left: 0px;
   right: 0px;
   bottom: 0px;
+}
+
+.editor-section-header {
+  width:100%;
+  text-align:center;
+  background-color: #fed;
 }
