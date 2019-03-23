@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { AngularTokenService, AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
+import { AceEditorModule } from 'ng2-ace-editor';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Import Material components
 import {
@@ -51,6 +53,13 @@ import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
+import { TextWidgetComponent } from './form/form-widget/widget-library/text-widget/text-widget.component';
+import { FormWidgetComponent } from './form/form-widget/form-widget.component';
+import { WidgetFactory } from './form/form-widget/widget-library/widget-factory';
+import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
+import { FormSubmissionComponent } from './form-submission/form-submission.component';
+import { FormContainerComponent } from './form/form-container/form-container.component';
+import { FormEditComponent } from './form-edit/form-edit.component';
 
 const routes: Routes = [
   {
@@ -89,7 +98,17 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormListComponent
+        component: FormListComponent,
+        children: [
+          {
+            path: ':id/submit',
+            component: FormSubmissionComponent
+          },
+          {
+            path: ':id/edit',
+            component: FormEditComponent
+          }
+        ]
       }
     ]
   }
@@ -117,16 +136,24 @@ const routes: Routes = [
     WorkflowListComponent,
     FormListComponent,
     ResizeColumnDirective,
-    CreateFolderComponent
+    CreateFolderComponent,
+    TextWidgetComponent,
+    FormWidgetComponent,
+    FormSubmissionComponent,
+    FormContainerComponent,
+    FormEditComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     CreateFolderComponent,
-    TopbarActionsComponent
+    TopbarActionsComponent,
+    TextWidgetComponent
   ],
   imports: [
+    AceEditorModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     FormsModule,
     HttpClientModule,
     AngularTokenModule.forRoot(environment.tokenAuthConfig),
@@ -151,7 +178,9 @@ const routes: Routes = [
     RouterTabModule
   ],
   providers: [
-    AngularTokenModule
+    AngularTokenModule,
+    WidgetFactory,
+    WidgetRegistry
   ],
   bootstrap: [AppComponent]
 })

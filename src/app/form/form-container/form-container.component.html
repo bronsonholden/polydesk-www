@@ -1,0 +1,36 @@
+<div *ngFor="let section of layout.sections">
+  <div *ngIf="section.layout">
+    <app-form-container [layout]="section.layout" [schemaPointer]="getSchemaPointer(section)" [schemaMap]="schemaMap" [data]="getDataSource(section)">
+    </app-form-container>
+  </div>
+  <div *ngIf="!section.layout">
+    <div *ngIf="schema.type === 'array'">
+      <div
+          *ngFor="let item of data; let i = index; trackBy: trackByFn"
+          [fxLayout]="section.direction"
+          [fxLayoutGap]="section.spacing + 'px'"
+          fxLayoutAlign="space-after">
+        <div *ngFor="let field of section.fields" [fxFlex]="getFlexWidth(section)">
+          <app-form-widget
+            [options]="widgetOptions(field, i)"
+            (valueChange)="setFieldValue(getFieldName(field, i), $event)">
+          </app-form-widget>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="schema.type === 'object'">
+      <div
+          [fxLayout]="section.direction"
+          [fxLayoutGap]="section.spacing + 'px'"
+          fxLayoutAlign="space-after"
+          *ngFor="let row of getRows(section); trackBy: trackByFn">
+        <div *ngFor="let field of row.fields" [fxFlex]="getFlexWidth(section)">
+          <app-form-widget
+            [options]="widgetOptions(field)"
+            (valueChange)="setFieldValue(getFieldName(field), $event)">
+          </app-form-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
