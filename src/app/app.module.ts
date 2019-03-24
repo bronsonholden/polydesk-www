@@ -60,6 +60,8 @@ import { WidgetRegistry } from './form/form-widget/widget-library/widget-registr
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
 import { FormContainerComponent } from './form/form-container/form-container.component';
 import { FormEditComponent } from './form-edit/form-edit.component';
+import { DataTableComponent } from './data-table/data-table.component';
+import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
 
 const routes: Routes = [
   {
@@ -69,6 +71,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'dataview',
+        component: DocumentDataTableComponent
       },
       {
         path: 'documents',
@@ -141,7 +147,9 @@ const routes: Routes = [
     FormWidgetComponent,
     FormSubmissionComponent,
     FormContainerComponent,
-    FormEditComponent
+    FormEditComponent,
+    DataTableComponent,
+    DocumentDataTableComponent
   ],
   entryComponents: [
     AuthDialogComponent,
