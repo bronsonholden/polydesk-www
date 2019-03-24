@@ -1,12 +1,67 @@
-.data-table-wrapper {
+#hiddenScrollable {
+  position: fixed;
+  background: transparent;
+  height: 50px;
+  width: 50px;
+  left: -50px; /* Hide off page */
+  overflow-y: scroll;
+}
+
+#dataTabeContainer {
+  width: 100%;
   position: absolute;
-  top: 48px;
+  top: 113px;
   left: 0px;
-  right: 0px;
   bottom: 0px;
   overflow-y: scroll;
 }
 
-.data-table {
-  width: 100%;
+#data-table-toolbar {
+  position: absolute;
+  top: 49px;
+}
+
+#data-table-toolbar button {
+  margin-right: 8px;
+}
+
+.data-table td, .data-table th {
+  box-sizing: border-box;
+}
+
+.data-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table.data-table {
+  table-layout: fixed;
+}
+
+[mat-header-cell]:last-child .column-grabber {
+  display: none;
+}
+
+[mat-header-cell], [mat-cell] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.column-grabber {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: ew-resize;
+  width: 6px;
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid #dfe0e1;
+}
+
+.data-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

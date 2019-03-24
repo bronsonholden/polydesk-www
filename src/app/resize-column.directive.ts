@@ -46,7 +46,7 @@ export class ResizeColumnDirective {
       this.resizingMaintainNextWidth = e.shiftKey;
 
       const dx = e.screenX - this.resizingAnchor;
-      const width = Math.max(100, this.resizingFrom + dx);
+      const width = Math.max(30, this.resizingFrom + dx);
       const dw = width - this.resizingFrom;
 
       this.resizeColumnChange.emit(width);
@@ -54,7 +54,7 @@ export class ResizeColumnDirective {
 
       if (!this.resizingMaintainNextWidth) {
         // Give/take width of next column
-        let nextWidth = Math.max(100, this.resizingNextFrom - dw);
+        let nextWidth = Math.max(30, this.resizingNextFrom - dw);
 
         this.nextColumnChange.emit(nextWidth);
         this.resizingNextFrom = nextWidth;
