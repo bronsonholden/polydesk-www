@@ -1,4 +1,4 @@
-import { OnInit, Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
 
 const MIN_COL_WIDTH = 25;
 
@@ -19,10 +19,6 @@ export class ResizeColumnDirective implements OnInit {
   resizingFrom = 300;
 
   constructor() { }
-
-  ngOnInit() {
-    console.log(this.resizeColumn);
-  }
 
   @HostListener('mousedown', [ '$event' ]) onGrabberMouseDown(e) {
     this.resizing = true;
