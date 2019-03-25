@@ -7,10 +7,10 @@
   overflow-y: scroll;
 }
 
-#dataTabeContainer {
+#dataTableContainer {
   width: 100%;
   position: absolute;
-  top: 113px;
+  top: 48px;
   left: 0px;
   bottom: 0px;
   overflow-y: scroll;
@@ -29,18 +29,12 @@
   box-sizing: border-box;
 }
 
-.data-table td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 table.data-table {
   table-layout: fixed;
 }
 
-[mat-header-cell]:last-child .column-grabber {
-  display: none;
+[mat-cell]:last-child {
+  border-right: 1px solid #dfe0e1;
 }
 
 [mat-header-cell], [mat-cell] {
@@ -60,7 +54,7 @@ table.data-table {
   border-right: 1px solid #dfe0e1;
 }
 
-.data-table td {
+.data-table td > div, .data-table th > div {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

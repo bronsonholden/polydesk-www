@@ -35,7 +35,7 @@ export class DocumentDataTableComponent implements OnInit {
         value: 'updated_at'
       },
       literalData: {
-        title: 'Literal Data',
+        title: 'Literal Data that has a really long header, like really really long',
         type: 'literal',
         value: 'Some text'
       },
@@ -65,10 +65,12 @@ export class DocumentDataTableComponent implements OnInit {
         width: 160
       },
       {
-        name: 'literalData'
+        name: 'literalData',
+        width: 40
       },
       {
-        name: 'documents'
+        name: 'documents',
+        width: 100
       }
     ]
   }

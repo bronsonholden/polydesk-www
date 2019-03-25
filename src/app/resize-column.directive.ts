@@ -1,9 +1,11 @@
-import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
+
+const MIN_COL_WIDTH = 25;
 
 @Directive({
   selector: '[resizeColumn]'
 })
-export class ResizeColumnDirective {
+export class ResizeColumnDirective implements OnInit {
 
   @Input() resizeColumn: number;
   @Output() resizeColumnChange: EventEmitter<number> = new EventEmitter<number>();
@@ -15,21 +17,17 @@ export class ResizeColumnDirective {
   resizingAnchor = -1;
   // Width we started resizing at
   resizingFrom = 300;
-  // Width of the next column when resizing started
-  resizingNextFrom = -1;
-  // Maintain next column width?
-  resizingMaintainNextWidth = false;
 
   constructor() { }
+
+  ngOnInit() {
+    console.log(this.resizeColumn);
+  }
 
   @HostListener('mousedown', [ '$event' ]) onGrabberMouseDown(e) {
     this.resizing = true;
     this.resizingAnchor = e.screenX;
     this.resizingFrom = this.resizeColumn;
-
-    this.resizingNextFrom = this.nextColumn;
-
-    this.resizingMaintainNextWidth = e.shiftKey;
 
     e.preventDefault();
   }
@@ -42,23 +40,12 @@ export class ResizeColumnDirective {
   @HostListener('document:mousemove', [ '$event' ])
   onMouseMove(e) {
     if (this.resizing) {
-      // Allow swapping between maintaining or not mid-resize
-      this.resizingMaintainNextWidth = e.shiftKey;
-
       const dx = e.screenX - this.resizingAnchor;
-      const width = Math.max(30, this.resizingFrom + dx);
+      const width = Math.max(MIN_COL_WIDTH, this.resizingFrom + dx);
       const dw = width - this.resizingFrom;
 
       this.resizeColumnChange.emit(width);
       this.resizingFrom = width;
-
-      if (!this.resizingMaintainNextWidth) {
-        // Give/take width of next column
-        let nextWidth = Math.max(30, this.resizingNextFrom - dw);
-
-        this.nextColumnChange.emit(nextWidth);
-        this.resizingNextFrom = nextWidth;
-      }
 
       this.resizingAnchor = e.screenX;
     }
