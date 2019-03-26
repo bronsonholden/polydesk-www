@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
    * Maps schema pointers to a JSON schema object for that field. Propagated
   * through all child containers in a given form.
    */
-  private schemaMap = {};
+  public schemaMap = {};
   private ajv: any = new Ajv();
 
   /**
