@@ -9,11 +9,8 @@ export class DocumentDataTableComponent implements OnInit {
 
   data = {
     resource: 'folders',
+    selectable: true,
     columns: {
-      select: {
-        type: 'select',
-        by: 'id'
-      },
       id: {
         title: 'ID',
         type: 'id'

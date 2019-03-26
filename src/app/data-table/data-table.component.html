@@ -2,7 +2,7 @@
 <div id="dataTableContainer" #dataTableContainer>
   <table class="data-table" mat-table [dataSource]="dataTableElements">
     <!-- Checkbox column -->
-    <!-- <ng-container matColumnDef="select">
+    <ng-container *ngIf="data.selectable" matColumnDef="select">
       <th class="select-column" mat-header-cell *matHeaderCellDef>
         <mat-checkbox
           color="primary"
@@ -19,7 +19,7 @@
           [checked]="selection.isSelected(row)">
         </mat-checkbox>
       </td>
-    </ng-container> -->
+    </ng-container>
 
     <ng-container *ngFor="let column of data.display" [matColumnDef]="column.name">
       <th mat-header-cell *matHeaderCellDef>

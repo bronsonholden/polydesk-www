@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
@@ -20,7 +21,7 @@ export class DataTableComponent implements OnInit {
   @Input() data: any;
 
   dataTableElements: MatTableDataSource<DataTableElement>;
-
+  selection = new SelectionModel<DataTableElement>(true, []);
   displayedColumns: string[] = [];
 
   displayValue(row, column) {
@@ -51,6 +52,10 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this.data.display.map(column => column.name);
+
+    if (this.data.selectable) {
+      this.displayedColumns.unshift('select');
+    }
 
     this.http.get(`${this.tokenService.tokenOptions.apiBase}/test/${this.data.resource}`).subscribe((json: any) => {
       this.dataTableElements = new MatTableDataSource<DataTableElement>(json.data.map(element => new DataTableElement(element)));
@@ -120,6 +125,19 @@ export class DataTableComponent implements OnInit {
       // Add remaining width to first filler
       firstFiller.width += width - occupied - (fillerWidth * fillers);
     }
+  }
+
+  /* Check if all rows in the document list are selected */
+  isAllSelected() {
+    return this.selection.selected.length === this.dataTableElements.data.length;
+  }
+
+  selectAll() {
+    this.dataTableElements.data.forEach(row => this.selection.select(row));
+  }
+
+  masterToggle() {
+    this.isAllSelected() ? this.selection.clear() : this.selectAll();
   }
 
 }
