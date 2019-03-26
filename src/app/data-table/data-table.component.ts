@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 
 
 export class DataTableElement {
-  constructor(public data: any,
-              public blah: any) { }
+  constructor(public data: any) { }
 }
 
 @Component({
@@ -46,14 +45,15 @@ export class DataTableComponent implements OnInit {
   }
 
   constructor(private http: HttpClient,
+              private snackBar: MatSnackBar,
               private tokenService: AngularTokenService) {
   }
 
   ngOnInit() {
     this.displayedColumns = this.data.display.map(column => column.name);
 
-    this.http.get(`${this.tokenService.tokenOptions.apiBase}/test/${this.data.resource}`).subscribe(res => {
-      this.dataTableElements = new MatTableDataSource<ContentElement>(res.data.map(element => new DataTableElement(element)));
+    this.http.get(`${this.tokenService.tokenOptions.apiBase}/test/${this.data.resource}`).subscribe((json: any) => {
+      this.dataTableElements = new MatTableDataSource<DataTableElement>(json.data.map(element => new DataTableElement(element)));
     }, (json: any) => {
       json.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {

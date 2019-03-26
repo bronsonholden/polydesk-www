@@ -5,7 +5,7 @@ const MIN_COL_WIDTH = 25;
 @Directive({
   selector: '[resizeColumn]'
 })
-export class ResizeColumnDirective implements OnInit {
+export class ResizeColumnDirective {
 
   @Input() resizeColumn: number;
   @Output() resizeColumnChange: EventEmitter<number> = new EventEmitter<number>();

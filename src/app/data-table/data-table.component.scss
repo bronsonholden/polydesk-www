@@ -33,6 +33,10 @@ table.data-table {
   table-layout: fixed;
 }
 
+[mat-header-cell] {
+  border-right: 1px solid #dfe0e1;
+}
+
 [mat-cell]:last-child {
   border-right: 1px solid #dfe0e1;
 }
@@ -46,12 +50,11 @@ table.data-table {
   content: '';
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: -7px;
   cursor: ew-resize;
-  width: 6px;
+  width: 14px;
   height: 100%;
   overflow: hidden;
-  border-right: 1px solid #dfe0e1;
 }
 
 .data-table td > div, .data-table th > div {
