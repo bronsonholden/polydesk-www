@@ -7,6 +7,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormListComponent implements OnInit {
 
+  data = {
+    resource: 'forms',
+    selectable: true,
+    columns: {
+      id: {
+        title: 'ID',
+        type: 'id'
+      },
+      name: {
+        title: 'Name',
+        type: 'attribute',
+        value: 'name'
+      },
+      createdAt: {
+        title: 'Created At',
+        type: 'attribute',
+        value: 'created_at'
+      },
+      updatedAt: {
+        name: 'updated_at',
+        title: 'Updated At',
+        type: 'attribute',
+        value: 'updated_at'
+      }
+    },
+    display: [
+      {
+        name: 'id',
+        width: 50
+      },
+      {
+        name: 'name',
+        width: 300
+      },
+      {
+        name: 'createdAt',
+        width: 180
+      },
+      {
+        name: 'updatedAt',
+        width: 180
+      }
+    ]
+  }
+
   constructor() { }
 
   ngOnInit() {

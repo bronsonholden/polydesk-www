@@ -104,8 +104,11 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormListComponent,
         children: [
+          {
+            path: '',
+            component: FormListComponent,
+          },
           {
             path: ':id/submit',
             component: FormSubmissionComponent
