@@ -9,11 +9,6 @@
 
 #dataTableContainer {
   width: 100%;
-  position: absolute;
-  top: 48px;
-  left: 0px;
-  bottom: 0px;
-  overflow-y: scroll;
 }
 
 #data-table-toolbar {
@@ -33,12 +28,16 @@ table.data-table {
   table-layout: fixed;
 }
 
-[mat-header-cell] {
+.data-table tr:last-child td {
+  border-bottom: 0px;
+}
+
+[mat-header-cell], [mat-cell] {
   border-right: 1px solid #dfe0e1;
 }
 
-[mat-cell]:last-child {
-  border-right: 1px solid #dfe0e1;
+[mat-header-cell]:first-child, [mat-cell]:first-child {
+  border-left: 1px solid #dfe0e1;
 }
 
 [mat-header-cell], [mat-cell] {
@@ -50,9 +49,9 @@ table.data-table {
   content: '';
   position: absolute;
   top: 0px;
-  right: -7px;
+  right: 0px;
   cursor: ew-resize;
-  width: 14px;
+  width: 12px;
   height: 100%;
   overflow: hidden;
 }
