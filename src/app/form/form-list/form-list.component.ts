@@ -18,7 +18,8 @@ export class FormListComponent implements OnInit {
       name: {
         title: 'Name',
         type: 'attribute',
-        value: 'name'
+        value: 'name',
+        link: true
       },
       createdAt: {
         title: 'Created At',

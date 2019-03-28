@@ -30,7 +30,12 @@
       </th>
       <td mat-cell *matCellDef="let row">
         <div [style.width.px]="column.width">
-          {{ displayValue(row, column) }}
+          <a class="primary-color mat-body-2" [routerLink]="getSelfLink(row)" *ngIf="showLink(column)">
+            {{ displayValue(row, column) }}
+          </a>
+          <div *ngIf="!showLink(column)">
+            {{ displayValue(row, column) }}
+          </div>
         </div>
       </td>
     </ng-container>
