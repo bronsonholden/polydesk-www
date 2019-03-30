@@ -131,6 +131,32 @@ export class FormSubmissionComponent implements OnInit {
   };
 
   data = {
+    siblings: [
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      },
+      {
+        firstName: 'Joe',
+        lastName: 'Shmoe'
+      }
+    ]
   };
 
   constructor() { }

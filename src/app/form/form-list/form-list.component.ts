@@ -35,10 +35,6 @@ export class FormListComponent implements OnInit {
     },
     display: [
       {
-        name: 'id',
-        width: 50
-      },
-      {
         name: 'name',
         width: 300
       },
