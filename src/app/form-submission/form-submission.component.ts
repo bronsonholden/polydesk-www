@@ -13,19 +13,16 @@ export class FormSubmissionComponent implements OnInit {
       {
         direction: 'row',
         columns: 4,
-        spacing: 5,
+        spacing: 0,
         fields: [
           'firstName',
-          'lastName',
-          'firstName',
-          'firstName',
-          'lastName',
+          'lastName'
         ]
       },
       {
         direction: 'row',
         columns: 2,
-        spacing: 5,
+        spacing: 0,
         fields: [
           'shoppingList',
           'toDoList'
@@ -38,8 +35,8 @@ export class FormSubmissionComponent implements OnInit {
           sections: [
             {
               direction: 'row',
-              columns: 3,
-              spacing: 5,
+              columns: 4,
+              spacing: 0,
               fields: [
                 'firstName',
                 'lastName'
@@ -60,10 +57,17 @@ export class FormSubmissionComponent implements OnInit {
           sections: [
             {
               direction: 'row',
-              columns: 3,
-              spacing: 5,
+              columns: 4,
+              spacing: 0,
               fields: [
-                'street1',
+                'street1'
+              ]
+            },
+            {
+              direction: 'row',
+              columns: 4,
+              spacing: 0,
+              fields: [
                 'street2'
               ]
             }
@@ -131,30 +135,27 @@ export class FormSubmissionComponent implements OnInit {
   };
 
   data = {
+    firstName: 'John',
+    lastName: 'Doe',
+    shoppingList: [
+      'Apples',
+      'Oranges',
+      'Peaches',
+      'Scissors'
+    ],
+    toDoList: [
+      'Take out garbage',
+      'Feed the dogs',
+      'Get hair cut'
+    ],
     siblings: [
       {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
+        firstName: 'Bob',
+        lastName: 'Smith'
       },
       {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
-      },
-      {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
-      },
-      {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
-      },
-      {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
-      },
-      {
-        firstName: 'Joe',
-        lastName: 'Shmoe'
+        firstName: 'Jane',
+        lastName: 'Roe'
       }
     ]
   };
