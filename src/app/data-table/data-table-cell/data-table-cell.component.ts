@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
 import * as Url from 'url';
 
 import * as moment from 'moment';
@@ -14,7 +16,7 @@ export class DataTableCellComponent implements OnInit {
   @Input() column: any;
   @Input() data: any;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   get value(): any {
     let columnInfo = this.data.columns[this.column.name];
@@ -63,6 +65,15 @@ export class DataTableCellComponent implements OnInit {
 
   showLink(column): boolean {
     return this.data.columns[column.name].link;
+  }
+
+  openRelationshipDialog() {
+    let columnInfo = this.data.columns[this.column.name];
+
+    let dialogRef = this.dialog.open(DataTableDialogComponent, {
+      width: '100vw',
+      data: columnInfo.view
+    });
   }
 
 }

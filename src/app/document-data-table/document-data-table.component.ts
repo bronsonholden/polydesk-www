@@ -20,7 +20,7 @@ export class DocumentDataTableComponent implements OnInit {
         title: 'Type',
         display: 'icon',
         type: 'literal',
-        value: 'file-document-outline'
+        value: 'folder-outline'
       },
       name: {
         title: 'Name',
@@ -54,6 +54,43 @@ export class DocumentDataTableComponent implements OnInit {
         type: 'relationship',
         model: 'documents',
         view: {
+          resource: 'documents',
+          selectable: false,
+          columns: {
+            type: {
+              title: 'Type',
+              display: 'icon',
+              type: 'literal',
+              value: 'file-document-outline'
+            },
+            name: {
+              title: 'Document name',
+              display: 'link',
+              type: 'attribute',
+              value: 'name'
+            },
+            createdAt: {
+              title: 'Created At',
+              display: 'date',
+              format: 'MM/DD/YYYY hh:mm A',
+              type: 'attribute',
+              value: 'created_at'
+            }
+          },
+          display: [
+            {
+              name: 'type',
+              width: 50
+            },
+            {
+              name: 'name',
+              width: 200
+            },
+            {
+              name: 'createdAt',
+              width: 140
+            }
+          ]
         }
       }
     },
