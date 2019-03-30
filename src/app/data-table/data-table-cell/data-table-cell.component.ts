@@ -1,0 +1,68 @@
+import { Component, OnInit, Input } from '@angular/core';
+import * as Url from 'url';
+
+import * as moment from 'moment';
+
+@Component({
+  selector: 'app-data-table-cell',
+  templateUrl: './data-table-cell.component.html',
+  styleUrls: ['./data-table-cell.component.scss']
+})
+export class DataTableCellComponent implements OnInit {
+
+  @Input() row: any;
+  @Input() column: any;
+  @Input() data: any;
+
+  constructor() { }
+
+  get value(): any {
+    let columnInfo = this.data.columns[this.column.name];
+    let val = this.raw;
+
+    switch (this.columnDisplay) {
+      case 'date':
+        val = moment(val).format(columnInfo.format || 'MM/DD/YYYY');
+        break;
+      default:
+        ;
+    }
+
+    return val;
+  }
+
+  get raw(): any {
+    let columnInfo = this.data.columns[this.column.name];
+
+    switch (columnInfo.type) {
+      case 'id':
+        return this.row.data.id;
+      case 'attribute':
+        return this.row.data.attributes[columnInfo.value];
+      case 'literal':
+        return columnInfo.value;
+      case 'relationship':
+        return 'NYI';
+      default:
+        return '';
+    }
+  }
+
+  get selfLink(): string {
+    let url = Url.parse(this.row.data.links.self);
+
+    return url.pathname;
+  }
+
+  ngOnInit() {
+  }
+
+  get columnDisplay() {
+    return this.data.columns[this.column.name].display;
+  }
+
+  showLink(column): boolean {
+    return this.data.columns[column.name].link;
+  }
+
+}

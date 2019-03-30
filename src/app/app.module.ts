@@ -62,6 +62,7 @@ import { FormContainerComponent } from './form/form-container/form-container.com
 import { FormEditComponent } from './form-edit/form-edit.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
+import { DataTableCellComponent } from './data-table/data-table-cell/data-table-cell.component';
 
 const routes: Routes = [
   {
@@ -110,6 +111,10 @@ const routes: Routes = [
             component: FormListComponent,
           },
           {
+            path: ':id',
+            redirectTo: ':id/submit'
+          },
+          {
             path: ':id/submit',
             component: FormSubmissionComponent
           },
@@ -152,7 +157,8 @@ const routes: Routes = [
     FormContainerComponent,
     FormEditComponent,
     DataTableComponent,
-    DocumentDataTableComponent
+    DocumentDataTableComponent,
+    DataTableCellComponent
   ],
   entryComponents: [
     AuthDialogComponent,

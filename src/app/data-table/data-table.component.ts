@@ -3,7 +3,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
-import * as Url from 'url';
 
 
 export class DataTableElement {
@@ -24,33 +23,6 @@ export class DataTableComponent implements OnInit {
   dataTableElements: MatTableDataSource<DataTableElement>;
   selection = new SelectionModel<DataTableElement>(true, []);
   displayedColumns: string[] = [];
-
-  displayValue(row, column) {
-    let columnInfo = this.data.columns[column.name];
-
-    switch (columnInfo.type) {
-      case 'id':
-        return row.data.id;
-      case 'attribute':
-        return row.data.attributes[columnInfo.value];
-      case 'literal':
-        return columnInfo.value;
-      case 'relationship':
-        return 'NYI';
-      default:
-        return '';
-    }
-  }
-
-  showLink(column): boolean {
-    return this.data.columns[column.name].link;
-  }
-
-  getSelfLink(row): string {
-    let url = Url.parse(row.data.links.self);
-
-    return `/${url.pathname}/submit`;
-  }
 
   getHeader(column) {
     return this.data.columns[column.name].title;

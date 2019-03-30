@@ -17,17 +17,21 @@ export class FormListComponent implements OnInit {
       },
       name: {
         title: 'Name',
+        display: 'link',
         type: 'attribute',
-        value: 'name',
-        link: true
+        value: 'name'
       },
       createdAt: {
         title: 'Created At',
+        display: 'date',
+        format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'created_at'
       },
       updatedAt: {
         name: 'updated_at',
+        display: 'date',
+        format: 'MM/DD/YYYY hh:mm A',
         title: 'Updated At',
         type: 'attribute',
         value: 'updated_at'

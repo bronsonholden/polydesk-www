@@ -1,0 +1,22 @@
+<!-- Link -->
+<a class="primary-color mat-body-2" [routerLink]="selfLink" *ngIf="columnDisplay === 'link'">
+  {{ value }}
+</a>
+
+<!-- ID -->
+<div *ngIf="columnDisplay === 'id'">
+  {{ value }}
+</div>
+
+<!-- Text -->
+<div *ngIf="columnDisplay === 'text'">
+  {{ value }}
+</div>
+
+<!-- Date -->
+<div *ngIf="columnDisplay === 'date'">
+  {{ value }}
+</div>
+
+<!-- Icon -->
+<mat-icon *ngIf="columnDisplay === 'icon'" class="document-list-icon" svgIcon="folder-outline"></mat-icon>
