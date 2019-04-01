@@ -1,4 +1,4 @@
 #data-table-dialog-wrapper {
-  max-height: 75vh;
+  height: calc(100vh - 100px);
   overflow-y: scroll;
 }

@@ -54,7 +54,6 @@ export class DocumentDataTableComponent implements OnInit {
         type: 'relationship',
         model: 'documents',
         view: {
-          resource: 'documents',
           selectable: false,
           columns: {
             type: {

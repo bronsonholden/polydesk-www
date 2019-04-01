@@ -44,7 +44,8 @@ export class DataTableCellComponent implements OnInit {
       case 'literal':
         return columnInfo.value;
       case 'relationship':
-        return 'NYI';
+        let path = Url.parse(this.row.data.relationships[columnInfo.model].links.related).pathname;
+        return path.split('/').slice(2).join('/');
       default:
         return '';
     }
@@ -69,10 +70,14 @@ export class DataTableCellComponent implements OnInit {
 
   openRelationshipDialog() {
     let columnInfo = this.data.columns[this.column.name];
+    let data: any = {};
+
+    Object.assign(data, columnInfo.view);
+    data.resource = this.value;
 
     let dialogRef = this.dialog.open(DataTableDialogComponent, {
       width: '100vw',
-      data: columnInfo.view
+      data: data
     });
   }
 
