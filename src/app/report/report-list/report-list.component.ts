@@ -13,30 +13,29 @@ export class ReportListComponent implements OnInit {
     columns: {
       id: {
         title: 'ID',
+        display: 'text',
         type: 'id'
       },
       name: {
         title: 'Name',
+        display: 'link',
         type: 'attribute',
         value: 'name'
       },
       createdAt: {
         title: 'Created At',
+        display: 'date',
         type: 'attribute',
         value: 'created_at'
       },
       updatedAt: {
-        name: 'updated_at',
         title: 'Updated At',
+        display: 'date',
         type: 'attribute',
         value: 'updated_at'
       }
     },
     display: [
-      {
-        name: 'id',
-        width: 50
-      },
       {
         name: 'name',
         width: 300

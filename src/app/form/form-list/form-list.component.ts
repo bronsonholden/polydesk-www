@@ -13,6 +13,7 @@ export class FormListComponent implements OnInit {
     columns: {
       id: {
         title: 'ID',
+        display: 'text',
         type: 'id'
       },
       name: {
