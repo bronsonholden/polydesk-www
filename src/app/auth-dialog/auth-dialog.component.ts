@@ -28,12 +28,12 @@ export class AuthDialogComponent {
   }
 
   logIn(e) {
-    this.tokenService.signIn(e).subscribe(result => {
+    this.tokenService.signIn(e).subscribe(res => {
       this.dialogRef.close();
       // Redirect to dashboard for default account
       // IMPORTANT: If user doesn't have a default account set (e.g. deleted),
       // this will break.
-      this.router.navigateByUrl(`${result.json().data.attributes.default_account}/dashboard`);
+      this.router.navigateByUrl(`${res.body.data.attributes.default_account}/dashboard`);
     }, result => {
       this.snackBar.open(result.json().errors[0], 'OK', {
         duration: 3000

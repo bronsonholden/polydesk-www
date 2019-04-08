@@ -22,8 +22,9 @@ export class TopbarActionsComponent {
   }
 
   logOut() {
-    this.tokenService.signOut();
-    this.router.navigateByUrl('/');
+    this.tokenService.signOut().subscribe(res => {
+      this.router.navigateByUrl('/');
+    });
   }
 
 }
