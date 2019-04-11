@@ -116,8 +116,14 @@ export class FormContainerComponent implements OnInit {
     }
 
     for (let i = 0; i < section.fields.length; i += cols) {
+      let fields = section.fields.slice(i, i + cols);
+
+      while (fields.length < cols) {
+        fields.push('');
+      }
+
       rows.push({
-        fields: section.fields.slice(i, i + cols)
+        fields: fields
       });
     }
 

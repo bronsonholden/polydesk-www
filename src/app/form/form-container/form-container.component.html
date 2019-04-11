@@ -11,10 +11,13 @@
           [fxLayoutGap]="section.spacing + 'px'"
           fxLayoutAlign="space-after">
         <div *ngFor="let field of section.fields" [fxFlex]="getFlexWidth(section)">
-          <app-form-widget
-            [options]="widgetOptions(field, i)"
-            (valueChange)="setFieldValue(getFieldName(field, i), $event)">
-          </app-form-widget>
+          <div>
+            <app-form-widget
+              *ngIf="field !== ''"
+              [options]="widgetOptions(field, i)"
+              (valueChange)="setFieldValue(getFieldName(field, i), $event)">
+            </app-form-widget>
+          </div>
         </div>
       </div>
     </div>
@@ -25,10 +28,13 @@
           fxLayoutAlign="space-after"
           *ngFor="let row of getRows(section); trackBy: trackByFn">
         <div *ngFor="let field of row.fields" [fxFlex]="getFlexWidth(section)">
-          <app-form-widget
-            [options]="widgetOptions(field)"
-            (valueChange)="setFieldValue(getFieldName(field), $event)">
-          </app-form-widget>
+          <div>
+            <app-form-widget
+              *ngIf="field !== ''"
+              [options]="widgetOptions(field)"
+              (valueChange)="setFieldValue(getFieldName(field), $event)">
+            </app-form-widget>
+          </div>
         </div>
       </div>
     </div>

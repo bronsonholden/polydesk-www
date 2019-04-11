@@ -13,7 +13,7 @@ export class FormSubmissionComponent implements OnInit {
       {
         direction: 'row',
         columns: 4,
-        spacing: 0,
+        spacing: 20,
         fields: [
           'firstName',
           'lastName'
@@ -22,7 +22,7 @@ export class FormSubmissionComponent implements OnInit {
       {
         direction: 'row',
         columns: 2,
-        spacing: 0,
+        spacing: 20,
         fields: [
           'shoppingList',
           'toDoList'
@@ -36,7 +36,7 @@ export class FormSubmissionComponent implements OnInit {
             {
               direction: 'row',
               columns: 4,
-              spacing: 0,
+              spacing: 20,
               fields: [
                 'firstName',
                 'lastName'
@@ -44,7 +44,7 @@ export class FormSubmissionComponent implements OnInit {
             },
             {
               direction: 'row',
-              spacing: 0,
+              spacing: 20,
               action: 'addSet'
             }
           ]
@@ -58,7 +58,7 @@ export class FormSubmissionComponent implements OnInit {
             {
               direction: 'row',
               columns: 4,
-              spacing: 0,
+              spacing: 20,
               fields: [
                 'street1'
               ]
@@ -66,7 +66,7 @@ export class FormSubmissionComponent implements OnInit {
             {
               direction: 'row',
               columns: 4,
-              spacing: 0,
+              spacing: 20,
               fields: [
                 'street2'
               ]
