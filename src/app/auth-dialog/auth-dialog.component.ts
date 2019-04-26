@@ -35,7 +35,7 @@ export class AuthDialogComponent {
       // this will break.
       this.router.navigateByUrl(`${res.body.data.attributes.default_account}/dashboard`);
     }, result => {
-      this.snackBar.open(result.json().errors[0], 'OK', {
+      this.snackBar.open(result.error.errors[0], 'OK', {
         duration: 3000
       });
     });
@@ -45,7 +45,7 @@ export class AuthDialogComponent {
     this.tokenService.registerAccount(e).subscribe(result => {
       this.dialogRef.close();
     }, result => {
-      this.snackBar.open(result.json().errors[0], 'OK', {
+      this.snackBar.open(result.error.errors[0], 'OK', {
         duration: 3000
       });
     });
