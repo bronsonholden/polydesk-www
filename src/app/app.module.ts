@@ -64,6 +64,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
 import { DataTableCellComponent } from './data-table/data-table-cell/data-table-cell.component';
 import { DataTableDialogComponent } from './data-table/data-table-dialog/data-table-dialog.component';
+import { ConfirmationsComponent } from './confirmations/confirmations.component';
 
 const routes: Routes = [
   {
@@ -160,7 +161,8 @@ const routes: Routes = [
     DataTableComponent,
     DocumentDataTableComponent,
     DataTableCellComponent,
-    DataTableDialogComponent
+    DataTableDialogComponent,
+    ConfirmationsComponent
   ],
   entryComponents: [
     AuthDialogComponent,
