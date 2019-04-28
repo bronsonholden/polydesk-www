@@ -26,8 +26,14 @@
         <button type="submit" mat-raised-button>Submit</button>
       </div>
     </div>
-    <div *ngIf="confirmationSuccess" fxFlex="180px" fxLayout="column">
-      Confirmation success!
+    <div *ngIf="confirmationSuccess" fxFlex="600px" fxLayout="column">
+      <div class="mat-display-2">
+        Success!
+      </div>
+      <div class="mat-body-1">
+        Your account has been confirmed. Please click the button above to
+        log in to Polydesk.
+      </div>
     </div>
   </div>
 </form>

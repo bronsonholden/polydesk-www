@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
 export class ConfirmationsComponent implements OnInit {
 
   private confirmationToken: string;
-  private allowConfirm = false;
+  private allowSelectPassword = false;
   public confirmationSuccess = false;
 
   private data = {
@@ -30,11 +30,11 @@ export class ConfirmationsComponent implements OnInit {
 
     this.confirmationToken = this.route.snapshot.params['confirmationToken'];
 
-    this.http.get(`${base}/confirmations/${this.confirmationToken}`).subscribe(result => {
+    this.http.get(`${base}/confirmations/${this.confirmationToken}`).subscribe((result: any) => {
       this.allowSelectPassword = result.data.attributes.password_required;
 
       if (!this.allowSelectPassword) {
-        this.submitConfirmation();
+        this.submitConfirmation(null);
       }
     }, result => {
       for (let error of result.error.errors) {
