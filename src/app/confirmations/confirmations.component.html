@@ -1,9 +1,9 @@
 <br>
-<form (ngSubmit)="submitPassword()">
+<form (ngSubmit)="selectPassword()">
   <div
       fxLayout="row"
       fxLayoutAlign="space-around">
-    <div fxFlex="180px" fxLayout="column">
+    <div *ngIf="!confirmationSuccess" fxFlex="180px" fxLayout="column">
       <div>
         <mat-form-field>
           <input matInput
@@ -25,6 +25,9 @@
       <div>
         <button type="submit" mat-raised-button>Submit</button>
       </div>
+    </div>
+    <div *ngIf="confirmationSuccess" fxFlex="180px" fxLayout="column">
+      Confirmation success!
     </div>
   </div>
 </form>

@@ -11,6 +11,10 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ConfirmationsComponent implements OnInit {
 
+  private confirmationToken: string;
+  private allowConfirm = false;
+  public confirmationSuccess = false;
+
   private data = {
     password: '',
     passwordConfirmation: ''
@@ -22,24 +26,43 @@ export class ConfirmationsComponent implements OnInit {
               private http: HttpClient) { }
 
   ngOnInit() {
-    this.confirmationToken = this.route.snapshot.params['confirmationToken'];
-  }
-
-  submitPassword() {
     const base = this.tokenService.tokenOptions.apiBase;
-    const token = this.confirmationToken;
 
-    this.http.post(`${base}/confirmations/${token}`, {
-      password: this.data.password,
-      password_confirmation: this.data.passwordConfirmation
-    }).subscribe(result => {}, result => {
+    this.confirmationToken = this.route.snapshot.params['confirmationToken'];
+
+    this.http.get(`${base}/confirmations/${this.confirmationToken}`).subscribe(result => {
+      this.allowSelectPassword = result.data.attributes.password_required;
+
+      if (!this.allowSelectPassword) {
+        this.submitConfirmation();
+      }
+    }, result => {
       for (let error of result.error.errors) {
-        console.log(error);
         this.snackBar.open(error.title, 'OK', {
           duration: 5000
         });
       }
-    })
+    });
   }
 
+  selectPassword() {
+    if (this.allowSelectPassword) {
+      this.submitConfirmation(this.data);
+    }
+  }
+
+  submitConfirmation(credentials: any) {
+    const base = this.tokenService.tokenOptions.apiBase;
+    const token = this.confirmationToken;
+
+    this.http.post(`${base}/confirmations/${token}`, credentials).subscribe(result => {
+      this.confirmationSuccess = true;
+    }, result => {
+      for (let error of result.error.errors) {
+        this.snackBar.open(error.title, 'OK', {
+          duration: 5000
+        });
+      }
+    });
+  }
 }
