@@ -68,6 +68,10 @@ import { ConfirmationsComponent } from './confirmations/confirmations.component'
 
 const routes: Routes = [
   {
+    path: 'confirmations/:confirmationToken',
+    component: ConfirmationsComponent
+  },
+  {
     path: ':account',
     component: HomePageComponent,
     children: [
