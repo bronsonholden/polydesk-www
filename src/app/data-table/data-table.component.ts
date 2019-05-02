@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
@@ -30,17 +31,20 @@ export class DataTableComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
-              private tokenService: AngularTokenService) {
+              private tokenService: AngularTokenService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    let accountIdentifier = this.route.snapshot.root.children[0].params.account;
+
     this.displayedColumns = this.data.display.map(column => column.name);
 
     if (this.data.selectable) {
       this.displayedColumns.unshift('select');
     }
 
-    this.http.get(`${this.tokenService.tokenOptions.apiBase}/test/${this.data.resource}`).subscribe((json: any) => {
+    this.http.get(`${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/${this.data.resource}`).subscribe((json: any) => {
       this.dataTableElements = new MatTableDataSource<DataTableElement>(json.data.map(element => new DataTableElement(element)));
     }, (json: any) => {
       json.errors.forEach(err => {
