@@ -65,6 +65,10 @@ export class FolderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
+
       let accountIdentifier = this.route.snapshot.parent.parent.params.account;
       let folderId = this.route.snapshot.params.folder;
       let path;
@@ -79,8 +83,8 @@ export class FolderComponent implements OnInit {
         name: result
       }).subscribe(res => {
         this.loadFolderContents();
-      }, (json: any) => {
-        json.errors.forEach(err => {
+      }, (result: any) => {
+        result.error.errors.forEach(err => {
           this.snackBar.open(err.title, 'OK', {
             duration: 3000
           });

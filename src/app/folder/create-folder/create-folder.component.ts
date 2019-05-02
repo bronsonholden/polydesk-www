@@ -18,4 +18,8 @@ export class CreateFolderComponent implements OnInit {
   ngOnInit() {
   }
 
+  submitNewFolder() {
+    this.dialogRef.close(this.data.name);
+  }
+
 }
