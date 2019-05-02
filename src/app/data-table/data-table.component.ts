@@ -54,26 +54,23 @@ export class DataTableComponent implements OnInit {
       });
     });
 
-    this.setUpColumnSizes()
+    this.setUpColumnSizes();
   }
 
   setUpColumnSizes() {
+    const numColumns = this.data.display.length;
     let el = this.dataTableContainer.nativeElement;
     let scrollbarEl = this.hiddenScrollable.nativeElement;
     // Scrollbar width
     let scrollbarWidth = (scrollbarEl.offsetWidth - scrollbarEl.clientWidth);
     // Total available width (minus select column which is 56px)
     let width = el.offsetWidth - 56 - scrollbarWidth;
-    // Number of columns
-    let columns = 0;
     // Portion of available width explicitly portioned to columns
     let occupied = 0;
     // Number of filler columns
     let fillers = 0;
 
     for (let col of this.data.display) {
-      columns += 1;
-
       let w = col.width || 0;
 
       if (w > 0) {
@@ -85,7 +82,7 @@ export class DataTableComponent implements OnInit {
 
     // If we can't fit all available columns, just portion evenly
     if (occupied > width || (occupied === width && fillers > 0)) {
-      let assignedWidth = Math.floor(width / columns);
+      let assignedWidth = Math.floor(width / numColumns);
 
       for (let col of this.data.display) {
         col.width = assignedWidth;
@@ -94,18 +91,18 @@ export class DataTableComponent implements OnInit {
       // Add remaining width to first column
       let first = this.data.display[0];
 
-      first.width += width - (assignedWidth * columns);
+      first.width += width - (assignedWidth * numColumns);
     } else if (fillers > 0) {
       let fillerWidth = Math.floor((width - occupied) / fillers);
       let firstFiller;
 
+      // Find first filler column
       for (let col of this.data.display) {
+        // Unspecified width means a filler
         if ((col.width || 0) === 0) {
-          if (!firstFiller) {
-            firstFiller = col;
-          }
-
+          firstFiller = col;
           col.width = fillerWidth;
+          break;
         }
       }
 
