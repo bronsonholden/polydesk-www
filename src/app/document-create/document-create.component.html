@@ -1,0 +1,4 @@
+<form (ngSubmit)="uploadFiles()">
+  <input type="file" id="fileList" name="fileList" (change)="selectFiles($event)" multiple="multiple">
+  <button type="submit">Upload</button>
+</form>

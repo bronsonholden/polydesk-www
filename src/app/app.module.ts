@@ -65,6 +65,7 @@ import { DocumentDataTableComponent } from './document-data-table/document-data-
 import { DataTableCellComponent } from './data-table/data-table-cell/data-table-cell.component';
 import { DataTableDialogComponent } from './data-table/data-table-dialog/data-table-dialog.component';
 import { ConfirmationsComponent } from './confirmations/confirmations.component';
+import { DocumentCreateComponent } from './document-create/document-create.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,10 @@ const routes: Routes = [
       {
         path: 'reports',
         component: ReportListComponent
+      },
+      {
+        path: 'documents/upload',
+        component: DocumentCreateComponent
       },
       {
         path: 'documents/:id',
@@ -166,7 +171,8 @@ const routes: Routes = [
     DocumentDataTableComponent,
     DataTableCellComponent,
     DataTableDialogComponent,
-    ConfirmationsComponent
+    ConfirmationsComponent,
+    DocumentCreateComponent
   ],
   entryComponents: [
     AuthDialogComponent,
