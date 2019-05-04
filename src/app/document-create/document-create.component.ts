@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +15,8 @@ export class FileUpload {
 })
 export class DocumentCreateComponent implements OnInit {
 
-  files: Array<FileUpload> = [];
+  @ViewChild('fileUploader') fileUploader: ElementRef;
+  public selectedFiles: Array<FileUpload> = [];
 
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
@@ -24,13 +25,21 @@ export class DocumentCreateComponent implements OnInit {
   ngOnInit() {
   }
 
+  openSelectFiles() {
+    this.fileUploader.nativeElement.click();
+  }
+
+  clearFiles() {
+    this.selectedFiles = [];
+  }
+
   selectFiles(event) {
-    this.files = [];
+    this.clearFiles();
 
     for (let i = 0; i < event.target.files.length; ++i) {
       let file = event.target.files[i];
 
-      this.files.push({
+      this.selectedFiles.push({
         data: file,
         progress: 0,
         name: file.name
@@ -42,7 +51,7 @@ export class DocumentCreateComponent implements OnInit {
     const base = this.tokenService.tokenOptions.apiBase;
     const accountIdentifier = this.route.snapshot.root.children[0].params.account;
 
-    let file = this.files[0];
+    let file = this.selectedFiles[0];
     let formData = new FormData();
 
     formData.append('content', file.data);

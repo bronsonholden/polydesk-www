@@ -1,4 +1,10 @@
-<form (ngSubmit)="uploadFiles()">
-  <input type="file" id="fileList" name="fileList" (change)="selectFiles($event)" multiple="multiple">
-  <button type="submit">Upload</button>
+<form>
+  <button type="button" mat-raised-button (click)="openSelectFiles()">Select Files</button>
+  <button type="button" mat-raised-button (click)="uploadFiles()">Upload All</button>
+  <input hidden type="file" #fileUploader name="fileUploader" (change)="selectFiles($event)" multiple="multiple">
 </form>
+<mat-list>
+  <mat-list-item *ngFor="let file of selectedFiles">
+    {{ file.name }}
+  </mat-list-item>
+</mat-list>
