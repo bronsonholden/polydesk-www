@@ -1,10 +1,20 @@
 <form>
   <button type="button" mat-raised-button (click)="openSelectFiles()">Select Files</button>
-  <button type="button" mat-raised-button (click)="uploadFiles()">Upload All</button>
+  <button type="button" mat-raised-button (click)="startUploads()">Upload All</button>
   <input hidden type="file" #fileUploader name="fileUploader" (change)="selectFiles($event)" multiple="multiple">
 </form>
 <mat-list>
-  <mat-list-item *ngFor="let file of selectedFiles">
-    {{ file.name }}
+  <mat-list-item *ngFor="let file of queuedFiles">
+    <div mat-list-avatar>
+      <button mat-icon-button>
+        <mat-icon svgIcon="dots-horizontal"></mat-icon>
+      </button>
+    </div>
+    <div mat-line>
+      {{ file.name }}
+    </div>
+    <div mat-line>
+      <mat-progress-bar mode="determinate" [value]="file.progress"></mat-progress-bar>
+    </div>
   </mat-list-item>
 </mat-list>
