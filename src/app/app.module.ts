@@ -30,6 +30,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
+  MatTooltipModule,
   MatTreeModule
 } from '@angular/material';
 
@@ -206,6 +207,7 @@ const routes: Routes = [
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatTreeModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),

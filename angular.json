@@ -34,6 +34,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/hammerjs/hammer.js",
               "node_modules/ace-builds/src-min/ace.js",
               "node_modules/ace-builds/src-min/theme-eclipse.js",
               "node_modules/ace-builds/src-min/mode-json.js",

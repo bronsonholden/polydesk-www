@@ -20,10 +20,26 @@ enum FileUploadStatus {
 };
 
 export class FileUpload {
-  name: string;
-  data: File;
-  progress: number;
-  status: FileUploadStatus;
+  constructor(public name: string,
+              public data: File,
+              public progress: number = 0,
+              public status: FileUploadStatus = FileUploadStatus.Queued,
+              public error: any = null) { }
+
+  get tooltip(): string {
+    if (!this.error) {
+      return null;
+    }
+
+    let additional = this.error.errors.slice(1).length;
+    let moreString = ''
+
+    if (additional > 0) {
+      moreString = ` (${additional} more error${additional > 1 ? 's' : ''})`;
+    }
+
+    return `${this.error.errors[0].title}${moreString}`;
+  }
 };
 
 @Component({
@@ -66,12 +82,7 @@ export class DocumentCreateComponent implements OnInit {
     for (let i = 0; i < event.target.files.length; ++i) {
       let file = event.target.files[i];
 
-      this.queuedFiles.push({
-        data: file,
-        progress: 0,
-        name: file.name,
-        status: FileUploadStatus.Queued
-      });
+      this.queuedFiles.push(new FileUpload(name, file));
     }
   }
 
@@ -140,12 +151,7 @@ export class DocumentCreateComponent implements OnInit {
       this.uploadFile(file).subscribe(result => {
         this.uploadNextFile();
       }, err => {
-        for (let error of err.error.errors) {
-          this.uploadNextFile();
-          this.snackBar.open(error.title, 'OK', {
-            duration: 5000
-          });
-        }
+        this.uploadNextFile();
       });
     } else {
       this.processQueue = false;
@@ -153,17 +159,12 @@ export class DocumentCreateComponent implements OnInit {
   }
 
   uploadSingleFile(file) {
-    this.uploadFile(file).subscribe(result => {
-    }, err => {
-      for (let error of err.error.errors) {
-        this.snackBar.open(error.title, 'OK', {
-          duration: 5000
-        });
-      }
-    });
+    this.uploadFile(file).subscribe();
   }
 
   uploadFile(file) {
+    file.error = null;
+
     return Observable.create(observer => {
       const base = this.tokenService.tokenOptions.apiBase;
       const accountIdentifier = this.route.snapshot.root.children[0].params.account;
@@ -187,6 +188,7 @@ export class DocumentCreateComponent implements OnInit {
         }
       }, err => {
         file.status = FileUploadStatus.Failure;
+        file.error = Object.assign({}, err.error);
         observer.error(err);
       });
     });
