@@ -17,7 +17,7 @@
         <mat-icon *ngSwitchCase="FileUploadStatus.Queued" svgIcon="sleep"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.Pending" svgIcon="clock-outline"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.InProcess" svgIcon="upload"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check" color="success"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.Failure"
                   matTooltipPosition="below"
                   [matTooltip]="file.tooltip"

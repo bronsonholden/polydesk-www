@@ -82,7 +82,7 @@ export class DocumentCreateComponent implements OnInit {
     for (let i = 0; i < event.target.files.length; ++i) {
       let file = event.target.files[i];
 
-      this.queuedFiles.push(new FileUpload(name, file));
+      this.queuedFiles.push(new FileUpload(file.name, file));
     }
   }
 
