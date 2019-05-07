@@ -4,10 +4,21 @@
   <input hidden type="file" #fileUploader name="fileUploader" (change)="selectFiles($event)" multiple="multiple">
 </form>
 <mat-list>
-  <mat-list-item *ngFor="let file of queuedFiles">
+  <mat-list-item *ngFor="let file of queuedFiles; let i = index">
     <div mat-list-avatar>
-      <button mat-icon-button>
-        <mat-icon svgIcon="dots-horizontal"></mat-icon>
+      <button [disabled]="!canManuallyUpload(i)"
+              mat-icon-button
+              (click)="uploadSingleFile(file)">
+        <mat-icon svgIcon="cloud-upload-outline"></mat-icon>
+      </button>
+    </div>
+    <div mat-list-avatar>
+      <button disabled mat-icon-button [ngSwitch]="file.status">
+        <mat-icon *ngSwitchCase="FileUploadStatus.Queued" svgIcon="sleep"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.Pending" svgIcon="clock-outline"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.InProcess" svgIcon="upload"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.Failure" svgIcon="close"></mat-icon>
       </button>
     </div>
     <div mat-line>

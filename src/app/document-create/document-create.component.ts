@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material'
+import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
 
 export class FileUpload {
@@ -11,9 +13,15 @@ export class FileUpload {
 };
 
 enum FileUploadStatus {
-  Pending = 1,
+  // File has been selected for upload
+  Queued = 1,
+  // File is pending upload
+  Pending,
+  // File is currently being uploaded
   InProgress,
+  // File upload has succeeded
   Success,
+  // File upload has failed
   Failure
 };
 
@@ -24,6 +32,8 @@ enum FileUploadStatus {
 })
 export class DocumentCreateComponent implements OnInit {
 
+  FileUploadStatus = FileUploadStatus
+
   @ViewChild('fileUploader') fileUploader: ElementRef;
   public queuedFiles: Array<FileUpload> = [];
   public processQueue = false;
@@ -31,13 +41,17 @@ export class DocumentCreateComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
-              private tokenService: AngularTokenService) { }
+              private tokenService: AngularTokenService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
   openSelectFiles() {
-    this.fileUploader.nativeElement.click();
+    // Don't allow selection of new files while uploading
+    if (this.processQueue == false) {
+      this.fileUploader.nativeElement.click();
+    }
   }
 
   clearFiles() {
@@ -55,7 +69,7 @@ export class DocumentCreateComponent implements OnInit {
         data: file,
         progress: 0,
         name: file.name,
-        status: FileUploadStatus.Pending
+        status: FileUploadStatus.Queued
       });
     }
   }
@@ -69,54 +83,111 @@ export class DocumentCreateComponent implements OnInit {
 
     this.uploadingIndex += 1;
 
-    return file;
+    if (file.status == FileUploadStatus.Pending) {
+      return file;
+    } else {
+      return this.getNextFile();
+    }
   }
 
+  // Check if the file at queue index can be uploaded manually
+  canManuallyUpload(i) {
+    let file = this.queuedFiles[i];
+
+    // Can only upload files that have failed and aren't currently pending upload.
+    if (file.status != FileUploadStatus.Queued && file.status != FileUploadStatus.Failure) {
+      return false;
+    }
+
+    if (this.processQueue) {
+      return this.uploadingIndex <= i;
+    }
+
+    return true;
+  }
+
+  // Start uploading all queued files.
   startUploads() {
+    if (this.processQueue) {
+      return;
+    }
+
     this.processQueue = true;
     this.uploadingIndex = 0;
+
+    // Mark all files as pending
+    for (let file of this.queuedFiles) {
+      file.status = FileUploadStatus.Pending;
+    }
 
     this.uploadNextFile();
   }
 
+  // Stop processing the queue. The current upload will complete, after
+  // which uploads will cease.
   stopUploads() {
     this.processQueue = false;
   }
 
+  // Upload the next file in the queue that is pending upload.
   uploadNextFile() {
     let file = this.getNextFile();
 
     if (file) {
       file.status = FileUploadStatus.InProgress;
 
-      this.uploadFile(file).subscribe(event => {
+      this.uploadFile(file).subscribe(result => {
+        this.uploadNextFile();
+      }, err => {
+        for (let error of err.error.errors) {
+          this.uploadNextFile();
+          this.snackBar.open(error.title, 'OK', {
+            duration: 5000
+          });
+        }
+      });
+    } else {
+      this.processQueue = false;
+    }
+  }
+
+  uploadSingleFile(file) {
+    this.uploadFile(file).subscribe(result => {
+    }, err => {
+      for (let error of err.error.errors) {
+        this.snackBar.open(error.title, 'OK', {
+          duration: 5000
+        });
+      }
+    });
+  }
+
+  uploadFile(file) {
+    return Observable.create(observer => {
+      const base = this.tokenService.tokenOptions.apiBase;
+      const accountIdentifier = this.route.snapshot.root.children[0].params.account;
+
+      let formData = new FormData();
+
+      formData.append('content', file.data);
+      formData.append('name', file.name);
+
+      return this.httpClient.post(`${base}/${accountIdentifier}/documents`, formData, {
+        reportProgress: true,
+        observe: 'events'
+      }).subscribe(event => {
         if (event.type == HttpEventType.UploadProgress) {
           let progress = Math.round(100 * event.loaded / event.total);
           file.progress = progress;
         } else if (event instanceof HttpResponse) {
-          console.log(event);
           file.status = FileUploadStatus.Success;
-          this.uploadNextFile();
+          observer.next(event);
+          observer.complete();
         }
-      }, result => {
-        console.log(result);
+      }, err => {
         file.status = FileUploadStatus.Failure;
+        observer.error(err);
       });
-    }
-  }
-
-  uploadFile(file) {
-    const base = this.tokenService.tokenOptions.apiBase;
-    const accountIdentifier = this.route.snapshot.root.children[0].params.account;
-
-    let formData = new FormData();
-
-    formData.append('content', file.data);
-    formData.append('name', file.name);
-
-    return this.httpClient.post(`${base}/${accountIdentifier}/documents`, formData, {
-      reportProgress: true,
-      observe: 'events'
     });
   }
 
