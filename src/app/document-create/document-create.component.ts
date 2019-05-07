@@ -1,16 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material'
 import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
-
-export class FileUpload {
-  data: File;
-  progress: number;
-  status: string;
-};
 
 enum FileUploadStatus {
   // File has been selected for upload
@@ -23,6 +17,13 @@ enum FileUploadStatus {
   Success,
   // File upload has failed
   Failure
+};
+
+export class FileUpload {
+  name: string;
+  data: File;
+  progress: number;
+  status: FileUploadStatus;
 };
 
 @Component({
