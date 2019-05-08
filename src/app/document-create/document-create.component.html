@@ -16,7 +16,7 @@
       <button disableRipple mat-icon-button [ngSwitch]="file.status">
         <mat-icon *ngSwitchCase="FileUploadStatus.Queued" svgIcon="sleep"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.Pending" svgIcon="clock-outline"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.InProcess" svgIcon="upload"></mat-icon>
+        <mat-icon *ngSwitchCase="FileUploadStatus.InProgress" svgIcon="upload"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check" color="success"></mat-icon>
         <mat-icon *ngSwitchCase="FileUploadStatus.Failure"
                   matTooltipPosition="below"

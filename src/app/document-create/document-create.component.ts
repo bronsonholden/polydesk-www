@@ -146,8 +146,6 @@ export class DocumentCreateComponent implements OnInit {
     let file = this.getNextFile();
 
     if (file) {
-      file.status = FileUploadStatus.InProgress;
-
       this.uploadFile(file).subscribe(result => {
         this.uploadNextFile();
       }, err => {
@@ -163,9 +161,10 @@ export class DocumentCreateComponent implements OnInit {
   }
 
   uploadFile(file) {
-    file.error = null;
-
     return Observable.create(observer => {
+      file.error = null;
+      file.status = FileUploadStatus.InProgress;
+
       const base = this.tokenService.tokenOptions.apiBase;
       const accountIdentifier = this.route.snapshot.root.children[0].params.account;
 
