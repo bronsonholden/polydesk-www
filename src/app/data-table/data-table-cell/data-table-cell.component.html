@@ -18,6 +18,11 @@
   {{ value }}
 </div>
 
+<!-- Switch -->
+<div *ngIf="columnDisplay === 'switch'">
+  <app-data-table-cell [data]="data" [row]="row" [column]="value"></app-data-table-cell>
+</div>
+
 <!-- Icon -->
 <mat-icon *ngIf="columnDisplay === 'icon'" class="document-list-icon" [svgIcon]="value"></mat-icon>
 

@@ -41,15 +41,79 @@ export class ContentElement {
 })
 export class FolderComponent implements OnInit {
 
-  data: ContentElement[] = [];
-  documentList: MatTableDataSource<ContentElement>;
-  selection = new SelectionModel<ContentElement>(true, []);
-
-  displayedColumns = [
-    'select',
-    'icon',
-    'name'
-  ];
+  data = {
+    resource: 'content',
+    selectable: true,
+    columns: {
+      id: {
+        title: 'ID',
+        display: 'text',
+        type: 'id'
+      },
+      type: {
+        title: 'Type',
+        display: 'switch',
+        type: 'type',
+        case: {
+          folder: {
+            display: 'icon',
+            type: 'literal',
+            value: 'folder-outline'
+          },
+          document: {
+            display: 'switch',
+            type: 'attribute',
+            value: 'content_type',
+            case: {
+              'application/pdf': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-pdf-outline'
+              }
+            },
+            default: {
+              display: 'icon',
+              type: 'literal',
+              value: 'file-outline'
+            }
+          }
+        }
+      },
+      name: {
+        title: 'Name',
+        display: 'link',
+        type: 'attribute',
+        value: 'name'
+      },
+      createdAt: {
+        title: 'Created At',
+        display: 'date',
+        format: 'MM/DD/YYYY hh:mm A',
+        type: 'attribute',
+        value: 'created_at'
+      },
+      updatedAt: {
+        title: 'Updated At',
+        display: 'date',
+        format: 'MM/DD/YYYY hh:mm A',
+        type: 'attribute',
+        value: 'updated_at'
+      }
+    },
+    display: [
+      {
+        name: 'type',
+        width: 40
+      },
+      {
+        name: 'name'
+      },
+      {
+        name: 'createdAt',
+        width: 150
+      }
+    ]
+  }
 
   constructor(private http: HttpClient,
               private tokenService: AngularTokenService,
@@ -101,49 +165,7 @@ export class FolderComponent implements OnInit {
     }
   }
 
-  loadFolderContents() {
-    this.data = [];
-
-    let accountIdentifier = this.route.snapshot.parent.parent.params.account;
-    let folderId = this.route.snapshot.params.folder;
-    let foldersRequestPath;
-    let documentsRequestPath;
-
-    if (folderId) {
-      foldersRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/folders`;
-      documentsRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/documents`;
-    } else {
-      foldersRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders?root=true`;
-      documentsRequestPath = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/documents?root=true`;
-    }
-
-    let folderSource = this.http.get(foldersRequestPath);
-    let documentSource = this.http.get(documentsRequestPath);
-    let source = folderSource.pipe(concat(documentSource));
-
-    source.subscribe((json: any) => {
-      this.data = this.data.concat(json.data.map(element => new ContentElement(element.id, element.attributes.name, element.type, element.attributes.content_type)));
-      this.documentList = new MatTableDataSource<ContentElement>(this.data);
-    });
-  }
-
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.loadFolderContents();
-    });
-  }
-
-  /* Check if all rows in the document list are selected */
-  isAllSelected() {
-    return this.selection.selected.length === this.documentList.data.length;
-  }
-
-  selectAll() {
-    this.documentList.data.forEach(row => this.selection.select(row));
-  }
-
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.selectAll();
   }
 
 }

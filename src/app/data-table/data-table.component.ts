@@ -46,6 +46,7 @@ export class DataTableComponent implements OnInit {
 
     this.http.get(`${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/${this.data.resource}`).subscribe((json: any) => {
       this.dataTableElements = new MatTableDataSource<DataTableElement>(json.data.map(element => new DataTableElement(element)));
+      this.setUpColumnSizes();
     }, (json: any) => {
       json.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
@@ -53,8 +54,6 @@ export class DataTableComponent implements OnInit {
         });
       });
     });
-
-    this.setUpColumnSizes();
   }
 
   setUpColumnSizes() {
@@ -122,6 +121,10 @@ export class DataTableComponent implements OnInit {
 
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : this.selectAll();
+  }
+
+  columnInfo(column) {
+    return this.data.columns[column.name];
   }
 
 }

@@ -19,26 +19,39 @@ export class DataTableCellComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   get value(): any {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
     let val = this.raw;
 
     switch (this.columnDisplay) {
       case 'date':
         val = moment(val).format(columnInfo.format || 'MM/DD/YYYY');
         break;
+      case 'switch':
+        val = columnInfo.case[val];
+        break;
       default:
         ;
+    }
+
+    if (typeof val === 'undefined') {
+      if (typeof columnInfo.default !== 'undefined') {
+        val = columnInfo.default;
+      } else {
+        val = { type: 'literal', value: '', display: 'text' };
+      }
     }
 
     return val;
   }
 
   get raw(): any {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
 
     switch (columnInfo.type) {
       case 'id':
         return this.row.data.id;
+      case 'type':
+        return this.row.data.type;
       case 'attribute':
         return this.row.data.attributes[columnInfo.value];
       case 'literal':
@@ -61,15 +74,15 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get columnDisplay() {
-    return this.data.columns[this.column.name].display;
+    return this.column.display;
   }
 
   showLink(column): boolean {
-    return this.data.columns[column.name].link;
+    return this.column.link;
   }
 
   openRelationshipDialog() {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
     let data: any = {};
 
     Object.assign(data, columnInfo.view);
