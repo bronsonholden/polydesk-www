@@ -8,11 +8,14 @@ import { DataTableComponent } from '../../data-table/data-table.component';
   templateUrl: './folder-select-folders.component.html',
   styleUrls: ['./folder-select-folders.component.scss']
 })
+// TODO: Better name for this and FolderSelect components...
 export class FolderSelectFoldersComponent implements OnInit {
 
   data = {
     resource: 'content',
     selectable: true,
+    // TODO: Move this out of data config, make an input for the DataTable
+    // component instead.
     outlet: 'select-dialog-outlet',
     columns: {
       id: {
@@ -88,8 +91,8 @@ export class FolderSelectFoldersComponent implements OnInit {
 
   @ViewChild('selectFolderDataTable') selectFolderDataTable: DataTableComponent;
 
-  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  constructor(public dialogRef: MatDialogRef<FolderSelectFoldersComponent>,
+              @Inject(MAT_DIALOG_DATA) public dialogData: any,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
