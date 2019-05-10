@@ -86,6 +86,7 @@ export class FolderComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
+        pathPrefix: '..',
         type: 'attribute',
         value: 'name'
       },
@@ -145,8 +146,6 @@ export class FolderComponent implements OnInit {
     });
 
     dialogRef.afterOpened().subscribe(result => {
-      window.dispatchEvent(new Event('resize'));
-
       this.router.navigate([
         {
           outlets: {

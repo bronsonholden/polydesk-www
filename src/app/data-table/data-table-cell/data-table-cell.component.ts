@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
 import * as Url from 'url';
@@ -65,7 +66,11 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get selfLink(): string {
-    return this.row.id;
+    if (this.column.pathPrefix) {
+      return `${this.column.pathPrefix}/${this.row.id}`;
+    } else {
+      return this.row.id;
+    }
   }
 
   getRouterLink() {
