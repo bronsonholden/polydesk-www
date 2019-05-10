@@ -1,5 +1,5 @@
 <!-- Link -->
-<a class="primary-color mat-body-2" [routerLink]="selfLink" *ngIf="columnDisplay === 'link'">
+<a class="primary-color mat-body-2" [routerLink]="getRouterLink()" [state]="{ outlet: 'select-dialog-outlet' }" skipLocationChange *ngIf="columnDisplay === 'link'">
   {{ value }}
 </a>
 
@@ -21,7 +21,7 @@
 <!-- Switch -->
 <div *ngIf="columnDisplay === 'switch'">
   <!-- {{ row._source | json }} -->
-  <app-data-table-cell [row]="row" [column]="value"></app-data-table-cell>
+  <app-data-table-cell [data]="data" [row]="row" [column]="value"></app-data-table-cell>
 </div>
 
 <!-- Icon -->

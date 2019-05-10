@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { AngularTokenService } from 'angular-token';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { concat } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
 import { DataTableComponent } from '../data-table/data-table.component';
+import { FolderSelectComponent } from './folder-select/folder-select.component';
 
 export class ContentElement {
   constructor(public id: number,
@@ -123,7 +124,39 @@ export class FolderComponent implements OnInit {
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
+  }
+
+  openSelectFolderDialog() {
+    const dialogRef = this.dialog.open(FolderSelectComponent, {
+      width: '800px',
+      height: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': null
+          }
+        }
+      ]);
+    });
+
+    dialogRef.afterOpened().subscribe(result => {
+      window.dispatchEvent(new Event('resize'));
+
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': ['0']
+          }
+        }
+      ], {
+        skipLocationChange: true
+      });
+    });
   }
 
   openCreateFolderDialog() {

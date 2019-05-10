@@ -69,6 +69,8 @@ import { DataTableCellComponent } from './data-table/data-table-cell/data-table-
 import { DataTableDialogComponent } from './data-table/data-table-dialog/data-table-dialog.component';
 import { ConfirmationsComponent } from './confirmations/confirmations.component';
 import { DocumentCreateComponent } from './document-create/document-create.component';
+import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
+import { FolderSelectFoldersComponent } from './folder/folder-select-folders/folder-select-folders.component';
 
 const routes: Routes = [
   {
@@ -139,6 +141,11 @@ const routes: Routes = [
         ]
       }
     ]
+  },
+  {
+    path: ':id',
+    component: FolderSelectFoldersComponent,
+    outlet: 'select-dialog-outlet'
   }
 ];
 
@@ -175,12 +182,15 @@ const routes: Routes = [
     DataTableCellComponent,
     DataTableDialogComponent,
     ConfirmationsComponent,
-    DocumentCreateComponent
+    DocumentCreateComponent,
+    FolderSelectComponent,
+    FolderSelectFoldersComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     CreateFolderComponent,
     DataTableDialogComponent,
+    FolderSelectComponent,
     TopbarActionsComponent,
     TextWidgetComponent
   ],

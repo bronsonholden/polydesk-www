@@ -12,6 +12,7 @@ import * as moment from 'moment';
 })
 export class DataTableCellComponent implements OnInit {
 
+  @Input() data: any;
   @Input() row: any;
   @Input() column: any;
 
@@ -64,9 +65,19 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get selfLink(): string {
-    let url = Url.parse(this.row.links.self);
+    return this.row.id;
+  }
 
-    return url.pathname;
+  getRouterLink() {
+    let outlets = {};
+
+    if (typeof this.data.outlet !== 'undefined') {
+      outlets[this.data.outlet] = this.selfLink;
+      return [ '', { outlets: outlets } ];
+    } else {
+      outlets[this.data.outlet] = null;
+      return [ this.selfLink, { outlets: outlets } ];
+    }
   }
 
   ngOnInit() {
