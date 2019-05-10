@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "@mdi/angular-material": "^3.5.95",
+    "@swimlane/ngx-datatable": "^14.0.0",
     "ace-builds": "^1.4.3",
     "ajv": "^6.10.0",
     "angular-token": "^7.0.1",

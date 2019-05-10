@@ -14,7 +14,6 @@ export class DataTableCellComponent implements OnInit {
 
   @Input() row: any;
   @Input() column: any;
-  @Input() data: any;
 
   constructor(public dialog: MatDialog) { }
 
@@ -49,15 +48,15 @@ export class DataTableCellComponent implements OnInit {
 
     switch (columnInfo.type) {
       case 'id':
-        return this.row.data.id;
+        return this.row.id;
       case 'type':
-        return this.row.data.type;
+        return this.row.type;
       case 'attribute':
-        return this.row.data.attributes[columnInfo.value];
+        return this.row.attributes[columnInfo.value];
       case 'literal':
         return columnInfo.value;
       case 'relationship':
-        let path = Url.parse(this.row.data.relationships[columnInfo.model].links.related).pathname;
+        let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
         return path.split('/').slice(2).join('/');
       default:
         return '';
@@ -65,7 +64,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get selfLink(): string {
-    let url = Url.parse(this.row.data.links.self);
+    let url = Url.parse(this.row.links.self);
 
     return url.pathname;
   }

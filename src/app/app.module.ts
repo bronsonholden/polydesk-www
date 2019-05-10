@@ -10,6 +10,7 @@ import { AngularTokenService, AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // Import Material components
 import {
@@ -87,7 +88,7 @@ const routes: Routes = [
         component: DocumentDataTableComponent
       },
       {
-        path: 'documents',
+        path: 'folders',
         component: DocumentBrowserComponent,
         children: [
           {
@@ -95,7 +96,7 @@ const routes: Routes = [
             component: FolderComponent
           },
           {
-            path: 'folder/:folder',
+            path: ':folder',
             component: FolderComponent
           }
         ]
@@ -209,6 +210,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    NgxDatatableModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     RouterTabModule

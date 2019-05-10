@@ -20,7 +20,8 @@
 
 <!-- Switch -->
 <div *ngIf="columnDisplay === 'switch'">
-  <app-data-table-cell [data]="data" [row]="row" [column]="value"></app-data-table-cell>
+  <!-- {{ row._source | json }} -->
+  <app-data-table-cell [row]="row" [column]="value"></app-data-table-cell>
 </div>
 
 <!-- Icon -->

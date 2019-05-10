@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
@@ -6,6 +6,7 @@ import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
+import { DataTableComponent } from '../data-table/data-table.component';
 
 export class ContentElement {
   constructor(public id: number,
@@ -40,6 +41,8 @@ export class ContentElement {
   styleUrls: ['./folder.component.scss']
 })
 export class FolderComponent implements OnInit {
+
+  @ViewChild('folderDataTable') folderDataTable: DataTableComponent;
 
   data = {
     resource: 'content',
@@ -103,23 +106,25 @@ export class FolderComponent implements OnInit {
     display: [
       {
         name: 'type',
-        width: 40
+        minWidth: 60,
+        maxWidth: 60,
+        resizeable: false
       },
       {
         name: 'name'
       },
       {
-        name: 'createdAt',
-        width: 150
+        name: 'createdAt'
       }
     ]
-  }
+  };
 
   constructor(private http: HttpClient,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   openCreateFolderDialog() {
     const dialogRef = this.dialog.open(CreateFolderComponent, {
@@ -146,7 +151,6 @@ export class FolderComponent implements OnInit {
       this.http.post(path, {
         name: result
       }).subscribe(res => {
-        this.loadFolderContents();
       }, (result: any) => {
         result.error.errors.forEach(err => {
           this.snackBar.open(err.title, 'OK', {
@@ -166,6 +170,17 @@ export class FolderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      let folder = params.folder;
+
+      if (folder) {
+        this.data.resource = `folders/${folder}/content`;
+      } else {
+        this.data.resource = 'content'
+      }
+
+      this.folderDataTable.reload(this.data);
+    })
   }
 
 }
