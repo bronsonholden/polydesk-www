@@ -16,7 +16,7 @@ export class DynamicFlatNode {
               public isLoading = false) {}
 
   get path(): string {
-    return `folder/${this.id}`;
+    return `${this.id}`;
   }
 }
 

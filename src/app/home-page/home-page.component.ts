@@ -15,8 +15,8 @@ export class HomePageComponent implements OnInit {
       exact: true
     },
     {
-      path: 'documents',
-      label: 'Documents',
+      path: 'folders',
+      label: 'Browse',
       exact: false
     },
     {

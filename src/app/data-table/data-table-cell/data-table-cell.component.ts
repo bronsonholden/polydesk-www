@@ -14,37 +14,49 @@ export class DataTableCellComponent implements OnInit {
 
   @Input() row: any;
   @Input() column: any;
-  @Input() data: any;
 
   constructor(public dialog: MatDialog) { }
 
   get value(): any {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
     let val = this.raw;
 
     switch (this.columnDisplay) {
       case 'date':
         val = moment(val).format(columnInfo.format || 'MM/DD/YYYY');
         break;
+      case 'switch':
+        val = columnInfo.case[val];
+        break;
       default:
         ;
+    }
+
+    if (typeof val === 'undefined') {
+      if (typeof columnInfo.default !== 'undefined') {
+        val = columnInfo.default;
+      } else {
+        val = { type: 'literal', value: '', display: 'text' };
+      }
     }
 
     return val;
   }
 
   get raw(): any {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
 
     switch (columnInfo.type) {
       case 'id':
-        return this.row.data.id;
+        return this.row.id;
+      case 'type':
+        return this.row.type;
       case 'attribute':
-        return this.row.data.attributes[columnInfo.value];
+        return this.row.attributes[columnInfo.value];
       case 'literal':
         return columnInfo.value;
       case 'relationship':
-        let path = Url.parse(this.row.data.relationships[columnInfo.model].links.related).pathname;
+        let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
         return path.split('/').slice(2).join('/');
       default:
         return '';
@@ -52,7 +64,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get selfLink(): string {
-    let url = Url.parse(this.row.data.links.self);
+    let url = Url.parse(this.row.links.self);
 
     return url.pathname;
   }
@@ -61,15 +73,15 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get columnDisplay() {
-    return this.data.columns[this.column.name].display;
+    return this.column.display;
   }
 
   showLink(column): boolean {
-    return this.data.columns[column.name].link;
+    return this.column.link;
   }
 
   openRelationshipDialog() {
-    let columnInfo = this.data.columns[this.column.name];
+    let columnInfo = this.column;
     let data: any = {};
 
     Object.assign(data, columnInfo.view);

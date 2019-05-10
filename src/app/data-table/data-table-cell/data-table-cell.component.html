@@ -18,6 +18,12 @@
   {{ value }}
 </div>
 
+<!-- Switch -->
+<div *ngIf="columnDisplay === 'switch'">
+  <!-- {{ row._source | json }} -->
+  <app-data-table-cell [row]="row" [column]="value"></app-data-table-cell>
+</div>
+
 <!-- Icon -->
 <mat-icon *ngIf="columnDisplay === 'icon'" class="document-list-icon" [svgIcon]="value"></mat-icon>
 

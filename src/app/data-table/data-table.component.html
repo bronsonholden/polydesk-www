@@ -1,41 +1,49 @@
-<div id="hiddenScrollable" #hiddenScrollable></div>
-<div id="dataTableContainer" #dataTableContainer>
-  <table class="data-table" mat-table [dataSource]="dataTableElements">
-    <!-- Checkbox column -->
-    <ng-container *ngIf="data.selectable" matColumnDef="select">
-      <th class="select-column" mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          color="primary"
-          (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </th>
-      <td class="select-column" mat-cell *matCellDef="let row">
-        <mat-checkbox
-          color="primary"
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
-          [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <ng-container *ngFor="let column of data.display" [matColumnDef]="column.name">
-      <th mat-header-cell *matHeaderCellDef>
-        <div [style.width.px]="column.width">
-          {{ getHeader(column) }}
-          <div class="column-grabber" [(resizeColumn)]="column.width"></div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <div [style.width.px]="column.width">
-          <app-data-table-cell [data]="data" [row]="row" [column]="column"></app-data-table-cell>
-        </div>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
+<ngx-datatable
+    id="dataTable"
+    class="material"
+    [rows]="rows"
+    columnMode="standard"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="50"
+    [scrollbarH]="true"
+    [scrollbarV]="true"
+    [selected]="selected"
+    (select)="onSelect($event)"
+    selectionType="checkbox"
+    [messages]="messages">
+  <ngx-datatable-column
+      [width]="50"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [resizeable]="false">
+    <ng-template
+        ngx-datatable-header-template
+        let-value="value"
+        let-allRowsSelected="allRowsSelected"
+        let-selectFn="selectFn">
+      <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
+    </ng-template>
+    <ng-template
+        ngx-datatable-cell-template
+        let-value="value"
+        let-isSelected="isSelected"
+        let-onCheckboxChangeFn="onCheckboxChangeFn">
+      <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column
+      *ngFor="let display of data.display"
+      [name]="display.name"
+      [width]="defaultIfUndefined(display.width, 200)"
+      [minWidth]="display.minWidth"
+      [maxWidth]="display.maxWidth"
+      [resizeable]="defaultIfUndefined(display.resizeable, true)">
+    <ng-template ngx-datatable-header-template>
+      {{ data.columns[display.name].title }}
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <app-data-table-cell [row]="row" [column]="data.columns[display.name]"></app-data-table-cell>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

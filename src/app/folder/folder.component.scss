@@ -3,7 +3,8 @@
 }
 
 .document-table {
-  width: 100%;
+  box-sizing: border-box;
+  width: 100vw;
 }
 
 .document-table-wrapper {
