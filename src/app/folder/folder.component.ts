@@ -96,7 +96,7 @@ export class FolderComponent implements OnInit {
           },
           document: {
             display: 'link',
-            pathPrefix: '../../document',
+            pathPrefix: '../../documents',
             type: 'attribute',
             value: 'name'
           }
