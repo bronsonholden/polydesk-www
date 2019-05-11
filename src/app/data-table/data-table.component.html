@@ -13,6 +13,7 @@
     selectionType="checkbox"
     [messages]="messages">
   <ngx-datatable-column
+      *ngIf="data.select === 'multiple'"
       [width]="50"
       [sortable]="false"
       [canAutoResize]="false"
@@ -30,6 +31,19 @@
         let-isSelected="isSelected"
         let-onCheckboxChangeFn="onCheckboxChangeFn">
       <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column
+      *ngIf="data.select === 'single'"
+      [width]="50"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [resizeable]="false">
+    <ng-template
+        ngx-datatable-cell-template
+        let-row="row"
+        let-isSelected="isSelected">
+      <mat-radio-button [checked]="isSelected" (change)="onRadioChangeFn($event, row)"></mat-radio-button>
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column

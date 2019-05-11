@@ -47,7 +47,7 @@ export class FolderComponent implements OnInit {
 
   data = {
     resource: 'content',
-    selectable: true,
+    select: 'multiple',
     columns: {
       id: {
         title: 'ID',

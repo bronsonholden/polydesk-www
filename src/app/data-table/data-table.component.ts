@@ -44,6 +44,8 @@ export class DataTableComponent implements OnInit {
   }
 
   reload(data?) {
+    this.selected = [];
+
     if (data) {
       this.data = Object.assign({}, data);
     }
@@ -69,6 +71,10 @@ export class DataTableComponent implements OnInit {
   }
 
   onSelect(event) {
+  }
+
+  onRadioChangeFn(event, row) {
+    this.selected = [row];
   }
 
 }
