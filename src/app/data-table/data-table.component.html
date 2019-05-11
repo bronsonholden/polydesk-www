@@ -41,9 +41,8 @@
       [resizeable]="false">
     <ng-template
         ngx-datatable-cell-template
-        let-row="row"
-        let-isSelected="isSelected">
-      <mat-radio-button [checked]="isSelected" (change)="onRadioChangeFn($event, row)"></mat-radio-button>
+        let-row="row">
+      <mat-radio-button (change)="onRadioChangeFn($event, row)"></mat-radio-button>
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column

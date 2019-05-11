@@ -70,7 +70,9 @@ export class DataTableComponent implements OnInit {
     });
   }
 
-  onSelect(event) {
+  onSelect({ selected }) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
   }
 
   onRadioChangeFn(event, row) {
