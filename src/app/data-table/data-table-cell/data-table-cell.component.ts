@@ -75,8 +75,9 @@ export class DataTableCellComponent implements OnInit {
   }
 
   routeTo() {
+    // Skip updating location if routing is occurring in a named outlet
     this.router.navigate(this.getRouterLink(), {
-      skipLocationChange: true
+      skipLocationChange: (typeof this.data.outlet !== 'undefined')
     });
   }
 
