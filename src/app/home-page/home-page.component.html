@@ -1,24 +1,5 @@
 <div class="mat-typography">
-  <!-- <div *ngIf="tokenService.userSignedIn()">
-    <mat-tab-group class="home-page-nav-bar">
-      <mat-tab *ngFor="let tab of tabs"
-          [label]="tab.label"
-          [routerLink]="tab.path"
-          routerLinkActive #rla="routerLinkActive"
-          [routerLinkActiveOptions]="{ exact: tab.exact }"></mat-tab>
-    </mat-tab-group>
-    <router-outlet></router-outlet>
-  </div> -->
   <div *ngIf="tokenService.userSignedIn()">
-    <!-- <nav mat-tab-nav-bar class="home-page-nav-bar">
-      <a mat-tab-link
-         *ngFor="let tab of tabs"
-         [routerLink]="tab.path"
-         routerLinkActive #rla="routerLinkActive"
-         [active]="rla.isActive">
-        {{ tab.label }}
-      </a>
-    </nav> -->
     <app-router-tab>
       <app-router-tab-item
         class="home-page-nav-bar"
@@ -32,9 +13,3 @@
     </div>
   </div>
 </div>
-<!-- <app-router-tab>
-	<app-router-tab-item [routerLink]="tab1" label="Tab 1" [routerLinkActiveOptions]="{exact: true}"></app-router-tab-item>
-	<app-router-tab-item [routerLink]="tab2" label="Tab 2"></app-router-tab-item>
-	<app-router-tab-item [routerLink]="tab3" label="Tab 3"></app-router-tab-item>
-	<app-router-tab-item [routerLink]="tab4" label="Tab 4" [disabled]="true"></app-router-tab-item>
-</app-router-tab> -->
