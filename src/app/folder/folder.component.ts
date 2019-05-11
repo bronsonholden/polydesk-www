@@ -85,10 +85,22 @@ export class FolderComponent implements OnInit {
       },
       name: {
         title: 'Name',
-        display: 'link',
-        pathPrefix: '..',
-        type: 'attribute',
-        value: 'name'
+        display: 'switch',
+        type: 'type',
+        case: {
+          folder: {
+            display: 'link',
+            pathPrefix: '..',
+            type: 'attribute',
+            value: 'name'
+          },
+          document: {
+            display: 'link',
+            pathPrefix: '../../document',
+            type: 'attribute',
+            value: 'name'
+          }
+        }
       },
       createdAt: {
         title: 'Created At',
