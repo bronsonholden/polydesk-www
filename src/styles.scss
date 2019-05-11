@@ -9,6 +9,10 @@
 /* Rich green color for success-related elements */
 $success: mat-palette($mat-green, A700);
 
+mat-toolbar.actionbar button {
+  margin-right: 8px;
+}
+
 button[color="success"] {
   background-color: mat-color($success);
   color: white;
