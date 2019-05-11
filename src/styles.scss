@@ -68,6 +68,10 @@ a {
   text-decoration: none;
 }
 
+.pseudo-link {
+  cursor: pointer;
+}
+
 .primary-color {
   color: mat-color(mat-palette($mat-indigo)) !important;
 }

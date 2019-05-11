@@ -17,7 +17,8 @@ export class DataTableCellComponent implements OnInit {
   @Input() row: any;
   @Input() column: any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              public router: Router) { }
 
   get value(): any {
     let columnInfo = this.column;
@@ -71,6 +72,12 @@ export class DataTableCellComponent implements OnInit {
     } else {
       return this.row.id;
     }
+  }
+
+  routeTo() {
+    this.router.navigate(this.getRouterLink(), {
+      skipLocationChange: true
+    });
   }
 
   getRouterLink() {

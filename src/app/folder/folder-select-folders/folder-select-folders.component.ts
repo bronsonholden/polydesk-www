@@ -12,7 +12,7 @@ import { DataTableComponent } from '../../data-table/data-table.component';
 export class FolderSelectFoldersComponent implements OnInit {
 
   data = {
-    resource: 'content',
+    resource: 'folders',
     selectable: true,
     // TODO: Move this out of data config, make an input for the DataTable
     // component instead.
@@ -32,23 +32,6 @@ export class FolderSelectFoldersComponent implements OnInit {
             display: 'icon',
             type: 'literal',
             value: 'folder-outline'
-          },
-          document: {
-            display: 'switch',
-            type: 'attribute',
-            value: 'content_type',
-            case: {
-              'application/pdf': {
-                display: 'icon',
-                type: 'literal',
-                value: 'file-pdf-outline'
-              }
-            },
-            default: {
-              display: 'icon',
-              type: 'literal',
-              value: 'file-outline'
-            }
           }
         }
       },
@@ -56,6 +39,7 @@ export class FolderSelectFoldersComponent implements OnInit {
         title: 'Name',
         display: 'link',
         type: 'attribute',
+        pseudoLink: true,
         value: 'name'
       },
       createdAt: {
@@ -99,10 +83,10 @@ export class FolderSelectFoldersComponent implements OnInit {
     this.route.params.subscribe(params => {
       let id = params.id;
 
-      if (typeof id !== 'undefined') {
-        this.data.resource = `folders/${id}/content`;
+      if (typeof id !== 'undefined' && id !== '0') {
+        this.data.resource = `folders/${id}/folders`;
       } else {
-        this.data.resource = 'content';
+        this.data.resource = 'folders?root=true';
       }
 
       this.selectFolderDataTable.reload(this.data);

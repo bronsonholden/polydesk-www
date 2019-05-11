@@ -1,7 +1,16 @@
 <!-- Link -->
-<a class="primary-color mat-body-2" [routerLink]="getRouterLink()" skipLocationChange *ngIf="columnDisplay === 'link'">
-  {{ value }}
-</a>
+<div *ngIf="columnDisplay === 'link'">
+  <div *ngIf="column.pseudoLink; else routerLinkDisplay">
+    <a class="primary-color mat-body-2 pseudo-link" (click)="routeTo()">
+      {{ value }}
+    </a>
+  </div>
+  <ng-template #routerLinkDisplay>
+    <a class="primary-color mat-body-2" [routerLink]="getRouterLink()" skipLocationChange>
+      {{ value }}
+    </a>
+  </ng-template>
+</div>
 
 <!-- ID -->
 <div *ngIf="columnDisplay === 'id'">
