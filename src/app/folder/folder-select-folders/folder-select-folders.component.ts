@@ -86,7 +86,8 @@ export class FolderSelectFoldersComponent implements OnInit {
       if (typeof id !== 'undefined' && id !== '0') {
         this.data.resource = `folders/${id}/folders`;
       } else {
-        this.data.resource = 'folders?root=true';
+        this.data.params = { root: 'true' };
+        this.data.resource = 'folders';
       }
 
       this.selectFolderDataTable.reload(this.data);

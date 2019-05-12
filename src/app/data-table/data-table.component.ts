@@ -61,13 +61,14 @@ export class DataTableComponent implements OnInit {
       };
     });
 
-
     const account = this.route.snapshot.root.children[0].params.account;
     const base = this.tokenService.tokenOptions.apiBase;
-    const params = {
-      page: this.currentPage,
-      limit: this.pageSize
-    };
+
+    let params = Object.assign({}, this.data.params || {});
+
+    params.page = this.currentPage;
+    params.limit = this.pageSize;
+
     const qs = querystring.stringify(params);
 
     this.http.get(`${base}/${account}/${this.data.resource}?${qs}`).subscribe((json: any) => {
