@@ -18,7 +18,7 @@ export class DataTableComponent implements OnInit {
   messages = {
     emptyMessage: '',
     totalMessage: 'total'
-  }
+  };
 
   @Input() data: any;
 
@@ -32,8 +32,7 @@ export class DataTableComponent implements OnInit {
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
               private tokenService: AngularTokenService,
-              private route: ActivatedRoute) {
-  }
+              private route: ActivatedRoute) { }
 
   defaultIfUndefined(setting, defaultValue): any {
     if (typeof setting === 'undefined') {
@@ -84,7 +83,7 @@ export class DataTableComponent implements OnInit {
   }
 
   onSelect({ selected }) {
-    this.selected.splice(0, this.selected.length);
+    this.selected = [];
     this.selected.push(...selected);
   }
 
