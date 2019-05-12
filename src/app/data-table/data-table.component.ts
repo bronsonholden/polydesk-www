@@ -65,7 +65,8 @@ export class DataTableComponent implements OnInit {
     const account = this.route.snapshot.root.children[0].params.account;
     const base = this.tokenService.tokenOptions.apiBase;
     const params = {
-      page: this.currentPage
+      page: this.currentPage,
+      limit: this.pageSize
     };
     const qs = querystring.stringify(params);
 
