@@ -152,6 +152,7 @@ export class FolderComponent implements OnInit {
       skipLocationChange: true
     }).then(() => {
       const dialogRef = this.dialog.open(FolderSelectComponent, {
+        autoFocus: false,
         width: '800px',
         height: '600px'
       });
