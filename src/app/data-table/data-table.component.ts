@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 
+import * as querystring from 'querystring';
 import * as moment from 'moment';
 
 @Component({
@@ -24,6 +25,9 @@ export class DataTableComponent implements OnInit {
   selected = [];
   columns = [];
   rows = [];
+  meta = {};
+  pageSize = 25;
+  currentPage = 1;
 
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
@@ -50,8 +54,6 @@ export class DataTableComponent implements OnInit {
       this.data = Object.assign({}, data);
     }
 
-    let accountIdentifier = this.route.snapshot.root.children[0].params.account;
-
     this.columns = this.data.display.map(column => {
       return {
         prop: column.name,
@@ -59,8 +61,17 @@ export class DataTableComponent implements OnInit {
       };
     });
 
-    this.http.get(`${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/${this.data.resource}`).subscribe((json: any) => {
+
+    const account = this.route.snapshot.root.children[0].params.account;
+    const base = this.tokenService.tokenOptions.apiBase;
+    const params = {
+      page: this.currentPage
+    };
+    const qs = querystring.stringify(params);
+
+    this.http.get(`${base}/${account}/${this.data.resource}?${qs}`).subscribe((json: any) => {
       this.rows = json.data;
+      this.meta = json.meta;
     }, (json: any) => {
       json.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
@@ -77,6 +88,11 @@ export class DataTableComponent implements OnInit {
 
   onRadioChangeFn(event, row) {
     this.selected = [row];
+  }
+
+  setPage(page) {
+    this.currentPage = page.offset + 1;
+    this.reload();
   }
 
 }
