@@ -26,7 +26,13 @@ export class DataTableCellComponent implements OnInit {
 
     switch (this.columnDisplay) {
       case 'date':
-        val = moment(val).format(columnInfo.format || 'MM/DD/YYYY');
+        let m = moment(val);
+        if (columnInfo.format) {
+          val = m.format(columnInfo.format);
+        } else {
+          val = moment.duration(m.diff(moment())).humanize(true);
+        }
+
         break;
       case 'switch':
         val = columnInfo.case[val];

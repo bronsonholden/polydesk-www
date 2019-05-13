@@ -103,16 +103,14 @@ export class FolderComponent implements OnInit {
         }
       },
       createdAt: {
-        title: 'Created At',
+        title: 'Created',
         display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'created_at'
       },
       updatedAt: {
-        title: 'Updated At',
+        title: 'Updated',
         display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'updated_at'
       }
@@ -125,7 +123,8 @@ export class FolderComponent implements OnInit {
         resizeable: false
       },
       {
-        name: 'name'
+        name: 'name',
+        width: 400
       },
       {
         name: 'createdAt'
