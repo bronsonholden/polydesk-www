@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableComponent } from '../../data-table/data-table.component';
 
@@ -75,9 +74,7 @@ export class FolderSelectFoldersComponent implements OnInit {
 
   @ViewChild('selectFolderDataTable') selectFolderDataTable: DataTableComponent;
 
-  constructor(public dialogRef: MatDialogRef<FolderSelectFoldersComponent>,
-              @Inject(MAT_DIALOG_DATA) public dialogData: any,
-              private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { RouterOutlet, Router, ActivationStart } from '@angular/router';
+import { DataTableComponent } from '../../data-table/data-table.component';
 
 @Component({
   selector: 'app-folder-select',
@@ -10,7 +12,11 @@ export class FolderSelectComponent implements OnInit {
 
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
-  constructor(private router: Router) { }
+  private selectFoldersDataTable: DataTableComponent;
+
+  constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
+              @Inject(MAT_DIALOG_DATA) public dialogData: any,
+              private router: Router) { }
 
   ngOnInit() {
     // Deactivate the outlet manually. Since the router-outlet will be in
@@ -22,6 +28,18 @@ export class FolderSelectComponent implements OnInit {
         sub.unsubscribe();
       }
     });
+  }
+
+  onRouterOutletActivate(folderSelectFolders) {
+    this.selectFoldersDataTable = folderSelectFolders.selectFolderDataTable;
+  }
+
+  selectFolders() {
+    this.dialogRef.close(this.selectFoldersDataTable.selected);
+  }
+
+  cancelSelection() {
+    this.dialogRef.close();
   }
 
 }
