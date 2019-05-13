@@ -141,29 +141,30 @@ export class FolderComponent implements OnInit {
   }
 
   openSelectFolderDialog() {
-    this.router.navigate([
-      {
-        outlets: {
-          'select-dialog-outlet': ['0']
-        }
-      }
-    ], {
-      skipLocationChange: true
-    }).then(() => {
-      const dialogRef = this.dialog.open(FolderSelectComponent, {
-        autoFocus: false,
-        width: '800px',
-        height: '600px'
-      });
+    const dialogRef = this.dialog.open(FolderSelectComponent, {
+      width: '800px',
+      height: '600px'
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.router.navigate([
-          {
-            outlets: {
-              'select-dialog-outlet': null
-            }
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': null
           }
-        ]);
+        }
+      ]);
+    });
+
+    dialogRef.afterOpened().subscribe(result => {
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': ['0']
+          }
+        }
+      ], {
+        skipLocationChange: true
       });
     });
   }
