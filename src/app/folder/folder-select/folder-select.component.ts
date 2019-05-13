@@ -18,17 +18,7 @@ export class FolderSelectComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
               private router: Router) { }
 
-  ngOnInit() {
-    // Deactivate the outlet manually. Since the router-outlet will be in
-    // a modal, it gets removed before the outlet can deactivate. If that
-    // happens, routing will break once the outlet is activated again.
-    let sub = this.router.events.subscribe(event => {
-      if (event instanceof ActivationStart && event.snapshot.outlet === 'select-dialog-outlet') {
-        this.outlet.deactivate();
-        sub.unsubscribe();
-      }
-    });
-  }
+  ngOnInit() { }
 
   onRouterOutletActivate(folderSelectFolders) {
     this.selectFoldersDataTable = folderSelectFolders.selectFolderDataTable;
