@@ -16,6 +16,7 @@ export class DataTableCellComponent implements OnInit {
   @Input() data: any;
   @Input() row: any;
   @Input() column: any;
+  @Input() outlet: string | null;
 
   constructor(public dialog: MatDialog,
               public router: Router) { }
@@ -83,18 +84,18 @@ export class DataTableCellComponent implements OnInit {
   routeTo() {
     // Skip updating location if routing is occurring in a named outlet
     this.router.navigate(this.getRouterLink(), {
-      skipLocationChange: (typeof this.data.outlet !== 'undefined')
+      skipLocationChange: !!this.outlet
     });
   }
 
   getRouterLink() {
     let outlets = {};
 
-    if (typeof this.data.outlet !== 'undefined') {
-      outlets[this.data.outlet] = this.selfLink;
+    if (this.outlet) {
+      outlets[this.outlet] = this.selfLink;
       return [ '', { outlets: outlets } ];
     } else {
-      outlets[this.data.outlet] = null;
+      outlets[this.outlet] = null;
       return [ this.selfLink, { outlets: outlets } ];
     }
   }

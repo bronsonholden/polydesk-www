@@ -21,6 +21,7 @@ export class DataTableComponent implements OnInit {
   };
 
   @Input() data: any;
+  @Input() outlet: string | null;
 
   selected = [];
   columns = [];

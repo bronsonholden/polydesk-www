@@ -13,9 +13,6 @@ export class FolderSelectFoldersComponent implements OnInit {
   data: any = {
     resource: 'folders',
     select: 'single',
-    // TODO: Move this out of data config, make an input for the DataTable
-    // component instead.
-    outlet: 'select-dialog-outlet',
     columns: {
       id: {
         title: 'ID',
