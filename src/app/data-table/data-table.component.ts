@@ -15,7 +15,7 @@ import * as moment from 'moment';
 })
 export class DataTableComponent implements OnInit {
 
-  messages = {
+  readonly messages = {
     emptyMessage: '',
     totalMessage: 'total'
   };
@@ -47,6 +47,8 @@ export class DataTableComponent implements OnInit {
     this.reload();
   }
 
+  // Reload the contents of the data table. If a new data configuration is
+  // provided, use that one instead.
   reload(data?) {
     this.selected = [];
 
@@ -54,6 +56,7 @@ export class DataTableComponent implements OnInit {
       this.data = Object.assign({}, data);
     }
 
+    // Convert display configuration to columns for ngx-datatable
     this.columns = this.data.display.map(column => {
       return {
         prop: column.name,
@@ -64,6 +67,7 @@ export class DataTableComponent implements OnInit {
     const account = this.route.snapshot.root.children[0].params.account;
     const base = this.tokenService.tokenOptions.apiBase;
 
+    // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
 
     params.page = this.currentPage;
@@ -83,11 +87,13 @@ export class DataTableComponent implements OnInit {
     });
   }
 
+  // Set as callback for built-in ngx-datatable row selection
   onSelect({ selected }) {
     this.selected = [];
     this.selected.push(...selected);
   }
 
+  // For single-select, use a custom event callback
   onRadioChangeFn(event, row) {
     this.selected = [row];
   }
