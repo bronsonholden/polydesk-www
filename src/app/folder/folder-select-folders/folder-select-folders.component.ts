@@ -10,7 +10,7 @@ import { DataTableComponent } from '../../data-table/data-table.component';
 // TODO: Better name for this and FolderSelect components...
 export class FolderSelectFoldersComponent implements OnInit {
 
-  data = {
+  data: any = {
     resource: 'folders',
     select: 'single',
     // TODO: Move this out of data config, make an input for the DataTable
