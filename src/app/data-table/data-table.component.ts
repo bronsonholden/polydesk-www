@@ -26,7 +26,7 @@ export class DataTableComponent implements OnInit {
   selected = [];
   columns = [];
   rows = [];
-  meta = {};
+  meta: any = {};
   pageSize = 25;
   currentPage = 1;
 
