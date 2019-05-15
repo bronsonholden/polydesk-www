@@ -195,6 +195,7 @@ export class FolderComponent implements OnInit {
       this.http.post(path, {
         name: result
       }).subscribe(res => {
+        this.folderDataTable.reload();
       }, (result: any) => {
         result.error.errors.forEach(err => {
           this.snackBar.open(err.title, 'OK', {
