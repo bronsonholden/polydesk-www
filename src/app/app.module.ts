@@ -72,6 +72,7 @@ import { ConfirmationsComponent } from './confirmations/confirmations.component'
 import { DocumentCreateComponent } from './document-create/document-create.component';
 import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
 import { FolderSelectFoldersComponent } from './folder/folder-select-folders/folder-select-folders.component';
+import { FolderConfirmDeleteComponent } from './folder/folder-confirm-delete/folder-confirm-delete.component';
 
 const routes: Routes = [
   {
@@ -185,12 +186,14 @@ const routes: Routes = [
     ConfirmationsComponent,
     DocumentCreateComponent,
     FolderSelectComponent,
-    FolderSelectFoldersComponent
+    FolderSelectFoldersComponent,
+    FolderConfirmDeleteComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     CreateFolderComponent,
     DataTableDialogComponent,
+    FolderConfirmDeleteComponent,
     FolderSelectComponent,
     TopbarActionsComponent,
     TextWidgetComponent

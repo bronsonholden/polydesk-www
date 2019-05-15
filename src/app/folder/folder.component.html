@@ -10,7 +10,7 @@
     <!-- Fill -->
     <div class="h-fill"></div>
 
-    <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
+    <button mat-raised-button [disabled]="isSelectionEmpty()" color="warn" class="mat-raised-button" (click)="confirmDelete()">Delete</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="document-table-wrapper">

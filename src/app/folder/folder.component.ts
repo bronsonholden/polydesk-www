@@ -4,10 +4,12 @@ import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute, Router } from '@angular/router';
-import { concat } from 'rxjs/operators';
+import { Observable, from, forkJoin } from 'rxjs';
+import { concatMap, finalize } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { FolderSelectComponent } from './folder-select/folder-select.component';
+import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
 
 export class ContentElement {
   constructor(public id: number,
@@ -223,6 +225,40 @@ export class FolderComponent implements OnInit {
 
       this.folderDataTable.reload(this.data);
     })
+  }
+
+  isSelectionEmpty(): boolean {
+    return this.folderDataTable.selected.length === 0;
+  }
+
+  deleteRequestFor(item) {
+    return this.http.delete(item.links.self);
+  }
+
+  confirmDelete() {
+    const dialogRef = this.dialog.open(FolderConfirmDeleteComponent, {
+      autoFocus: false,
+      data: this.folderDataTable.selected
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+
+      const selected = this.folderDataTable.selected;
+      // TODO: May be better as a component (to show progress for larger
+      // deletions).
+      const snackBarRef = this.snackBar.open('Deleting...', null, {
+        duration: 0
+      });
+
+      forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
+        // In case deletion is quick...
+        setTimeout(() => { snackBarRef.dismiss() }, 750);
+        this.folderDataTable.reload();
+      });
+    });
   }
 
 }
