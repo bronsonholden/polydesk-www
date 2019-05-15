@@ -255,7 +255,7 @@ export class FolderComponent implements OnInit {
 
       forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
         // In case deletion is quick...
-        setTimeout(() => { snackBarRef.dismiss() }, 750);
+        setTimeout(() => { snackBarRef.dismiss() }, 350);
         this.folderDataTable.reload();
       });
     });
