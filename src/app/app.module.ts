@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterTabModule } from './home-page/router-tab/router-tab.module';
+import { ApiModule } from './api.module';
 import { AngularTokenService, AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -205,6 +206,10 @@ const routes: Routes = [
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
+    // ApiModule must be imported befor AngularTokenModule, otherwise
+    // AngularTokenInjector will see requests going out to a URL that doesn't
+    // start with the configured apiBase and not apply auth headers.
+    ApiModule,
     AngularTokenModule.forRoot(environment.tokenAuthConfig),
     MatButtonModule,
     MatCheckboxModule,

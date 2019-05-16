@@ -26,11 +26,9 @@ export class ConfirmationsComponent implements OnInit {
               private http: HttpClient) { }
 
   ngOnInit() {
-    const base = this.tokenService.tokenOptions.apiBase;
-
     this.confirmationToken = this.route.snapshot.params['confirmationToken'];
 
-    this.http.get(`${base}/confirmations/${this.confirmationToken}`).subscribe((result: any) => {
+    this.http.get(`confirmations/${this.confirmationToken}`).subscribe((result: any) => {
       this.allowSelectPassword = result.data.attributes.password_required;
 
       if (!this.allowSelectPassword) {
@@ -52,10 +50,9 @@ export class ConfirmationsComponent implements OnInit {
   }
 
   submitConfirmation(credentials: any) {
-    const base = this.tokenService.tokenOptions.apiBase;
     const token = this.confirmationToken;
 
-    this.http.post(`${base}/confirmations/${token}`, credentials).subscribe(result => {
+    this.http.post(`confirmations/${token}`, credentials).subscribe(result => {
       this.confirmationSuccess = true;
     }, result => {
       for (let error of result.error.errors) {

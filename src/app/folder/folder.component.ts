@@ -187,9 +187,9 @@ export class FolderComponent implements OnInit {
       let path;
 
       if (folderId) {
-        path = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders/${folderId}/folders`;
+        path = `${accountIdentifier}/folders/${folderId}/folders`;
       } else {
-        path = `${this.tokenService.tokenOptions.apiBase}/${accountIdentifier}/folders`;
+        path = `${accountIdentifier}/folders`;
       }
 
       this.http.post(path, {

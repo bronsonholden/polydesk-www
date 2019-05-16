@@ -165,7 +165,6 @@ export class DocumentCreateComponent implements OnInit {
       file.error = null;
       file.status = FileUploadStatus.InProgress;
 
-      const base = this.tokenService.tokenOptions.apiBase;
       const accountIdentifier = this.route.snapshot.root.children[0].params.account;
 
       let formData = new FormData();
@@ -173,7 +172,7 @@ export class DocumentCreateComponent implements OnInit {
       formData.append('content', file.data);
       formData.append('name', file.name);
 
-      return this.httpClient.post(`${base}/${accountIdentifier}/documents`, formData, {
+      return this.httpClient.post(`${accountIdentifier}/documents`, formData, {
         reportProgress: true,
         observe: 'events'
       }).subscribe(event => {

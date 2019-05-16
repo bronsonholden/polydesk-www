@@ -65,7 +65,6 @@ export class DataTableComponent implements OnInit {
     });
 
     const account = this.route.snapshot.root.children[0].params.account;
-    const base = this.tokenService.tokenOptions.apiBase;
 
     // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
@@ -75,7 +74,7 @@ export class DataTableComponent implements OnInit {
 
     const qs = querystring.stringify(params);
 
-    this.http.get(`${base}/${account}/${this.data.resource}?${qs}`).subscribe((json: any) => {
+    this.http.get(`${account}/${this.data.resource}?${qs}`).subscribe((json: any) => {
       this.rows = json.data;
       this.meta = json.meta;
     }, (json: any) => {
