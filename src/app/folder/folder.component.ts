@@ -182,14 +182,13 @@ export class FolderComponent implements OnInit {
         return;
       }
 
-      let accountIdentifier = this.route.snapshot.parent.parent.params.account;
       let folderId = this.route.snapshot.params.folder;
       let path;
 
       if (folderId) {
-        path = `${accountIdentifier}/folders/${folderId}/folders`;
+        path = `folders/${folderId}/folders`;
       } else {
-        path = `${accountIdentifier}/folders`;
+        path = `folders`;
       }
 
       this.http.post(path, {

@@ -165,14 +165,12 @@ export class DocumentCreateComponent implements OnInit {
       file.error = null;
       file.status = FileUploadStatus.InProgress;
 
-      const accountIdentifier = this.route.snapshot.root.children[0].params.account;
-
       let formData = new FormData();
 
       formData.append('content', file.data);
       formData.append('name', file.name);
 
-      return this.httpClient.post(`${accountIdentifier}/documents`, formData, {
+      return this.httpClient.post(`documents`, formData, {
         reportProgress: true,
         observe: 'events'
       }).subscribe(event => {

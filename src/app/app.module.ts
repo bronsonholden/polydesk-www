@@ -37,6 +37,8 @@ import {
   MatTreeModule
 } from '@angular/material';
 
+import { AccountService } from './account.service';
+
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TopbarBrandComponent } from './topbar/topbar-brand/topbar-brand.component';

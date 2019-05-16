@@ -27,15 +27,11 @@ export class DynamicDatabase {
               private route: ActivatedRoute) { }
 
   initialData() {
-    var accountIdentifier = this.route.snapshot.parent.params.account;
-
-    return this.http.get(`${accountIdentifier}/folders?root=true`);
+    return this.http.get(`folders?root=true`);
   }
 
   getChildren(node) {
-    var accountIdentifier = this.route.snapshot.parent.params.account;
-
-    return this.http.get(`${accountIdentifier}/folders/${node.id}/folders`);
+    return this.http.get(`folders/${node.id}/folders`);
   }
 
   isExpandable(node): boolean {

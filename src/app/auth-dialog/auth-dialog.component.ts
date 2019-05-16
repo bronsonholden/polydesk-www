@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { AngularTokenService } from 'angular-token';
+import { AccountService } from '../account.service';
 
 export interface AuthData {
   mode: string;
@@ -21,7 +22,8 @@ export class AuthDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: AuthData,
     private tokenService: AngularTokenService,
     private snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private accountService: AccountService) { }
 
   onClose() {
     this.dialogRef.close();
@@ -33,7 +35,8 @@ export class AuthDialogComponent {
       // Redirect to dashboard for default account
       // IMPORTANT: If user doesn't have a default account set (e.g. deleted),
       // this will break.
-      this.router.navigateByUrl(`${res.body.data.attributes.default_account}/dashboard`);
+      this.accountService.account = res.body.data.attributes.default_account;
+      this.router.navigateByUrl(`${this.accountService.account}/dashboard`);
     }, result => {
       this.snackBar.open(result.error.errors[0], 'OK', {
         duration: 3000

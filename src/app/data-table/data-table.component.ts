@@ -64,8 +64,6 @@ export class DataTableComponent implements OnInit {
       };
     });
 
-    const account = this.route.snapshot.root.children[0].params.account;
-
     // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
 
@@ -74,7 +72,7 @@ export class DataTableComponent implements OnInit {
 
     const qs = querystring.stringify(params);
 
-    this.http.get(`${account}/${this.data.resource}?${qs}`).subscribe((json: any) => {
+    this.http.get(`${this.data.resource}?${qs}`).subscribe((json: any) => {
       this.rows = json.data;
       this.meta = json.meta;
     }, (json: any) => {
