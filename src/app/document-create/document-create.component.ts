@@ -69,7 +69,7 @@ export class DocumentCreateComponent implements OnInit {
     const folder = this.route.snapshot.params.folder;
 
     if (folder) {
-      this.httpClient.get(`folders/${folder}`).subscribe(result => {
+      this.httpClient.get(`folders/${folder}`).subscribe((result: any) => {
         this.targetFolder = result.data.attributes.name;
       });
     } else {
