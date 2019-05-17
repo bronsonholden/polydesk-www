@@ -103,8 +103,16 @@ const routes: Routes = [
             component: FolderComponent
           },
           {
+            path: 'upload',
+            component: DocumentCreateComponent
+          },
+          {
             path: ':folder',
             component: FolderComponent
+          },
+          {
+            path: ':folder/upload',
+            component: DocumentCreateComponent
           }
         ]
       },

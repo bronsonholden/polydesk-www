@@ -165,12 +165,21 @@ export class DocumentCreateComponent implements OnInit {
       file.error = null;
       file.status = FileUploadStatus.InProgress;
 
+      const folder = this.route.snapshot.params.folder;
       let formData = new FormData();
 
       formData.append('content', file.data);
       formData.append('name', file.name);
 
-      return this.httpClient.post(`documents`, formData, {
+      let path;
+
+      if (folder) {
+        path = `folders/${folder}/documents`;
+      } else {
+        path = 'documents';
+      }
+
+      return this.httpClient.post(path, formData, {
         reportProgress: true,
         observe: 'events'
       }).subscribe(event => {

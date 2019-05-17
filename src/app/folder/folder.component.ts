@@ -261,4 +261,10 @@ export class FolderComponent implements OnInit {
     });
   }
 
+  routeToUpload() {
+    this.router.navigate(['./upload'], {
+      relativeTo: this.route
+    });
+  }
+
 }
