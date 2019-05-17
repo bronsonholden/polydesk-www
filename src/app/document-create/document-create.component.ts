@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material'
 import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
@@ -56,12 +57,28 @@ export class DocumentCreateComponent implements OnInit {
   public processQueue = false;
   private uploadingIndex = 0;
 
+  public targetFolder: string = '';
+
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
               private tokenService: AngularTokenService,
+              private location: Location,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    const folder = this.route.snapshot.params.folder;
+
+    if (folder) {
+      this.httpClient.get(`folders/${folder}`).subscribe(result => {
+        this.targetFolder = result.data.attributes.name;
+      });
+    } else {
+      this.targetFolder = '/'
+    }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   openSelectFiles() {
@@ -102,6 +119,16 @@ export class DocumentCreateComponent implements OnInit {
     }
   }
 
+  manualUploadMessage(i) {
+    let file = this.queuedFiles[i];
+
+    if (file.status === FileUploadStatus.Failure) {
+      return 'Retry upload';
+    } else {
+      return 'Upload now';
+    }
+  }
+
   // Check if the file at queue index can be uploaded manually
   canManuallyUpload(i) {
     let file = this.queuedFiles[i];
@@ -127,9 +154,11 @@ export class DocumentCreateComponent implements OnInit {
     this.processQueue = true;
     this.uploadingIndex = 0;
 
-    // Mark all files as pending
+    // Mark all queued files as pending
     for (let file of this.queuedFiles) {
-      file.status = FileUploadStatus.Pending;
+      if (file.status === FileUploadStatus.Queued) {
+        file.status = FileUploadStatus.Pending;
+      }
     }
 
     this.uploadNextFile();

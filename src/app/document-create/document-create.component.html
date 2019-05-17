@@ -1,35 +1,54 @@
-<form>
-  <button type="button" mat-raised-button (click)="openSelectFiles()">Select Files</button>
-  <button type="button" mat-raised-button (click)="startUploads()">Upload All</button>
-  <input hidden type="file" #fileUploader name="fileUploader" (change)="selectFiles($event)" multiple="multiple">
-</form>
-<mat-list>
-  <mat-list-item *ngFor="let file of queuedFiles; let i = index">
-    <div mat-list-avatar>
-      <button [disabled]="!canManuallyUpload(i)"
-              mat-icon-button
-              (click)="uploadSingleFile(file)">
-        <mat-icon svgIcon="cloud-upload-outline"></mat-icon>
-      </button>
-    </div>
-    <div mat-list-avatar>
-      <button disableRipple mat-icon-button [ngSwitch]="file.status">
-        <mat-icon *ngSwitchCase="FileUploadStatus.Queued" svgIcon="sleep"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.Pending" svgIcon="clock-outline"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.InProgress" svgIcon="upload"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check" color="success"></mat-icon>
-        <mat-icon *ngSwitchCase="FileUploadStatus.Failure"
-                  matTooltipPosition="below"
-                  [matTooltip]="file.tooltip"
-                  svgIcon="close"
-                  color="warn"></mat-icon>
-      </button>
-    </div>
-    <div mat-line>
-      {{ file.name }}
-    </div>
-    <div mat-line>
-      <mat-progress-bar mode="determinate" [value]="file.progress"></mat-progress-bar>
-    </div>
-  </mat-list-item>
-</mat-list>
+<div id="uploads-container">
+  <form>
+    <mat-toolbar class="actionbar">
+      <mat-toolbar-row>
+        <button type="button" mat-raised-button (click)="openSelectFiles()">Select Files</button>
+        <button type="button" mat-raised-button (click)="startUploads()">Upload All</button>
+
+        <div class="h-fill"></div>
+
+        <button type="button" mat-raised-button (click)="goBack()">Cancel</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <input hidden type="file" #fileUploader name="fileUploader" (change)="selectFiles($event)" multiple="multiple">
+  </form>
+  <div id="file-list-container">
+    <mat-list>
+      <mat-list-item>
+        <div class="mat-title" style="position: sticky; top: 0px;">
+          Upload to {{ targetFolder }}
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngFor="let file of queuedFiles; let i = index">
+        <div mat-list-avatar>
+          <button [disabled]="!canManuallyUpload(i)"
+                  mat-icon-button
+                  [matTooltip]="manualUploadMessage(i)"
+                  (click)="uploadSingleFile(file)">
+            <mat-icon svgIcon="cloud-upload-outline"></mat-icon>
+          </button>
+        </div>
+        <div mat-list-avatar>
+          <button disableRipple mat-icon-button [ngSwitch]="file.status">
+            <mat-icon *ngSwitchCase="FileUploadStatus.Queued" svgIcon="clock-outline"></mat-icon>
+            <mat-icon *ngSwitchCase="FileUploadStatus.Pending" svgIcon="clock-outline"></mat-icon>
+            <mat-icon *ngSwitchCase="FileUploadStatus.InProgress" svgIcon="upload"></mat-icon>
+            <mat-icon *ngSwitchCase="FileUploadStatus.Success" svgIcon="check" color="success"></mat-icon>
+            <mat-icon *ngSwitchCase="FileUploadStatus.Failure"
+                      matTooltipPosition="below"
+                      [matTooltip]="file.tooltip"
+                      svgIcon="close"
+                      color="warn"></mat-icon>
+          </button>
+        </div>
+        <div mat-line>
+          {{ file.name }}
+        </div>
+        <div mat-line>
+          <mat-progress-bar mode="determinate" [value]="file.progress"></mat-progress-bar>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

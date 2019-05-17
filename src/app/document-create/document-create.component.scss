@@ -1,0 +1,16 @@
+#uploads-container {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+#file-list-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  overflow-y: scroll;
+}
