@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar, MatDialog } from '@angular/material'
 import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
+import { FolderSelectComponent } from '../folder/folder-select/folder-select.component';
 
 enum FileUploadStatus {
   // File has been selected for upload
@@ -62,19 +63,23 @@ export class DocumentCreateComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
               private tokenService: AngularTokenService,
+              private dialog: MatDialog,
               private location: Location,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit() {
-    const folder = this.route.snapshot.params.folder;
+    this.route.params.subscribe(params => {
+      const folder = params.folder;
 
-    if (folder) {
-      this.httpClient.get(`folders/${folder}`).subscribe((result: any) => {
-        this.targetFolder = result.data.attributes.name;
-      });
-    } else {
-      this.targetFolder = '/'
-    }
+      if (folder) {
+        this.httpClient.get(`folders/${folder}`).subscribe((result: any) => {
+          this.targetFolder = result.data.attributes.name;
+        });
+      } else {
+        this.targetFolder = '/'
+      }
+    });
   }
 
   goBack() {
@@ -86,6 +91,54 @@ export class DocumentCreateComponent implements OnInit {
     if (this.processQueue == false) {
       this.fileUploader.nativeElement.click();
     }
+  }
+
+  openSelectFolderDialog() {
+    this.router.navigate([
+      {
+        outlets: {
+          'select-dialog-outlet': ['0']
+        }
+      }
+    ], {
+      skipLocationChange: true
+    }).then(() => {
+      const dialogRef = this.dialog.open(FolderSelectComponent, {
+        autoFocus: false,
+        width: '800px',
+        height: '600px'
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        // Navigate select dialog outlet away
+        this.router.navigate([
+          {
+            outlets: {
+              'select-dialog-outlet': null
+            }
+          }
+        ], {
+          skipLocationChange: true
+        }).then(() => {
+          // Then navigate to selected folder for upload
+          const folder = this.route.snapshot.params.folder;
+
+          if (!result || result.length !== 1) {
+            return;
+          }
+
+          let url = `../${result[0].id}/upload`;
+
+          // If we're navigating away from a folder upload route, the folder
+          // ID is in the path, so we need to navigate up another level.
+          if (folder) {
+            url = `../${url}`;
+          }
+
+          this.router.navigate([url], { relativeTo: this.route });
+        });
+      });
+    });
   }
 
   clearFiles() {

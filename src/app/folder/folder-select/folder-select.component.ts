@@ -32,4 +32,8 @@ export class FolderSelectComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  isAnyFolderSelected() {
+    return this.selectFoldersDataTable && this.selectFoldersDataTable.selected.length === 1;
+  }
+
 }

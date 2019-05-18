@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
-import { SelectionModel, CollectionViewer, SelectionChange } from '@angular/cdk/collections';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, from, forkJoin } from 'rxjs';
 import { concatMap, finalize } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
 import { DataTableComponent } from '../data-table/data-table.component';
-import { FolderSelectComponent } from './folder-select/folder-select.component';
 import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
 
 export class ContentElement {
@@ -140,34 +138,6 @@ export class FolderComponent implements OnInit {
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
               private router: Router) {
-  }
-
-  openSelectFolderDialog() {
-    this.router.navigate([
-      {
-        outlets: {
-          'select-dialog-outlet': ['0']
-        }
-      }
-    ], {
-      skipLocationChange: true
-    }).then(() => {
-      const dialogRef = this.dialog.open(FolderSelectComponent, {
-        autoFocus: false,
-        width: '800px',
-        height: '600px'
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.router.navigate([
-          {
-            outlets: {
-              'select-dialog-outlet': null
-            }
-          }
-        ]);
-      });
-    });
   }
 
   openCreateFolderDialog() {
