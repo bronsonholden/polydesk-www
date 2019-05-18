@@ -12,12 +12,27 @@ export class ApiInjector implements HttpInterceptor {
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const apiBase = this.tokenService.tokenOptions.apiBase;
 
-    if (request.url.startsWith(apiBase) || request.responseType !== 'json') {
+    const restrictedUrls = [
+      apiBase, // AngularToken methods will prepend apiBase
+      'auth',
+      'confirmations'
+    ];
+
+    for (let url of restrictedUrls) {
+      if (request.url.startsWith(url)) {
+        return next.handle(request);
+      }
+    }
+
+    // Only prepend for API requests (which expect JSON)
+    if (request.responseType !== 'json') {
       return next.handle(request);
     }
 
+    let parts = [apiBase, this.accountService.account, request.url].filter(part => part);
+
     const clonedRequest = request.clone({
-      url: `${apiBase}/${this.accountService.account}/${request.url}`
+      url: parts.join('/')
     });
 
     return next.handle(clonedRequest);

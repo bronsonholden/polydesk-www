@@ -9,10 +9,14 @@ export class AccountService {
 
   constructor(private route: ActivatedRoute) {
     this.route.root.params.subscribe(params => {
-      const accountIdentifier = this.route.snapshot.root.children[0].params.account;
+      const route = this.route.snapshot.root;
 
-      if (accountIdentifier) {
-        this.account = accountIdentifier;
+      if (route.children.length > 0) {
+        const accountIdentifier = route.children[0].params.account;
+
+        if (accountIdentifier) {
+          this.account = accountIdentifier;
+        }
       }
     });
   }
