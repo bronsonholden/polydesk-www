@@ -14,9 +14,9 @@
     [messages]="messages"
     [externalPaging]="true"
     [virtualization]="false"
-    [offset]="meta.current_page - 1"
-    [count]="meta.count"
-    [limit]="pageSize"
+    [offset]="meta.page_offset"
+    [count]="meta.item_count"
+    [limit]="pageLimit"
     (page)="setPage($event)">
   <ngx-datatable-column
       *ngIf="data.select === 'multiple'"

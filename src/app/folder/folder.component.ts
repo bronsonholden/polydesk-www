@@ -59,12 +59,12 @@ export class FolderComponent implements OnInit {
         display: 'switch',
         type: 'type',
         case: {
-          folder: {
+          folders: {
             display: 'icon',
             type: 'literal',
             value: 'folder-outline'
           },
-          document: {
+          documents: {
             display: 'switch',
             type: 'attribute',
             value: 'content_type',
@@ -88,13 +88,13 @@ export class FolderComponent implements OnInit {
         display: 'switch',
         type: 'type',
         case: {
-          folder: {
+          folders: {
             display: 'link',
             pathPrefix: '..',
             type: 'attribute',
             value: 'name'
           },
-          document: {
+          documents: {
             display: 'link',
             pathPrefix: '../../documents',
             type: 'attribute',
@@ -152,17 +152,28 @@ export class FolderComponent implements OnInit {
         return;
       }
 
-      let folderId = this.route.snapshot.params.folder;
-      let path;
+      const folderId = this.route.snapshot.params.folder;
+
+      let data = {
+        type: 'folders',
+        attributes: {
+          name: result
+        }
+      };
 
       if (folderId) {
-        path = `folders/${folderId}/folders`;
-      } else {
-        path = `folders`;
+        data['relationships'] = {
+          parent: {
+            data: {
+              type: 'folders',
+              id: `${folderId}`
+            }
+          }
+        }
       }
 
-      this.http.post(path, {
-        name: result
+      this.http.post('folders', {
+        data: data
       }).subscribe(res => {
         this.folderDataTable.reload();
       }, (result: any) => {

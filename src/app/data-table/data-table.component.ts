@@ -27,8 +27,8 @@ export class DataTableComponent implements OnInit {
   columns = [];
   rows = [];
   meta: any = {};
-  pageSize = 25;
-  currentPage = 1;
+  pageLimit = 25;
+  pageOffset = 0;
 
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
@@ -67,8 +67,8 @@ export class DataTableComponent implements OnInit {
     // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
 
-    params.page = this.currentPage;
-    params.limit = this.pageSize;
+    params.offset = this.pageOffset;
+    params.limit = this.pageLimit;
 
     const qs = querystring.stringify(params);
 
@@ -96,7 +96,7 @@ export class DataTableComponent implements OnInit {
   }
 
   setPage(page) {
-    this.currentPage = page.offset + 1;
+    this.pageOffset = page.offset;
     this.reload();
   }
 

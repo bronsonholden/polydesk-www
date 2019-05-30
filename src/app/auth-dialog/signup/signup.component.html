@@ -1,13 +1,16 @@
 <h2 class="mat-h2">Sign up</h2>
 <form id="login-form">
-  <mat-form-field class="w-100">
+  <!-- <mat-form-field class="w-100">
     <input matInput [(ngModel)]="accountName" placeholder="Account Name" name="accountName" type="string" required="true">
   </mat-form-field>
   <mat-form-field class="w-100">
     <input matInput [(ngModel)]="accountIdentifier" placeholder="Account Identifier" name="accountIdentifier" type="string" required="true">
+  </mat-form-field> -->
+  <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="firstName" placeholder="First Name" name="name" type="string">
   </mat-form-field>
   <mat-form-field class="w-100">
-    <input matInput [(ngModel)]="userName" placeholder="Your Name" name="name" type="string" required="true">
+    <input matInput [(ngModel)]="lastName" placeholder="Last Name" name="name" type="string">
   </mat-form-field>
   <mat-form-field class="w-100">
     <input matInput [(ngModel)]="login" placeholder="Email" name="login" type="email" required="true">

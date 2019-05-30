@@ -256,9 +256,9 @@ export class DocumentCreateComponent implements OnInit {
       let path;
 
       if (folder) {
-        path = `folders/${folder}/documents`;
+        path = `folders/${folder}/upload`;
       } else {
-        path = 'documents';
+        path = 'upload';
       }
 
       return this.httpClient.post(path, formData, {
