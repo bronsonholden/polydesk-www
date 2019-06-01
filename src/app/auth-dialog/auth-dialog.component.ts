@@ -37,8 +37,9 @@ export class AuthDialogComponent {
       // Redirect to dashboard for default account
       // IMPORTANT: If user doesn't have a default account set (e.g. deleted),
       // this will break.
-      this.accountService.account = res.body.data.attributes.default_account;
-      this.router.navigateByUrl(`${this.accountService.account}/dashboard`);
+      // TODO: Default account
+      // this.accountService.account = res.body.data.attributes.default_account;
+      // this.router.navigateByUrl(`${this.accountService.account}/dashboard`);
     }, result => {
       this.snackBar.open(result.error.errors[0], 'OK', {
         duration: 3000
@@ -52,7 +53,7 @@ export class AuthDialogComponent {
       attributes: {
         first_name: e.firstName,
         last_name: e.lastName,
-        email: e.login,
+        email: e.email,
         password: e.password,
         password_confirmation: e.passwordConfirmation
       }

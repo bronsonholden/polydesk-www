@@ -13,9 +13,7 @@ export class ApiInjector implements HttpInterceptor {
     const apiBase = this.tokenService.tokenOptions.apiBase;
 
     const restrictedUrls = [
-      apiBase, // AngularToken methods will prepend apiBase
-      'auth',
-      'confirmations'
+      apiBase // AngularToken methods will prepend apiBase
     ];
 
     for (let url of restrictedUrls) {
