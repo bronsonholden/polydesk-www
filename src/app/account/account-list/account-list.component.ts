@@ -23,7 +23,7 @@ export class AccountListComponent implements OnInit {
 
   ngOnInit() {
     this.accountService.account = null;
-    this.httpClient.get('accounts').subscribe(result => {
+    this.httpClient.get('accounts').subscribe((result: any) => {
       this.accounts = result.data.map(account => new AccountModel(account.attributes.name, account.attributes.identifier));
     });
   }
@@ -34,7 +34,7 @@ export class AccountListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (!result) {
         return;
       }
@@ -47,7 +47,7 @@ export class AccountListComponent implements OnInit {
             identifier: result.identifier
           }
         }
-      }).subscribe(result => {
+      }).subscribe((result: any) => {
         const account = result.data;
         this.accounts.push(new AccountModel(account.attributes.name, account.attributes.identifier));
       }, result => {
