@@ -12,7 +12,12 @@ export class AccountService {
     // Sets account when navigating
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       const route = this.router.routerState.snapshot.root;
-      this.account = route.children[0].params.account;
+
+      if (route.children.length > 0) {
+        this.account = route.children[0].params.account;
+      } else {
+        this.account = null;
+      }
     });
   }
 }
