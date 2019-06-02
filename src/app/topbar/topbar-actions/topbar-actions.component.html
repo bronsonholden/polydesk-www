@@ -1,4 +1,5 @@
-<button *ngIf="!tokenService.userSignedIn()" mat-button class="mat-button" (click)="openDialog('login')">Log in</button>
-<button *ngIf="!tokenService.userSignedIn()" mat-button class="mat-button" (click)="openDialog('signup')">Sign up</button>
-<button *ngIf="tokenService.userSignedIn()" mat-button class="mat-button"> Settings</button>
-<button *ngIf="tokenService.userSignedIn()" mat-button class="mat-button" (click)="logOut()">Log out</button>
+<button *ngIf="showSwitchAccounts()" mat-button (click)="goToAccountsList()">{{ selectAccountLabel() }}</button>
+<button *ngIf="!tokenService.userSignedIn()" mat-button (click)="openDialog('login')">Log in</button>
+<button *ngIf="!tokenService.userSignedIn()" mat-button (click)="openDialog('signup')">Sign up</button>
+<button *ngIf="tokenService.userSignedIn()" mat-button>Settings</button>
+<button *ngIf="tokenService.userSignedIn()" mat-button (click)="logOut()">Log out</button>

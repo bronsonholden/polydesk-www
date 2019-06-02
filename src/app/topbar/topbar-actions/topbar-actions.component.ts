@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthDialogComponent } from '../../auth-dialog/auth-dialog.component';
 import { AngularTokenService } from 'angular-token';
+import { AccountService } from '../../account.service';
 
 @Component({
   selector: 'app-topbar-actions',
@@ -10,7 +11,10 @@ import { AngularTokenService } from 'angular-token';
   styleUrls: ['./topbar-actions.component.scss']
 })
 export class TopbarActionsComponent {
-  constructor(public dialog: MatDialog, public tokenService: AngularTokenService, private router: Router) { }
+  constructor(public dialog: MatDialog,
+              public tokenService: AngularTokenService,
+              private accountService: AccountService,
+              private router: Router) { }
 
   openDialog(mode): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
@@ -25,6 +29,22 @@ export class TopbarActionsComponent {
     this.tokenService.signOut().subscribe(res => {
       this.router.navigateByUrl('/');
     });
+  }
+
+  goToAccountsList() {
+    this.router.navigateByUrl('/accounts');
+  }
+
+  selectAccountLabel() {
+    if (typeof this.accountService.account === 'string') {
+      return 'Switch Account';
+    } else {
+      return 'Select Account';
+    }
+  }
+
+  showSwitchAccounts() {
+    return this.tokenService.userSignedIn() && this.router.url !== '/accounts';
   }
 
 }
