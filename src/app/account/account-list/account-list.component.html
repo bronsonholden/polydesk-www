@@ -1,0 +1,14 @@
+<mat-toolbar class="actionbar">
+  <mat-toolbar-row>
+    <button mat-raised-button (click)="openAccountCreateDialog()">New Account</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div id="accounts-container">
+  <mat-action-list>
+    <h2 mat-subheader>Accounts</h2>
+    <mat-list-item *ngFor="let account of accounts" (click)="selectAccount(account)">
+      <h4 mat-line>{{ account.name }}</h4>
+      <p mat-line><i>{{ account.identifier }}</i></p>
+    </mat-list-item>
+  </mat-action-list>
+</div>

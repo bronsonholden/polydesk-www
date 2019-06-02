@@ -1,0 +1,13 @@
+<h2 class="mat-h2">Create Account</h2>
+<form id="login-form">
+  <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="name" placeholder="Account name" name="name" type="text" required="true">
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <input matInput [(ngModel)]="identifier" placeholder="Identifier" name="identifier" type="text" required="true">
+    <mat-hint>Allowed characters: a-z 0-9 - _</mat-hint>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button color="primary" mat-raised-button (click)="createAccount()" [disabled]="!createButtonEnabled()">Create</button>
+  </div>
+</form>

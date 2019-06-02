@@ -76,11 +76,18 @@ import { DocumentCreateComponent } from './document-create/document-create.compo
 import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
 import { FolderSelectFoldersComponent } from './folder/folder-select-folders/folder-select-folders.component';
 import { FolderConfirmDeleteComponent } from './folder/folder-confirm-delete/folder-confirm-delete.component';
+import { AccountComponent } from './account/account.component';
+import { AccountCreateComponent } from './account/account-create/account-create.component';
+import { AccountListComponent } from './account/account-list/account-list.component';
 
 const routes: Routes = [
   {
     path: 'confirmations/:confirmationToken',
     component: ConfirmationsComponent
+  },
+  {
+    path: 'accounts',
+    component: AccountListComponent
   },
   {
     path: ':account',
@@ -198,9 +205,13 @@ const routes: Routes = [
     DocumentCreateComponent,
     FolderSelectComponent,
     FolderSelectFoldersComponent,
-    FolderConfirmDeleteComponent
+    FolderConfirmDeleteComponent,
+    AccountComponent,
+    AccountCreateComponent,
+    AccountListComponent
   ],
   entryComponents: [
+    AccountCreateComponent,
     AuthDialogComponent,
     CreateFolderComponent,
     DataTableDialogComponent,
