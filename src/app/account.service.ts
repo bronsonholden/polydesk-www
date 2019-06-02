@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 export class AccountService {
   public account: string | null = null;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.root.params.subscribe(params => {
-      const route = this.route.snapshot.root;
-
-      if (route.children.length > 0) {
-        const accountIdentifier = route.children[0].params.account;
-
-        if (accountIdentifier) {
-          this.account = accountIdentifier;
-        }
-      }
+  constructor(private router: Router) {
+    // Sets account when navigating
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      const route = this.router.routerState.snapshot.root;
+      this.account = route.children[0].params.account;
     });
   }
 }
