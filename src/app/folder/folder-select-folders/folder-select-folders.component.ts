@@ -21,15 +21,9 @@ export class FolderSelectFoldersComponent implements OnInit {
       },
       type: {
         title: 'Type',
-        display: 'switch',
-        type: 'type',
-        case: {
-          folder: {
-            display: 'icon',
-            type: 'literal',
-            value: 'folder-outline'
-          }
-        }
+        display: 'icon',
+        type: 'literal',
+        value: 'folder-outline'
       },
       name: {
         title: 'Name',
