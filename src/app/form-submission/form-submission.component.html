@@ -14,8 +14,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="form-submit-wrapper">
-  <app-form
-    [schema]="schema"
-    [layout]="layout"
-    [data]="data"></app-form>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+    <button type="submit" mat-raised-button>Submit</button>
+  </form>
 </div>

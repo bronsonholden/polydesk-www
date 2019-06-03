@@ -26,6 +26,8 @@
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
     "@mdi/angular-material": "^3.6.95",
+    "@ngx-formly/core": "^5.1.8",
+    "@ngx-formly/material": "^5.1.8",
     "@swimlane/ngx-datatable": "^14.0.0",
     "ace-builds": "^1.4.4",
     "ajv": "^6.10.0",

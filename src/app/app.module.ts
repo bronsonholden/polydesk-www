@@ -12,6 +12,10 @@ import { environment } from '../environments/environment';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyFlexLayoutType } from './formly-flex-layout-type';
+import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 
 // Import Material components
 import {
@@ -148,11 +152,7 @@ const routes: Routes = [
           },
           {
             path: ':id',
-            redirectTo: ':id/submit'
-          },
-          {
-            path: ':id/submit',
-            component: FormSubmissionComponent
+            component: FormComponent,
           },
           {
             path: ':id/edit',
@@ -208,7 +208,8 @@ const routes: Routes = [
     FolderConfirmDeleteComponent,
     AccountComponent,
     AccountCreateComponent,
-    AccountListComponent
+    AccountListComponent,
+    FormlyFlexLayoutType
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -253,6 +254,13 @@ const routes: Routes = [
     MatTreeModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    FormlyModule.forRoot({
+      types: [
+        { name: 'flex-layout', component: FormlyFlexLayoutType }
+      ]
+    }),
+    FormlyMaterialModule,
+    FormlyMatSliderModule,
     RouterModule.forRoot(routes),
     RouterTabModule
   ],

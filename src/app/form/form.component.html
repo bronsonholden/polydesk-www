@@ -1,8 +1,3 @@
 <div class="form-wrapper">
-  <app-form-container
-    [layout]="layout"
-    [schemaMap]="schemaMap"
-    [data]="data"
-    (dataChange)="onFormDataChange($event)">
-  </app-form-container>
+  <app-form-submission [fields]="fields" [model]="model" (formSubmit)="onSubmit($event)"></app-form-submission>
 </div>

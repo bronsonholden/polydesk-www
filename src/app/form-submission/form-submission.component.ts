@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-form-submission',
@@ -7,162 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormSubmissionComponent implements OnInit {
 
-  layout = {
-    presentation: 'standard',
-    sections: [
-      {
-        direction: 'row',
-        columns: 4,
-        spacing: 20,
-        fields: [
-          'firstName',
-          'lastName'
-        ]
-      },
-      {
-        direction: 'row',
-        columns: 2,
-        spacing: 20,
-        fields: [
-          'shoppingList',
-          'toDoList'
-        ]
-      },
-      {
-        dataSource: 'siblings',
-        layout: {
-          presentation: 'standard',
-          sections: [
-            {
-              direction: 'row',
-              columns: 4,
-              spacing: 20,
-              fields: [
-                'firstName',
-                'lastName'
-              ]
-            },
-            {
-              direction: 'row',
-              spacing: 20,
-              action: 'addSet'
-            }
-          ]
-        }
-      },
-      {
-        dataSource: 'address',
-        layout: {
-          presentation: 'standard',
-          sections: [
-            {
-              direction: 'row',
-              columns: 4,
-              spacing: 20,
-              fields: [
-                'street1'
-              ]
-            },
-            {
-              direction: 'row',
-              columns: 4,
-              spacing: 20,
-              fields: [
-                'street2'
-              ]
-            }
-          ]
-        }
-      }
-    ]
-  };
-
-  schema = {
-    type: 'object',
-    properties: {
-      firstName: {
-        type: 'string',
-        title: 'First Name',
-        description: 'Your first name'
-      },
-      lastName: {
-        type: 'string',
-        title: 'Last Name',
-        description: 'Your last name'
-      },
-      shoppingList: {
-        title: 'Shopping List',
-        type: 'array',
-        items: {
-          type: 'string',
-          description: 'Item to purchase'
-        }
-      },
-      toDoList: {
-        title: 'To-Do List',
-        type: 'array',
-        items: {
-          type: 'string',
-          description: 'Thing to get done'
-        }
-      },
-      siblings: {
-        title: 'Siblings',
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            firstName: { type: 'string' },
-            lastName: { type: 'string' }
-          }
-        }
-      },
-      address: {
-        title: 'Address',
-        type: 'object',
-        properties: {
-          street1: {
-            type: 'string',
-            title: 'Address'
-          },
-          street2: {
-            type: 'string',
-            title: 'Address Line 2'
-          }
-        }
-      }
-    }
-  };
-
-  data = {
-    firstName: 'John',
-    lastName: 'Doe',
-    shoppingList: [
-      'Apples',
-      'Oranges',
-      'Peaches',
-      'Scissors'
-    ],
-    toDoList: [
-      'Take out garbage',
-      'Feed the dogs',
-      'Get hair cut'
-    ],
-    siblings: [
-      {
-        firstName: 'Bob',
-        lastName: 'Smith'
-      },
-      {
-        firstName: 'Jane',
-        lastName: 'Roe'
-      }
-    ]
-  };
+  form = new FormGroup({});
+  @Input() model: any;
+  @Input() fields: FormlyFieldConfig[];
+  @Output() formSubmit = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  submitForm() {
+    this.formSubmit.emit({foo:'bar'});
   }
 
 }
