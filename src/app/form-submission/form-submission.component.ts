@@ -20,7 +20,7 @@ export class FormSubmissionComponent implements OnInit {
   }
 
   submitForm() {
-    this.formSubmit.emit({foo:'bar'});
+    this.formSubmit.emit(this.model);
   }
 
 }
