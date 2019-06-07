@@ -13,8 +13,7 @@ import { LAYOUT_SCHEMA } from './layout.schema';
 export class FormComponent implements OnInit {
 
   model: any = {};
-  fields: FormlyFieldConfig[] = [
-  ];
+  fields: FormlyFieldConfig[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private snackBar: MatSnackBar,
