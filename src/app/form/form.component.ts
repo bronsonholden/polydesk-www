@@ -14,6 +14,7 @@ export class FormComponent implements OnInit {
 
   model: any = {};
   fields: FormlyFieldConfig[] = [];
+  formName: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private snackBar: MatSnackBar,
@@ -24,6 +25,7 @@ export class FormComponent implements OnInit {
 
     this.httpClient.get(`forms/${formId}`).subscribe((result: any) => {
       this.fields = result.data.attributes.layout.fields || [];
+      this.formName = result.data.attributes.name;
     }, (err: any) => {
       err.error.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
@@ -33,7 +35,9 @@ export class FormComponent implements OnInit {
     });
   }
 
-  onSubmit(model) {
+  onSubmit(data) {
+    // data.model
+    // data.draft
   }
 
 }

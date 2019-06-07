@@ -1,21 +1,12 @@
-<mat-toolbar id="form-submit-toolbar">
-  <mat-toolbar-row>
-    <button mat-icon-button class="mat-icon-button" routerLink="../..">
-      <i class="material-icons md-24">arrow_back</i>
-    </button>
-
-    <div class="spacer-24"></div>
-
-    <button mat-raised-button color="primary" class="mat-raised-button">Submit</button>
-    <button mat-raised-button class="mat-raised-button">Save Draft</button>
-
-    <!-- Fill -->
-    <div class="h-fill"></div>
-  </mat-toolbar-row>
-</mat-toolbar>
 <div id="form-submit-wrapper">
+  <h2>{{ formName }}</h2>
   <form [formGroup]="form" (ngSubmit)="submitForm()">
     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-    <button type="submit" mat-raised-button>Submit</button>
+    <div class="button-row">
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+      <button type="button" mat-raised-button (click)="saveDraft()">Save Draft</button>
+      <div class="h-fill"></div>
+      <button type="button" mat-raised-button (click)="goBack()">Cancel</button>
+    </div>
   </form>
 </div>

@@ -9,8 +9,14 @@
 /* Rich green color for success-related elements */
 $success: mat-palette($mat-green, A700);
 
-mat-toolbar.actionbar button {
+mat-toolbar.actionbar button, .button-row button:not(:last-child) {
   margin-right: 8px;
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 button[color="success"] {

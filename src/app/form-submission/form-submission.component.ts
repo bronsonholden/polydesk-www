@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
@@ -12,15 +13,30 @@ export class FormSubmissionComponent implements OnInit {
   form = new FormGroup({});
   @Input() model: any;
   @Input() fields: FormlyFieldConfig[];
+  @Input() formName: string;
   @Output() formSubmit = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }
 
   submitForm() {
-    this.formSubmit.emit(this.model);
+    this.formSubmit.emit({
+      model: this.model,
+      draft: false
+    });
+  }
+
+  saveDraft() {
+    this.formSubmit.emit({
+      model: this.model,
+      draft: true
+    });
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
