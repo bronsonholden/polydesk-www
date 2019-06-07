@@ -22,9 +22,9 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     const formId = this.activatedRoute.snapshot.params.id;
 
-    this.httpClient.get(`forms/${formId}`).subscribe(result => {
+    this.httpClient.get(`forms/${formId}`).subscribe((result: any) => {
       this.fields = result.data.attributes.layout.fields || [];
-    }, err => {
+    }, (err: any) => {
       err.error.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
           duration: 3000
