@@ -1,5 +1,12 @@
 <mat-toolbar class="actionbar" style="height: 64px;">
   <mat-toolbar-row>
+    <button mat-icon-button [disabled]="!folderId" (click)="goToRoot()">
+      <mat-icon svgIcon="home-outline"></mat-icon>
+    </button>
+    <button mat-icon-button [disabled]="!folderId" (click)="goToParentFolder()">
+      <mat-icon svgIcon="arrow-up"></mat-icon>
+    </button>
+    <div class="spacer-12"></div>
     <button mat-raised-button color="primary" class="mat-raised-button" (click)="routeToUpload()">Upload</button>
     <button mat-raised-button class="mat-raised-button" (click)="openCreateFolderDialog()">Create Folder</button>
 

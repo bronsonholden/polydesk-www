@@ -44,6 +44,7 @@ export class ContentElement {
 export class FolderComponent implements OnInit {
 
   @ViewChild('folderDataTable') folderDataTable: DataTableComponent;
+  folderId: string;
 
   data = {
     resource: 'content',
@@ -196,10 +197,10 @@ export class FolderComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      let folder = params.folder;
+      this.folderId = params.folder;
 
-      if (folder) {
-        this.data.resource = `folders/${folder}/content`;
+      if (this.folderId) {
+        this.data.resource = `folders/${this.folderId}/content`;
       } else {
         this.data.resource = 'content'
       }
@@ -245,6 +246,41 @@ export class FolderComponent implements OnInit {
   routeToUpload() {
     this.router.navigate(['./upload'], {
       relativeTo: this.route
+    });
+  }
+
+  goToRoot() {
+    if (this.folderId) {
+      this.router.navigate(['..'], {
+        relativeTo: this.route
+      });
+    } else {
+      this.router.navigate(['.'], {
+        relativeTo: this.route
+      });
+    }
+  }
+
+  goToParentFolder() {
+    if (!this.folderId) {
+      return;
+    }
+
+    this.http.get(`folders/${this.folderId}?include=parent`).subscribe((result: any) => {
+      if (result.included.length === 0) {
+        this.goToRoot();
+      } else {
+        const id = result.data.relationships.parent.data.id;
+        this.router.navigate(['..', id], {
+          relativeTo: this.route
+        });
+      }
+    }, (err: any) => {
+      err.error.errors.forEach(err => {
+        this.snackBar.open(err.title, 'OK', {
+          duration: 3000
+        });
+      });
     });
   }
 
