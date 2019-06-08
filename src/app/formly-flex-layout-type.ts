@@ -6,13 +6,13 @@ import { FieldType } from '@ngx-formly/core';
   template: `
     <div
       class="content"
+      fxLayout.xs="column"
       [fxLayout]="to.fxLayout"
       [fxLayoutGap]="to.fxLayoutGap"
-      fxLayout.xs="column"
       fxFlexFill>
         <div
             *ngFor="let f of field.fieldGroup"
-            [fxFlex]="f.templateOptions.fxFlex">
+            [attr.fxFlex]="f.templateOptions.fxFlex">
           <formly-field [field]="f">
           </formly-field>
         </div>

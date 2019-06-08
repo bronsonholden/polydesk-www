@@ -1,5 +1,4 @@
-<div id="hiddenScrollable" #hiddenScrollable></div>
-<mat-toolbar id="report-list-toolbar" style="height: 64px;">
+<mat-toolbar class="actionbar" style="height: 64px;">
   <mat-toolbar-row>
     <button mat-raised-button color="primary" class="mat-raised-button">New</button>
     <button mat-raised-button class="mat-raised-button">Favorite</button>
@@ -19,4 +18,6 @@
     <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
   </mat-toolbar-row>
 </mat-toolbar>
-<app-data-table [data]="reportListData"></app-data-table>
+<div id="report-table-wrapper">
+  <app-data-table [data]="reportListData"></app-data-table>
+</div>
