@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { LAYOUT_SCHEMA } from './layout.schema';
@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   formName: string;
 
   constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               private snackBar: MatSnackBar,
               private httpClient: HttpClient) { }
 
@@ -56,7 +57,9 @@ export class FormComponent implements OnInit {
     };
 
     this.httpClient.post('form-submissions', params).subscribe((result: any) => {
-      console.log(result);
+      this.router.navigate(['..'], {
+        relativeTo: this.activatedRoute
+      });
     }, (err: any) => {
       err.error.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
