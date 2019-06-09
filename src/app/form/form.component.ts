@@ -36,8 +36,34 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(data) {
-    // data.model
-    // data.draft
+    const formId = this.activatedRoute.snapshot.params.id;
+    const params = {
+      data: {
+        type: 'form-submissions',
+        attributes: {
+          data: data.model,
+          state: data.draft ? 'draft' : 'published'
+        },
+        relationships: {
+          form: {
+            data: {
+              id: formId,
+              type: 'forms'
+            }
+          }
+        }
+      }
+    };
+
+    this.httpClient.post('form-submissions', params).subscribe((result: any) => {
+      console.log(result);
+    }, (err: any) => {
+      err.error.errors.forEach(err => {
+        this.snackBar.open(err.title, 'OK', {
+          duration: 3000
+        });
+      });
+    });
   }
 
 }
