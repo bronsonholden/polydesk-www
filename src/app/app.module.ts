@@ -83,6 +83,7 @@ import { FolderConfirmDeleteComponent } from './folder/folder-confirm-delete/fol
 import { AccountComponent } from './account/account.component';
 import { AccountCreateComponent } from './account/account-create/account-create.component';
 import { AccountListComponent } from './account/account-list/account-list.component';
+import { FormConfirmDeleteComponent } from './form-confirm-delete/form-confirm-delete.component';
 
 const routes: Routes = [
   {
@@ -151,6 +152,10 @@ const routes: Routes = [
             component: FormListComponent,
           },
           {
+            path: 'new',
+            component: FormEditComponent
+          },
+          {
             path: ':id',
             component: FormComponent,
           },
@@ -209,7 +214,8 @@ const routes: Routes = [
     AccountComponent,
     AccountCreateComponent,
     AccountListComponent,
-    FormlyFlexLayoutType
+    FormlyFlexLayoutType,
+    FormConfirmDeleteComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -218,6 +224,7 @@ const routes: Routes = [
     DataTableDialogComponent,
     FolderConfirmDeleteComponent,
     FolderSelectComponent,
+    FormConfirmDeleteComponent,
     TopbarActionsComponent,
     TextWidgetComponent
   ],

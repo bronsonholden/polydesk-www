@@ -2,23 +2,12 @@
   <mat-toolbar id="form-edit-toolbar" style="height: 64px;">
     <mat-toolbar-row>
       <button mat-raised-button color="primary" class="mat-raised-button">Save</button>
-      <button mat-raised-button class="mat-raised-button">Publish</button>
       <button mat-raised-button class="mat-raised-button">Preview</button>
-      <button mat-raised-button class="mat-raised-button">Favorite</button>
-
-      <!-- Export menu -->
-      <mat-menu #exportMenu="matMenu">
-        <button mat-menu-item>v1</button>
-        <button mat-menu-item>v2</button>
-        <button mat-menu-item>v3</button>
-        <button mat-menu-item><i>Draft</i></button>
-      </mat-menu>
-      <button mat-raised-button [matMenuTriggerFor]="exportMenu" class="mat-raised-button">Versions</button>
 
       <!-- Fill -->
       <div class="h-fill"></div>
 
-      <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
+      <button mat-raised-button class="mat-raised-button" (click)="cancelFormEdit()">Cancel</button>
     </mat-toolbar-row>
   </mat-toolbar>
   <div fxLayout="row" style="height:100%">

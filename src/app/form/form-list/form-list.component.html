@@ -1,1 +1,15 @@
-<app-data-table [data]="data"></app-data-table>
+<mat-toolbar class="actionbar" style="height: 64px;">
+  <mat-toolbar-row>
+    <button mat-raised-button color="primary" class="mat-raised-button" routerLink="new">New</button>
+    <button mat-raised-button class="mat-raised-button">Favorite</button>
+
+    <!-- Fill -->
+    <div class="h-fill"></div>
+
+    <button mat-raised-button class="mat-raised-button">Edit</button>
+    <button mat-raised-button color="warn" class="mat-raised-button" (click)="deleteSelectedForms()">Delete</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div id="form-table-wrapper">
+  <app-data-table #formDataTable [data]="data"></app-data-table>
+</div>

@@ -1,0 +1,20 @@
+<div class="mat-typography">
+  <div *ngIf="dialogData.length === 0; else hasSelection">
+    <div mat-dialog-content>
+      No items selected for deletion!
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button (click)="closeDeleteDialog()">OK</button>
+    </div>
+  </div>
+  <ng-template #hasSelection>
+    <div mat-dialog-content>
+      Really delete {{ describeSelection() }}?
+    </div>
+    <br>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="warn" (click)="finalDeleteConfirmation()">Confirm</button>
+      <button mat-raised-button (click)="closeDeleteDialog()">Cancel</button>
+    </div>
+  </ng-template>
+</div>

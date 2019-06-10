@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { from, forkJoin } from 'rxjs';
+import { concatMap, finalize } from 'rxjs/operators';
+import { DataTableComponent } from '../../data-table/data-table.component';
+import { FormConfirmDeleteComponent } from '../../form-confirm-delete/form-confirm-delete.component';
 
 @Component({
   selector: 'app-form-list',
@@ -7,9 +13,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormListComponent implements OnInit {
 
+  @ViewChild('formDataTable') formDataTable: DataTableComponent;
+
   data = {
     resource: 'forms',
-    selectable: true,
+    select: 'multiple',
     columns: {
       id: {
         title: 'ID',
@@ -52,11 +60,43 @@ export class FormListComponent implements OnInit {
         width: 180
       }
     ]
-  }
+  };
 
-  constructor() { }
+  constructor(private dialog: MatDialog,
+              private snackBar: MatSnackBar,
+              private httpClient: HttpClient) { }
 
   ngOnInit() {
+  }
+
+  deleteRequestFor(form) {
+    return this.httpClient.delete(form.links.self);
+  }
+
+  deleteSelectedForms() {
+    const dialogRef = this.dialog.open(FormConfirmDeleteComponent, {
+      autoFocus: false,
+      data: this.formDataTable.selected
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+
+      const selected = this.formDataTable.selected;
+      // TODO: May be better as a component (to show progress for larger
+      // deletions).
+      const snackBarRef = this.snackBar.open('Deleting...', null, {
+        duration: 0
+      });
+
+      forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
+        // In case deletion is quick...
+        setTimeout(() => { snackBarRef.dismiss() }, 350);
+        this.formDataTable.reload();
+      });
+    });
   }
 
 }
