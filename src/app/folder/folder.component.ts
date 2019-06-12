@@ -164,7 +164,7 @@ export class FolderComponent implements OnInit {
 
       if (folderId) {
         data['relationships'] = {
-          parent: {
+          folder: {
             data: {
               type: 'folders',
               id: `${folderId}`
@@ -266,11 +266,11 @@ export class FolderComponent implements OnInit {
       return;
     }
 
-    this.http.get(`folders/${this.folderId}?include=parent`).subscribe((result: any) => {
+    this.http.get(`folders/${this.folderId}?include=folder`).subscribe((result: any) => {
       if (result.included.length === 0) {
         this.goToRoot();
       } else {
-        const id = result.data.relationships.parent.data.id;
+        const id = result.data.relationships.folder.data.id;
         this.router.navigate(['..', id], {
           relativeTo: this.route
         });
