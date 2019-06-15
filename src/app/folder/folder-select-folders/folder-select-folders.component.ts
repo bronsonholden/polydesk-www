@@ -13,6 +13,9 @@ export class FolderSelectFoldersComponent implements OnInit {
   data: any = {
     resource: 'folders',
     select: 'single',
+    params: {
+      'filter[folder_id]': '0'
+    },
     columns: {
       id: {
         title: 'ID',
@@ -72,10 +75,9 @@ export class FolderSelectFoldersComponent implements OnInit {
       let id = params.id;
 
       if (typeof id !== 'undefined' && id !== '0') {
-        this.data.resource = `folders/${id}/folders`;
+        this.data.params = { 'filter[folder_id]': id };
       } else {
-        this.data.params = { root: 'true' };
-        this.data.resource = 'folders';
+        this.data.params = { 'filter[folder_id]': '0' };
       }
 
       this.selectFolderDataTable.reload(this.data);
