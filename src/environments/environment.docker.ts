@@ -2,9 +2,9 @@
 export const environment = {
   production: true,
   envName: 'prod',
-  apiBase: 'https://apilocal.polydesk.io',
+  apiBase: 'https://api.polydesk.io',
   tokenAuthConfig: {
-    apiBase: 'https://apilocal.polydesk.io',
+    apiBase: 'https://api.polydesk.io',
     registerAccountPath: 'accounts'
   }
 };
