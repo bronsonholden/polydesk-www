@@ -74,6 +74,31 @@ export class FolderComponent implements OnInit {
                 display: 'icon',
                 type: 'literal',
                 value: 'file-pdf-outline'
+              },
+              'image/png': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-image-outline'
+              },
+              'image/gif': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-image-outline'
+              },
+              'image/jpeg': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-image-outline'
+              },
+              'image/bmp': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-image-outline'
+              },
+              'image/tiff': {
+                display: 'icon',
+                type: 'literal',
+                value: 'file-image-outline'
               }
             },
             default: {
