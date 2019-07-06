@@ -63,7 +63,8 @@ export class FolderComponent implements OnInit {
           folders: {
             display: 'icon',
             type: 'literal',
-            value: 'folder-outline'
+            value: 'folder-outline',
+            tooltip: 'A folder'
           },
           documents: {
             display: 'switch',
@@ -73,38 +74,45 @@ export class FolderComponent implements OnInit {
               'application/pdf': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-pdf-outline'
+                value: 'file-pdf-outline',
+                tooltip: 'An Adobe PDF'
               },
               'image/png': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-image-outline'
+                value: 'file-image-outline',
+                tooltip: 'A PNG image'
               },
               'image/gif': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-image-outline'
+                value: 'file-image-outline',
+                tooltip: 'A GIF image'
               },
               'image/jpeg': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-image-outline'
+                value: 'file-image-outline',
+                tooltip: 'A JPEG image'
               },
               'image/bmp': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-image-outline'
+                value: 'file-image-outline',
+                tooltip: 'A BMP image'
               },
               'image/tiff': {
                 display: 'icon',
                 type: 'literal',
-                value: 'file-image-outline'
+                value: 'file-image-outline',
+                tooltip: 'A TIFF image'
               }
             },
             default: {
               display: 'icon',
               type: 'literal',
-              value: 'file-outline'
+              value: 'file-outline',
+              tooltip: 'A file'
             }
           }
         }
