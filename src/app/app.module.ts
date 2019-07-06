@@ -16,6 +16,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyFlexLayoutType } from './formly-flex-layout-type';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 // Import Material components
 import {
@@ -269,7 +270,8 @@ const routes: Routes = [
     FormlyMaterialModule,
     FormlyMatSliderModule,
     RouterModule.forRoot(routes),
-    RouterTabModule
+    RouterTabModule,
+    PdfViewerModule
   ],
   providers: [
     AngularTokenModule,
