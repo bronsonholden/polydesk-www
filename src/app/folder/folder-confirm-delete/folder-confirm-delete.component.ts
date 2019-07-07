@@ -19,8 +19,8 @@ export class FolderConfirmDeleteComponent implements OnInit {
   }
 
   describeSelection() {
-    let folders = this.dialogData.filter(obj => obj.type === 'folder').length;
-    let documents = this.dialogData.filter(obj => obj.type === 'document').length;
+    let folders = this.dialogData.filter(obj => obj.type === 'folders').length;
+    let documents = this.dialogData.filter(obj => obj.type === 'documents').length;
     let description = '';
 
     if (folders > 0) {
