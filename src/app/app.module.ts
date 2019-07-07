@@ -43,6 +43,7 @@ import {
 } from '@angular/material';
 
 import { AccountService } from './account.service';
+import { SelectDialogService } from './select-dialog.service';
 
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';

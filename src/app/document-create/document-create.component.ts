@@ -7,6 +7,7 @@ import { MatSnackBar, MatDialog } from '@angular/material'
 import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
 import { FolderSelectComponent } from '../folder/folder-select/folder-select.component';
+import { SelectDialogService } from '../select-dialog.service';
 
 enum FileUploadStatus {
   // File has been selected for upload
@@ -63,6 +64,7 @@ export class DocumentCreateComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
               private tokenService: AngularTokenService,
+              private selectDialogService: SelectDialogService,
               private dialog: MatDialog,
               private location: Location,
               private snackBar: MatSnackBar,
@@ -94,50 +96,27 @@ export class DocumentCreateComponent implements OnInit {
   }
 
   openSelectFolderDialog() {
-    this.router.navigate([
-      {
-        outlets: {
-          'select-dialog-outlet': ['0']
-        }
+    this.selectDialogService.selectFolder({
+      autoFocus: false,
+      width: '800px',
+      height: '600px'
+    }).subscribe(result => {
+      // Then navigate to selected folder for upload
+      const folder = this.route.snapshot.params.folder;
+
+      if (!result || result.length !== 1) {
+        return;
       }
-    ], {
-      skipLocationChange: true
-    }).then(() => {
-      const dialogRef = this.dialog.open(FolderSelectComponent, {
-        autoFocus: false,
-        width: '800px',
-        height: '600px'
-      });
 
-      dialogRef.afterClosed().subscribe(result => {
-        // Navigate select dialog outlet away
-        this.router.navigate([
-          {
-            outlets: {
-              'select-dialog-outlet': null
-            }
-          }
-        ], {
-          skipLocationChange: true
-        }).then(() => {
-          // Then navigate to selected folder for upload
-          const folder = this.route.snapshot.params.folder;
+      let url = `../${result[0].id}/upload`;
 
-          if (!result || result.length !== 1) {
-            return;
-          }
+      // If we're navigating away from a folder upload route, the folder
+      // ID is in the path, so we need to navigate up another level.
+      if (folder) {
+        url = `../${url}`;
+      }
 
-          let url = `../${result[0].id}/upload`;
-
-          // If we're navigating away from a folder upload route, the folder
-          // ID is in the path, so we need to navigate up another level.
-          if (folder) {
-            url = `../${url}`;
-          }
-
-          this.router.navigate([url], { relativeTo: this.route });
-        });
-      });
+      this.router.navigate([url], { relativeTo: this.route });
     });
   }
 
