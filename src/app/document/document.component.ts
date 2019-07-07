@@ -25,7 +25,7 @@ export class DocumentComponent implements OnInit {
   ngOnInit() {
     let docId = this.route.snapshot.params.id;
 
-    this.httpClient.get(`documents/${docId}`).subscribe(res => {
+    this.httpClient.get(`documents/${docId}`).subscribe((res: any) => {
       this.contentType = res.data.attributes.content_type;
       this.contentLink = `${res.data.links.self}/download`;
 
@@ -69,7 +69,7 @@ export class DocumentComponent implements OnInit {
     let reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      this.src = this.domSanitizer.bypassSecurityTrustUrl(reader.result);
+      this.src = this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString());
     }, false);
 
     if (blob) {
