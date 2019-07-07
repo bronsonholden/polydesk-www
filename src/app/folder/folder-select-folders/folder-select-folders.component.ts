@@ -66,22 +66,28 @@ export class FolderSelectFoldersComponent implements OnInit {
     ]
   };
 
+  folderId: string = '0';
+
   @ViewChild('selectFolderDataTable') selectFolderDataTable: DataTableComponent;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      let id = params.id;
-
-      if (typeof id !== 'undefined' && id !== '0') {
-        this.data.params = { 'filter[folder_id]': id };
-      } else {
-        this.data.params = { 'filter[folder_id]': '0' };
-      }
-
-      this.selectFolderDataTable.reload(this.data);
+      this.goToFolder(params.id);
     });
+  }
+
+  goToFolder(folderId) {
+    if (typeof folderId !== 'undefined' && folderId !== '0') {
+      this.data.params = { 'filter[folder_id]': folderId };
+      this.folderId = folderId;
+    } else {
+      this.data.params = { 'filter[folder_id]': '0' };
+      this.folderId = null;
+    }
+
+    this.selectFolderDataTable.reload(this.data);
   }
 
 }

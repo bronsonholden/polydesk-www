@@ -13,15 +13,34 @@ export class FolderSelectComponent implements OnInit {
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
   private selectFoldersDataTable: DataTableComponent;
+  private folderSelectFolders: any;
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
               private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  goToRoot() {
+    this.folderSelectFolders.goToFolder();
+  }
+
+  goToParentFolder() {
+    // TODO
+  }
+
+  atRootFolder() {
+    if (this.folderSelectFolders && this.folderSelectFolders.folderId) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   onRouterOutletActivate(folderSelectFolders) {
     this.selectFoldersDataTable = folderSelectFolders.selectFolderDataTable;
+    this.folderSelectFolders = folderSelectFolders;
   }
 
   selectFolders() {

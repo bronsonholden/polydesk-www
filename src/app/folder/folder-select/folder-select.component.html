@@ -1,5 +1,11 @@
 <mat-toolbar class="actionbar" style="height: 64px;">
   <mat-toolbar-row>
+    <button mat-icon-button [disabled]="atRootFolder()" (click)="goToRoot()">
+      <mat-icon svgIcon="home-outline"></mat-icon>
+    </button>
+    <button mat-icon-button [disabled]="atRootFolder()" (click)="goToParentFolder()">
+      <mat-icon svgIcon="arrow-up"></mat-icon>
+    </button>
     <button mat-raised-button [disabled]="!isAnyFolderSelected()" (click)="selectFolders()">Select</button>
     <button mat-raised-button (click)="cancelSelection()">Cancel</button>
   </mat-toolbar-row>
