@@ -32,10 +32,8 @@
     <div *ngIf="contentType === 'application/pdf'">
       <pdf-viewer [src]="src" [render-text]="true"></pdf-viewer>
     </div>
-    <div *ngIf="contentIsImage()">
-      <div class="image-preview" fxLayout="row" fxLayoutAlign="center center">
-        <img [src]="src"/>
-      </div>
+    <div *ngIf="contentIsImage()" class="image-preview">
+      <img class="image-element" [src]="src"/>
     </div>
   </div>
 </div>
