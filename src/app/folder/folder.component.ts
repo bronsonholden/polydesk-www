@@ -8,6 +8,7 @@ import { concatMap, finalize } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
+import { FolderApiService } from '../folder-api.service';
 
 export class ContentElement {
   constructor(public id: number,
@@ -167,6 +168,7 @@ export class FolderComponent implements OnInit {
   };
 
   constructor(private http: HttpClient,
+              private folderApi: FolderApiService,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -299,12 +301,11 @@ export class FolderComponent implements OnInit {
       return;
     }
 
-    this.http.get(`folders/${this.folderId}?include=folder`).subscribe((result: any) => {
-      if (result.included.length === 0) {
+    this.folderApi.getParentFolder(this.folderId).subscribe((result: any) => {
+      if (!result.data) {
         this.goToRoot();
       } else {
-        const id = result.data.relationships.folder.data.id;
-        this.router.navigate(['..', id], {
+        this.router.navigate(['..', result.data.id], {
           relativeTo: this.route
         });
       }
