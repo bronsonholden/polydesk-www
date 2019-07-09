@@ -100,7 +100,7 @@ export class DocumentCreateComponent implements OnInit {
       autoFocus: false,
       width: '800px',
       height: '600px'
-    }).subscribe(result => {
+    }).subscribe((result: any) => {
       // Then navigate to selected folder for upload
       const folder = this.route.snapshot.params.folder;
 
