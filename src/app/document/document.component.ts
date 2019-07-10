@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
+import { DocumentApiService } from '../document-api.service';
 
 @Component({
   selector: 'app-document',
@@ -17,6 +18,7 @@ export class DocumentComponent implements OnInit {
   src: any = null;
 
   constructor(private tokenService: AngularTokenService,
+              private documentApiService: DocumentApiService,
               private domSanitizer: DomSanitizer,
               private location: Location,
               private route: ActivatedRoute,
@@ -25,7 +27,7 @@ export class DocumentComponent implements OnInit {
   ngOnInit() {
     let docId = this.route.snapshot.params.id;
 
-    this.httpClient.get(`documents/${docId}`).subscribe((res: any) => {
+    this.documentApiService.getDocument(docId).subscribe((res: any) => {
       this.contentType = res.data.attributes.content_type;
       this.contentLink = `${res.data.links.self}/download`;
 

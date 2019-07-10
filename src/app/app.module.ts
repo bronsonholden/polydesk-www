@@ -43,6 +43,7 @@ import {
 } from '@angular/material';
 
 import { AccountService } from './account.service';
+import { DocumentApiService } from './document-api.service';
 import { FolderApiService } from './folder-api.service';
 import { SelectDialogService } from './select-dialog.service';
 
