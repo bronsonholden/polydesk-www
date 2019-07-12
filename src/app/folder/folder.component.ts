@@ -299,8 +299,6 @@ export class FolderComponent implements OnInit {
       };
     }
 
-    console.log(newFolder);
-
     return this.http.patch(item.links.self, {
       data: {
         id: `${item.id}`,

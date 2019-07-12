@@ -14,6 +14,7 @@ export class FolderSelectComponent implements OnInit {
 
   private selectFoldersDataTable: DataTableComponent;
   private folderSelectFolders: any;
+  private allowSelectRoot: any;
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
