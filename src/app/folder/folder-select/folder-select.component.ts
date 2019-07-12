@@ -17,7 +17,9 @@ export class FolderSelectComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
-              private router: Router) { }
+              private router: Router) {
+    this.allowSelectRoot = dialogData.allowSelectRoot;
+  }
 
   ngOnInit() {
   }
@@ -28,6 +30,10 @@ export class FolderSelectComponent implements OnInit {
 
   goToParentFolder() {
     // TODO
+  }
+
+  canSelectRoot() {
+    return this.allowSelectRoot;
   }
 
   atRootFolder() {
@@ -49,6 +55,10 @@ export class FolderSelectComponent implements OnInit {
 
   cancelSelection() {
     this.dialogRef.close();
+  }
+
+  selectRoot() {
+    this.dialogRef.close(0)
   }
 
   isAnyFolderSelected() {

@@ -9,6 +9,7 @@ import { CreateFolderComponent, CreateFolderData } from './create-folder/create-
 import { DataTableComponent } from '../data-table/data-table.component';
 import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
 import { FolderApiService } from '../folder-api.service';
+import { SelectDialogService } from '../select-dialog.service';
 
 export class ContentElement {
   constructor(public id: number,
@@ -169,11 +170,45 @@ export class FolderComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private folderApi: FolderApiService,
+              private selectDialogService: SelectDialogService,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
               private router: Router) {
+  }
+
+  openMoveToFolderDialog() {
+    this.selectDialogService.selectFolder({
+      data: {
+        allowSelectRoot: true
+      },
+      autoFocus: false,
+      width: '800px',
+      height: '600px'
+    }).subscribe((result: any) => {
+      if (!result === undefined) {
+        return;
+      }
+
+      let id = null;
+
+      if (result !== 0) {
+        id = result[0].id;
+      }
+
+      const selected = this.folderDataTable.selected;
+
+      const snackBarRef = this.snackBar.open('Move items...', null, {
+        duration: 0
+      });
+
+      forkJoin(from(selected).pipe(concatMap(item => this.moveRequestFor(item, id)))).subscribe(result => {
+        // In case deletion is quick...
+        setTimeout(() => { snackBarRef.dismiss() }, 350);
+        this.folderDataTable.reload();
+      });
+    });
   }
 
   openCreateFolderDialog() {
@@ -250,6 +285,31 @@ export class FolderComponent implements OnInit {
 
   deleteRequestFor(item) {
     return this.http.delete(item.links.self);
+  }
+
+  moveRequestFor(item, folderId) {
+    let newFolder = null;
+
+    if (folderId) {
+      newFolder = {
+        data: {
+          id: `${folderId}`,
+          type: 'folders'
+        }
+      };
+    }
+
+    console.log(newFolder);
+
+    return this.http.patch(item.links.self, {
+      data: {
+        id: `${item.id}`,
+        type: `${item.type}`,
+        relationships: {
+          folder: newFolder
+        }
+      }
+    });
   }
 
   confirmDelete() {
