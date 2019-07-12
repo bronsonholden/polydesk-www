@@ -6,7 +6,7 @@
     <button mat-icon-button [disabled]="atRootFolder()" (click)="goToParentFolder()">
       <mat-icon svgIcon="arrow-up"></mat-icon>
     </button>
-    <button mat-raised-button *ngIf="canSelectRoot()" (click)="selectRoot()">Select Root</button>
+    <button mat-raised-button (click)="selectRoot()">Select Root</button>
     <button mat-raised-button [disabled]="!isAnyFolderSelected()" (click)="selectFolders()">Select</button>
     <button mat-raised-button (click)="cancelSelection()">Cancel</button>
   </mat-toolbar-row>

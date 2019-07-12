@@ -14,13 +14,10 @@ export class FolderSelectComponent implements OnInit {
 
   private selectFoldersDataTable: DataTableComponent;
   private folderSelectFolders: any;
-  private allowSelectRoot: any;
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
-              private router: Router) {
-    this.allowSelectRoot = dialogData.allowSelectRoot;
-  }
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -31,10 +28,6 @@ export class FolderSelectComponent implements OnInit {
 
   goToParentFolder() {
     // TODO
-  }
-
-  canSelectRoot() {
-    return this.allowSelectRoot;
   }
 
   atRootFolder() {

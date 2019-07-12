@@ -180,9 +180,6 @@ export class FolderComponent implements OnInit {
 
   openMoveToFolderDialog() {
     this.selectDialogService.selectFolder({
-      data: {
-        allowSelectRoot: true
-      },
       autoFocus: false,
       width: '800px',
       height: '600px'

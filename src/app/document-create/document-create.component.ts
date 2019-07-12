@@ -104,11 +104,17 @@ export class DocumentCreateComponent implements OnInit {
       // Then navigate to selected folder for upload
       const folder = this.route.snapshot.params.folder;
 
-      if (!result || result.length !== 1) {
+      if (result === undefined) {
         return;
       }
 
-      let url = `../${result[0].id}/upload`;
+      let url;
+
+      if (result === 0) {
+        url = '../upload';
+      } else {
+        url = `../${result[0].id}/upload`;
+      }
 
       // If we're navigating away from a folder upload route, the folder
       // ID is in the path, so we need to navigate up another level.
