@@ -7,24 +7,24 @@
 
       <div class="spacer-24"></div>
 
-      <button mat-raised-button class="mat-raised-button">Favorite</button>
-      <button mat-raised-button class="mat-raised-button">Download</button>
-      <button mat-raised-button class="mat-raised-button">Check out</button>
+      <button mat-raised-button class="mat-raised-button" disabled>Favorite</button>
+      <button mat-raised-button class="mat-raised-button" disabled>Download</button>
+      <button mat-raised-button class="mat-raised-button" disabled>Check out</button>
 
       <mat-menu #shareMenu="matMenu">
-        <button mat-menu-item><span class="warn-color">Email</span></button>
+        <button mat-menu-item disabled><span class="warn-color">Email</span></button>
         <button mat-menu-item [matMenuTriggerFor]="shareLinkMenu">Link</button>
       </mat-menu>
       <mat-menu #shareLinkMenu="matMenu">
         <button mat-menu-item>Private</button>
         <button mat-menu-item><span class="warn-color">Public</span></button>
       </mat-menu>
-      <button mat-raised-button [matMenuTriggerFor]="shareMenu" class="mat-raised-button">Share</button>
+      <button mat-raised-button [matMenuTriggerFor]="shareMenu" class="mat-raised-button" disabled>Share</button>
 
       <!-- Fill -->
       <div class="h-fill"></div>
 
-      <button mat-raised-button color="warn" class="mat-raised-button">Delete</button>
+      <button mat-raised-button color="warn" class="mat-raised-button" disabled>Delete</button>
     </mat-toolbar-row>
   </mat-toolbar>
 
