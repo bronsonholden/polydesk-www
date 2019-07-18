@@ -31,19 +31,10 @@ export class FormListComponent implements OnInit {
         value: 'name'
       },
       createdAt: {
-        title: 'Created At',
+        title: 'Created',
         display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'created_at'
-      },
-      updatedAt: {
-        name: 'updated_at',
-        display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
-        title: 'Updated At',
-        type: 'attribute',
-        value: 'updated_at'
       }
     },
     display: [
@@ -53,10 +44,6 @@ export class FormListComponent implements OnInit {
       },
       {
         name: 'createdAt',
-        width: 180
-      },
-      {
-        name: 'updatedAt',
         width: 180
       }
     ]

@@ -23,16 +23,10 @@ export class ReportListComponent implements OnInit {
         value: 'name'
       },
       createdAt: {
-        title: 'Created At',
+        title: 'Created',
         display: 'date',
         type: 'attribute',
         value: 'created_at'
-      },
-      updatedAt: {
-        title: 'Updated At',
-        display: 'date',
-        type: 'attribute',
-        value: 'updated_at'
       }
     },
     display: [
@@ -42,10 +36,6 @@ export class ReportListComponent implements OnInit {
       },
       {
         name: 'createdAt',
-        width: 180
-      },
-      {
-        name: 'updatedAt',
         width: 180
       }
     ]
