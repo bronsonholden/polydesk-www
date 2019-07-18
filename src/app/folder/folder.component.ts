@@ -179,6 +179,12 @@ export class FolderComponent implements OnInit {
   }
 
   openMoveToFolderDialog() {
+    if (this.isSelectionEmpty()) {
+      return this.snackBar.open('Nothing selected!', 'OK', {
+        duration: 3000
+      });
+    }
+
     this.selectDialogService.selectFolder({
       autoFocus: false,
       width: '800px',
@@ -308,6 +314,12 @@ export class FolderComponent implements OnInit {
   }
 
   confirmDelete() {
+    if (this.isSelectionEmpty()) {
+      return this.snackBar.open('Nothing selected!', 'OK', {
+        duration: 3000
+      });
+    }
+
     const dialogRef = this.dialog.open(FolderConfirmDeleteComponent, {
       autoFocus: false,
       data: this.folderDataTable.selected
