@@ -7,7 +7,7 @@
     <div class="h-fill"></div>
 
     <button mat-raised-button class="mat-raised-button" disabled>Edit</button>
-    <button mat-raised-button color="warn" class="mat-raised-button" (click)="deleteSelectedForms()">Delete</button>
+    <button mat-raised-button color="warn" [disabled]="isFormSelectionEmpty()" class="mat-raised-button" (click)="deleteSelectedForms()">Delete</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="form-table-wrapper">

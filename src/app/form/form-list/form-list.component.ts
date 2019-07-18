@@ -69,6 +69,10 @@ export class FormListComponent implements OnInit {
   ngOnInit() {
   }
 
+  isFormSelectionEmpty() {
+    return this.formDataTable.selected.length === 0;
+  }
+
   deleteRequestFor(form) {
     return this.httpClient.delete(form.links.self);
   }
