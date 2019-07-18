@@ -1,13 +1,1 @@
-<mat-sidenav-container class="document-browser" (mousemove)="onMouseMove($event)">
-  <mat-sidenav
-      [style.width.px]="drawerWidth"
-      class="document-browser-drawer"
-      mode="side"
-      opened>
-    <app-folder-tree></app-folder-tree>
-    <div class="grabber" (mousedown)="onGrabberMouseDown($event)"></div>
-  </mat-sidenav>
-  <mat-sidenav-content [style.marginLeft.px]="drawerWidth">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<router-outlet></router-outlet>
