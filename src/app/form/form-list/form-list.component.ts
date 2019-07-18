@@ -78,6 +78,12 @@ export class FormListComponent implements OnInit {
   }
 
   deleteSelectedForms() {
+    if (this.isFormSelectionEmpty()) {
+      return this.snackBar.open('Nothing selected!', 'OK', {
+        duration: 3000
+      });
+    }
+
     const dialogRef = this.dialog.open(FormConfirmDeleteComponent, {
       autoFocus: false,
       data: this.formDataTable.selected
