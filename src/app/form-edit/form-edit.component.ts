@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FormEditComponent implements OnInit {
 
   schema: any;
-  layout: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router) { }

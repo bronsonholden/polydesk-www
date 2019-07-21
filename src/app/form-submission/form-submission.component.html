@@ -1,6 +1,5 @@
 <div id="form-submit-wrapper">
   <div id="form-content">
-    <h2>{{ formName }}</h2>
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
       <div class="button-row">

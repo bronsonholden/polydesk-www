@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextWidgetComponent } from './text-widget.component';
+import { FormWidgetArrayComponent } from './form-widget-array.component';
 
-describe('TextWidgetComponent', () => {
-  let component: TextWidgetComponent;
-  let fixture: ComponentFixture<TextWidgetComponent>;
+describe('FormWidgetArrayComponent', () => {
+  let component: FormWidgetArrayComponent;
+  let fixture: ComponentFixture<FormWidgetArrayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextWidgetComponent ]
+      declarations: [ FormWidgetArrayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextWidgetComponent);
+    fixture = TestBed.createComponent(FormWidgetArrayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

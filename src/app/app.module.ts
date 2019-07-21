@@ -68,12 +68,7 @@ import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
-import { TextWidgetComponent } from './form/form-widget/widget-library/text-widget/text-widget.component';
-import { FormWidgetComponent } from './form/form-widget/form-widget.component';
-import { WidgetFactory } from './form/form-widget/widget-library/widget-factory';
-import { WidgetRegistry } from './form/form-widget/widget-library/widget-registry';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
-import { FormContainerComponent } from './form/form-container/form-container.component';
 import { FormEditComponent } from './form-edit/form-edit.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
@@ -88,6 +83,8 @@ import { AccountComponent } from './account/account.component';
 import { AccountCreateComponent } from './account/account-create/account-create.component';
 import { AccountListComponent } from './account/account-list/account-list.component';
 import { FormConfirmDeleteComponent } from './form-confirm-delete/form-confirm-delete.component';
+import { FormWidgetObjectComponent } from './form/form-widget/form-widget-object/form-widget-object.component';
+import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/form-widget-array.component';
 
 const routes: Routes = [
   {
@@ -201,10 +198,7 @@ const routes: Routes = [
     FormListComponent,
     ResizeColumnDirective,
     CreateFolderComponent,
-    TextWidgetComponent,
-    FormWidgetComponent,
     FormSubmissionComponent,
-    FormContainerComponent,
     FormEditComponent,
     DataTableComponent,
     DocumentDataTableComponent,
@@ -219,7 +213,9 @@ const routes: Routes = [
     AccountCreateComponent,
     AccountListComponent,
     FormlyFlexLayoutType,
-    FormConfirmDeleteComponent
+    FormConfirmDeleteComponent,
+    FormWidgetObjectComponent,
+    FormWidgetArrayComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -230,7 +226,6 @@ const routes: Routes = [
     FolderSelectComponent,
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
-    TextWidgetComponent
   ],
   imports: [
     AceEditorModule,
@@ -267,7 +262,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormlyModule.forRoot({
       types: [
-        { name: 'flex-layout', component: FormlyFlexLayoutType }
+        { name: 'string', extends: 'input' },
+        { name: 'object', component: FormWidgetObjectComponent },
+        { name: 'array', component: FormWidgetArrayComponent }
       ]
     }),
     FormlyMaterialModule,
@@ -277,9 +274,7 @@ const routes: Routes = [
     PdfViewerModule
   ],
   providers: [
-    AngularTokenModule,
-    WidgetFactory,
-    WidgetRegistry
+    AngularTokenModule
   ],
   bootstrap: [AppComponent]
 })

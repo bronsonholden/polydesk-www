@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
-import { LAYOUT_SCHEMA } from './layout.schema';
 
 @Component({
   selector: 'app-form',
@@ -19,13 +19,15 @@ export class FormComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
-              private httpClient: HttpClient) { }
+              private httpClient: HttpClient,
+              private formlyJsonschema: FormlyJsonschema) { }
 
   ngOnInit() {
     const formId = this.activatedRoute.snapshot.params.id;
 
     this.httpClient.get(`forms/${formId}`).subscribe((result: any) => {
-      this.fields = result.data.attributes.layout.fields || [];
+      const schema = result.data.attributes.schema;
+      this.fields = [this.formlyJsonschema.toFieldConfig(schema)];
       this.formName = result.data.attributes.name;
     }, (err: any) => {
       err.error.errors.forEach(err => {
