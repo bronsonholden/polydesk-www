@@ -2,7 +2,9 @@
   <h1>{{ formName }}</h1>
   <div id="form-content">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
-      <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      <div style="margin-bottom: 12px;">
+        <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      </div>
       <div class="button-row">
         <button type="submit" mat-raised-button color="primary">Submit</button>
         <button type="button" mat-raised-button (click)="saveDraft()">Save Draft</button>

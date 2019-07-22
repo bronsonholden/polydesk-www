@@ -1,18 +1,23 @@
-<h2 *ngIf="to.label">{{ to.label }}</h2>
+<h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
 <p *ngIf="to.description">{{ to.description }}</p>
-<table style="width: 100%;">
-  <tr *ngFor="let field of field.fieldGroup; let i = index;">
-    <td style="width:100%;">
-      <formly-field [field]="field"></formly-field>
-    </td>
-    <td>
-      <button type="button" mat-flat-button mat-icon-button (click)="remove(i)">
-        <mat-icon svgIcon="close"></mat-icon>
-      </button>
-    </td>
-  </tr>
-</table>
+<div style="margin-bottom: 12px; padding-left: 8px;">
+  <table class="form-widget-array" style="width: 100%; border-left: 3px solid #f4f4f4; border-spacing: 0px;">
+    <tr *ngFor="let field of field.fieldGroup; let i = index;">
+      <td style="width: 100%; padding-right: 12px; padding-left: 12px;">
+        <div>
+          <formly-field [field]="field"></formly-field>
+        </div>
+      </td>
+      <td style="border-left: 1px solid #f4f4f4; padding-top: 2px; padding-left: 12px; vertical-align: top;">
+        <div>
+          <button type="button" color="warn" mat-stroked-button (click)="remove(i)" tabindex="-1">
+            Remove
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 <div>
-  <button mat-raised-button type="button" (click)="add()">Add</button>
+  <button mat-stroked-button type="button" (click)="add()">Add</button>
 <div>
-<br>
