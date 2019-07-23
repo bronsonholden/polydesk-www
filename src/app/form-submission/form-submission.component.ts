@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-form-submission',
@@ -13,6 +13,7 @@ export class FormSubmissionComponent implements OnInit {
   form = new FormGroup({});
   @Input() model: any;
   @Input() fields: FormlyFieldConfig[];
+  @Input() options: FormlyFormOptions;
   @Input() formName: string;
   @Output() formSubmit = new EventEmitter<any>();
 

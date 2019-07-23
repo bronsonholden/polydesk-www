@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 export class FormComponent implements OnInit {
 
   model: any = {};
+  options: FormlyFormOptions;
   fields: FormlyFieldConfig[] = [];
   formName: string;
 
@@ -27,7 +28,9 @@ export class FormComponent implements OnInit {
 
     this.httpClient.get(`forms/${formId}`).subscribe((result: any) => {
       const schema = result.data.attributes.schema;
-      this.fields = [this.formlyJsonschema.toFieldConfig(schema)];
+      const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
+      this.fields = [fieldConfig];
+      this.options = {};
       this.formName = result.data.attributes.name;
     }, (err: any) => {
       err.error.errors.forEach(err => {
@@ -57,6 +60,8 @@ export class FormComponent implements OnInit {
         }
       }
     };
+
+    console.log(data.model);
 
     this.httpClient.post('form-submissions', params).subscribe((result: any) => {
       this.router.navigate(['..'], {

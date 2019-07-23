@@ -85,6 +85,7 @@ import { AccountListComponent } from './account/account-list/account-list.compon
 import { FormConfirmDeleteComponent } from './form-confirm-delete/form-confirm-delete.component';
 import { FormWidgetObjectComponent } from './form/form-widget/form-widget-object/form-widget-object.component';
 import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/form-widget-array.component';
+import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widget-folder-reference/form-widget-folder-reference.component';
 
 const routes: Routes = [
   {
@@ -215,7 +216,8 @@ const routes: Routes = [
     FormlyFlexLayoutType,
     FormConfirmDeleteComponent,
     FormWidgetObjectComponent,
-    FormWidgetArrayComponent
+    FormWidgetArrayComponent,
+    FormWidgetFolderReferenceComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -264,7 +266,8 @@ const routes: Routes = [
       types: [
         { name: 'string', extends: 'input' },
         { name: 'object', component: FormWidgetObjectComponent },
-        { name: 'array', component: FormWidgetArrayComponent }
+        { name: 'array', component: FormWidgetArrayComponent },
+        { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent }
       ]
     }),
     FormlyMaterialModule,

@@ -1,0 +1,5 @@
+<h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+<p *ngIf="to.description">{{ to.description }}</p>
+<button *ngIf="true" style="width: 80px;" type="button" mat-stroked-button>Select</button>
+<button *ngIf="false" style="width: 80px;" type="button" mat-stroked-button color="warn">Clear</button>
+<input style="display: none;" [formControl]="formControl" [formlyAttributes]="field">
