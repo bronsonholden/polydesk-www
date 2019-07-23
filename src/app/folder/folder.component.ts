@@ -190,7 +190,7 @@ export class FolderComponent implements OnInit {
       width: '800px',
       height: '600px'
     }).subscribe((result: any) => {
-      if (!result === undefined) {
+      if (typeof(result) === 'undefined') {
         return;
       }
 
