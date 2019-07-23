@@ -1,5 +1,16 @@
 <h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
 <p *ngIf="to.description">{{ to.description }}</p>
-<button *ngIf="true" style="width: 80px;" type="button" mat-stroked-button>Select</button>
-<button *ngIf="false" style="width: 80px;" type="button" mat-stroked-button color="warn">Clear</button>
+<table style="width: 100%; border-spacing: 0px;">
+  <tr style="width: 100%;">
+    <td style="padding-right: 8px;">
+      <button *ngIf="!folder" style="width: 80px;" type="button" mat-stroked-button (click)="selectFolder()">Select</button>
+      <button *ngIf="folder != null" style="width: 80px;" type="button" mat-stroked-button color="warn" (click)="clearFolder()">Clear</button>
+    </td>
+    <td style="width: 100%;">
+      <div *ngIf="folder != null">
+        {{ folder.attributes.name }}
+      </div>
+    </td>
+  </tr>
+</table>
 <input style="display: none;" [formControl]="formControl" [formlyAttributes]="field">
