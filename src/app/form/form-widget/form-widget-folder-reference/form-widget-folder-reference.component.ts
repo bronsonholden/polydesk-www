@@ -10,7 +10,9 @@ import { SelectDialogService } from '../../../select-dialog.service';
 export class FormWidgetFolderReferenceComponent extends FieldType implements OnInit {
   folder: any = null;
 
-  constructor(private selectDialogService: SelectDialogService) { }
+  constructor(private selectDialogService: SelectDialogService) {
+    super();
+  }
 
   ngOnInit() { }
 
@@ -26,10 +28,12 @@ export class FormWidgetFolderReferenceComponent extends FieldType implements OnI
       }
 
       this.folder = result[0];
+      this.formControl.setValue(this.folder.id);
     });
   }
 
   clearFolder() {
     this.folder = null;
+    this.formControl.setValue(null);
   }
 }
