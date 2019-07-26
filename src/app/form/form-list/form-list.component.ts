@@ -35,12 +35,6 @@ export class FormListComponent implements OnInit {
         display: 'date',
         type: 'attribute',
         value: 'created-at'
-      },
-      formSubmissions: {
-        title: 'Submissions',
-        display: 'button',
-        type: 'literal',
-        value: 'View Submissions'
       }
     },
     display: [
@@ -50,10 +44,6 @@ export class FormListComponent implements OnInit {
       },
       {
         name: 'createdAt',
-        width: 180
-      },
-      {
-        name: 'formSubmissions',
         width: 180
       }
     ]

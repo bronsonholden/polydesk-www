@@ -27,12 +27,6 @@
   {{ value }}
 </div>
 
-<div *ngIf="columnDisplay === 'button'" style="padding: -15px 0;">
-  <button type="button" mat-stroked-button [routerLink]="getRouterLink()">
-    {{ value }}
-  </button>
-</div>
-
 <!-- Switch -->
 <div *ngIf="columnDisplay === 'switch'">
   <!-- {{ row._source | json }} -->
