@@ -14,7 +14,7 @@ export class FolderSelectFoldersComponent implements OnInit {
     resource: 'folders',
     select: 'single',
     params: {
-      'filter[folder_id]': '0'
+      'filter[folder-id]': '0'
     },
     columns: {
       id: {
@@ -40,14 +40,14 @@ export class FolderSelectFoldersComponent implements OnInit {
         display: 'date',
         format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
-        value: 'created_at'
+        value: 'created-at'
       },
       updatedAt: {
         title: 'Updated At',
         display: 'date',
         format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
-        value: 'updated_at'
+        value: 'updated-at'
       }
     },
     display: [
@@ -80,10 +80,10 @@ export class FolderSelectFoldersComponent implements OnInit {
 
   goToFolder(folderId) {
     if (typeof folderId !== 'undefined' && folderId !== '0') {
-      this.data.params = { 'filter[folder_id]': folderId };
+      this.data.params = { 'filter[folder-id]': folderId };
       this.folderId = folderId;
     } else {
-      this.data.params = { 'filter[folder_id]': '0' };
+      this.data.params = { 'filter[folder-id]': '0' };
       this.folderId = null;
     }
 

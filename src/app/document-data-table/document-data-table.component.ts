@@ -33,14 +33,14 @@ export class DocumentDataTableComponent implements OnInit {
         display: 'date',
         format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
-        value: 'created_at'
+        value: 'created-at'
       },
       updatedAt: {
         title: 'Updated At',
         display: 'date',
         format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
-        value: 'updated_at'
+        value: 'updated-at'
       },
       literalData: {
         title: 'Literal Data that has a really long header, like really really long',
@@ -73,7 +73,7 @@ export class DocumentDataTableComponent implements OnInit {
               display: 'date',
               format: 'MM/DD/YYYY hh:mm A',
               type: 'attribute',
-              value: 'created_at'
+              value: 'created-at'
             }
           },
           display: [

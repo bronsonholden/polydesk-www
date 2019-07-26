@@ -28,7 +28,7 @@ export class DocumentComponent implements OnInit {
     let docId = this.route.snapshot.params.id;
 
     this.documentApiService.getDocument(docId).subscribe((res: any) => {
-      this.contentType = res.data.attributes.content_type;
+      this.contentType = res.data.attributes['content-type'];
       this.contentLink = `${res.data.links.self}/download`;
 
       let headers = this.tokenService.currentAuthData;

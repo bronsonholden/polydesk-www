@@ -26,7 +26,7 @@ export class ReportListComponent implements OnInit {
         title: 'Created',
         display: 'date',
         type: 'attribute',
-        value: 'created_at'
+        value: 'created-at'
       }
     },
     display: [

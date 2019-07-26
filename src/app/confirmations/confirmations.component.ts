@@ -29,7 +29,7 @@ export class ConfirmationsComponent implements OnInit {
     this.confirmationToken = this.route.snapshot.params['confirmationToken'];
 
     this.http.get(`confirmations/${this.confirmationToken}`).subscribe((result: any) => {
-      this.allowSelectPassword = result.data.attributes.password_required;
+      this.allowSelectPassword = result.data.attributes['password-required'];
 
       if (!this.allowSelectPassword) {
         this.submitConfirmation(null);

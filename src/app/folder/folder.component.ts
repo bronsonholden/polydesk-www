@@ -29,7 +29,7 @@ export class ContentElement {
     if (this.type === 'folder') {
       return 'folder-outline';
     } else {
-      if (this.content_type === 'application/pdf') {
+      if (this['content-type'] === 'application/pdf') {
         return 'file-pdf-outline';
       } else {
         return 'file-document-outline';
@@ -71,7 +71,7 @@ export class FolderComponent implements OnInit {
           documents: {
             display: 'switch',
             type: 'attribute',
-            value: 'content_type',
+            value: 'content-type',
             case: {
               'application/pdf': {
                 display: 'icon',
@@ -142,13 +142,13 @@ export class FolderComponent implements OnInit {
         title: 'Created',
         display: 'date',
         type: 'attribute',
-        value: 'created_at'
+        value: 'created-at'
       },
       updatedAt: {
         title: 'Updated',
         display: 'date',
         type: 'attribute',
-        value: 'updated_at'
+        value: 'updated-at'
       }
     },
     display: [

@@ -14,8 +14,8 @@
     [messages]="messages"
     [externalPaging]="true"
     [virtualization]="false"
-    [offset]="meta.page_offset"
-    [count]="meta.item_count"
+    [offset]="meta['page-offset']"
+    [count]="meta['item-count']"
     [limit]="pageLimit"
     (page)="setPage($event)">
   <ngx-datatable-column

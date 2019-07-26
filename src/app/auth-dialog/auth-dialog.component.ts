@@ -51,11 +51,11 @@ export class AuthDialogComponent {
     let data = {
       type: 'users',
       attributes: {
-        first_name: e.firstName,
-        last_name: e.lastName,
+        'first-name': e.firstName,
+        'last-name': e.lastName,
         email: e.email,
         password: e.password,
-        password_confirmation: e.passwordConfirmation
+        'password-confirmation': e.passwordConfirmation
       }
     };
 
