@@ -59,23 +59,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   get raw(): any {
-    let columnInfo = this.column;
-
-    switch (columnInfo.type) {
-      case 'id':
-        return this.row.id;
-      case 'type':
-        return this.row.type;
-      case 'attribute':
-        return this.row.attributes[columnInfo.value];
-      case 'literal':
-        return columnInfo.value;
-      case 'relationship':
-        let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
-        return path.split('/').slice(2).join('/');
-      default:
-        return '';
-    }
+    return this.resolveArg(this.column);
   }
 
   get selfLink(): string {
