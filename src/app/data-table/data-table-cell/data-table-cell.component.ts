@@ -36,7 +36,12 @@ export class DataTableCellComponent implements OnInit {
 
         break;
       case 'switch':
-        val = columnInfo.case[val];
+        if (val == null) {
+          val = columnInfo.case.null;
+        } else {
+          val = columnInfo.case[val];
+        }
+
         break;
       default:
         ;

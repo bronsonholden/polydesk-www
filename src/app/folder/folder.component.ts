@@ -57,6 +57,25 @@ export class FolderComponent implements OnInit {
         display: 'text',
         type: 'id'
       },
+      locked: {
+        title: 'Locked',
+        display: 'switch',
+        type: 'attribute',
+        value: 'owner',
+        case: {
+          null: {
+            display: 'text',
+            type: 'literal',
+            value: ''
+          }
+        },
+        default: {
+          display: 'icon',
+          type: 'literal',
+          value: 'lock-outline',
+          tooltip: 'Locked'
+        }
+      },
       type: {
         title: 'Type',
         display: 'switch',
@@ -152,6 +171,12 @@ export class FolderComponent implements OnInit {
       }
     },
     display: [
+      {
+        name: 'locked',
+        minWidth: 60,
+        maxWidth: 60,
+        resizeable: false
+      },
       {
         name: 'type',
         minWidth: 60,
