@@ -73,7 +73,15 @@ export class FolderComponent implements OnInit {
           display: 'icon',
           type: 'literal',
           value: 'lock-outline',
-          tooltip: 'Locked'
+          tooltip: {
+            format: 'Checked out by $1',
+            args: [
+              {
+                type: 'attribute',
+                value: 'owner'
+              }
+            ]
+          }
         }
       },
       type: {

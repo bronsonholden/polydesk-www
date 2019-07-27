@@ -86,6 +86,45 @@ export class DataTableCellComponent implements OnInit {
     }
   }
 
+  getTooltip() {
+    const tooltip = this.column.tooltip;
+
+    if (tooltip == null) {
+      return null;
+    } else if (typeof tooltip === 'string') {
+      return tooltip;
+    } else if (typeof tooltip === 'object') {
+      let string = tooltip.format;
+
+      tooltip.args.forEach((arg, idx) => {
+        let regexp = new RegExp(`([^\\$]|^)\\$${idx + 1}`);
+        string = string.replace(regexp, `$1${this.resolveArg(arg)}`)
+      });
+
+      return string.replace('$$', '$');
+    }
+  }
+
+  resolveArg(arg) {
+    let columnInfo = arg;
+
+    switch (columnInfo.type) {
+      case 'id':
+        return this.row.id;
+      case 'type':
+        return this.row.type;
+      case 'attribute':
+        return this.row.attributes[columnInfo.value];
+      case 'literal':
+        return columnInfo.value;
+      case 'relationship':
+        let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
+        return path.split('/').slice(2).join('/');
+      default:
+        return '';
+    }
+  }
+
   routeTo() {
     // Skip updating location if routing is occurring in a named outlet
     this.router.navigate(this.getRouterLink(), {
