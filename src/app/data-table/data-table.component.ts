@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
@@ -33,7 +33,8 @@ export class DataTableComponent implements OnInit {
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
               private tokenService: AngularTokenService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   defaultIfUndefined(setting, defaultValue): any {
     if (typeof setting === 'undefined') {
@@ -67,8 +68,8 @@ export class DataTableComponent implements OnInit {
     // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
 
-    params.offset = this.pageOffset;
-    params.limit = this.pageLimit;
+    params['page[offset]'] = this.pageOffset;
+    params['page[limit]'] = this.pageLimit;
 
     const qs = querystring.stringify(params);
 
@@ -97,6 +98,15 @@ export class DataTableComponent implements OnInit {
 
   setPage(page) {
     this.pageOffset = page.offset;
+    this.pageLimit = page.limit;
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        'page[offset]': page.offset,
+        'page[limit]': page.limit
+      },
+      queryParamsHandling: 'merge'
+    });
     this.reload();
   }
 
