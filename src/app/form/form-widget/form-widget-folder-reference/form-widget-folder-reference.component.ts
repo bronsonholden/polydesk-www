@@ -16,6 +16,14 @@ export class FormWidgetFolderReferenceComponent extends FieldType implements OnI
 
   ngOnInit() { }
 
+  selectColor() {
+    if (this.required) {
+      return 'warn';
+    } else {
+      return '';
+    }
+  }
+
   selectFolder() {
     this.selectDialogService.selectFolder({
       autoFocus: false,
