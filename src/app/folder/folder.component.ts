@@ -58,7 +58,7 @@ export class FolderComponent implements OnInit {
         type: 'id'
       },
       locked: {
-        title: 'Locked',
+        title: 'Lock',
         display: 'switch',
         type: 'attribute',
         value: 'owner',
