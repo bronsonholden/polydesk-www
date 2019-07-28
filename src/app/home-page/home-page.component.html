@@ -6,6 +6,7 @@
         *ngFor="let tab of tabs"
         [routerLink]="tab.path"
         routerLinkActive #rla="routerLinkActive"
+        queryParamsHandling="preserve"
         [label]="tab.label"></app-router-tab-item>
     </app-router-tab>
     <div class="home-wrapper">

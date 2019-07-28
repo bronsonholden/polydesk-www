@@ -311,7 +311,7 @@ export class FolderComponent implements OnInit {
         this.data.resource = 'content'
       }
 
-      this.folderDataTable.reload(this.data);
+      this.folderDataTable.setData(this.data);
     })
   }
 

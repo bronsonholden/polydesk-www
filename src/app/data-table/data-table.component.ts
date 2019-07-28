@@ -26,9 +26,15 @@ export class DataTableComponent implements OnInit {
   selected = [];
   columns = [];
   rows = [];
-  meta: any = {};
-  pageLimit = 25;
-  pageOffset = 0;
+  pageLimit;
+  pageOffset;
+  itemCount;
+
+  // Just after ngx-datatable component is initialized, it emits a page
+  // event, which will load data before paging params are loaded from
+  // query params. We will ignore paging requests until this variable is
+  // false (set after query params are loaded).
+  ignorePaging = true;
 
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
@@ -45,7 +51,19 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reload();
+    this.route.queryParams.subscribe(params => {
+      this.pageOffset = parseInt(params['offset']) || 0;
+      this.pageLimit = parseInt(params['limit']) || 25;
+      this.reload();
+
+      setTimeout(() => {
+        this.ignorePaging = false;
+      }, 500);
+    });
+  }
+
+  setData(data) {
+    this.data = Object.assign({}, data);
   }
 
   // Reload the contents of the data table. If a new data configuration is
@@ -54,7 +72,7 @@ export class DataTableComponent implements OnInit {
     this.selected = [];
 
     if (data) {
-      this.data = Object.assign({}, data);
+      this.setData(data);
     }
 
     // Convert display configuration to columns for ngx-datatable
@@ -75,7 +93,7 @@ export class DataTableComponent implements OnInit {
 
     this.http.get(`${this.data.resource}?${qs}`).subscribe((json: any) => {
       this.rows = json.data;
-      this.meta = json.meta;
+      this.itemCount = json.meta['item-count'];
     }, (json: any) => {
       json.errors.forEach(err => {
         this.snackBar.open(err.title, 'OK', {
@@ -97,16 +115,19 @@ export class DataTableComponent implements OnInit {
   }
 
   setPage(page) {
-    this.pageOffset = page.offset;
-    this.pageLimit = page.limit;
+    if (this.ignorePaging) {
+      return;
+    }
+
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
-        'page[offset]': page.offset,
-        'page[limit]': page.limit
+        'offset': page.offset,
+        'limit': page.limit
       },
       queryParamsHandling: 'merge'
     });
+
     this.reload();
   }
 
