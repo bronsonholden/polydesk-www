@@ -86,6 +86,7 @@ import { FormConfirmDeleteComponent } from './form-confirm-delete/form-confirm-d
 import { FormWidgetObjectComponent } from './form/form-widget/form-widget-object/form-widget-object.component';
 import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/form-widget-array.component';
 import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widget-folder-reference/form-widget-folder-reference.component';
+import { DataTableModalComponent } from './data-table/data-table-modal/data-table-modal.component';
 
 const routes: Routes = [
   {
@@ -217,7 +218,8 @@ const routes: Routes = [
     FormConfirmDeleteComponent,
     FormWidgetObjectComponent,
     FormWidgetArrayComponent,
-    FormWidgetFolderReferenceComponent
+    FormWidgetFolderReferenceComponent,
+    DataTableModalComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -228,6 +230,7 @@ const routes: Routes = [
     FolderSelectComponent,
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
+    DataTableModalComponent
   ],
   imports: [
     AceEditorModule,

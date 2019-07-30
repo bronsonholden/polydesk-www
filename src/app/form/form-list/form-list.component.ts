@@ -35,6 +35,38 @@ export class FormListComponent implements OnInit {
         display: 'date',
         type: 'attribute',
         value: 'created-at'
+      },
+      submissions: {
+        title: 'Submissions',
+        display: 'modal',
+        type: 'relationship',
+        model: 'form-submissions',
+        view: {
+          selectable: false,
+          columns: {
+            id: {
+              title: 'ID',
+              display: 'text',
+              type: 'id'
+            },
+            createdAt: {
+              title: 'Created At',
+              display: 'date',
+              type: 'attribute',
+              value: 'created-at'
+            }
+          },
+          display: [
+            {
+              name: 'id',
+              width: 200
+            },
+            {
+              name: 'createdAt',
+              width: 140
+            }
+          ]
+        }
       }
     },
     display: [
@@ -45,6 +77,10 @@ export class FormListComponent implements OnInit {
       {
         name: 'createdAt',
         width: 180
+      },
+      {
+        name: 'submissions',
+        width: 200
       }
     ]
   };

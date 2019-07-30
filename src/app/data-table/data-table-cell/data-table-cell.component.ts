@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
+import { DataTableModalComponent } from '../data-table-modal/data-table-modal.component';
 import * as Url from 'url';
 
 import * as moment from 'moment';
@@ -146,8 +147,9 @@ export class DataTableCellComponent implements OnInit {
     Object.assign(data, columnInfo.view);
     data.resource = this.value;
 
-    let dialogRef = this.dialog.open(DataTableDialogComponent, {
-      width: '100vw',
+    let dialogRef = this.dialog.open(DataTableModalComponent, {
+      width: '800px',
+      height: '600px',
       data: data
     });
   }
