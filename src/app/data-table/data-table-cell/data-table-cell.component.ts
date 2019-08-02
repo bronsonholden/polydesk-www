@@ -6,6 +6,7 @@ import { DataTableModalComponent } from '../data-table-modal/data-table-modal.co
 import * as Url from 'url';
 
 import * as moment from 'moment';
+import { get } from 'lodash';
 
 @Component({
   selector: 'app-data-table-cell',
@@ -100,6 +101,8 @@ export class DataTableCellComponent implements OnInit {
         return this.row.type;
       case 'attribute':
         return this.row.attributes[columnInfo.value];
+      case 'json':
+        return get(this.row.attributes, columnInfo.value, '');
       case 'literal':
         return columnInfo.value;
       case 'relationship':

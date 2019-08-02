@@ -49,6 +49,18 @@ export class FormListComponent implements OnInit {
               display: 'text',
               type: 'id'
             },
+            name: {
+              title: 'Name',
+              display: 'text',
+              type: 'json',
+              value: 'data.name'
+            },
+            email: {
+              title: 'Email address',
+              display: 'text',
+              type: 'json',
+              value: 'data.email'
+            },
             createdAt: {
               title: 'Created At',
               display: 'date',
@@ -59,10 +71,16 @@ export class FormListComponent implements OnInit {
           display: [
             {
               name: 'id',
-              width: 200
+              minWidth: 60,
+              maxWidth: 60,
+              resizeable: false
             },
             {
-              name: 'createdAt',
+              name: 'name',
+              width: 140
+            },
+            {
+              name: 'email',
               width: 140
             }
           ]

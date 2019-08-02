@@ -121,14 +121,19 @@ export class DataTableComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['.'], {
-      relativeTo: this.route,
-      queryParams: {
-        'offset': page.offset,
-        'limit': page.limit
-      },
-      queryParamsHandling: 'merge'
-    });
+    if (this.outlet) {
+      this.pageOffset = page.offset;
+      this.pageLimit = page.limit;
+    } else {
+      this.router.navigate(['.'], {
+        relativeTo: this.route,
+        queryParams: {
+          'offset': page.offset,
+          'limit': page.limit
+        },
+        queryParamsHandling: 'merge'
+      });
+    }
 
     this.reload();
   }
