@@ -27,11 +27,11 @@ export class DynamicDatabase {
               private route: ActivatedRoute) { }
 
   initialData() {
-    return this.http.get(`folders?filter[folder_id]=0`);
+    return this.http.get(`folders?filter[folder-id]=0`);
   }
 
   getChildren(node) {
-    return this.http.get(`folders?filter[folder_id]=${node.id}`);
+    return this.http.get(`folders?filter[folder-id]=${node.id}`);
   }
 
   isExpandable(node): boolean {
