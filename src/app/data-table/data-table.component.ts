@@ -62,16 +62,26 @@ export class DataTableComponent implements OnInit {
       // params for named outlets will have the outlet name in brackets).
       const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
       const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
-      let newOffset = parseInt(get(params, offsetParam)) || 0;
-      let newLimit = parseInt(get(params, limitParam)) || 25;
+      let newOffset = parseInt(get(params, offsetParam));
+      let newLimit = parseInt(get(params, limitParam));
       let shouldReload = false;
 
-      if (typeof newOffset === 'number' && !isNaN(newOffset) && newOffset !== this.pageOffset) {
+      // Set default offset here, but only if not already loaded
+      if (typeof this.pageOffset !== 'number' && isNaN(newOffset)) {
+        newOffset = 0;
+      }
+
+      // Set default limit here, but only if not already loaded
+      if (typeof this.pageLimit !== 'number' && isNaN(newLimit)) {
+        newLimit = 25;
+      }
+
+      if (!isNaN(newOffset) && newOffset !== this.pageOffset) {
         shouldReload = true;
         this.pageOffset = newOffset;
       }
 
-      if (typeof newLimit === 'number' && !isNaN(newLimit) && newLimit !== this.pageLimit) {
+      if (!isNaN(newLimit) && newLimit !== this.pageLimit) {
         shouldReload = true;
         this.pageLimit = newLimit;
       }
