@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 
+import { get } from 'lodash';
 import * as querystring from 'querystring';
 import * as moment from 'moment';
 
@@ -50,15 +51,38 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+  hasLoadedPagination(): boolean {
+    console.log(typeof this.pageLimit, typeof this.pageOffset);
+    return typeof this.pageLimit === 'number' && typeof this.pageOffset === 'number';
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.pageOffset = parseInt(params['offset']) || 0;
-      this.pageLimit = parseInt(params['limit']) || 25;
-      this.reload();
+      // Load query params that pertain to this data table (pagination
+      // params for named outlets will have the outlet name in brackets).
+      const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
+      const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
+      let newOffset = parseInt(get(params, offsetParam)) || 0;
+      let newLimit = parseInt(get(params, limitParam)) || 25;
+      let shouldReload = false;
+
+      if (typeof newOffset === 'number' && !isNaN(newOffset) && newOffset !== this.pageOffset) {
+        shouldReload = true;
+        this.pageOffset = newOffset;
+      }
+
+      if (typeof newLimit === 'number' && !isNaN(newLimit) && newLimit !== this.pageLimit) {
+        shouldReload = true;
+        this.pageLimit = newLimit;
+      }
+
+      if (shouldReload) {
+        this.reload();
+      }
 
       setTimeout(() => {
         this.ignorePaging = false;
-      }, 500);
+      }, 600);
     });
   }
 
@@ -122,8 +146,20 @@ export class DataTableComponent implements OnInit {
     }
 
     if (this.outlet) {
-      this.pageOffset = page.offset;
-      this.pageLimit = page.limit;
+      let outlets = {};
+
+      outlets[this.outlet] = '.';
+
+      let queryParams = {};
+
+      queryParams[`offset[${this.outlet}]`] = page.offset;
+      queryParams[`limit[${this.outlet}]`] = page.limit;
+
+      this.router.navigate([{ outlets: outlets }], {
+        queryParams: queryParams,
+        skipLocationChange: true,
+        queryParamsHandling: 'merge'
+      });
     } else {
       this.router.navigate(['.'], {
         relativeTo: this.route,
@@ -134,8 +170,6 @@ export class DataTableComponent implements OnInit {
         queryParamsHandling: 'merge'
       });
     }
-
-    this.reload();
   }
 
 }
