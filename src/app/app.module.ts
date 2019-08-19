@@ -87,6 +87,7 @@ import { FormWidgetObjectComponent } from './form/form-widget/form-widget-object
 import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/form-widget-array.component';
 import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widget-folder-reference/form-widget-folder-reference.component';
 import { DataTableModalComponent } from './data-table/data-table-modal/data-table-modal.component';
+import { FormSubmissionComponent } from './form-submission/form-submission.component';
 
 const routes: Routes = [
   {
@@ -146,6 +147,19 @@ const routes: Routes = [
       {
         path: 'workflows',
         component: WorkflowListComponent
+      },
+      {
+        path: 'form-submissions',
+        children: [
+          {
+            path: '',
+            component: WorkflowListComponent // TODO
+          },
+          {
+            path: ':form-submission',
+            component: FormSubmissionComponent
+          }
+        ]
       },
       {
         path: 'forms',
@@ -219,7 +233,8 @@ const routes: Routes = [
     FormWidgetObjectComponent,
     FormWidgetArrayComponent,
     FormWidgetFolderReferenceComponent,
-    DataTableModalComponent
+    DataTableModalComponent,
+    FormSubmissionComponent
   ],
   entryComponents: [
     AccountCreateComponent,
