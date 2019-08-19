@@ -4,11 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-form-submission',
-  templateUrl: './form-submission.component.html',
-  styleUrls: ['./form-submission.component.scss']
+  selector: 'app-form-submit',
+  templateUrl: './form-submit.component.html',
+  styleUrls: ['./form-submit.component.scss']
 })
-export class FormSubmissionComponent implements OnInit {
+export class FormSubmitComponent implements OnInit {
 
   form = new FormGroup({});
   @Input() model: any;

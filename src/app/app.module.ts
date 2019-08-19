@@ -68,7 +68,7 @@ import { FormListComponent } from './form/form-list/form-list.component';
 import { FolderComponent } from './folder/folder.component';
 import { ResizeColumnDirective } from './resize-column.directive';
 import { CreateFolderComponent } from './folder/create-folder/create-folder.component';
-import { FormSubmissionComponent } from './form-submission/form-submission.component';
+import { FormSubmitComponent } from './form-submit/form-submit.component';
 import { FormEditComponent } from './form-edit/form-edit.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
@@ -200,7 +200,7 @@ const routes: Routes = [
     FormListComponent,
     ResizeColumnDirective,
     CreateFolderComponent,
-    FormSubmissionComponent,
+    FormSubmitComponent,
     FormEditComponent,
     DataTableComponent,
     DocumentDataTableComponent,
