@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentDataTableComponent } from './document-data-table.component';
+import { FormSubmissionListComponent } from './form-submission-list.component';
 
-describe('DocumentDataTableComponent', () => {
-  let component: DocumentDataTableComponent;
-  let fixture: ComponentFixture<DocumentDataTableComponent>;
+describe('FormSubmissionListComponent', () => {
+  let component: FormSubmissionListComponent;
+  let fixture: ComponentFixture<FormSubmissionListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentDataTableComponent ]
+      declarations: [ FormSubmissionListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentDataTableComponent);
+    fixture = TestBed.createComponent(FormSubmissionListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

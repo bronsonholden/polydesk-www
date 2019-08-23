@@ -19,8 +19,12 @@ export class ReportListComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
-        type: 'attribute',
-        value: 'name'
+        link: {
+          display: 'text',
+          type: 'attribute',
+          value: 'name',
+          type: 'self'
+        }
       },
       createdAt: {
         title: 'Created',

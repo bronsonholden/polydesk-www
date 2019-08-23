@@ -153,15 +153,23 @@ export class FolderComponent implements OnInit {
         case: {
           folders: {
             display: 'link',
+            type: 'id',
             pathPrefix: '..',
-            type: 'attribute',
-            value: 'name'
+            link: {
+              display: 'text',
+              type: 'attribute',
+              value: 'name'
+            }
           },
           documents: {
             display: 'link',
+            type: 'id',
             pathPrefix: '../../documents',
-            type: 'attribute',
-            value: 'name'
+            link: {
+              display: 'text',
+              type: 'attribute',
+              value: 'name'
+            }
           }
         }
       },

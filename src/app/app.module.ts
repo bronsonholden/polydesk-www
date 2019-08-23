@@ -71,7 +71,6 @@ import { CreateFolderComponent } from './folder/create-folder/create-folder.comp
 import { FormSubmitComponent } from './form-submit/form-submit.component';
 import { FormEditComponent } from './form-edit/form-edit.component';
 import { DataTableComponent } from './data-table/data-table.component';
-import { DocumentDataTableComponent } from './document-data-table/document-data-table.component';
 import { DataTableCellComponent } from './data-table/data-table-cell/data-table-cell.component';
 import { DataTableDialogComponent } from './data-table/data-table-dialog/data-table-dialog.component';
 import { ConfirmationsComponent } from './confirmations/confirmations.component';
@@ -88,6 +87,7 @@ import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/f
 import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widget-folder-reference/form-widget-folder-reference.component';
 import { DataTableModalComponent } from './data-table/data-table-modal/data-table-modal.component';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
+import { FormSubmissionListComponent } from './form-submission/form-submission-list/form-submission-list.component';
 
 const routes: Routes = [
   {
@@ -105,10 +105,6 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
-      },
-      {
-        path: 'dataview',
-        component: DocumentDataTableComponent
       },
       {
         path: 'folders',
@@ -179,6 +175,10 @@ const routes: Routes = [
           {
             path: ':id/edit',
             component: FormEditComponent
+          },
+          {
+            path: ':id/form-submissions',
+            component: FormSubmissionListComponent
           }
         ]
       }
@@ -217,7 +217,6 @@ const routes: Routes = [
     FormSubmitComponent,
     FormEditComponent,
     DataTableComponent,
-    DocumentDataTableComponent,
     DataTableCellComponent,
     DataTableDialogComponent,
     ConfirmationsComponent,
@@ -234,7 +233,8 @@ const routes: Routes = [
     FormWidgetArrayComponent,
     FormWidgetFolderReferenceComponent,
     DataTableModalComponent,
-    FormSubmissionComponent
+    FormSubmissionComponent,
+    FormSubmissionListComponent
   ],
   entryComponents: [
     AccountCreateComponent,

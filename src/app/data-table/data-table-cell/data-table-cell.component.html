@@ -1,13 +1,13 @@
 <!-- Link -->
 <div *ngIf="columnDisplay === 'link'">
-  <div *ngIf="column.pseudoLink; else routerLinkDisplay">
+  <div *ngIf="column.link.pseudoLink; else routerLinkDisplay">
     <a class="primary-color mat-body-2 pseudo-link" (click)="routeTo()">
-      {{ value }}
+      {{ resolveArg(column.link) }}
     </a>
   </div>
   <ng-template #routerLinkDisplay>
     <a class="primary-color mat-body-2" [routerLink]="getRouterLink()">
-      {{ value }}
+      {{ resolveArg(column.link) }}
     </a>
   </ng-template>
 </div>

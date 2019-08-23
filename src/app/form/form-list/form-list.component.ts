@@ -27,8 +27,12 @@ export class FormListComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
-        type: 'attribute',
-        value: 'name'
+        type: 'id',
+        link: {
+          display: 'text',
+          type: 'attribute',
+          value: 'name'
+        }
       },
       createdAt: {
         title: 'Created',
@@ -38,36 +42,24 @@ export class FormListComponent implements OnInit {
       },
       submissions: {
         title: 'Submissions',
-        display: 'modal',
-        type: 'relationship',
-        model: 'form-submissions',
-        view: {
-          selectable: false,
-          columns: {
-            id: {
-              title: 'ID',
-              display: 'text',
+        display: 'link',
+        type: 'concat',
+        value: {
+          separator: '/',
+          parts: [
+            {
               type: 'id'
             },
-            createdAt: {
-              title: 'Created At',
-              display: 'date',
-              type: 'attribute',
-              value: 'created-at'
-            }
-          },
-          display: [
             {
-              name: 'id',
-              minWidth: 60,
-              maxWidth: 60,
-              resizeable: false
-            },
-            {
-              name: 'createdAt',
-              width: 140
+              type: 'literal',
+              value: 'form-submissions'
             }
           ]
+        },
+        link: {
+          display: 'text',
+          type: 'literal',
+          value: 'View Submissions'
         }
       }
     },

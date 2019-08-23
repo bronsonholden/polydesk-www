@@ -64,14 +64,6 @@ export class DataTableCellComponent implements OnInit {
     return this.resolveArg(this.column);
   }
 
-  get selfLink(): string {
-    if (this.column.pathPrefix) {
-      return `${this.column.pathPrefix}/${this.row.id}`;
-    } else {
-      return this.row.id;
-    }
-  }
-
   getTooltip() {
     const tooltip = this.column.tooltip;
 
@@ -108,6 +100,8 @@ export class DataTableCellComponent implements OnInit {
       case 'relationship':
         let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
         return path.split('/').slice(2).join('/');
+      case 'concat':
+        return columnInfo.value.parts.map(part => this.resolveArg(part)).join(columnInfo.value.separator || '')
       default:
         return '';
     }
@@ -120,15 +114,23 @@ export class DataTableCellComponent implements OnInit {
     });
   }
 
+  getLink() {
+    if (this.column.pathPrefix) {
+      return `${this.column.pathPrefix}/${this.value}`
+    } else {
+      return this.value;
+    }
+  }
+
   getRouterLink() {
     let outlets = {};
 
     if (this.outlet) {
-      outlets[this.outlet] = this.selfLink;
+      outlets[this.outlet] = this.getLink();
       return [ '', { outlets: outlets } ];
     } else {
       outlets[this.outlet] = null;
-      return [ this.selfLink, { outlets: outlets } ];
+      return [ this.getLink(), { outlets: outlets } ];
     }
   }
 

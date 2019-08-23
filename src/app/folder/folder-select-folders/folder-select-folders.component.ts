@@ -31,9 +31,13 @@ export class FolderSelectFoldersComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
-        type: 'attribute',
+        type: 'id',
         pseudoLink: true,
-        value: 'name'
+        link: {
+          display: 'text',
+          type: 'attribute',
+          value: 'name'
+        }
       },
       createdAt: {
         title: 'Created At',
