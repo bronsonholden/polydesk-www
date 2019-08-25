@@ -10,6 +10,8 @@ import { FormApiService } from '../form-api.service';
 export class FormEditComponent implements OnInit {
 
   schema: any;
+  name: string;
+  mode: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -19,9 +21,15 @@ export class FormEditComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
 
-      this.formApiService.getForm(id).subscribe(res => {
-        this.schema = JSON.stringify(res.data.attributes.schema, null, '    ');
-      });
+      if (id) {
+        this.mode = 'edit';
+        this.formApiService.getForm(id).subscribe(res => {
+          this.schema = JSON.stringify(res.data.attributes.schema, null, '    ');
+          this.name = res.data.attributes.name;
+        });
+      } else {
+        this.mode = 'create';
+      }
     });
   }
 
@@ -40,6 +48,32 @@ export class FormEditComponent implements OnInit {
     });
   }
 
+  save() {
+    if (this.mode === 'create') {
+      this.saveNewForm();
+    } else {
+      this.saveEdits();
+    }
+  }
+
+  saveNewForm() {
+    let schemaObject;
+
+    try {
+      schemaObject = JSON.parse(this.schema);
+      this.formApiService.createForm(this.name, schemaObject).subscribe(res => {
+        console.log(res);
+        this.router.navigate(['..'], {
+          relativeTo: this.activatedRoute
+        });
+      }, err => {
+        console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   saveEdits() {
     const formId = this.activatedRoute.snapshot.params.id;
 
@@ -48,12 +82,15 @@ export class FormEditComponent implements OnInit {
     try {
       schemaObject = JSON.parse(this.schema);
       this.formApiService.updateForm(formId, {
+        name: this.name,
         schema: schemaObject
       }).subscribe(res => {
         console.log(res);
         this.router.navigate(['../..'], {
           relativeTo: this.activatedRoute
         });
+      }, err => {
+        console.log(err);
       });
     } catch (err) {
       console.log(err);
