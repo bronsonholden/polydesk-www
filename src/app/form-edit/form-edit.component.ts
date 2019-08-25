@@ -57,10 +57,9 @@ export class FormEditComponent implements OnInit {
   }
 
   saveNewForm() {
-    let schemaObject;
-
     try {
-      schemaObject = JSON.parse(this.schema);
+      let schemaObject = JSON.parse(this.schema);
+
       this.formApiService.createForm(this.name, schemaObject).subscribe(res => {
         console.log(res);
         this.router.navigate(['..'], {
@@ -77,10 +76,9 @@ export class FormEditComponent implements OnInit {
   saveEdits() {
     const formId = this.activatedRoute.snapshot.params.id;
 
-    let schemaObject;
-
     try {
-      schemaObject = JSON.parse(this.schema);
+      let schemaObject = JSON.parse(this.schema);
+
       this.formApiService.updateForm(formId, {
         name: this.name,
         schema: schemaObject
