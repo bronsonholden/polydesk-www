@@ -1,6 +1,6 @@
 <!-- Link -->
 <div *ngIf="columnDisplay === 'link'">
-  <div *ngIf="column.link.pseudoLink; else routerLinkDisplay">
+  <div *ngIf="column.pseudoLink; else routerLinkDisplay">
     <a class="primary-color mat-body-2 pseudo-link" (click)="routeTo()">
       {{ resolveArg(column.link) }}
     </a>
