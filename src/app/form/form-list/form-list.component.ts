@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { from, forkJoin } from 'rxjs';
@@ -81,9 +82,15 @@ export class FormListComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private snackBar: MatSnackBar,
-              private httpClient: HttpClient) { }
+              private httpClient: HttpClient,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+  }
+
+  isSingleFormSelected() {
+    return this.formDataTable.selected.length === 1;
   }
 
   isFormSelectionEmpty() {
@@ -123,6 +130,13 @@ export class FormListComponent implements OnInit {
         setTimeout(() => { snackBarRef.dismiss() }, 350);
         this.formDataTable.reload();
       });
+    });
+  }
+
+  editSelectedForm() {
+    let form = this.formDataTable.selected[0];
+    this.router.navigate([form.id, 'edit'], {
+      relativeTo: this.route
     });
   }
 

@@ -6,7 +6,7 @@
     <!-- Fill -->
     <div class="h-fill"></div>
 
-    <button mat-raised-button class="mat-raised-button" disabled>Edit</button>
+    <button mat-raised-button class="mat-raised-button" [disabled]="!isSingleFormSelected()" (click)="editSelectedForm()">Edit</button>
     <button mat-raised-button color="warn" [disabled]="isFormSelectionEmpty()" class="mat-raised-button" (click)="deleteSelectedForms()">Delete</button>
   </mat-toolbar-row>
 </mat-toolbar>

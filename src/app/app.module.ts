@@ -45,6 +45,7 @@ import {
 import { AccountService } from './account.service';
 import { DocumentApiService } from './document-api.service';
 import { FolderApiService } from './folder-api.service';
+import { FormApiService } from './form-api.service';
 import { SelectDialogService } from './select-dialog.service';
 
 import { AppComponent } from './app.component';
