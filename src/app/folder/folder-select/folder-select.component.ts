@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { RouterOutlet, Router, ActivationStart } from '@angular/router';
 import { DataTableComponent } from '../../data-table/data-table.component';
+import { FolderApiService } from '../../folder-api.service';
 
 @Component({
   selector: 'app-folder-select',
@@ -17,7 +18,8 @@ export class FolderSelectComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
-              private router: Router) { }
+              private router: Router,
+              private folderApiService: FolderApiService) { }
 
   ngOnInit() {
   }
@@ -27,7 +29,17 @@ export class FolderSelectComponent implements OnInit {
   }
 
   goToParentFolder() {
-    // TODO
+    this.folderApiService.getParentFolder(this.folderSelectFolders.folderId).subscribe((res: any) => {
+      let id;
+
+      if (res.data) {
+        id = res.data.id;
+      }
+
+      this.folderSelectFolders.goToFolder(id);
+    }, err => {
+      console.log(err);
+    });
   }
 
   atRootFolder() {

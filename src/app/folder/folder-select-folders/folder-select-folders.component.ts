@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../../data-table/data-table.component';
 
 @Component({
@@ -70,11 +70,12 @@ export class FolderSelectFoldersComponent implements OnInit {
     ]
   };
 
-  folderId: string = '0';
+  folderId;
 
   @ViewChild('selectFolderDataTable') selectFolderDataTable: DataTableComponent;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -88,6 +89,17 @@ export class FolderSelectFoldersComponent implements OnInit {
       this.folderId = folderId;
     } else {
       this.data.params = { 'filter[folder-id]': '0' };
+
+      if (this.folderId) {
+        this.router.navigate([{
+          outlets: {
+            'select-dialog-outlet': '0'
+          }
+        }], {
+          skipLocationChange: true
+        });
+      }
+
       this.folderId = null;
     }
 
