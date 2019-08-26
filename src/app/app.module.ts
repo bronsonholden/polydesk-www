@@ -46,6 +46,7 @@ import { AccountService } from './account.service';
 import { DocumentApiService } from './document-api.service';
 import { FolderApiService } from './folder-api.service';
 import { FormApiService } from './form-api.service';
+import { FormSubmissionApiService } from './form-submission-api.service';
 import { SelectDialogService } from './select-dialog.service';
 
 import { AppComponent } from './app.component';
@@ -284,6 +285,8 @@ const routes: Routes = [
     FormlyModule.forRoot({
       types: [
         { name: 'string', extends: 'input' },
+        { name: 'enum', extends: 'select' },
+        { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },
         { name: 'array', component: FormWidgetArrayComponent },
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent }
