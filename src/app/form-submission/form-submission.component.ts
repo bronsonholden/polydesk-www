@@ -28,7 +28,7 @@ export class FormSubmissionComponent implements OnInit {
       let id = parseInt(params['form-submission']);
 
       if (typeof id === 'number' && !isNaN(id)) {
-        this.formSubmissionApiService.getFormSubmission(id).subscribe(res => {
+        this.formSubmissionApiService.getFormSubmission(id).subscribe((res: any) => {
           let data = get(res, 'data.attributes.data');
 
           this.data = JSON.stringify(data, null, '    ');
@@ -50,7 +50,7 @@ export class FormSubmissionComponent implements OnInit {
 
       this.formSubmissionApiService.updateFormSubmission(formSubmissionId, {
         data: data
-      }).subscribe(res => {
+      }).subscribe((res: any) => {
         this.router.navigate(['..'], {
           relativeTo: this.route
         });

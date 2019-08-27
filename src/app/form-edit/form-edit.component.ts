@@ -23,7 +23,7 @@ export class FormEditComponent implements OnInit {
 
       if (id) {
         this.mode = 'edit';
-        this.formApiService.getForm(id).subscribe(res => {
+        this.formApiService.getForm(id).subscribe((res: any) => {
           this.schema = JSON.stringify(res.data.attributes.schema, null, '    ');
           this.name = res.data.attributes.name;
         });
@@ -60,7 +60,7 @@ export class FormEditComponent implements OnInit {
     try {
       let schemaObject = JSON.parse(this.schema);
 
-      this.formApiService.createForm(this.name, schemaObject).subscribe(res => {
+      this.formApiService.createForm(this.name, schemaObject).subscribe((res: any) => {
         console.log(res);
         this.router.navigate(['..'], {
           relativeTo: this.activatedRoute
@@ -82,7 +82,7 @@ export class FormEditComponent implements OnInit {
       this.formApiService.updateForm(formId, {
         name: this.name,
         schema: schemaObject
-      }).subscribe(res => {
+      }).subscribe((res: any) => {
         console.log(res);
         this.router.navigate(['../..'], {
           relativeTo: this.activatedRoute

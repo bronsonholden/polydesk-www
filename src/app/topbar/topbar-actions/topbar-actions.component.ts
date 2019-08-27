@@ -26,7 +26,7 @@ export class TopbarActionsComponent {
   }
 
   logOut() {
-    this.tokenService.signOut().subscribe(res => {
+    this.tokenService.signOut().subscribe((res: any) => {
       this.router.navigateByUrl('/');
     });
   }

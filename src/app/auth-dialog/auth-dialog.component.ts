@@ -32,7 +32,7 @@ export class AuthDialogComponent {
   }
 
   logIn(e) {
-    this.tokenService.signIn(e).subscribe(res => {
+    this.tokenService.signIn(e).subscribe((res: any) => {
       this.dialogRef.close();
       // Redirect to dashboard for default account
       // IMPORTANT: If user doesn't have a default account set (e.g. deleted),

@@ -53,7 +53,7 @@ export class DocumentComponent implements OnInit {
         case 'image/gif':
           this.httpClient.get(this.contentLink, {
             responseType: 'blob'
-          }).subscribe(res => {
+          }).subscribe((res: any) => {
             this.createImageFromBlob(res);
           }, err => {
             console.log(err);
