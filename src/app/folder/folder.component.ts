@@ -197,14 +197,17 @@ export class FolderComponent implements OnInit {
         name: 'type',
         minWidth: 60,
         maxWidth: 60,
-        resizeable: false
+        resizeable: false,
+        sortable: true
       },
       {
         name: 'name',
-        width: 400
+        width: 400,
+        sortable: true
       },
       {
-        name: 'createdAt'
+        name: 'createdAt',
+        sortable: true
       }
     ]
   };

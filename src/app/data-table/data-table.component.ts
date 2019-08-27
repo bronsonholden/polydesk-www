@@ -182,4 +182,8 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+  onSort(event) {
+    console.log(event);
+  }
+
 }

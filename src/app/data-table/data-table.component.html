@@ -13,11 +13,13 @@
     selectionType="checkbox"
     [messages]="messages"
     [externalPaging]="true"
+    [externalSorting]="true"
     [virtualization]="false"
     [offset]="pageOffset"
     [count]="itemCount"
     [limit]="pageLimit"
-    (page)="setPage($event)">
+    (page)="setPage($event)"
+    (sort)="onSort($event)">
   <ngx-datatable-column
       *ngIf="data.select === 'multiple'"
       [width]="50"
@@ -58,9 +60,15 @@
       [width]="defaultIfUndefined(display.width, 200)"
       [minWidth]="display.minWidth"
       [maxWidth]="display.maxWidth"
-      [resizeable]="defaultIfUndefined(display.resizeable, true)">
-    <ng-template ngx-datatable-header-template>
-      {{ data.columns[display.name].title }}
+      [resizeable]="defaultIfUndefined(display.resizeable, true)"
+      [sortable]="defaultIfUndefined(display.sortable, false)">
+    <ng-template ngx-datatable-header-template let-sort="sortFn">
+      <span (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
+        {{ data.columns[display.name].title }}
+      </span>
+      <ng-template #noSortHeader>
+        {{ data.columns[display.name].title }}
+      </ng-template>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
       <app-data-table-cell [outlet]="outlet" [data]="data" [row]="row" [column]="data.columns[display.name]"></app-data-table-cell>
