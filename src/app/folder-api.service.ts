@@ -16,8 +16,8 @@ export class FolderApiService {
   getParentFolder(id) {
     let subject = new Subject();
 
-    this.httpClient.get(`folders/${id}?include=folder`).subscribe((result: any) => {
-      subject.next(result.data.relationships.folder);
+    this.httpClient.get(`folders/${id}/folder`).subscribe((result: any) => {
+      subject.next(result);
     }, err => {
       subject.error(err);
     });
