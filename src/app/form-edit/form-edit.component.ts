@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormApiService } from '../form-api.service';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 
 @Component({
   selector: 'app-form-edit',
@@ -9,13 +11,17 @@ import { FormApiService } from '../form-api.service';
 })
 export class FormEditComponent implements OnInit {
 
+  fields: FormlyFieldConfig[] = [];
+  options: FormlyFormOptions;
   schema: any;
   name: string;
   mode: string;
+  model: any = {};
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private formApiService: FormApiService) { }
+              private formApiService: FormApiService,
+              private formlyJsonschema: FormlyJsonschema) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -31,6 +37,18 @@ export class FormEditComponent implements OnInit {
         this.mode = 'create';
       }
     });
+  }
+
+  generatePreview() {
+    try {
+      const schema = JSON.parse(this.schema);
+      const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
+      this.fields = [fieldConfig];
+      this.options = {};
+      console.log(this.fields);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   cancelFormEdit() {
