@@ -90,6 +90,7 @@ import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widg
 import { DataTableModalComponent } from './data-table/data-table-modal/data-table-modal.component';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
 import { FormSubmissionListComponent } from './form-submission/form-submission-list/form-submission-list.component';
+import { FormWidgetFormSubmissionReferenceComponent } from './form/form-widget/form-widget-form-submission-reference/form-widget-form-submission-reference.component';
 
 const routes: Routes = [
   {
@@ -236,7 +237,8 @@ const routes: Routes = [
     FormWidgetFolderReferenceComponent,
     DataTableModalComponent,
     FormSubmissionComponent,
-    FormSubmissionListComponent
+    FormSubmissionListComponent,
+    FormWidgetFormSubmissionReferenceComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -289,7 +291,8 @@ const routes: Routes = [
         { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },
         { name: 'array', component: FormWidgetArrayComponent },
-        { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent }
+        { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
+        { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent }
       ]
     }),
     FormlyMaterialModule,

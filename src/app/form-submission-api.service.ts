@@ -9,6 +9,10 @@ export class FormSubmissionApiService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getFormSubmissionsForForm(formId) {
+    return this.httpClient.get(`forms/${formId}/form-submissions`);
+  }
+
   getFormSubmission(id) {
     return this.httpClient.get(`form-submissions/${id}`);
   }
