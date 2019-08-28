@@ -63,10 +63,10 @@
       [resizeable]="defaultIfUndefined(display.resizeable, true)"
       [sortable]="defaultIfUndefined(display.sortable, false)">
     <ng-template ngx-datatable-header-template let-sort="sortFn">
-      <span (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
+      <span class="text-no-select" (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
         {{ data.columns[display.name].title }}
       </span>
-      <ng-template #noSortHeader>
+      <ng-template #noSortHeader class="text-no-select">
         {{ data.columns[display.name].title }}
       </ng-template>
     </ng-template>

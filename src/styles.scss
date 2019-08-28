@@ -13,6 +13,13 @@ mat-toolbar.actionbar button, .button-row button:not(:last-child) {
   margin-right: 8px;
 }
 
+.text-no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .button-row {
   width: 100%;
   display: flex;
