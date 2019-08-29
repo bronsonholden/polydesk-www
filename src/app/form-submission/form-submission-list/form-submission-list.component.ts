@@ -24,12 +24,24 @@ export class FormSubmissionListComponent implements OnInit {
         link: {
           type: 'id'
         }
+      },
+      createdAt: {
+        title: 'Created',
+        display: 'date',
+        type: 'attribute',
+        value: 'created-at'
       }
     },
     display: [
       {
         name: 'id',
-        width: 180
+        width: 120,
+        sortable: true
+      },
+      {
+        name: 'createdAt',
+        width: 180,
+        sortable: true
       }
     ]
   };

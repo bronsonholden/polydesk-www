@@ -19,7 +19,8 @@
     [count]="itemCount"
     [limit]="pageLimit"
     (page)="setPage($event)"
-    (sort)="onSort($event)">
+    (sort)="onSort($event)"
+    [sorts]="sorts">
   <ngx-datatable-column
       *ngIf="data.select === 'multiple'"
       [width]="50"
@@ -66,8 +67,10 @@
       <span class="text-no-select" (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
         {{ data.columns[display.name].title }}
       </span>
-      <ng-template #noSortHeader class="text-no-select">
-        {{ data.columns[display.name].title }}
+      <ng-template #noSortHeader>
+        <span class="text-no-select">
+          {{ data.columns[display.name].title }}
+        </span>
       </ng-template>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>

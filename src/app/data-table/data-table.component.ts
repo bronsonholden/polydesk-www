@@ -27,6 +27,8 @@ export class DataTableComponent implements OnInit {
   selected = [];
   columns = [];
   rows = [];
+  sort;
+  sorts = [];
   pageLimit;
   pageOffset;
   itemCount;
@@ -62,6 +64,8 @@ export class DataTableComponent implements OnInit {
       // params for named outlets will have the outlet name in brackets).
       const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
       const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
+      const sortParam = `sort`;
+      let newSort = get(params, sortParam);
       let newOffset = parseInt(get(params, offsetParam));
       let newLimit = parseInt(get(params, limitParam));
       let shouldReload = false;
@@ -84,6 +88,17 @@ export class DataTableComponent implements OnInit {
       if (!isNaN(newLimit) && newLimit !== this.pageLimit) {
         shouldReload = true;
         this.pageLimit = newLimit;
+      }
+
+      if (newSort) {
+        // Add sort
+        shouldReload = true;
+        this.sort = newSort;
+      } else if (this.sort) {
+        // Clear sort
+        shouldReload = true;
+        this.sort = null;
+        this.sorts = [];
       }
 
       if (shouldReload) {
@@ -123,6 +138,22 @@ export class DataTableComponent implements OnInit {
     if (!isNaN(this.pageOffset) && !isNaN(this.pageLimit)) {
       params['page[offset]'] = this.pageOffset;
       params['page[limit]'] = this.pageLimit;
+    }
+
+    if (this.sort) {
+      params['sort'] = this.sort;
+      this.sorts = [];
+      this.sort.split(',').forEach(sort => {
+        let dir = 'asc';
+        if (sort.startsWith('-')) {
+          dir = 'desc';
+          sort = sort.slice(1);
+        }
+        this.sorts.push({
+          prop: sort,
+          dir: dir
+        });
+      });
     }
 
     const qs = querystring.stringify(params);
@@ -183,7 +214,27 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
-    console.log(event);
+    let column = event.column.name;
+    let sortString = `${event.newValue === 'desc' ? '-' : ''}${column}`;
+    if (this.outlet) {
+      let outlets = {};
+      outlets[this.outlet] = '.';
+      this.router.navigate([{ outlets: outlets }], {
+        queryParams: {
+          'sort': sortString
+        },
+        skipLocationChange: true,
+        queryParamsHandling: 'merge'
+      });
+    } else {
+      this.router.navigate(['.'], {
+        relativeTo: this.route,
+        queryParams: {
+          'sort': sortString
+        },
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
 }

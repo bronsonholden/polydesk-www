@@ -67,11 +67,13 @@ export class FormListComponent implements OnInit {
     display: [
       {
         name: 'name',
-        width: 300
+        width: 300,
+        sortable: true
       },
       {
         name: 'createdAt',
-        width: 180
+        width: 180,
+        sortable: true
       },
       {
         name: 'submissions',
