@@ -39,7 +39,6 @@ export class FormSubmissionListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.data.resource = `forms/${params.id}/form-submissions`;
-      this.formSubmissionDataTable.reload(this.data);
     });
   }
 
