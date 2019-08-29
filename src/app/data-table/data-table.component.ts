@@ -120,7 +120,7 @@ export class DataTableComponent implements OnInit {
     // If params for resource request provided, set those.
     let params = Object.assign({}, this.data.params || {});
 
-    if (this.pageOffset && this.pageLimit) {
+    if (!isNaN(this.pageOffset) && !isNaN(this.pageLimit)) {
       params['page[offset]'] = this.pageOffset;
       params['page[limit]'] = this.pageLimit;
     }
