@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataTableComponent } from '../../data-table/data-table.component';
 
 @Component({
   selector: 'app-form-submission-select',
@@ -7,14 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormSubmissionSelectComponent implements OnInit {
 
+  private selectFormSubmissionsDataTable: DataTableComponent;
+  private formSubmissionSelectFormSubmissions: any;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  onRouterOutletActivate(folderSelectFolders) {
-    this.selectFoldersDataTable = folderSelectFolders.selectFolderDataTable;
-    this.folderSelectFolders = folderSelectFolders;
+  onRouterOutletActivate(formSubmissionSelectFormSubmissions) {
+    this.selectFormSubmissionsDataTable = formSubmissionSelectFormSubmissions.selectFormSubmissionsDataTable;
+    this.formSubmissionSelectFormSubmissions = formSubmissionSelectFormSubmissions;
   }
 
 }
