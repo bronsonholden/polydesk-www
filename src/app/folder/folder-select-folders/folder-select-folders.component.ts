@@ -33,6 +33,7 @@ export class FolderSelectFoldersComponent implements OnInit {
         display: 'link',
         type: 'id',
         pseudoLink: true,
+        pathPrefix: 'folders',
         link: {
           display: 'text',
           type: 'attribute',
@@ -93,7 +94,7 @@ export class FolderSelectFoldersComponent implements OnInit {
       if (this.folderId) {
         this.router.navigate([{
           outlets: {
-            'select-dialog-outlet': '0'
+            'select-dialog-outlet': [ 'folders', '0' ]
           }
         }], {
           skipLocationChange: true

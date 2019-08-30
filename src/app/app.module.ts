@@ -91,6 +91,8 @@ import { DataTableModalComponent } from './data-table/data-table-modal/data-tabl
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
 import { FormSubmissionListComponent } from './form-submission/form-submission-list/form-submission-list.component';
 import { FormWidgetFormSubmissionReferenceComponent } from './form/form-widget/form-widget-form-submission-reference/form-widget-form-submission-reference.component';
+import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';
+import { FormSubmissionSelectFormSubmissionsComponent } from './form-submission/form-submission-select-form-submissions/form-submission-select-form-submissions.component';
 
 const routes: Routes = [
   {
@@ -188,8 +190,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: ':id',
+    path: 'folders/:id',
     component: FolderSelectFoldersComponent,
+    outlet: 'select-dialog-outlet'
+  },
+  {
+    path: 'forms/:id/form-submissions',
+    component: FormSubmissionSelectFormSubmissionsComponent,
     outlet: 'select-dialog-outlet'
   }
 ];
@@ -238,7 +245,9 @@ const routes: Routes = [
     DataTableModalComponent,
     FormSubmissionComponent,
     FormSubmissionListComponent,
-    FormWidgetFormSubmissionReferenceComponent
+    FormWidgetFormSubmissionReferenceComponent,
+    FormSubmissionSelectComponent,
+    FormSubmissionSelectFormSubmissionsComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -247,6 +256,7 @@ const routes: Routes = [
     DataTableDialogComponent,
     FolderConfirmDeleteComponent,
     FolderSelectComponent,
+    FormSubmissionSelectComponent,
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
     DataTableModalComponent

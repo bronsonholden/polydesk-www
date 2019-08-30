@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
+import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
 import { get } from 'lodash';
 
@@ -10,7 +11,8 @@ import { get } from 'lodash';
 })
 export class FormWidgetFormSubmissionReferenceComponent extends FieldType implements OnInit {
 
-  constructor(private formSubmissionApiService: FormSubmissionApiService) {
+  constructor(private formSubmissionApiService: FormSubmissionApiService,
+              private selectDialogService: SelectDialogService) {
     super();
   }
 
@@ -26,13 +28,23 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   }
 
   selectFormSubmission() {
-    this.formSubmissionApiService.getFormSubmissionsForForm(this.field.formId).subscribe((result: any) => {
-      let data = result.data.map(item => get(item.attributes.data, this.field.selectKey)).filter(key => key);
+    const formId = this.field.formId;
 
-      console.log(data);
-    }, err => {
-      console.log(err);
+    this.selectDialogService.selectFormSubmission(this.field.formId, {
+      autoFocus: false,
+      width: '800px',
+      height: '600px'
+    }).subscribe((res: any) => {
+      console.log(res);
     });
+
+    // this.formSubmissionApiService.getFormSubmissionsForForm(this.field.formId).subscribe((result: any) => {
+    //   let data = result.data.map(item => get(item.attributes.data, this.field.selectKey)).filter(key => key);
+    //
+    //   console.log(data);
+    // }, err => {
+    //   console.log(err);
+    // });
   }
 
 }
