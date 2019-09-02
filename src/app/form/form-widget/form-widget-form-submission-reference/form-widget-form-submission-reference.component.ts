@@ -11,6 +11,8 @@ import { get } from 'lodash';
 })
 export class FormWidgetFormSubmissionReferenceComponent extends FieldType implements OnInit {
 
+  formSubmission: any;
+
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               private selectDialogService: SelectDialogService) {
     super();
@@ -27,24 +29,29 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
     }
   }
 
+  clearFormSubmissionSelection() {
+    this.formSubmission = null;
+    this.formControl.setValue(null);
+  }
+
+  selectedFormSubmissionKey() {
+    if (this.formSubmission) {
+      return get(this.formSubmission.attributes, this.field.selectKey);
+    }
+  }
+
   selectFormSubmission() {
     const formId = get(this.field, 'formId');
 
     this.selectDialogService.selectFormSubmission(formId, {
+      selectKey: this.field.selectKey,
       autoFocus: false,
       width: '800px',
       height: '600px'
     }).subscribe((res: any) => {
-      console.log(res);
+      this.formSubmission = res;
+      this.formControl.setValue(res.id);
     });
-
-    // this.formSubmissionApiService.getFormSubmissionsForForm(this.field.formId).subscribe((result: any) => {
-    //   let data = result.data.map(item => get(item.attributes.data, this.field.selectKey)).filter(key => key);
-    //
-    //   console.log(data);
-    // }, err => {
-    //   console.log(err);
-    // });
   }
 
 }

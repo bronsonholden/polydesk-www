@@ -297,6 +297,15 @@ const routes: Routes = [
     FormlyModule.forRoot({
       types: [
         { name: 'string', extends: 'input' },
+        {
+          name: 'number',
+          extends: 'input',
+          defaultOptions: {
+            templateOptions: {
+              type: 'number',
+            }
+          }
+        },
         { name: 'enum', extends: 'select' },
         { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },

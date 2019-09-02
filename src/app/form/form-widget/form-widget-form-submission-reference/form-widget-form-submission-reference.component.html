@@ -3,9 +3,11 @@
 <table style="width: 100%; border-spacing: 0px;">
   <tr style="width: 100%;">
     <td style="padding-right: 12px;">
-      <button style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>
+      <button *ngIf="!formSubmission" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>
+      <button *ngIf="formSubmission" style="width: 80px;" type="button" mat-stroked-button (click)="clearFormSubmissionSelection()">Clear</button>
     </td>
     <td style="width: 100%;">
+      {{ selectedFormSubmissionKey() }}
     </td>
   </tr>
 </table>

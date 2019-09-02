@@ -1,3 +1,9 @@
+<mat-toolbar class="actionbar" style="height: 64px;">
+  <mat-toolbar-row>
+    <button mat-raised-button [disabled]="!isAnyFormSubmissionSelected()" (click)="selectFormSubmission()">Select</button>
+    <button mat-raised-button (click)="cancelSelection()">Cancel</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div id="select-wrapper" class="mat-typography">
   <router-outlet name="select-dialog-outlet" (activate)="onRouterOutletActivate($event)"></router-outlet>
 </div>

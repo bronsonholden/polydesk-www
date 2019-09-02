@@ -56,7 +56,11 @@ export class SelectDialogService {
         }
       }
     ], {
-      skipLocationChange: true
+      skipLocationChange: true,
+      queryParams: {
+        select: dialogOpts.selectKey
+      },
+      queryParamsHandling: 'merge'
     }).then(() => {
       const dialogRef = this.dialog.open(FormSubmissionSelectComponent, dialogOpts);
 
@@ -69,7 +73,11 @@ export class SelectDialogService {
             }
           }
         ], {
-          skipLocationChange: true
+          skipLocationChange: true,
+          queryParams: {
+            select: null
+          },
+          queryParamsHandling: 'merge'
         }).then(() => {
           subject.next(result);
         });

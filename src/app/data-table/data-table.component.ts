@@ -189,7 +189,7 @@ export class DataTableComponent implements OnInit {
     if (this.outlet) {
       let outlets = {};
 
-      outlets[this.outlet] = '.';
+      outlets[this.outlet] = [];
 
       let queryParams = {};
 
@@ -198,6 +198,7 @@ export class DataTableComponent implements OnInit {
 
       this.router.navigate([{ outlets: outlets }], {
         queryParams: queryParams,
+        relativeTo: this.route,
         skipLocationChange: true,
         queryParamsHandling: 'merge'
       });
@@ -218,11 +219,12 @@ export class DataTableComponent implements OnInit {
     let sortString = `${event.newValue === 'desc' ? '-' : ''}${column}`;
     if (this.outlet) {
       let outlets = {};
-      outlets[this.outlet] = '.';
+      outlets[this.outlet] = [];
       this.router.navigate([{ outlets: outlets }], {
         queryParams: {
           'sort': sortString
         },
+        relativeTo: this.route,
         skipLocationChange: true,
         queryParamsHandling: 'merge'
       });
