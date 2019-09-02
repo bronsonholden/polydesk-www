@@ -53,11 +53,6 @@ export class DataTableComponent implements OnInit {
     }
   }
 
-  hasLoadedPagination(): boolean {
-    console.log(typeof this.pageLimit, typeof this.pageOffset);
-    return typeof this.pageLimit === 'number' && typeof this.pageOffset === 'number';
-  }
-
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       // Load query params that pertain to this data table (pagination
