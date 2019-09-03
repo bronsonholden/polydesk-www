@@ -49,8 +49,10 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
       width: '800px',
       height: '600px'
     }).subscribe((res: any) => {
-      this.formSubmission = res;
-      this.formControl.setValue(res.id);
+      if (res) {
+        this.formSubmission = res;
+        this.formControl.setValue(res.id);
+      }
     });
   }
 

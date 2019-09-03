@@ -48,6 +48,7 @@ import { FolderApiService } from './folder-api.service';
 import { FormApiService } from './form-api.service';
 import { FormSubmissionApiService } from './form-submission-api.service';
 import { SelectDialogService } from './select-dialog.service';
+import { JsonAccessorService } from './json-accessor.service';
 
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';

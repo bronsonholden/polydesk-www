@@ -6,7 +6,7 @@ import { DataTableModalComponent } from '../data-table-modal/data-table-modal.co
 import * as Url from 'url';
 
 import * as moment from 'moment';
-import { get } from 'lodash';
+import { get, isArray, isNil } from 'lodash';
 
 @Component({
   selector: 'app-data-table-cell',
@@ -83,6 +83,26 @@ export class DataTableCellComponent implements OnInit {
     }
   }
 
+  resolveJsonArg(obj, keys, defaultValue) {
+    if (typeof keys === 'string') {
+      keys = keys.split('.');
+    }
+
+    let res = keys.reduce((result, key) => {
+      if (isArray(result)) {
+        return result.map(val => get(val, key)).filter(val => !isNil(val));
+      } else {
+        return get(result, key);
+      }
+    }, obj);
+
+    if (isNil(res) || isArray(res) && res.length === 0) {
+      return defaultValue;
+    } else {
+      return res;
+    }
+  }
+
   resolveArg(arg) {
     let columnInfo = arg;
 
@@ -94,7 +114,7 @@ export class DataTableCellComponent implements OnInit {
       case 'attribute':
         return this.row.attributes[columnInfo.value];
       case 'json':
-        return get(this.row.attributes, columnInfo.value, '');
+        return this.resolveJsonArg(this.row.attributes, columnInfo.value, '');
       case 'literal':
         return columnInfo.value;
       case 'relationship':
