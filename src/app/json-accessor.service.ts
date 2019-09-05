@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { get, isArray, isNil } from 'lodash';
 
 /**
  * A helper class for retrieving data from a JSON using a mix of lodash.get
@@ -13,5 +14,23 @@ import { Injectable } from '@angular/core';
 export class JsonAccessorService {
   constructor() { }
 
-  // TODO
+  access(obj, keys, defaultValue) {
+    if (typeof keys === 'string') {
+      keys = keys.split('.');
+    }
+
+    let res = keys.reduce((result, key) => {
+      if (isArray(result)) {
+        return result.map(val => get(val, key)).filter(val => !isNil(val));
+      } else {
+        return get(result, key);
+      }
+    }, obj);
+
+    if (isNil(res) || isArray(res) && res.length === 0) {
+      return defaultValue;
+    } else {
+      return res;
+    }
+  }
 }

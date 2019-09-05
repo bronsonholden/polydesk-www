@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
 import { DataTableModalComponent } from '../data-table-modal/data-table-modal.component';
+import { JsonAccessorService } from '../../json-accessor.service';
 import * as Url from 'url';
 
 import * as moment from 'moment';
-import { get, isArray, isNil } from 'lodash';
+import { get } from 'lodash';
 
 @Component({
   selector: 'app-data-table-cell',
@@ -21,7 +22,8 @@ export class DataTableCellComponent implements OnInit {
   @Input() outlet: string | null;
 
   constructor(public dialog: MatDialog,
-              public router: Router) { }
+              public router: Router,
+              private jsonAccessorService: JsonAccessorService) { }
 
   get value(): any {
     let columnInfo = this.column;
@@ -84,23 +86,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   resolveJsonArg(obj, keys, defaultValue) {
-    if (typeof keys === 'string') {
-      keys = keys.split('.');
-    }
-
-    let res = keys.reduce((result, key) => {
-      if (isArray(result)) {
-        return result.map(val => get(val, key)).filter(val => !isNil(val));
-      } else {
-        return get(result, key);
-      }
-    }, obj);
-
-    if (isNil(res) || isArray(res) && res.length === 0) {
-      return defaultValue;
-    } else {
-      return res;
-    }
+    return this.jsonAccessorService.access(obj, keys, defaultValue);
   }
 
   resolveArg(arg) {

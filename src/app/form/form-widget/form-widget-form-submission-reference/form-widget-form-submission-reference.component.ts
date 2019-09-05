@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
+import { JsonAccessorService } from '../../../json-accessor.service';
 import { get } from 'lodash';
 
 @Component({
@@ -14,7 +15,8 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   formSubmission: any;
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
-              private selectDialogService: SelectDialogService) {
+              private selectDialogService: SelectDialogService,
+              private jsonAccessorService: JsonAccessorService) {
     super();
   }
 
@@ -36,7 +38,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   selectedFormSubmissionKey() {
     if (this.formSubmission) {
-      return get(this.formSubmission.attributes, this.field.selectKey);
+      return this.jsonAccessorService.access(this.formSubmission.attributes, this.field.selectKey, '');
     }
   }
 
