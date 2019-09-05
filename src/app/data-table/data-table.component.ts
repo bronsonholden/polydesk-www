@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 
-import { get } from 'lodash';
+import { get, isArray, isEqual, merge } from 'lodash';
 import * as querystring from 'querystring';
 import * as moment from 'moment';
 
@@ -33,6 +33,10 @@ export class DataTableComponent implements OnInit {
   pageOffset;
   itemCount;
 
+  keyParams = [];
+  keyColumns = [];
+  keyColumnsDisplay = [];
+
   // Just after ngx-datatable component is initialized, it emits a page
   // event, which will load data before paging params are loaded from
   // query params. We will ignore paging requests until this variable is
@@ -53,8 +57,49 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+  getDisplayedColumns() {
+    return this.data.display.concat(this.keyColumnsDisplay || []);
+  }
+
+  getColumnInfo(name) {
+    return this.data.columns[name] || this.keyColumns[name];
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      let shouldReload = false;
+
+      let keys = params.key;
+
+      if (keys && !isEqual(this.keys, keys)) {
+        shouldReload = true;
+
+        // Store new keys
+        this.keys = keys;
+
+        if (!isArray(keys)) {
+          keys = [keys];
+        }
+
+        this.keyColumnsDisplay = keys.map(key => {
+          return {
+            name: key,
+            sortable: true
+          }
+        });
+
+        this.keyColumns = keys.reduce((columns, key) => {
+          columns[key] = {
+            title: key,
+            display: 'text',
+            type: 'json',
+            value: key
+          };
+
+          return columns;
+        }, {});
+      }
+
       // Load query params that pertain to this data table (pagination
       // params for named outlets will have the outlet name in brackets).
       const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
@@ -63,7 +108,6 @@ export class DataTableComponent implements OnInit {
       let newSort = get(params, sortParam);
       let newOffset = parseInt(get(params, offsetParam));
       let newLimit = parseInt(get(params, limitParam));
-      let shouldReload = false;
 
       // Set default offset here, but only if not already loaded
       if (typeof this.pageOffset !== 'number' && isNaN(newOffset)) {
@@ -110,6 +154,21 @@ export class DataTableComponent implements OnInit {
     this.data = Object.assign({}, data);
   }
 
+  generateSorts() {
+    this.sorts = [];
+    this.sort.split(',').forEach(sort => {
+      let dir = 'asc';
+      if (sort.startsWith('-')) {
+        dir = 'desc';
+        sort = sort.slice(1);
+      }
+      this.sorts.push({
+        prop: sort,
+        dir: dir
+      });
+    });
+  }
+
   // Reload the contents of the data table. If a new data configuration is
   // provided, use that one instead.
   reload(data?) {
@@ -137,18 +196,6 @@ export class DataTableComponent implements OnInit {
 
     if (this.sort) {
       params['sort'] = this.sort;
-      this.sorts = [];
-      this.sort.split(',').forEach(sort => {
-        let dir = 'asc';
-        if (sort.startsWith('-')) {
-          dir = 'desc';
-          sort = sort.slice(1);
-        }
-        this.sorts.push({
-          prop: sort,
-          dir: dir
-        });
-      });
     }
 
     const qs = querystring.stringify(params);
@@ -210,8 +257,9 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
-    let column = event.column.name;
-    let sortString = `${event.newValue === 'desc' ? '-' : ''}${column}`;
+    // Store sort configurations
+    this.sorts = event.sorts;
+    let sortString = `${event.newValue === 'desc' ? '-' : ''}${event.column.name}`;
     if (this.outlet) {
       let outlets = {};
       outlets[this.outlet] = [];

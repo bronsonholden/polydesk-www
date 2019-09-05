@@ -56,7 +56,7 @@
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column
-      *ngFor="let display of data.display"
+      *ngFor="let display of getDisplayedColumns()"
       [name]="display.name"
       [width]="defaultIfUndefined(display.width, 200)"
       [minWidth]="display.minWidth"
@@ -65,16 +65,16 @@
       [sortable]="defaultIfUndefined(display.sortable, false)">
     <ng-template ngx-datatable-header-template let-sort="sortFn">
       <span class="text-no-select" (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
-        {{ data.columns[display.name].title }}
+        {{ getColumnInfo(display.name).title }}
       </span>
       <ng-template #noSortHeader>
         <span class="text-no-select">
-          {{ data.columns[display.name].title }}
+          {{ getColumnInfo(display.name).title }}
         </span>
       </ng-template>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <app-data-table-cell [outlet]="outlet" [data]="data" [row]="row" [column]="data.columns[display.name]"></app-data-table-cell>
+      <app-data-table-cell [outlet]="outlet" [data]="data" [row]="row" [column]="getColumnInfo(display.name)"></app-data-table-cell>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>
