@@ -36,7 +36,10 @@ export class FormSubmissionSelectFormSubmissionsComponent implements OnInit {
     },
     display: [
       {
-        name: 'id'
+        name: 'id',
+        minWidth: 60,
+        maxWidth: 60,
+        resizeable: false
       },
       {
         name: 'key'
