@@ -13,6 +13,7 @@ import { get } from 'lodash';
 export class FormWidgetFormSubmissionReferenceComponent extends FieldType implements OnInit {
 
   formSubmission: any;
+  formSubmissionCreating = false;
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               private selectDialogService: SelectDialogService,
@@ -21,6 +22,19 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   }
 
   ngOnInit() {
+    this.loadFormSubmission(this.formControl.value);
+
+    this.formControl.valueChanges.subscribe(value => {
+      this.loadFormSubmission(value);
+    });
+  }
+
+  loadFormSubmission(formSubmissionId) {
+    if (formSubmissionId) {
+      this.formSubmissionApiService.getFormSubmission(formSubmissionId).subscribe((result: any) => {
+        this.formSubmission = result.data;
+      });
+    }
   }
 
   selectColor() {
@@ -34,12 +48,30 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   clearFormSubmissionSelection() {
     this.formSubmission = null;
     this.formControl.setValue(null);
+    this.formSubmissionCreating = false;
   }
 
   selectedFormSubmissionKey() {
     if (this.formSubmission) {
       return this.jsonAccessorService.access(this.formSubmission.attributes, this.field.selectKey, '');
     }
+  }
+
+  getFormId() {
+    return get(this.field, 'formId');
+  }
+
+  formSubmissionSelected() {
+    return this.formSubmission;
+  }
+
+  createInlineFormSubmission(form) {
+    console.log(form);
+    this.formSubmissionCreating = false;
+  }
+
+  createNewInlineFormSubmission() {
+    this.formSubmissionCreating = true;
   }
 
   selectFormSubmission() {

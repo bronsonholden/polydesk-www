@@ -19,5 +19,5 @@
   </table>
 </div>
 <div>
-  <button mat-stroked-button type="button" (click)="add()">Add</button>
+  <button *ngIf="!formState.disabled" mat-stroked-button type="button" (click)="add()">Add</button>
 <div>

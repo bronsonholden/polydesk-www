@@ -21,6 +21,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 // Import Material components
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
   MatDividerModule,
@@ -94,6 +95,7 @@ import { FormSubmissionListComponent } from './form-submission/form-submission-l
 import { FormWidgetFormSubmissionReferenceComponent } from './form/form-widget/form-widget-form-submission-reference/form-widget-form-submission-reference.component';
 import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';
 import { FormSubmissionSelectFormSubmissionsComponent } from './form-submission/form-submission-select-form-submissions/form-submission-select-form-submissions.component';
+import { FormEmbedComponent } from './form/form-embed/form-embed.component';
 
 const routes: Routes = [
   {
@@ -248,7 +250,8 @@ const routes: Routes = [
     FormSubmissionListComponent,
     FormWidgetFormSubmissionReferenceComponent,
     FormSubmissionSelectComponent,
-    FormSubmissionSelectFormSubmissionsComponent
+    FormSubmissionSelectFormSubmissionsComponent,
+    FormEmbedComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -275,6 +278,7 @@ const routes: Routes = [
     ApiModule,
     AngularTokenModule.forRoot(environment.tokenAuthConfig),
     MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
     MatDialogModule,
     MatDividerModule,

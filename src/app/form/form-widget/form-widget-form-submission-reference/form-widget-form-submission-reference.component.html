@@ -1,14 +1,16 @@
 <h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
 <p *ngIf="to.description">{{ to.description }}</p>
-<table style="width: 100%; border-spacing: 0px;">
-  <tr style="width: 100%;">
-    <td style="padding-right: 12px;">
-      <button *ngIf="!formSubmission" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>
-      <button *ngIf="formSubmission" style="width: 80px;" type="button" mat-stroked-button (click)="clearFormSubmissionSelection()">Clear</button>
-    </td>
-    <td style="width: 100%;">
-      {{ selectedFormSubmissionKey() }}
-    </td>
-  </tr>
-</table>
+<div class="button-row" *ngIf="!formState.disabled">
+  <button *ngIf="!formSubmission && !formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>
+  <button *ngIf="!formSubmission && !formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="createNewInlineFormSubmission()">Create</button>
+  <button *ngIf="formSubmission || formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button (click)="clearFormSubmissionSelection()">Clear</button>
+</div>
+<br>
+<div *ngIf="formSubmission">
+  <app-form-embed [readOnly]="true" [formId]="getFormId()" [model]="formSubmission.attributes.data"></app-form-embed>
+</div>
+<mat-card class="mat-elevation-z5" *ngIf="formSubmissionCreating">
+  <app-form-submit [formId]="getFormId()" (formSubmit)="createInlineFormSubmission($event)" (formCancel)="clearFormSubmissionSelection()"></app-form-submit>
+</mat-card>
 <input style="display: none;" [formControl]="formControl" [formlyAttributes]="field">
+<br>

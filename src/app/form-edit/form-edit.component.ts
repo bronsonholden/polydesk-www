@@ -45,7 +45,6 @@ export class FormEditComponent implements OnInit {
       const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
       this.fields = [fieldConfig];
       this.options = {};
-      console.log(this.fields);
     } catch (err) {
       console.log(err);
     }
