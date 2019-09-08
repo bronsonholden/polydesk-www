@@ -2,7 +2,7 @@
   <app-form-embed [formId]="formId" [model]="model"></app-form-embed>
   <div class="button-row">
     <button type="button" mat-raised-button color="primary" (click)="submitForm()">Submit</button>
-    <button type="button" mat-raised-button (click)="saveDraft()">Save Draft</button>
+    <button *ngIf="allowDrafts" type="button" mat-raised-button (click)="saveDraft()">Save Draft</button>
     <div class="h-fill"></div>
     <button type="button" mat-raised-button (click)="cancelSubmission()">Cancel</button>
   </div>

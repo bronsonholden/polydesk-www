@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
@@ -16,6 +17,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   formSubmissionCreating = false;
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
+              private httpClient: HttpClient,
               private selectDialogService: SelectDialogService,
               private jsonAccessorService: JsonAccessorService) {
     super();
@@ -65,9 +67,37 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
     return this.formSubmission;
   }
 
-  createInlineFormSubmission(form) {
-    console.log(form);
-    this.formSubmissionCreating = false;
+  createInlineFormSubmission(data) {
+    const formId = this.getFormId();
+    const params = {
+      data: {
+        type: 'form-submissions',
+        attributes: {
+          data: data.model,
+          state: data.draft ? 'draft' : 'published'
+        },
+        relationships: {
+          form: {
+            data: {
+              id: formId,
+              type: 'forms'
+            }
+          }
+        }
+      }
+    };
+
+    this.httpClient.post('form-submissions', params).subscribe((result: any) => {
+      this.formSubmissionCreating = false;
+      this.formSubmission = result.data;
+      this.formControl.setValue(result.data.id);
+    }, (err: any) => {
+      err.error.errors.forEach(err => {
+        this.snackBar.open(err.title, 'OK', {
+          duration: 3000
+        });
+      });
+    });
   }
 
   createNewInlineFormSubmission() {
