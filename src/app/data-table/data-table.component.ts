@@ -33,6 +33,9 @@ export class DataTableComponent implements OnInit {
   pageOffset;
   itemCount;
 
+  // What keys were present in query params. Used to determine if we should
+  // reload with new columns.
+  keys: string;
   keyParams = [];
   keyColumns = [];
   keyColumnsDisplay = [];

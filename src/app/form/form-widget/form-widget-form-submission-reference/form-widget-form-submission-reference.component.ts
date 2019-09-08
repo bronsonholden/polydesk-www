@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
@@ -18,6 +19,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               private httpClient: HttpClient,
+              private snackBar: MatSnackBar,
               private selectDialogService: SelectDialogService,
               private jsonAccessorService: JsonAccessorService) {
     super();
@@ -55,7 +57,8 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   selectedFormSubmissionKey() {
     if (this.formSubmission) {
-      return this.jsonAccessorService.access(this.formSubmission.attributes, this.field.selectKey, '');
+      const selectKey = get(this.field, 'selectKey');
+      return this.jsonAccessorService.access(this.formSubmission.attributes, selectKey, '');
     }
   }
 
@@ -106,9 +109,10 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   selectFormSubmission() {
     const formId = get(this.field, 'formId');
+    const selectKey = get(this.field, 'selectKey');
 
     this.selectDialogService.selectFormSubmission(formId, {
-      selectKey: this.field.selectKey,
+      selectKey: selectKey,
       autoFocus: false,
       width: '800px',
       height: '600px'
