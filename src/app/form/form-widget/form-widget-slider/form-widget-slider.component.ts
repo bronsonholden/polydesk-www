@@ -11,6 +11,7 @@ import { get } from 'lodash';
 export class FormWidgetSliderComponent extends FieldType implements OnInit {
 
   @ViewChild(MatSlider) slider!: MatSlider;
+  baseLabel: string;
 
   defaultOptions = {
     templateOptions: {
