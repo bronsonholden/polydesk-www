@@ -35,6 +35,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
+  MatSliderModule,
   MatSnackBarModule,
   MatTableModule,
   MatTabsModule,
@@ -96,6 +97,7 @@ import { FormWidgetFormSubmissionReferenceComponent } from './form/form-widget/f
 import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';
 import { FormSubmissionSelectFormSubmissionsComponent } from './form-submission/form-submission-select-form-submissions/form-submission-select-form-submissions.component';
 import { FormEmbedComponent } from './form/form-embed/form-embed.component';
+import { FormWidgetSliderComponent } from './form/form-widget/form-widget-slider/form-widget-slider.component';
 
 const routes: Routes = [
   {
@@ -251,7 +253,8 @@ const routes: Routes = [
     FormWidgetFormSubmissionReferenceComponent,
     FormSubmissionSelectComponent,
     FormSubmissionSelectFormSubmissionsComponent,
-    FormEmbedComponent
+    FormEmbedComponent,
+    FormWidgetSliderComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -291,6 +294,7 @@ const routes: Routes = [
     MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSliderModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,
@@ -316,7 +320,8 @@ const routes: Routes = [
         { name: 'object', component: FormWidgetObjectComponent },
         { name: 'array', component: FormWidgetArrayComponent },
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
-        { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent }
+        { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
+        { name: 'slider', component: FormWidgetSliderComponent }
       ]
     }),
     FormlyMaterialModule,
