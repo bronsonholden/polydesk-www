@@ -1,13 +1,10 @@
 <mat-slider
-    [id]="id"
-    [min]="to.min"
-    [max]="to.max"
-    [style.width]="'100%'"
-    [formControl]="formControl"
-    [formlyAttributes]="field"
-    (input)="onSliderChange($event)"
-    [tabindex]="to.tabindex || 0">
+  [id]="id"
+  [min]="to.min"
+  [max]="to.max"
+  [style.width]="'100%'"
+  [formControl]="formControl"
+  [formlyAttributes]="field"
+  (input)="onSliderChange($event)"
+  [tabindex]="to.tabindex || 0">
 </mat-slider>
-<div style="padding-left: 4px; width: calc(100% - 20px);">
-  <mat-hint [style.margin-left]="getLabelOffset()">{{ getDisplayValue() }}</mat-hint>
-</div>

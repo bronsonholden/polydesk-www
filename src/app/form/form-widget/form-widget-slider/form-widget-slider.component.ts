@@ -24,6 +24,8 @@ export class FormWidgetSliderComponent extends FieldType implements OnInit {
   }
 
   ngOnInit() {
+    this.baseLabel = this.to.label;
+    this.updateLabel(this.formControl.value || this.to.min);
   }
 
   getDisplayValue() {
@@ -34,12 +36,13 @@ export class FormWidgetSliderComponent extends FieldType implements OnInit {
     }
   }
 
-  getLabelOffset() {
-    return `${this.slider.percent * 100}%`;
+  updateLabel(value) {
+    this.to.label = `${this.baseLabel}: ${value}`;
   }
 
   onSliderChange(sliderValue) {
-      this.formControl.setValue(sliderValue.value);
+    this.updateLabel(sliderValue.value);
+    this.formControl.setValue(sliderValue.value);
   }
 
 }
