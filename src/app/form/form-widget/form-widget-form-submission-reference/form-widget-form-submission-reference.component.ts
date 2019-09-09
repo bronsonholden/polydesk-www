@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
@@ -18,7 +17,6 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   formSubmissionCreating = false;
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
-              private httpClient: HttpClient,
               private snackBar: MatSnackBar,
               private selectDialogService: SelectDialogService,
               private jsonAccessorService: JsonAccessorService) {
@@ -72,25 +70,8 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   createInlineFormSubmission(data) {
     const formId = this.getFormId();
-    const params = {
-      data: {
-        type: 'form-submissions',
-        attributes: {
-          data: data.model,
-          state: data.draft ? 'draft' : 'published'
-        },
-        relationships: {
-          form: {
-            data: {
-              id: formId,
-              type: 'forms'
-            }
-          }
-        }
-      }
-    };
 
-    this.httpClient.post('form-submissions', params).subscribe((result: any) => {
+    this.formSubmissionApiService.createFormSubmission(formId, data.model, data.draft ? 'draft' : 'published').subscribe((result: any) => {
       this.formSubmissionCreating = false;
       this.formSubmission = result.data;
       this.formControl.setValue(result.data.id);

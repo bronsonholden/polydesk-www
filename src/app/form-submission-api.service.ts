@@ -9,6 +9,28 @@ export class FormSubmissionApiService {
   constructor(private httpClient: HttpClient) {
   }
 
+  createFormSubmission(formId, data, state) {
+    const params = {
+      data: {
+        type: 'form-submissions',
+        attributes: {
+          data: data,
+          state: state
+        },
+        relationships: {
+          form: {
+            data: {
+              id: formId,
+              type: 'forms'
+            }
+          }
+        }
+      }
+    };
+
+    return this.httpClient.post('form-submissions', params);
+  }
+
   getFormSubmissionsForForm(formId) {
     return this.httpClient.get(`forms/${formId}/form-submissions`);
   }

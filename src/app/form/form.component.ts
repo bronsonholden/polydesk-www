@@ -4,6 +4,7 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
+import { FormSubmissionApiService } from '../form-submission-api.service';
 
 @Component({
   selector: 'app-form',
@@ -17,7 +18,7 @@ export class FormComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
-              private httpClient: HttpClient,
+              private formSubmissionApiService: FormSubmissionApiService,
               private formlyJsonschema: FormlyJsonschema) { }
 
   ngOnInit() {
@@ -33,28 +34,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(data) {
-    const formId = this.activatedRoute.snapshot.params.id;
-    const params = {
-      data: {
-        type: 'form-submissions',
-        attributes: {
-          data: data.model,
-          state: data.draft ? 'draft' : 'published'
-        },
-        relationships: {
-          form: {
-            data: {
-              id: formId,
-              type: 'forms'
-            }
-          }
-        }
-      }
-    };
-
-    console.log(data.model);
-
-    this.httpClient.post('form-submissions', params).subscribe((result: any) => {
+    this.formSubmissionApiService.createFormSubmission(this.formId, data.model, data.draft ? 'draft' : 'published').subscribe((result: any) => {
       this.router.navigate(['..'], {
         relativeTo: this.activatedRoute
       });
