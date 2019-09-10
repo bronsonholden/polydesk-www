@@ -46,7 +46,6 @@ export class FormSubmissionComponent implements OnInit {
 
     try {
       let data = JSON.parse(this.data);
-      console.log(data);
 
       this.formSubmissionApiService.updateFormSubmission(formSubmissionId, {
         data: data
