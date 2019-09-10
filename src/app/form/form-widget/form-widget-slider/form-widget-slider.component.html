@@ -1,7 +1,7 @@
 <mat-slider
   [id]="id"
-  [min]="to.min"
-  [max]="to.max"
+  [min]="getSliderMinimum()"
+  [max]="getSliderMaximum()"
   [style.width]="'100%'"
   [formControl]="formControl"
   [formlyAttributes]="field"

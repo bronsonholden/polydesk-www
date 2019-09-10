@@ -26,12 +26,47 @@ export class FormWidgetSliderComponent extends FieldType implements OnInit {
 
   ngOnInit() {
     this.baseLabel = this.to.label;
-    this.updateLabel(this.formControl.value || this.to.min);
+
+    let val = this.formControl.value;
+
+    if (!isNaN(val)) {
+      this.updateLabel(this.getSliderMinimum());
+    } else {
+      this.updateLabel(val);
+    }
+  }
+
+  getSliderMinimum() {
+    let min = 0;
+
+    if (!isNaN(this.to.minimum)) {
+      min = this.to.minimum;
+    }
+
+    if (!isNaN(this.to.exclusiveMinimum)) {
+      min = this.to.exclusiveMinimum + 1;
+    }
+
+    return min;
+  }
+
+  getSliderMaximum() {
+    let max = 100;
+
+    if (!isNaN(this.to.maximum)) {
+      max = this.to.maximum;
+    }
+
+    if (!isNaN(this.to.exclusiveMaximum)) {
+      max = this.to.exclusiveMaximum - 1;
+    }
+
+    return max;
   }
 
   getDisplayValue() {
-    if (typeof this.formControl.value !== 'number') {
-      return this.to.min;
+    if (isNaN(this.formControl.value)) {
+      return this.getSliderMinimum();
     } else {
       return this.formControl.value;
     }
