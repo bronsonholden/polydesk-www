@@ -2,10 +2,10 @@ table.form-widget-array tr:not(:last-child) > td > div {
   padding-bottom: 12px;
 }
 
-table.form-widget-array tr > td:last-child {
+table.form-widget-array tr > td.remove-cell {
   border-left: 2px solid transparent;
 }
 
-table.form-widget-array tr > td:last-child:hover {
+table.form-widget-array tr > td.remove-cell:hover {
   border-left: 2px solid #f4f4f4;
 }
