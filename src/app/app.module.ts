@@ -23,6 +23,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
   MatGridListModule,
@@ -98,6 +99,7 @@ import { FormSubmissionSelectComponent } from './form-submission/form-submission
 import { FormSubmissionSelectFormSubmissionsComponent } from './form-submission/form-submission-select-form-submissions/form-submission-select-form-submissions.component';
 import { FormEmbedComponent } from './form/form-embed/form-embed.component';
 import { FormWidgetSliderComponent } from './form/form-widget/form-widget-slider/form-widget-slider.component';
+import { FormWidgetDatepickerComponent } from './form/form-widget/form-widget-datepicker/form-widget-datepicker.component';
 
 const routes: Routes = [
   {
@@ -254,7 +256,8 @@ const routes: Routes = [
     FormSubmissionSelectComponent,
     FormSubmissionSelectFormSubmissionsComponent,
     FormEmbedComponent,
-    FormWidgetSliderComponent
+    FormWidgetSliderComponent,
+    FormWidgetDatepickerComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -283,6 +286,7 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
     MatGridListModule,
@@ -321,7 +325,8 @@ const routes: Routes = [
         { name: 'array', component: FormWidgetArrayComponent },
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
         { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
-        { name: 'slider', component: FormWidgetSliderComponent }
+        { name: 'slider', component: FormWidgetSliderComponent },
+        { name: 'datepicker', component: FormWidgetDatepickerComponent }
       ]
     }),
     FormlyMaterialModule,
