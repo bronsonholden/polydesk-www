@@ -1,6 +1,6 @@
 <h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
 <p *ngIf="to.description">{{ to.description }}</p>
-<div class="button-row" *ngIf="widgetSelectionDisabled()">
+<div class="button-row" *ngIf="!widgetSelectionDisabled()">
   <button *ngIf="!formSubmission && !formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>
   <button *ngIf="!formSubmission && !formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="createNewInlineFormSubmission()">Create</button>
   <button *ngIf="formSubmission || formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button (click)="clearFormSubmissionSelection()">Clear</button>
@@ -13,7 +13,7 @@
   <app-form-embed [options]="inlineOptions" [readOnly]="true" [formId]="getFormId()" [model]="formSubmission.attributes.data"></app-form-embed>
 </div>
 <mat-card class="mat-elevation-z5" *ngIf="formSubmissionCreating">
-  <app-form-submit [allowDrafts]="false" [formId]="getFormId()" (formSubmit)="createInlineFormSubmission($event)" (formCancel)="clearFormSubmissionSelection()"></app-form-submit>
+  <app-form-submit [options]="inlineCreateOptions" [allowDrafts]="false" [formId]="getFormId()" [model]="inlineModel" (formSubmit)="createInlineFormSubmission($event)" (formCancel)="clearFormSubmissionSelection()"></app-form-submit>
 </mat-card>
 <input style="display: none;" [formControl]="formControl" [formlyAttributes]="field">
 <br>

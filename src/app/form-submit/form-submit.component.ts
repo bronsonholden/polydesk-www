@@ -12,7 +12,8 @@ export class FormSubmitComponent implements OnInit {
   @Output() formCancel = new EventEmitter<any>();
   @Input() formId: any;
   @Input() allowDrafts = true;
-  model: any = {};
+  @Input() model: any = {};
+  @Input() options: any = {};
 
   constructor(private location: Location) { }
 

@@ -4,7 +4,8 @@ import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
 import { JsonAccessorService } from '../../../json-accessor.service';
-import { get, isNull } from 'lodash';
+
+import { set, get, isNull } from 'lodash';
 
 @Component({
   selector: 'app-form-widget-form-submission-reference',
@@ -17,6 +18,12 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   formSubmissionCreating = false;
   // Options for inline forms
   inlineOptions: any = {};
+  // Options for inline forms (creation only)
+  inlineCreateOptions: any = {};
+  // Store base inline model (if things are cleared, we want to repopulate them)
+  _inlineModel: any = {};
+  // Actual model passed to inline creation component
+  inlineModel: any = {};
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               private snackBar: MatSnackBar,
@@ -45,9 +52,22 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
       }
     }
 
-    const hideFields = get(this.field, 'hideFields');
+    // Hidden fields for inline forms
+    this.inlineOptions.hidden = get(this.field, 'hideFields');
 
-    this.inlineOptions.hidden = hideFields;
+    const filters = get(this.field, 'filters', []);
+
+    filters.forEach((filter) => {
+      const attr = filter.attribute.split('.').slice(1).join('.');
+      const filterField = get(this.form.controls, attr);
+      if (filterField) {
+        filterField.valueChanges.subscribe(val => {
+          set(this._inlineModel, attr, val);
+          this.inlineCreateOptions.lockFields = this.inlineCreateOptions.lockFields || {};
+          this.inlineCreateOptions.lockFields[attr] = val;
+        });
+      }
+    });
   }
 
   loadFormSubmission(formSubmissionId) {
@@ -72,8 +92,15 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
     return false;
   }
 
+  isLocked() {
+    if (this.options.lockFields) {
+      return !isNull(this.options.lockFields[this.key]);
+    }
+    return false;
+  }
+
   widgetSelectionDisabled() {
-    return !this.formState.disabled && !this.hasMissingDependencies()
+    return this.isLocked() || this.formState.disabled || this.hasMissingDependencies();
   }
 
   selectColor() {
@@ -123,6 +150,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   createNewInlineFormSubmission() {
     this.formSubmissionCreating = true;
+    Object.assign(this.inlineModel, this._inlineModel);
   }
 
   selectFormSubmission() {
