@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
 import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';
 
+import { get } from 'lodash';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,8 +48,26 @@ export class SelectDialogService {
     return subject;
   }
 
+  resolveFilterOperand(data, filter) {
+    switch (filter.operand.type) {
+      case 'field':
+        return get(data, filter.operand.value);
+      case 'constant':
+        return filter.operand.value;
+    }
+  }
+
   selectFormSubmission(formId, dialogOpts) {
     let subject = new Subject();
+
+    const baseQueryParams = {
+      select: dialogOpts.selectKey
+    };
+
+    const queryParams = dialogOpts.filters.reduce((q, filter) => {
+      q[`filter[${filter.attribute}]`] = `${filter.operator}:${this.resolveFilterOperand(dialogOpts.data, filter)}`;
+      return q;
+    }, baseQueryParams);
 
     this.router.navigate([
       {
@@ -57,10 +77,8 @@ export class SelectDialogService {
       }
     ], {
       skipLocationChange: true,
-      queryParams: {
-        select: dialogOpts.selectKey
-      },
-      queryParamsHandling: 'merge'
+      queryParams: queryParams,
+      queryParamsHandling: 'replace'
     }).then(() => {
       const dialogRef = this.dialog.open(FormSubmissionSelectComponent, dialogOpts);
 
@@ -74,10 +92,8 @@ export class SelectDialogService {
           }
         ], {
           skipLocationChange: true,
-          queryParams: {
-            select: null
-          },
-          queryParamsHandling: 'merge'
+          queryParams: {},
+          queryParamsHandling: 'replace'
         }).then(() => {
           subject.next(result);
         });

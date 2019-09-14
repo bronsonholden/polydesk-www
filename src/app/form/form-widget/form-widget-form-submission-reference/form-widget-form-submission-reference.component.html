@@ -1,4 +1,4 @@
-<h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+<h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
 <p *ngIf="to.description">{{ to.description }}</p>
 <div class="button-row" *ngIf="!formState.disabled">
   <button *ngIf="!formSubmission && !formSubmissionCreating" style="width: 80px;" type="button" mat-stroked-button [color]="selectColor()" (click)="selectFormSubmission()">Select</button>

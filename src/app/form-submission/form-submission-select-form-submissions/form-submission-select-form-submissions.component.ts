@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableComponent } from '../../data-table/data-table.component';
 
+import { merge } from 'lodash';
+
 @Component({
   selector: 'app-form-submission-select-form-submissions',
   templateUrl: './form-submission-select-form-submissions.component.html',
@@ -60,11 +62,24 @@ export class FormSubmissionSelectFormSubmissionsComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.setSelectKey(params.select);
+      this.setFilters(params);
     });
   }
 
   setSelectKey(key) {
     this.data.columns.key.value = key;
+  }
+
+  setFilters(params) {
+    let mergeParams = {};
+
+    for (let key in params) {
+      if (key.startsWith('filter[') && key.endsWith(']')) {
+        mergeParams[key] = params[key];
+      }
+    }
+
+    this.data.params = merge(mergeParams, this.data.params);
   }
 
 }

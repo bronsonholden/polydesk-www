@@ -26,7 +26,9 @@ export class FormWidgetDatepickerComponent extends FieldType implements OnInit {
   }
 
   onDateChange(event) {
-    this.formControl.setValue(event.target.value.format('YYYY-MM-DD'));
+    if (event.target.value) {
+      this.formControl.setValue(event.target.value.format('YYYY-MM-DD'));
+    }
   }
 
 }

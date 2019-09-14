@@ -91,9 +91,12 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   selectFormSubmission() {
     const formId = get(this.field, 'formId');
     const selectKey = get(this.field, 'selectKey');
+    const filters = get(this.field, 'filters', []);
 
     this.selectDialogService.selectFormSubmission(formId, {
       selectKey: selectKey,
+      filters: filters,
+      data: this.form.value,
       autoFocus: false,
       width: '800px',
       height: '600px'

@@ -1,5 +1,5 @@
 <div class="form-widget-object">
-  <h2 *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+  <h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
   <p *ngIf="to.description">{{ to.description }}</p>
   <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
 </div>
