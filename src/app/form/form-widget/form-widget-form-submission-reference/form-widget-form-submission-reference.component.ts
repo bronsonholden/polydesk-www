@@ -4,7 +4,7 @@ import { FieldType } from '@ngx-formly/material';
 import { SelectDialogService } from '../../../select-dialog.service';
 import { FormSubmissionApiService } from '../../../form-submission-api.service';
 import { JsonAccessorService } from '../../../json-accessor.service';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 
 @Component({
   selector: 'app-form-widget-form-submission-reference',
@@ -15,6 +15,8 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   formSubmission: any;
   formSubmissionCreating = false;
+  // Options for inline forms
+  inlineOptions: any = {};
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               private snackBar: MatSnackBar,
@@ -29,6 +31,23 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
     this.formControl.valueChanges.subscribe(value => {
       this.loadFormSubmission(value);
     });
+
+    const prereq = get(this.field, 'prerequisite');
+
+    // If we have a prereq, clear this field anytime it changes
+    if (prereq) {
+      const prereqField = get(this.form.controls, prereq.field);
+      if (prereqField) {
+        prereqField.valueChanges.subscribe(val => {
+          this.formControl.setValue(null);
+          this.formSubmission = null;
+        });
+      }
+    }
+
+    const hideFields = get(this.field, 'hideFields');
+
+    this.inlineOptions.hidden = hideFields;
   }
 
   loadFormSubmission(formSubmissionId) {
@@ -37,6 +56,24 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
         this.formSubmission = result.data;
       });
     }
+  }
+
+  hasMissingDependencies() {
+    const prereq = get(this.field, 'prerequisite');
+
+    if (!prereq) {
+      return false;
+    }
+
+    if (isNull(get(this.form.value, prereq.field))) {
+      return true;
+    }
+
+    return false;
+  }
+
+  widgetSelectionDisabled() {
+    return !this.formState.disabled && !this.hasMissingDependencies()
   }
 
   selectColor() {

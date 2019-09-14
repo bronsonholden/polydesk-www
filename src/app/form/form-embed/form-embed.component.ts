@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
+import { get, isArray } from 'lodash';
+
 @Component({
   selector: 'app-form-embed',
   templateUrl: './form-embed.component.html',
@@ -18,7 +20,7 @@ export class FormEmbedComponent implements OnInit {
   @Input() model: any;
   @Input() readOnly = false;
   fields: FormlyFieldConfig[];
-  options: FormlyFormOptions = {};
+  @Input() options: FormlyFormOptions = {};
   formName: string;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -33,6 +35,15 @@ export class FormEmbedComponent implements OnInit {
   applyTemplateOptions(fieldGroup) {
     for (let group of fieldGroup) {
       group.expressionProperties = group.expressionProperties || {};
+      group.hideExpression = (model, formState, field) => {
+        const key = get(field, '_keyPath.path');
+
+        if (!isArray(key)) {
+          return false;
+        }
+
+        return get(this.options, 'hidden', []).indexOf(key.join('.')) > -1;
+      },
       group.expressionProperties['templateOptions.disabled'] = 'formState.disabled';
       if (group.fieldGroup) {
         this.applyTemplateOptions(group.fieldGroup);
