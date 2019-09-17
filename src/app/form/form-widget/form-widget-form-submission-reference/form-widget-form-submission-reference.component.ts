@@ -153,15 +153,36 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
     Object.assign(this.inlineModel, this._inlineModel);
   }
 
+  // Dynamically resolve the value of an operand for a form submission
+  // selection filter.
+  resolveFilterOperand(filter) {
+    switch (filter.operand.type) {
+      case 'field':
+        return get(this.form.value, filter.operand.value);
+      case 'constant':
+        return filter.operand.value;
+    }
+  }
+
   selectFormSubmission() {
     const formId = get(this.field, 'formId');
     const selectKey = get(this.field, 'selectKey');
-    const filters = get(this.field, 'filters', []);
+    const selectFilters = get(this.field, 'filters', []);
 
-    this.selectDialogService.selectFormSubmission(formId, {
-      selectKey: selectKey,
-      filters: filters,
-      data: this.form.value,
+    // Resolve filter operands
+    const filters = selectFilters.reduce((result, filter) => {
+      result[filter.attribute] = this.resolveFilterOperand(filter);
+      return result;
+    }, {});
+
+    console.log(selectFilters);
+
+    this.selectDialogService.selectFormSubmission({
+      data: {
+        formId,
+        selectKey,
+        filters
+      },
       autoFocus: false,
       width: '800px',
       height: '600px'

@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataTableComponent } from '../../data-table/data-table.component';
+import { FormSubmissionApiService } from '../../form-submission-api.service';
+
+import { merge } from 'lodash';
 
 @Component({
   selector: 'app-form-submission-list',
@@ -46,11 +49,26 @@ export class FormSubmissionListComponent implements OnInit {
     ]
   };
 
-  constructor(private route: ActivatedRoute) { }
+  filter: any = {};
+  selection: any = [];
+  scope: any = {};
+
+  constructor(private route: ActivatedRoute,
+              private formSubmissionApiService: FormSubmissionApiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.data.resource = `forms/${params.id}/form-submissions`;
+      this.filter['form-id'] = params.id;
+
+      // TODO: Get around this by passing a scope to index (as optional last
+      // argument) that is always merged into filter before retrieving new
+      // resources. Use for filters that cannot be disabled, like scoping to
+      // submissions for this particular form.
+      this.scope = {
+        index: (offset, limit, sort, filter) => {
+          return this.formSubmissionApiService.index(offset, limit, sort, merge(filter, this.filter));
+        }
+      };
     });
   }
 

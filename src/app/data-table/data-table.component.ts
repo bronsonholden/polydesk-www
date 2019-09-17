@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -24,9 +24,16 @@ export class DataTableComponent implements OnInit {
   @Input() data: any;
   @Input() outlet: string | null;
 
-  selected = [];
+  @Input() source: any = null;
+  @Input() filters: any = {};
+
+  @Input() selection = [];
   columns = [];
-  rows = [];
+  @Input() rows = [];
+  @Input() page: any = {};
+  @Output() pageChange = new EventEmitter<any>();
+  @Output() sortChange = new EventEmitter<any>();
+  @Output() selectionChange = new EventEmitter<any>();
   sort;
   sorts = [];
   pageLimit;
@@ -61,100 +68,21 @@ export class DataTableComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return this.data.display.concat(this.keyColumnsDisplay || []);
+    return this.data.display;
   }
 
   getColumnInfo(name) {
-    return this.data.columns[name] || this.keyColumns[name];
+    return this.data.columns[name];
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      let shouldReload = false;
-
-      let keys = params.key;
-
-      if (keys && !isEqual(this.keys, keys)) {
-        shouldReload = true;
-
-        // Store new keys
-        this.keys = keys;
-
-        if (!isArray(keys)) {
-          keys = [keys];
-        }
-
-        this.keyColumnsDisplay = keys.map(key => {
-          return {
-            name: key,
-            sortable: true
-          }
-        });
-
-        this.keyColumns = keys.reduce((columns, key) => {
-          columns[key] = {
-            title: key,
-            display: 'text',
-            type: 'json',
-            value: key
-          };
-
-          return columns;
-        }, {});
-      }
-
-      // Load query params that pertain to this data table (pagination
-      // params for named outlets will have the outlet name in brackets).
-      const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
-      const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
-      const sortParam = `sort`;
-      let newSort = get(params, sortParam);
-      let newOffset = parseInt(get(params, offsetParam));
-      let newLimit = parseInt(get(params, limitParam));
-
-      // Set default offset here, but only if not already loaded
-      if (typeof this.pageOffset !== 'number' && isNaN(newOffset)) {
-        newOffset = 0;
-      }
-
-      // Set default limit here, but only if not already loaded
-      if (typeof this.pageLimit !== 'number' && isNaN(newLimit)) {
-        newLimit = 25;
-      }
-
-      if (!isNaN(newOffset) && newOffset !== this.pageOffset) {
-        shouldReload = true;
-        this.pageOffset = newOffset;
-      }
-
-      if (!isNaN(newLimit) && newLimit !== this.pageLimit) {
-        shouldReload = true;
-        this.pageLimit = newLimit;
-      }
-
-      if (newSort) {
-        // Add sort
-        shouldReload = true;
-        this.sort = newSort;
-      } else if (this.sort) {
-        // Clear sort
-        shouldReload = true;
-        this.sort = null;
-        this.sorts = [];
-      }
-
-      if (shouldReload) {
-        this.reload();
-      }
-
-      setTimeout(() => {
-        this.ignorePaging = false;
-      }, 600);
+    // Convert display configuration to columns for ngx-datatable
+    this.columns = this.data.display.map(column => {
+      return {
+        prop: column.name,
+        name: this.data.columns[column.name].title
+      };
     });
-  }
-
-  setData(data) {
-    this.data = Object.assign({}, data);
   }
 
   generateSorts() {
@@ -172,117 +100,22 @@ export class DataTableComponent implements OnInit {
     });
   }
 
-  // Reload the contents of the data table. If a new data configuration is
-  // provided, use that one instead.
-  reload(data?) {
-    this.selected = [];
-
-    if (data) {
-      this.setData(data);
-    }
-
-    // Convert display configuration to columns for ngx-datatable
-    this.columns = this.data.display.map(column => {
-      return {
-        prop: column.name,
-        name: this.data.columns[column.name].title
-      };
-    });
-
-    // If params for resource request provided, set those.
-    let params = Object.assign({}, this.data.params || {});
-
-    if (!isNaN(this.pageOffset) && !isNaN(this.pageLimit)) {
-      params['page[offset]'] = this.pageOffset;
-      params['page[limit]'] = this.pageLimit;
-    }
-
-    if (this.sort) {
-      params['sort'] = this.sort;
-    }
-
-    const qs = querystring.stringify(params);
-
-    this.http.get(`${this.data.resource}?${qs}`).subscribe((json: any) => {
-      this.rows = json.data;
-      this.itemCount = json.meta['item-count'];
-    }, (json: any) => {
-      json.errors.forEach(err => {
-        this.snackBar.open(err.title, 'OK', {
-          duration: 3000
-        });
-      });
-    });
-  }
-
   // Set as callback for built-in ngx-datatable row selection
   onSelect({ selected }) {
-    this.selected = [];
-    this.selected.push(...selected);
+    this.selectionChange.emit(selected);
   }
 
   // For single-select, use a custom event callback
   onRadioChangeFn(event, row) {
-    this.selected = [row];
+    this.selectionChange.emit([row]);
   }
 
   setPage(page) {
-    if (this.ignorePaging) {
-      return;
-    }
-
-    if (this.outlet) {
-      let outlets = {};
-
-      outlets[this.outlet] = [];
-
-      let queryParams = {};
-
-      queryParams[`offset[${this.outlet}]`] = page.offset;
-      queryParams[`limit[${this.outlet}]`] = page.limit;
-
-      this.router.navigate([{ outlets: outlets }], {
-        queryParams: queryParams,
-        relativeTo: this.route,
-        skipLocationChange: true,
-        queryParamsHandling: 'merge'
-      });
-    } else {
-      this.router.navigate(['.'], {
-        relativeTo: this.route,
-        queryParams: {
-          'offset': page.offset,
-          'limit': page.limit
-        },
-        queryParamsHandling: 'merge'
-      });
-    }
+    this.pageChange.emit(page);
   }
 
   onSort(event) {
-    // Store sort configurations
-    this.sorts = event.sorts;
-    let sortString = `${event.newValue === 'desc' ? '-' : ''}${event.column.name}`;
-    if (this.outlet) {
-      let outlets = {};
-      outlets[this.outlet] = [];
-      this.router.navigate([{ outlets: outlets }], {
-        queryParams: {
-          'sort': sortString
-        },
-        relativeTo: this.route,
-        skipLocationChange: true,
-        queryParamsHandling: 'merge'
-      });
-    } else {
-      this.router.navigate(['.'], {
-        relativeTo: this.route,
-        queryParams: {
-          'sort': sortString
-        },
-        queryParamsHandling: 'merge'
-      });
-    }
+    this.sortChange.emit(event);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,22 @@ export class FormApiService {
         }
       }
     });
+  }
+
+  index(offset, limit, sort, filter) {
+    let params = new HttpParams().set('page[offset]', offset).set('page[limit]', limit);
+
+    if (sort) {
+      params = params.set('sort', sort);
+    }
+
+    for (let f in filter) {
+      if (f.startsWith('filter[') && f.endsWith(']')) {
+        params = params.set(f, filter[f]);
+      }
+    }
+
+    return this.httpClient.get('forms', { params });
   }
 
   updateForm(id, attributes) {

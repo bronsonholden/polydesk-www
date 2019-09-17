@@ -48,58 +48,7 @@ export class SelectDialogService {
     return subject;
   }
 
-  resolveFilterOperand(data, filter) {
-    switch (filter.operand.type) {
-      case 'field':
-        return get(data, filter.operand.value);
-      case 'constant':
-        return filter.operand.value;
-    }
-  }
-
-  selectFormSubmission(formId, dialogOpts) {
-    let subject = new Subject();
-
-    const baseQueryParams = {
-      select: dialogOpts.selectKey
-    };
-
-    const queryParams = dialogOpts.filters.reduce((q, filter) => {
-      q[`filter[${filter.attribute}]`] = `${filter.operator}:${this.resolveFilterOperand(dialogOpts.data, filter)}`;
-      return q;
-    }, baseQueryParams);
-
-    this.router.navigate([
-      {
-        outlets: {
-          'select-dialog-outlet': ['forms', formId, 'form-submissions']
-        }
-      }
-    ], {
-      skipLocationChange: true,
-      queryParams: queryParams,
-      queryParamsHandling: 'replace'
-    }).then(() => {
-      const dialogRef = this.dialog.open(FormSubmissionSelectComponent, dialogOpts);
-
-      dialogRef.afterClosed().subscribe(result => {
-        // Navigate select dialog outlet away
-        this.router.navigate([
-          {
-            outlets: {
-              'select-dialog-outlet': null
-            }
-          }
-        ], {
-          skipLocationChange: true,
-          queryParams: {},
-          queryParamsHandling: 'replace'
-        }).then(() => {
-          subject.next(result);
-        });
-      });
-    });
-
-    return subject;
+  selectFormSubmission(dialogOpts) {
+    return this.dialog.open(FormSubmissionSelectComponent, dialogOpts).afterClosed();
   }
 }

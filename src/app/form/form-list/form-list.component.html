@@ -11,5 +11,5 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="form-table-wrapper">
-  <app-data-table #formDataTable [data]="data"></app-data-table>
+  <app-data-table-route-binding [data]="data" [source]="formApiService" [(selection)]="selection"></app-data-table-route-binding>
 </div>

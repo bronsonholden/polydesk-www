@@ -6,6 +6,7 @@ import { from, forkJoin } from 'rxjs';
 import { concatMap, finalize } from 'rxjs/operators';
 import { DataTableComponent } from '../../data-table/data-table.component';
 import { FormConfirmDeleteComponent } from '../../form-confirm-delete/form-confirm-delete.component';
+import { FormApiService } from '../../form-api.service';
 
 @Component({
   selector: 'app-form-list',
@@ -82,21 +83,48 @@ export class FormListComponent implements OnInit {
     ]
   };
 
+  selection: any = [];
+
   constructor(private dialog: MatDialog,
               private snackBar: MatSnackBar,
               private httpClient: HttpClient,
               private route: ActivatedRoute,
+              private formApiService: FormApiService,
               private router: Router) { }
+
+  pageChange(page) {
+    // Initial page has no defined limit or offset.
+    if (isNaN(page.offset) || isNaN(page.limit)) {
+      return;
+    }
+
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        offset: page.offset,
+        limit: page.limit
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  filterChange(filters) {
+    console.log(filters);
+  }
+
+  sortChange(sorting) {
+    console.log(sorting);
+  }
 
   ngOnInit() {
   }
 
   isSingleFormSelected() {
-    return this.formDataTable.selected.length === 1;
+    return this.selection.length === 1;
   }
 
   isFormSelectionEmpty() {
-    return this.formDataTable.selected.length === 0;
+    return this.selection.length === 0;
   }
 
   deleteRequestFor(form) {
@@ -112,7 +140,7 @@ export class FormListComponent implements OnInit {
 
     const dialogRef = this.dialog.open(FormConfirmDeleteComponent, {
       autoFocus: false,
-      data: this.formDataTable.selected
+      data: this.selection
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -120,7 +148,7 @@ export class FormListComponent implements OnInit {
         return;
       }
 
-      const selected = this.formDataTable.selected;
+      const selected = this.selection;
       // TODO: May be better as a component (to show progress for larger
       // deletions).
       const snackBarRef = this.snackBar.open('Deleting...', null, {
@@ -130,13 +158,12 @@ export class FormListComponent implements OnInit {
       forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
         // In case deletion is quick...
         setTimeout(() => { snackBarRef.dismiss() }, 350);
-        this.formDataTable.reload();
       });
     });
   }
 
   editSelectedForm() {
-    let form = this.formDataTable.selected[0];
+    let form = this.selection[0];
     this.router.navigate([form.id, 'edit'], {
       relativeTo: this.route
     });

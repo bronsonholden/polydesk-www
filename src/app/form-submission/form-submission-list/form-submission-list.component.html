@@ -9,5 +9,10 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="form-submission-table-wrapper">
-  <app-data-table #formSubmissionDataTable [data]="data"></app-data-table>
+  <app-data-table-route-binding
+    [data]="data"
+    [source]="scope"
+    [(selection)]="selection"
+    [filter]="filter">
+  </app-data-table-route-binding>
 </div>

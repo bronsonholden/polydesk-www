@@ -5,5 +5,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="select-wrapper" class="mat-typography">
-  <router-outlet name="select-dialog-outlet" (activate)="onRouterOutletActivate($event)"></router-outlet>
+  <app-data-table
+    [data]="data"
+    [rows]="rows"
+    [page]="page"
+    [(selection)]="selection"
+    (pageChange)="pageChange($event)"
+    (sortChange)="sortChange($event)">
+  </app-data-table>
 </div>
