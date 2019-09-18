@@ -18,5 +18,10 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="document-table-wrapper">
-  <app-data-table #folderDataTable [data]="data"></app-data-table>
+  <app-data-table-route-binding
+    [data]="data"
+    [scope]="scope"
+    [(selection)]="selection"
+    [source]="folderContentApi">
+  </app-data-table-route-binding>
 </div>

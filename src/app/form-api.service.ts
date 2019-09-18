@@ -33,9 +33,7 @@ export class FormApiService {
     }
 
     for (let f in filter) {
-      if (f.startsWith('filter[') && f.endsWith(']')) {
-        params = params.set(f, filter[f]);
-      }
+      params = params.set(`filter[${f}]`, filter[f]);
     }
 
     return this.httpClient.get('forms', { params });

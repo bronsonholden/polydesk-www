@@ -9,6 +9,7 @@ import { CreateFolderComponent, CreateFolderData } from './create-folder/create-
 import { DataTableComponent } from '../data-table/data-table.component';
 import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
 import { FolderApiService } from '../folder-api.service';
+import { FolderContentApiService } from '../folder-content-api.service';
 import { SelectDialogService } from '../select-dialog.service';
 
 export class ContentElement {
@@ -211,8 +212,12 @@ export class FolderComponent implements OnInit {
     ]
   };
 
+  selection: any = [];
+  scope: any = {};
+
   constructor(private http: HttpClient,
               private folderApi: FolderApiService,
+              private folderContentApi: FolderContentApiService,
               private selectDialogService: SelectDialogService,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
@@ -243,7 +248,7 @@ export class FolderComponent implements OnInit {
         id = result[0].id;
       }
 
-      const selected = this.folderDataTable.selected;
+      const selected = this.selection;
 
       const snackBarRef = this.snackBar.open('Move items...', null, {
         duration: 0
@@ -314,19 +319,14 @@ export class FolderComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.folderId = params.folder;
-
-      if (this.folderId) {
-        this.data.resource = `folders/${this.folderId}/content`;
-      } else {
-        this.data.resource = 'content'
-      }
-
-      this.folderDataTable.setData(this.data);
-    })
+      this.scope = {
+        'folder-id': params.folder
+      };
+    });
   }
 
   isSelectionEmpty(): boolean {
-    return this.folderDataTable.selected.length === 0;
+    return this.selection === 0;
   }
 
   deleteRequestFor(item) {
@@ -365,7 +365,7 @@ export class FolderComponent implements OnInit {
 
     const dialogRef = this.dialog.open(FolderConfirmDeleteComponent, {
       autoFocus: false,
-      data: this.folderDataTable.selected
+      data: this.selection
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -373,7 +373,7 @@ export class FolderComponent implements OnInit {
         return;
       }
 
-      const selected = this.folderDataTable.selected;
+      const selected = this.selection;
       // TODO: May be better as a component (to show progress for larger
       // deletions).
       const snackBarRef = this.snackBar.open('Deleting...', null, {
