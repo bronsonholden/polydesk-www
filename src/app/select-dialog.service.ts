@@ -18,30 +18,32 @@ export class SelectDialogService {
   selectFolder(dialogOpts) {
     let subject = new Subject();
 
-    this.router.navigate([
-      {
-        outlets: {
-          'select-dialog-outlet': ['folders', '0']
-        }
-      }
-    ], {
-      skipLocationChange: true
-    }).then(() => {
-      const dialogRef = this.dialog.open(FolderSelectComponent, dialogOpts);
+    const dialogRef = this.dialog.open(FolderSelectComponent, dialogOpts);
 
-      dialogRef.afterClosed().subscribe(result => {
-        // Navigate select dialog outlet away
-        this.router.navigate([
-          {
-            outlets: {
-              'select-dialog-outlet': null
-            }
+    dialogRef.afterOpened().subscribe(dialogRef => {
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': ['folders', '0']
           }
-        ], {
-          skipLocationChange: true
-        }).then(() => {
-          subject.next(result);
-        });
+        }
+      ], {
+        skipLocationChange: true
+      });
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Navigate select dialog outlet away
+      this.router.navigate([
+        {
+          outlets: {
+            'select-dialog-outlet': null
+          }
+        }
+      ], {
+        skipLocationChange: true
+      }).then(() => {
+        subject.next(result);
       });
     });
 

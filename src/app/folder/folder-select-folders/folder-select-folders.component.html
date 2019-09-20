@@ -1,1 +1,5 @@
-<app-data-table #selectFolderDataTable [outlet]="'select-dialog-outlet'" [data]="data"></app-data-table>
+<app-data-table-route-binding
+  [source]="folderApiService"
+  [filter]="filter"
+  [data]="data">
+</app-data-table-route-binding>

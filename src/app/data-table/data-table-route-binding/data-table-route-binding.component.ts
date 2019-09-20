@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { merge } from 'lodash';
+import { merge, isNil } from 'lodash';
 
 /**
  * A wrapper that binds data table pagination, filtering, and sorting to query
@@ -26,24 +26,47 @@ export class DataTableRouteBindingComponent implements OnInit {
   rows: any = [];
   page: any = {};
 
+  private outlet: string | null;
+
   constructor(private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
+    if (this.route.outlet !== 'primary') {
+      this.outlet = this.route.outlet;
+    }
+
     this.route.queryParams.subscribe(params => {
-      this.page.offset = params.offset || 0;
-      this.page.limit = params.limit || 25;
+      const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
+      const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
+      const filterParam = `filter${this.outlet ? `[${this.outlet}]` : ''}`;
+      let shouldReload = false;
 
-      const filterKeys = Object.keys(params).filter(k => k.startsWith('filter[') && k.endsWith(']'));
-      this.filter = filterKeys.reduce((result, filter) => {
-        const res = filter.match(/^filter\[(.*)\]$/);
-        if (res) {
-          result[res[1]] = params[filter];
-        }
-        return result;
-      }, {});
+      if (isNil(this.page.offset) || isNil(this.page.limit)) {
+        shouldReload = true;
+      }
 
-      this.reload();
+      if (!isNil(params[offsetParam]) || !isNil(params[limitParam])) {
+        shouldReload = true;
+        this.page.offset = params[offsetParam] || 0;
+        this.page.limit = params[limitParam] || 25;
+      }
+
+      if (!isNil(params[filterParam])) {
+        shouldReload = true;
+        const filterKeys = Object.keys(params).filter(k => k.startsWith(`${filterParam}[`) && k.endsWith(']')).map(k => k.replace(filterParam, 'filter'));
+        this.filter = filterKeys.reduce((result, filter) => {
+          const res = filter.match(/^filter\[(.*)\]$/);
+          if (res) {
+            result[res[1]] = params[filter];
+          }
+          return result;
+        }, {});
+      }
+
+      if (shouldReload) {
+        this.reload();
+      }
     });
   }
 
@@ -64,8 +87,12 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-    if (changes.scope && !changes.scope.firstChange) {
-      this.reload();
+    const reloadChanges = [ 'scope', 'filter' ];
+
+    for (let attr of reloadChanges) {
+      if (changes[attr] && !changes[attr].firstChange) {
+        return this.reload();
+      }
     }
   }
 
@@ -82,16 +109,21 @@ export class DataTableRouteBindingComponent implements OnInit {
       route = ['.'];
     } else {
       let outlets = {};
-      outlets[outlet] = '.';
+      outlets[outlet] = [];
       route = [{ outlets: outlets }];
     }
 
+    const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
+    const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
+
+    let queryParams = {};
+
+    queryParams[offsetParam] = page.offset;
+    queryParams[limitParam] = page.limit;
+
     this.router.navigate(route, {
       relativeTo: this.route,
-      queryParams: {
-        offset: page.offset,
-        limit: page.limit
-      },
+      queryParams: queryParams,
       skipLocationChange: outlet !== 'primary',
       queryParamsHandling: 'merge'
     });

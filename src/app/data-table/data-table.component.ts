@@ -22,7 +22,7 @@ export class DataTableComponent implements OnInit {
   };
 
   @Input() data: any;
-  @Input() outlet: string | null;
+  outlet: string | null;
 
   @Input() source: any = null;
   @Input() filters: any = {};
@@ -76,6 +76,10 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.route.outlet !== 'primary') {
+      this.outlet = this.route.outlet;
+    }
+
     // Convert display configuration to columns for ngx-datatable
     this.columns = this.data.display.map(column => {
       return {

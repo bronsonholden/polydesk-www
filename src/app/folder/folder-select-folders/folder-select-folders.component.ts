@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../../data-table/data-table.component';
+import { FolderApiService } from '../../folder-api.service';
 
 @Component({
   selector: 'app-folder-select-folders',
@@ -11,11 +12,7 @@ import { DataTableComponent } from '../../data-table/data-table.component';
 export class FolderSelectFoldersComponent implements OnInit {
 
   data: any = {
-    resource: 'folders',
     select: 'single',
-    params: {
-      'filter[folder-id]': '0'
-    },
     columns: {
       id: {
         title: 'ID',
@@ -71,40 +68,18 @@ export class FolderSelectFoldersComponent implements OnInit {
     ]
   };
 
-  folderId;
-
-  @ViewChild('selectFolderDataTable') selectFolderDataTable: DataTableComponent;
+  filter: any = {};
 
   constructor(private route: ActivatedRoute,
+              private folderApiService: FolderApiService,
               private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.goToFolder(params.id);
+      this.filter = {
+        'folder-id': params.id
+      };
     });
-  }
-
-  goToFolder(folderId) {
-    if (typeof folderId !== 'undefined' && folderId !== '0') {
-      this.data.params = { 'filter[folder-id]': folderId };
-      this.folderId = folderId;
-    } else {
-      this.data.params = { 'filter[folder-id]': '0' };
-
-      if (this.folderId) {
-        this.router.navigate([{
-          outlets: {
-            'select-dialog-outlet': [ 'folders', '0' ]
-          }
-        }], {
-          skipLocationChange: true
-        });
-      }
-
-      this.folderId = null;
-    }
-
-    this.selectFolderDataTable.reload(this.data);
   }
 
 }
