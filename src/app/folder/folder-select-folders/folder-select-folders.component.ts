@@ -69,6 +69,7 @@ export class FolderSelectFoldersComponent implements OnInit {
   };
 
   filter: any = {};
+  folderId: any;
 
   constructor(private route: ActivatedRoute,
               private folderApiService: FolderApiService,
@@ -76,6 +77,7 @@ export class FolderSelectFoldersComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.folderId = params.id;
       this.filter = {
         'folder-id': params.id
       };

@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
-import { DataTableModalComponent } from '../data-table-modal/data-table-modal.component';
 import { JsonAccessorService } from '../../json-accessor.service';
 import * as Url from 'url';
 
@@ -103,9 +102,6 @@ export class DataTableCellComponent implements OnInit {
         return this.resolveJsonArg(this.row.attributes, columnInfo.value, '');
       case 'literal':
         return columnInfo.value;
-      case 'relationship':
-        let path = Url.parse(this.row.relationships[columnInfo.model].links.related).pathname;
-        return path.split('/').slice(2).join('/');
       case 'concat':
         return columnInfo.value.parts.map(part => this.resolveArg(part)).join(columnInfo.value.separator || '')
       default:
@@ -149,20 +145,6 @@ export class DataTableCellComponent implements OnInit {
 
   showLink(column): boolean {
     return this.column.link;
-  }
-
-  openRelationshipDialog() {
-    let columnInfo = this.column;
-    let data: any = {};
-
-    Object.assign(data, columnInfo.view);
-    data.resource = this.value;
-
-    let dialogRef = this.dialog.open(DataTableModalComponent, {
-      width: '800px',
-      height: '600px',
-      data: data
-    });
   }
 
 }

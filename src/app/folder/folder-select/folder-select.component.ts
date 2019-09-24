@@ -56,7 +56,7 @@ export class FolderSelectComponent implements OnInit {
   }
 
   selectFolders() {
-    this.dialogRef.close(this.selectFoldersDataTable.selected);
+    this.dialogRef.close(this.selectFoldersDataTable.selection);
   }
 
   cancelSelection() {
@@ -68,7 +68,7 @@ export class FolderSelectComponent implements OnInit {
   }
 
   isAnyFolderSelected() {
-    return this.selectFoldersDataTable && this.selectFoldersDataTable.selected.length === 1;
+    return this.selectFoldersDataTable && this.selectFoldersDataTable.selection.length === 1;
   }
 
 }

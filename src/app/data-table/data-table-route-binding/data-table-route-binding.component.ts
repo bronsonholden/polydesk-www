@@ -25,6 +25,8 @@ export class DataTableRouteBindingComponent implements OnInit {
   @Input() scope: any = {};
   rows: any = [];
   page: any = {};
+  sort: any;
+  sorts: any = {};
 
   private outlet: string | null;
 

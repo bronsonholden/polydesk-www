@@ -93,8 +93,9 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   }
 
   isLocked() {
-    if (this.options.lockFields) {
-      return !isNull(this.options.lockFields[this.key]);
+    const lockFields = get(this.options, 'lockFields');
+    if (lockFields) {
+      return !isNull(lockFields[this.key]);
     }
     return false;
   }

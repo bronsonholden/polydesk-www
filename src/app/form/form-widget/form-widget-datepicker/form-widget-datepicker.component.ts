@@ -3,9 +3,7 @@ import { FieldType } from '@ngx-formly/material';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-const moment = _rollupMoment || _moment;
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form-widget-datepicker',

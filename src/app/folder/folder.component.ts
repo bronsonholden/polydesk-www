@@ -257,7 +257,6 @@ export class FolderComponent implements OnInit {
       forkJoin(from(selected).pipe(concatMap(item => this.moveRequestFor(item, id)))).subscribe(result => {
         // In case deletion is quick...
         setTimeout(() => { snackBarRef.dismiss() }, 350);
-        this.folderDataTable.reload();
       });
     });
   }
@@ -325,7 +324,7 @@ export class FolderComponent implements OnInit {
   }
 
   isSelectionEmpty(): boolean {
-    return this.selection === 0;
+    return this.selection.length === 0;
   }
 
   deleteRequestFor(item) {
@@ -382,7 +381,6 @@ export class FolderComponent implements OnInit {
       forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
         // In case deletion is quick...
         setTimeout(() => { snackBarRef.dismiss() }, 350);
-        this.folderDataTable.reload();
       });
     });
   }

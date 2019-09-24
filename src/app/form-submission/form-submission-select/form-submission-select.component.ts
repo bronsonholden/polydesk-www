@@ -52,6 +52,8 @@ export class FormSubmissionSelectComponent implements OnInit {
   selection: any = [];
   filters: any = {};
   page: any = {};
+  sort: any;
+  rows: any = [];
 
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               public dialogRef: MatDialogRef<FormSubmissionSelectComponent>,
