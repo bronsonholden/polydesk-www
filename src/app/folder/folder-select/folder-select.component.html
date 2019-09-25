@@ -9,8 +9,17 @@
     <button mat-raised-button (click)="selectRoot()">Select Root</button>
     <button mat-raised-button [disabled]="!isAnyFolderSelected()" (click)="selectFolders()">Select</button>
     <button mat-raised-button (click)="cancelSelection()">Cancel</button>
+    {{ filters | json }}
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="select-wrapper" class="mat-typography">
-  <router-outlet name="select-dialog-outlet" (activate)="onRouterOutletActivate($event)"></router-outlet>
+  <app-data-table
+    (pseudoLink)="folderClicked($event)"
+    [data]="data"
+    [rows]="rows"
+    [page]="page"
+    [(selection)]="selection"
+    (pageChange)="pageChange($event)"
+    (sortChange)="sortChange($event)">
+  </app-data-table>
 </div>

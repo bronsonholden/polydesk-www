@@ -1,7 +1,7 @@
 <!-- Link -->
 <div *ngIf="columnDisplay === 'link'">
   <div *ngIf="column.pseudoLink; else routerLinkDisplay">
-    <a class="primary-color mat-body-2 pseudo-link" (click)="routeTo()">
+    <a class="primary-color mat-body-2 pseudo-link" (click)="pseudoLinkClicked()">
       {{ resolveArg(column.link) }}
     </a>
   </div>
@@ -30,7 +30,7 @@
 <!-- Switch -->
 <div *ngIf="columnDisplay === 'switch'">
   <!-- {{ row._source | json }} -->
-  <app-data-table-cell [outlet]="outlet" [data]="data" [row]="row" [column]="value"></app-data-table-cell>
+  <app-data-table-cell (pseudoLink)="pseudoLinkClicked()" [outlet]="outlet" [data]="data" [row]="row" [column]="value"></app-data-table-cell>
 </div>
 
 <!-- Icon -->

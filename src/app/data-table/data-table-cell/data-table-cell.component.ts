@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
@@ -19,6 +19,7 @@ export class DataTableCellComponent implements OnInit {
   @Input() row: any;
   @Input() column: any;
   @Input() outlet: string | null;
+  @Output() pseudoLink = new EventEmitter<any>();
 
   constructor(public dialog: MatDialog,
               public router: Router,
@@ -114,6 +115,10 @@ export class DataTableCellComponent implements OnInit {
     this.router.navigate(this.getRouterLink(), {
       skipLocationChange: !!this.outlet
     });
+  }
+
+  pseudoLinkClicked() {
+    this.pseudoLink.emit(this.row);
   }
 
   getLink() {

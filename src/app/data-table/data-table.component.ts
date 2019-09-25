@@ -34,6 +34,7 @@ export class DataTableComponent implements OnInit {
   @Output() pageChange = new EventEmitter<any>();
   @Output() sortChange = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any>();
+  @Output() pseudoLink = new EventEmitter<any>();
   sort;
   sorts = [];
   pageLimit;
@@ -65,6 +66,10 @@ export class DataTableComponent implements OnInit {
     } else {
       return setting;
     }
+  }
+
+  pseudoLinkClicked(row) {
+    this.pseudoLink.emit(row);
   }
 
   getDisplayedColumns() {

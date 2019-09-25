@@ -75,7 +75,7 @@
         </ng-template>
       </ng-template>
       <ng-template let-row="row" ngx-datatable-cell-template>
-        <app-data-table-cell [outlet]="outlet" [data]="data" [row]="row" [column]="getColumnInfo(display.name)"></app-data-table-cell>
+        <app-data-table-cell (pseudoLink)="pseudoLinkClicked($event)" [outlet]="outlet" [data]="data" [row]="row" [column]="getColumnInfo(display.name)"></app-data-table-cell>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>

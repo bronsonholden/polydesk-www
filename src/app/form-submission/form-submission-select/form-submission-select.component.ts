@@ -65,6 +65,10 @@ export class FormSubmissionSelectComponent implements OnInit {
     this.data.columns.key.value = this.dialogData.selectKey;
   }
 
+  sortChange(sort) {
+
+  }
+
   pageChange(page) {
     if (!isNaN(page.offset) && page.offset !== this.page.offset) {
       this.page.offset = page.offset;
