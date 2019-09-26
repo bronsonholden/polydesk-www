@@ -40,14 +40,14 @@ export class FolderSelectComponent implements OnInit {
       createdAt: {
         title: 'Created At',
         display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
+        // format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'created-at'
       },
       updatedAt: {
         title: 'Updated At',
         display: 'date',
-        format: 'MM/DD/YYYY hh:mm A',
+        // format: 'MM/DD/YYYY hh:mm A',
         type: 'attribute',
         value: 'updated-at'
       }
@@ -60,21 +60,26 @@ export class FolderSelectComponent implements OnInit {
         resizeable: false
       },
       {
-        name: 'name'
+        name: 'name',
+        sortable: true
       },
       {
-        name: 'createdAt'
+        name: 'createdAt',
+        sortable: true
       }
     ]
   };
 
   selection: any = [];
-  filters: any = {
+  filter: any = {
     'folder-id': 0
   };
   page: any = {};
-  sort: any;
+  sort: any = [];
   rows: any = [];
+  scope: any = {};
+
+  showTable = false;
 
   constructor(public dialogRef: MatDialogRef<FolderSelectComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -82,49 +87,25 @@ export class FolderSelectComponent implements OnInit {
               private folderApiService: FolderApiService) { }
 
   ngOnInit() {
-  }
-
-  reload() {
-    this.folderApiService.index(this.page.offset || 0, this.page.limit || 25, this.sort, this.filters).subscribe((res: any) => {
-      this.rows = res.data;
-      this.page = {
-        offset: res.meta['page-offset'],
-        limit: res.meta['page-limit'],
-        total: res.meta['item-count']
-      };
-    }, err => {
-      console.log(err);
+    // Add table to DOM only after modal is opened. ngx-datatable will
+    // calculate height only on resizes, so we need the modal to be fully
+    // open before we add it, so it will fill its container.
+    this.dialogRef.afterOpened().subscribe(() => {
+      this.showTable = true;
     });
   }
 
-  pageChange(page) {
-    if (!isNaN(page.offset) && page.offset !== this.page.offset) {
-      this.page.offset = page.offset;
-    }
-
-    if (!isNaN(page.limit) && page.limit !== this.page.limit) {
-      this.page.limit = page.limit;
-    }
-
-    this.reload();
-  }
-
-  sortChange(sort) {
-
-  }
-
   goToRoot() {
-    this.filters['folder-id'] = 0;
-    this.reload();
+    this.filter = { 'folder-id': 0 };
   }
 
   folderClicked(folder) {
-    this.filters['folder-id'] = folder.id;
-    this.reload();
+    console.log(folder);
+    this.filter = { 'folder-id': folder.id };
   }
 
   goToParentFolder() {
-    const folderId = this.filters['folder-id'];
+    const folderId = this.filter['folder-id'];
 
     if (folderId === 0) {
       return;
@@ -137,15 +118,14 @@ export class FolderSelectComponent implements OnInit {
         id = res.data.id;
       }
 
-      this.filters['folder-id'] = id;
-      this.reload();
+      this.filter = { 'folder-id': id };
     }, err => {
       console.log(err);
     });
   }
 
   atRootFolder() {
-    return this.filters['folder-id'] === 0;
+    return this.filter['folder-id'] === 0;
   }
 
   selectFolders() {

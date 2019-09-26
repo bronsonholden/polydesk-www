@@ -99,6 +99,7 @@ import { FormEmbedComponent } from './form/form-embed/form-embed.component';
 import { FormWidgetSliderComponent } from './form/form-widget/form-widget-slider/form-widget-slider.component';
 import { FormWidgetDatepickerComponent } from './form/form-widget/form-widget-datepicker/form-widget-datepicker.component';
 import { DataTableRouteBindingComponent } from './data-table/data-table-route-binding/data-table-route-binding.component';
+import { DataTableBindingComponent } from './data-table/data-table-binding/data-table-binding.component';
 
 const routes: Routes = [
   {
@@ -250,7 +251,8 @@ const routes: Routes = [
     FormEmbedComponent,
     FormWidgetSliderComponent,
     FormWidgetDatepickerComponent,
-    DataTableRouteBindingComponent
+    DataTableRouteBindingComponent,
+    DataTableBindingComponent
   ],
   entryComponents: [
     AccountCreateComponent,

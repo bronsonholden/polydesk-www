@@ -9,17 +9,18 @@
     <button mat-raised-button (click)="selectRoot()">Select Root</button>
     <button mat-raised-button [disabled]="!isAnyFolderSelected()" (click)="selectFolders()">Select</button>
     <button mat-raised-button (click)="cancelSelection()">Cancel</button>
-    {{ filters | json }}
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="select-wrapper" class="mat-typography">
-  <app-data-table
+  <app-data-table-binding
+    *ngIf="showTable"
     (pseudoLink)="folderClicked($event)"
     [data]="data"
-    [rows]="rows"
-    [page]="page"
-    [(selection)]="selection"
-    (pageChange)="pageChange($event)"
-    (sortChange)="sortChange($event)">
-  </app-data-table>
+    [source]="folderApiService"
+    [scope]="scope"
+    [(filter)]="filter"
+    [(page)]="page"
+    [(sort)]="sort"
+    [(selection)]="selection">
+  </app-data-table-binding>
 </div>

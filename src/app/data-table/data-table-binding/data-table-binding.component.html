@@ -1,0 +1,12 @@
+<div id="data-table-binding-wrapper">
+  <app-data-table
+    (pseudoLink)="pseudoLinkClicked($event)"
+    [data]="data"
+    [page]="page"
+    [(selection)]="selection"
+    (pageChange)="onPageChange($event)"
+    (selectionChange)="onSelectionChange($event)"
+    (sortChange)="onSortChange($event)"
+    [rows]="rows">
+  </app-data-table>
+</div>

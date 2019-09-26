@@ -4,6 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
+import { DatatableComponent as NgxDatatableComponent } from '@swimlane/ngx-datatable';
 
 import { get, isArray, isEqual, merge } from 'lodash';
 import * as querystring from 'querystring';
@@ -16,15 +17,15 @@ import * as moment from 'moment';
 })
 export class DataTableComponent implements OnInit {
 
+  @ViewChild(NgxDatatableComponent) datatable: NgxDatatableComponent
+
   readonly messages = {
     emptyMessage: '',
     totalMessage: 'total'
   };
 
   @Input() data: any;
-  outlet: string | null;
 
-  @Input() source: any = null;
   @Input() filters: any = {};
 
   @Input() selection = [];
@@ -54,6 +55,8 @@ export class DataTableComponent implements OnInit {
   // false (set after query params are loaded).
   ignorePaging = true;
 
+  visible = false;
+
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
               private tokenService: AngularTokenService,
@@ -81,10 +84,6 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.outlet !== 'primary') {
-      this.outlet = this.route.outlet;
-    }
-
     // Convert display configuration to columns for ngx-datatable
     this.columns = this.data.display.map(column => {
       return {
@@ -120,7 +119,15 @@ export class DataTableComponent implements OnInit {
   }
 
   setPage(page) {
-    this.pageChange.emit(page);
+    if (!page.count) {
+      return;
+    }
+
+    this.pageChange.emit({
+      offset: page.offset,
+      limit: page.limit,
+      total: page.count
+    });
   }
 
   onSort(event) {
