@@ -19,7 +19,7 @@
       [offset]="page.offset"
       [count]="page.total"
       [limit]="page.limit"
-      (page)="setPage($event)"
+      (page)="onPage($event)"
       (sort)="onSort($event)"
       [sorts]="sorts">
     <ngx-datatable-column

@@ -100,7 +100,6 @@ export class FolderSelectComponent implements OnInit {
   }
 
   folderClicked(folder) {
-    console.log(folder);
     this.filter = { 'folder-id': folder.id };
   }
 

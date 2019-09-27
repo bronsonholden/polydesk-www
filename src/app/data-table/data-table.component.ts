@@ -36,11 +36,6 @@ export class DataTableComponent implements OnInit {
   @Output() sortChange = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any>();
   @Output() pseudoLink = new EventEmitter<any>();
-  sort;
-  sorts = [];
-  pageLimit;
-  pageOffset;
-  itemCount;
 
   // What keys were present in query params. Used to determine if we should
   // reload with new columns.
@@ -93,21 +88,6 @@ export class DataTableComponent implements OnInit {
     });
   }
 
-  generateSorts() {
-    this.sorts = [];
-    this.sort.split(',').forEach(sort => {
-      let dir = 'asc';
-      if (sort.startsWith('-')) {
-        dir = 'desc';
-        sort = sort.slice(1);
-      }
-      this.sorts.push({
-        prop: sort,
-        dir: dir
-      });
-    });
-  }
-
   // Set as callback for built-in ngx-datatable row selection
   onSelect({ selected }) {
     this.selectionChange.emit(selected);
@@ -118,7 +98,7 @@ export class DataTableComponent implements OnInit {
     this.selectionChange.emit([row]);
   }
 
-  setPage(page) {
+  onPage(page) {
     if (!page.count) {
       return;
     }
