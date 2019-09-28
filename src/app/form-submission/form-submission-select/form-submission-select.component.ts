@@ -50,44 +50,25 @@ export class FormSubmissionSelectComponent implements OnInit {
   };
 
   selection: any = [];
-  filters: any = {};
+  filter: any = {};
   page: any = {};
   sort: any;
   rows: any = [];
 
+  showTable = false;
+
   constructor(private formSubmissionApiService: FormSubmissionApiService,
               public dialogRef: MatDialogRef<FormSubmissionSelectComponent>,
-              @Inject(MAT_DIALOG_DATA) public dialogData: any) { }
+              @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    this.dialogRef.afterOpened().subscribe(() => {
+      this.showTable = true;
+    });
+  }
 
   ngOnInit() {
-    this.filters = Object.assign({}, this.dialogData.filters || {});
-    this.filters['form-id'] = this.dialogData.formId;
+    this.filter = Object.assign({}, this.dialogData.filters || {});
+    this.filter['form-id'] = this.dialogData.formId;
     this.data.columns.key.value = this.dialogData.selectKey;
-  }
-
-  sortChange(sort) {
-
-  }
-
-  pageChange(page) {
-    if (!isNaN(page.offset) && page.offset !== this.page.offset) {
-      this.page.offset = page.offset;
-    }
-
-    if (!isNaN(page.limit) && page.limit !== this.page.limit) {
-      this.page.limit = page.limit;
-    }
-
-    this.formSubmissionApiService.index(page.offset || 0, page.limit || 25, this.sort, this.filters).subscribe((res: any) => {
-      this.rows = res.data;
-      this.page = {
-        offset: res.meta['page-offset'],
-        limit: res.meta['page-limit'],
-        total: res.meta['item-count']
-      };
-    }, err => {
-      console.log(err);
-    });
   }
 
   cancelSelection() {

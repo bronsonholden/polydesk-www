@@ -5,12 +5,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div id="select-wrapper" class="mat-typography">
-  <app-data-table
+  <app-data-table-binding
+    *ngIf="showTable"
     [data]="data"
-    [rows]="rows"
+    [source]="formSubmissionApiService"
     [page]="page"
-    [(selection)]="selection"
-    (pageChange)="pageChange($event)"
-    (sortChange)="sortChange($event)">
-  </app-data-table>
+    [scope]="filter"
+    [(selection)]="selection">
+  </app-data-table-binding>
 </div>
