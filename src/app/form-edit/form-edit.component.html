@@ -17,7 +17,7 @@
   </mat-toolbar>
   <div fxLayout="row" style="height:100%">
     <div fxFlex="50">
-      <div fxLayout="column" style="height:100%;">
+      <div class="mat-typography" fxLayout="column" style="height:100%;">
         <div class="editor-section-header">Schema</div>
         <div
           class="json-editor"
@@ -28,9 +28,9 @@
       </div>
     </div>
     <div fxFlex="50">
-      <div fxLayout="column" style="height:100%; border-left: 1px solid #ccc;">
+      <div class="mat-typography" fxLayout="column" style="height:100%; border-left: 1px solid #ccc;">
         <div class="editor-section-header">Preview</div>
-        <div style="margin-left: 8px; margin-right: 8px;">
+        <div style="margin-left: 8px; margin-right: 8px; overflow-y: scroll;">
           <formly-form [options]="options" [fields]="fields" [model]="model"></formly-form>
         </div>
       </div>

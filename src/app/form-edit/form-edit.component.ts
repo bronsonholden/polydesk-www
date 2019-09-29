@@ -44,7 +44,9 @@ export class FormEditComponent implements OnInit {
       const schema = JSON.parse(this.schema);
       const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
       this.fields = [fieldConfig];
-      this.options = {};
+      this.options = {
+        allowCreateInline: false
+      };
     } catch (err) {
       console.log(err);
     }
