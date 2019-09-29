@@ -108,3 +108,36 @@ a {
 .warn-color {
   color: mat-color(mat-palette($mat-red)) !important
 }
+
+// .fadein {
+//   -webkit-animation: fadein 0.7s;
+//   -moz-animation: fadein 0.7s;
+//   -ms-animation: fadein 0.7s;
+//   -o-animation: fadein 0.7s;
+//   animation: fadein 0.7s;
+// }
+//
+// @keyframes fadein {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+//
+// @-moz-keyframes fadein {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+//
+// @-webkit-keyframes fadein {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+//
+// @-ms-keyframes fadein {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+//
+// @-o-keyframes fadein {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
