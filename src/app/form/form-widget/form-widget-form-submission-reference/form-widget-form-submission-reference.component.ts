@@ -138,7 +138,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
   createInlineFormSubmission(data) {
     if (this.options) {
       return this.snackBar.open('Inline submission is disabled during preview', 'OK', {
-        duration: 2000
+        duration: 5000
       });
     }
 
