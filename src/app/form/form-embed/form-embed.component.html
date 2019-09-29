@@ -1,5 +1,9 @@
 <form [formGroup]="form">
-  <div style="margin-bottom: 12px;">
+  <div style="margin-bottom: 12px;" *ngIf="showForm">
     <formly-form [form]="form" [options]="options" [fields]="fields" [model]="model"></formly-form>
+  </div>
+  <div *ngIf="!showForm" style="height: 100%;">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <br>
   </div>
 </form>

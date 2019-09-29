@@ -23,6 +23,8 @@ export class FormEmbedComponent implements OnInit {
   @Input() options: FormlyFormOptions = {};
   formName: string;
 
+  showForm = false;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
@@ -55,6 +57,7 @@ export class FormEmbedComponent implements OnInit {
   ngOnChanges(changes) {
     if (changes.formId) {
       this.httpClient.get(`forms/${this.formId}`).subscribe((result: any) => {
+        this.showForm = true;
         const schema = result.data.attributes.schema;
         const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
         this.fields = this.applyTemplateOptions([fieldConfig]);
