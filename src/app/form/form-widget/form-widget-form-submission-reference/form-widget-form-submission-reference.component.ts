@@ -57,6 +57,8 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
     const filters = get(this.field, 'filters', []);
 
+    // When we have filters in place, we want to lock those values so
+    // any submissions created inline are subject to those filters as well.
     filters.forEach((filter) => {
       const attr = filter.attribute.split('.').slice(1).join('.');
       const filterField = get(this.form.controls, attr);
