@@ -58,8 +58,8 @@ export class DataTableBindingComponent implements OnInit {
   }
 
   onSortChange(sort) {
-    this.sort = sort.sorts.map(s => `${s.dir === 'desc' ? '-' : ''}${s.prop}`);
-    this.sortChange.emit(this.sort);
+    this.sort = sort;
+    this.sortChange.emit(sort);
   }
 
   onSelectionChange(selection) {

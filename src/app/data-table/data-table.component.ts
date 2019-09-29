@@ -111,7 +111,15 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
-    this.sortChange.emit(event);
+    const column = this.data.columns[event.column.prop];
+
+    let prop = event.column.prop;
+
+    if (column.type === 'json' || column.type === 'attribute') {
+      prop = column.value;
+    }
+
+    this.sortChange.emit([`${event.newValue === 'desc' ? '-' : ''}${prop}`]);
   }
 
 }

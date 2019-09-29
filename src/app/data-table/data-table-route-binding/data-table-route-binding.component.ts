@@ -42,6 +42,7 @@ export class DataTableRouteBindingComponent implements OnInit {
       const offsetParam = `offset${this.outlet ? `[${this.outlet}]` : ''}`;
       const limitParam = `limit${this.outlet ? `[${this.outlet}]` : ''}`;
       const filterParam = `filter${this.outlet ? `[${this.outlet}]` : ''}`;
+      const sortParam = `sort${this.outlet ? `[${this.outlet}]` : ''}`;
       let shouldReload = false;
 
       if (isNil(this.page.offset) || isNil(this.page.limit)) {
@@ -64,6 +65,11 @@ export class DataTableRouteBindingComponent implements OnInit {
           }
           return result;
         }, {});
+      }
+
+      if (!isNil(params[sortParam])) {
+        this.sort = params[sortParam].split(',');
+        shouldReload = true;
       }
 
       if (shouldReload) {
@@ -135,10 +141,10 @@ export class DataTableRouteBindingComponent implements OnInit {
     this.selectionChange.emit(selection);
   }
 
-  sortChange(event) {
+  sortChange(sort) {
     // Store sort configurations
-    this.sorts = event.sorts;
-    let sortString = `${event.newValue === 'desc' ? '-' : ''}${event.column.name}`;
+    this.sorts = sort;
+    let sortString = sort.join(',');
     let outlet = this.route.outlet;
     if (outlet !== 'primary') {
       let outlets = {};
