@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
-import { DatatableComponent as NgxDatatableComponent } from '@swimlane/ngx-datatable';
+import { DatatableComponent as NgxDatatableComponent, SortType } from '@swimlane/ngx-datatable';
 
 import { get, isArray, isEqual, merge } from 'lodash';
 import * as querystring from 'querystring';
@@ -16,6 +16,8 @@ import * as moment from 'moment';
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
+
+  SortType = SortType;
 
   @ViewChild(NgxDatatableComponent) datatable: NgxDatatableComponent
 
@@ -111,15 +113,19 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
-    const column = this.data.columns[event.column.prop];
+    let sorts = event.sorts.map(sort => {
+      const prop = sort.prop;
+      const column = this.data.columns[prop];
+      let sortProp = prop;
 
-    let prop = event.column.prop;
+      if (column.type === 'json' || column.type === 'attribute') {
+        sortProp = column.value;
+      }
 
-    if (column.type === 'json' || column.type === 'attribute') {
-      prop = column.value;
-    }
+      return `${sort.dir === 'desc' ? '-' : ''}${sortProp}`;
+    });
 
-    this.sortChange.emit([`${event.newValue === 'desc' ? '-' : ''}${prop}`]);
+    this.sortChange.emit(sorts);
   }
 
 }

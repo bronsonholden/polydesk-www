@@ -67,9 +67,12 @@ export class DataTableRouteBindingComponent implements OnInit {
         }, {});
       }
 
-      if (!isNil(params[sortParam])) {
+      const sortString = params[sortParam];
+      if (!isNil(sortString) && sortString !== '') {
         this.sort = params[sortParam].split(',');
-        shouldReload = true;
+        if (this.sort.length > 0) {
+          shouldReload = true;
+        }
       }
 
       if (shouldReload) {
@@ -142,10 +145,16 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   sortChange(sort) {
+    let sortString;
+    let outlet = this.route.outlet;
+
     // Store sort configurations
     this.sorts = sort;
-    let sortString = sort.join(',');
-    let outlet = this.route.outlet;
+
+    if (sort.length > 0) {
+      sortString = sort.join(',');
+    }
+
     if (outlet !== 'primary') {
       let outlets = {};
       outlets[outlet] = [];

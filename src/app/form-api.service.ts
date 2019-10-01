@@ -28,7 +28,7 @@ export class FormApiService {
   index(offset, limit, sort, filter) {
     let params = new HttpParams().set('page[offset]', offset).set('page[limit]', limit);
 
-    if (sort) {
+    if (sort && sort.length > 0) {
       params = params.set('sort', sort);
     }
 
