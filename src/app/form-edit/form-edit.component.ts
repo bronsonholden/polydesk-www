@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormApiService } from '../form-api.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -20,6 +21,7 @@ export class FormEditComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
+              private snackBar: MatSnackBar,
               private formApiService: FormApiService,
               private formlyJsonschema: FormlyJsonschema) { }
 
@@ -106,8 +108,12 @@ export class FormEditComponent implements OnInit {
         this.router.navigate(['../..'], {
           relativeTo: this.activatedRoute
         });
-      }, err => {
-        console.log(err);
+      }, (err: any) => {
+        err.error.errors.forEach(err => {
+          this.snackBar.open(err.title, 'OK', {
+            duration: 5000
+          });
+        });
       });
     } catch (err) {
       console.log(err);
