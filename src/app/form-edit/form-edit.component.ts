@@ -5,6 +5,8 @@ import { FormApiService } from '../form-api.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 
+import { set } from 'lodash';
+
 @Component({
   selector: 'app-form-edit',
   templateUrl: './form-edit.component.html',
@@ -46,9 +48,8 @@ export class FormEditComponent implements OnInit {
       const schema = JSON.parse(this.schema);
       const fieldConfig = this.formlyJsonschema.toFieldConfig(schema);
       this.fields = [fieldConfig];
-      this.options = {
-        allowCreateInline: false
-      };
+      this.options = {};
+      set(this.options, 'allowCreateInline', false);
     } catch (err) {
       console.log(err);
     }
