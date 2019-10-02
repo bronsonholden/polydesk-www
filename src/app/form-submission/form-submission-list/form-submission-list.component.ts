@@ -52,10 +52,11 @@ export class FormSubmissionListComponent implements OnInit {
 
   selection: any = [];
   scope: any = {};
+  filter: any = {};
 
   constructor(private route: ActivatedRoute,
               private formApiService: FormApiService,
-              private formSubmissionApiService: FormSubmissionApiService) { }
+              public formSubmissionApiService: FormSubmissionApiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

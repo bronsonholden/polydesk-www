@@ -89,7 +89,7 @@ export class FormListComponent implements OnInit {
               private snackBar: MatSnackBar,
               private httpClient: HttpClient,
               private route: ActivatedRoute,
-              private formApiService: FormApiService,
+              public formApiService: FormApiService,
               private router: Router) { }
 
   pageChange(page) {

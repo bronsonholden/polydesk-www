@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
-              private formSubmissionApiService: FormSubmissionApiService,
+              public formSubmissionApiService: FormSubmissionApiService,
               private formlyJsonschema: FormlyJsonschema) { }
 
   ngOnInit() {

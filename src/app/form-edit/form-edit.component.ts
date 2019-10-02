@@ -24,7 +24,7 @@ export class FormEditComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private snackBar: MatSnackBar,
-              private formApiService: FormApiService,
+              public formApiService: FormApiService,
               private formlyJsonschema: FormlyJsonschema) { }
 
   ngOnInit() {

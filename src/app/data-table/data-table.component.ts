@@ -39,6 +39,8 @@ export class DataTableComponent implements OnInit {
   @Output() selectionChange = new EventEmitter<any>();
   @Output() pseudoLink = new EventEmitter<any>();
 
+  sorts: any;
+
   // What keys were present in query params. Used to determine if we should
   // reload with new columns.
   keys: string;
@@ -113,6 +115,7 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
+    this.sorts = event.sorts;
     let sorts = event.sorts.map(sort => {
       const prop = sort.prop;
       const column = this.data.columns[prop];

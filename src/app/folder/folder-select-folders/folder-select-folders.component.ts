@@ -11,12 +11,13 @@ import { FolderApiService } from '../../folder-api.service';
 // TODO: Better name for this and FolderSelect components...
 export class FolderSelectFoldersComponent implements OnInit {
 
+  data = {};
 
   filter: any = {};
   folderId: any;
 
   constructor(private route: ActivatedRoute,
-              private folderApiService: FolderApiService,
+              public folderApiService: FolderApiService,
               private router: Router) { }
 
   ngOnInit() {

@@ -216,8 +216,8 @@ export class FolderComponent implements OnInit {
   scope: any = {};
 
   constructor(private http: HttpClient,
-              private folderApi: FolderApiService,
-              private folderContentApi: FolderContentApiService,
+              public folderApi: FolderApiService,
+              public folderContentApi: FolderContentApiService,
               private selectDialogService: SelectDialogService,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
