@@ -83,7 +83,6 @@ import { DataTableDialogComponent } from './data-table/data-table-dialog/data-ta
 import { ConfirmationsComponent } from './confirmations/confirmations.component';
 import { DocumentCreateComponent } from './document-create/document-create.component';
 import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
-import { FolderSelectFoldersComponent } from './folder/folder-select-folders/folder-select-folders.component';
 import { FolderConfirmDeleteComponent } from './folder/folder-confirm-delete/folder-confirm-delete.component';
 import { AccountComponent } from './account/account.component';
 import { AccountCreateComponent } from './account/account-create/account-create.component';
@@ -196,11 +195,6 @@ const routes: Routes = [
         ]
       }
     ]
-  },
-  {
-    path: 'folders/:id',
-    component: FolderSelectFoldersComponent,
-    outlet: 'select-dialog-outlet'
   }
 ];
 
@@ -235,7 +229,6 @@ const routes: Routes = [
     ConfirmationsComponent,
     DocumentCreateComponent,
     FolderSelectComponent,
-    FolderSelectFoldersComponent,
     FolderConfirmDeleteComponent,
     AccountComponent,
     AccountCreateComponent,

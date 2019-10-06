@@ -13,6 +13,7 @@ export class DataTableBindingComponent implements OnInit {
   @Input() source: any = null;
   @Input() selection: any = [];
   @Input() filter: any = {};
+  @Input() query: any = {};
   @Input() scope: any = {};
   @Input() sort: any = [];
   @Output() pageChange = new EventEmitter<any>();
@@ -35,7 +36,8 @@ export class DataTableBindingComponent implements OnInit {
       'page',
       'scope',
       'sort',
-      'source'
+      'source',
+      'query'
     ];
 
     // Only reload if one or more select inputs are changed.
@@ -75,7 +77,7 @@ export class DataTableBindingComponent implements OnInit {
       sort = this.sort.join(',');
     }
 
-    this.source.index(this.page.offset || 0, this.page.limit || 25, sort, filter).subscribe(res => {
+    this.source.index(this.page.offset || 0, this.page.limit || 25, sort, filter, this.query).subscribe(res => {
       // Any time the table changes, remove selection
       this.onSelectionChange([]);
       this.rows = res.data;

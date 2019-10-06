@@ -21,12 +21,13 @@ export class DataTableRouteBindingComponent implements OnInit {
   @Input() selection: any = [];
   @Output() selectionChange = new EventEmitter<any>();
   @Input() filter: any = {};
+  @Input() query: any = {};
   // An intrinsic filter that can't be overridden with filter query params
   @Input() scope: any = {};
   rows: any = [];
   page: any = {};
   sort: any;
-  sorts: any = {};
+  sortProps: any;
 
   private outlet: string | null;
 
@@ -55,7 +56,16 @@ export class DataTableRouteBindingComponent implements OnInit {
         this.page.limit = params[limitParam] || 25;
       }
 
-      if (!isNil(params[filterParam])) {
+      let hasFilterParams = false;
+
+      for (let key of Object.keys(params)) {
+        if (key.match(/^filter\[(.*)\]$/)) {
+          hasFilterParams = true;
+          break;
+        }
+      }
+
+      if (hasFilterParams) {
         shouldReload = true;
         const filterKeys = Object.keys(params).filter(k => k.startsWith(`${filterParam}[`) && k.endsWith(']')).map(k => k.replace(filterParam, 'filter'));
         this.filter = filterKeys.reduce((result, filter) => {
@@ -68,11 +78,23 @@ export class DataTableRouteBindingComponent implements OnInit {
       }
 
       const sortString = params[sortParam];
-      if (!isNil(sortString) && sortString !== '') {
+      if (!isNil(sortString)) {
         this.sort = params[sortParam].split(',');
         if (this.sort.length > 0) {
           shouldReload = true;
         }
+        this.sortProps = this.sort.map(s => {
+          let prop = s;
+          let dir = 'asc';
+          if (prop.startsWith('-')) {
+            dir = 'desc';
+            prop = prop.slice(1);
+          }
+          return { dir, prop };
+        });
+      } else if (this.sort) {
+        this.sort = [];
+        shouldReload = true;
       }
 
       if (shouldReload) {
@@ -81,10 +103,43 @@ export class DataTableRouteBindingComponent implements OnInit {
     });
   }
 
+  getColDataPath(col) {
+    if (col.display === 'link') {
+      return this.getColDataPath(col.link);
+    }
+
+    if (col.type === 'json' || col.type === 'attribute') {
+      return col.value;
+    }
+
+    return nil;
+  }
+
   reload() {
     if (this.source) {
       const filter = merge(this.filter, this.scope);
-      this.source.index(this.page.offset || 0, this.page.limit || 25, this.sort, filter).subscribe(res => {
+      let sortArray = this.sort || [];
+      const sort = sortArray.map(s => {
+        let prop = s;
+        let dir = '';
+        if (prop.startsWith('-')) {
+          prop = prop.slice(1);
+          dir = '-';
+        }
+        const col = this.data.columns[prop];
+
+        if (col.sortAs) {
+          return `${dir}${col.sortAs}`
+        }
+
+        let v = this.getColDataPath(col);
+        if (v) {
+          return `${dir}${v}`;
+        }
+
+        return `${dir}${prop}`;
+      });
+      this.source.index(this.page.offset || 0, this.page.limit || 25, sort, filter, this.query).subscribe(res => {
         this.rows = res.data;
         this.page = {
           offset: res.meta['page-offset'],
@@ -98,7 +153,7 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-    const reloadChanges = [ 'scope', 'filter' ];
+    const reloadChanges = [ 'scope', 'filter', 'query' ];
 
     for (let attr of reloadChanges) {
       if (changes[attr] && !changes[attr].firstChange) {
@@ -149,7 +204,10 @@ export class DataTableRouteBindingComponent implements OnInit {
     let outlet = this.route.outlet;
 
     // Store sort configurations
-    this.sorts = sort;
+    this.sort = sort.map(s => {
+      console.log(s);
+      return s;
+    });
 
     if (sort.length > 0) {
       sortString = sort.join(',');

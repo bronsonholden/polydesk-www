@@ -16,7 +16,8 @@ export class FormSubmissionListComponent implements OnInit {
 
   @ViewChild('formSubmissionDataTable') formSubmissionDataTable: DataTableComponent;
 
-  data = {
+  data: any;
+  _defaultData = {
     resource: 'form-submissions',
     select: 'multiple',
     columns: {
@@ -53,6 +54,7 @@ export class FormSubmissionListComponent implements OnInit {
   selection: any = [];
   scope: any = {};
   filter: any = {};
+  query: any = {};
 
   constructor(private route: ActivatedRoute,
               private formApiService: FormApiService,
@@ -69,7 +71,11 @@ export class FormSubmissionListComponent implements OnInit {
 
         if (submissionView) {
           this.data = submissionView;
+        } else {
+          this.data = this._defaultData;
         }
+
+        this.query = get(res.data.attributes, 'schema.options.queryParams');
       });
     });
   }

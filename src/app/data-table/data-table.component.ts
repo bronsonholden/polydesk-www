@@ -6,7 +6,7 @@ import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AngularTokenService } from 'angular-token';
 import { DatatableComponent as NgxDatatableComponent, SortType } from '@swimlane/ngx-datatable';
 
-import { get, isArray, isEqual, merge } from 'lodash';
+import { get, isArray, isEqual, merge, isNil } from 'lodash';
 import * as querystring from 'querystring';
 import * as moment from 'moment';
 
@@ -39,7 +39,7 @@ export class DataTableComponent implements OnInit {
   @Output() selectionChange = new EventEmitter<any>();
   @Output() pseudoLink = new EventEmitter<any>();
 
-  sorts: any;
+  @Input() sortProps: any;
 
   // What keys were present in query params. Used to determine if we should
   // reload with new columns.
@@ -115,19 +115,12 @@ export class DataTableComponent implements OnInit {
   }
 
   onSort(event) {
-    this.sorts = event.sorts;
-    let sorts = event.sorts.map(sort => {
-      const prop = sort.prop;
-      const column = this.data.columns[prop];
-      let sortProp = prop;
-
-      if (column.type === 'json' || column.type === 'attribute') {
-        sortProp = column.value;
-      }
-
-      return `${sort.dir === 'desc' ? '-' : ''}${sortProp}`;
+    let sorts = event.sorts.map(s => {
+      let prop = s.prop;
+      let dir = s.dir === 'desc' ? '-' : '';
+      return `${dir}${prop}`;
     });
-
+console.log(sorts);
     this.sortChange.emit(sorts);
   }
 

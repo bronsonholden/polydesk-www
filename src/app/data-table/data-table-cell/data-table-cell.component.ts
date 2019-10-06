@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
 import { JsonAccessorService } from '../../json-accessor.service';
+import { FormSubmissionApiService } from '../../form-submission-api.service';
 import * as Url from 'url';
+import { Subject } from 'rxjs';
 
 import * as moment from 'moment';
-import { get } from 'lodash';
+import { get, merge } from 'lodash';
 
 @Component({
   selector: 'app-data-table-cell',
@@ -21,9 +23,60 @@ export class DataTableCellComponent implements OnInit {
   @Input() outlet: string | null;
   @Output() pseudoLink = new EventEmitter<any>();
 
+  _value: any;
+
   constructor(public dialog: MatDialog,
               public router: Router,
+              private formSubmissionApi: FormSubmissionApiService,
               private jsonAccessorService: JsonAccessorService) { }
+
+  ngOnInit() {
+  }
+
+  ngOnChanges(changes) {
+    // if (changes.row) {
+    //   if (this.columnDisplay === 'count') {
+    //     this._value = '';
+    //
+    //     this.formSubmissionApi.index(0, 1, [], this.createAggregateFilters()).subscribe((res: any) => {
+    //       this._value = res.meta['item-count'];
+    //     });
+    //   } else if (this.columnDisplay === 'sum') {
+    //     this._value = '';
+    //
+    //     this.buildSum(0, 0, 2, this.createAggregateFilters()).subscribe((res: any) => {
+    //       this._value = res;
+    //     });
+    //   }
+    // }
+  }
+  //
+  // buildSum(sum, offset, limit, filters) {
+  //   let subject = new Subject();
+  //   let newSum = sum;
+  //   this.formSubmissionApi.index(offset, limit, [], filters).subscribe((res: any) => {
+  //     // console.log(res.data.map(d => d.attributes.data.acres));
+  //     sum = res.data.reduce((total, s) => {
+  //       return total + get(s.attributes.data, this.column.dimension);
+  //     }, sum);
+  //     if (offset * limit + limit <= res.meta['item-count']) {
+  //       this.buildSum(sum, offset + 1, limit, filters).subscribe((res: any) => {
+  //         subject.next(res);
+  //       });
+  //     } else {
+  //       subject.next(sum);
+  //     }
+  //   });
+  //   return subject;
+  // }
+
+  createAggregateFilters() {
+    const filter = this.column.filter.reduce((combined, f) => {
+      combined[f.key] = `${f.operator}:${this.resolveArg(f.operand)}`;
+      return combined;
+    }, {});
+    return filter;
+  }
 
   get value(): any {
     let columnInfo = this.column;
@@ -66,6 +119,14 @@ export class DataTableCellComponent implements OnInit {
     return this.resolveArg(this.column);
   }
 
+  calcAggregate() {
+    return this._value;
+  }
+
+  calcSum() {
+    return this._value;
+  }
+
   getTooltip() {
     const tooltip = this.column.tooltip;
 
@@ -97,6 +158,8 @@ export class DataTableCellComponent implements OnInit {
         return this.row.id;
       case 'type':
         return this.row.type;
+      case 'meta':
+        return this.row.meta[columnInfo.value];
       case 'attribute':
         return this.row.attributes[columnInfo.value];
       case 'json':
@@ -139,9 +202,6 @@ export class DataTableCellComponent implements OnInit {
       outlets[this.outlet] = null;
       return [ this.getLink(), { outlets: outlets } ];
     }
-  }
-
-  ngOnInit() {
   }
 
   get columnDisplay() {

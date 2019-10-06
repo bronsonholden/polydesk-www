@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
+import { merge } from 'lodash';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +11,7 @@ export class FormSubmissionApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-  index(offset, limit, sort, filter) {
+  index(offset, limit, sort, filter, query) {
     let params = new HttpParams().set('page[offset]', offset).set('page[limit]', limit);
 
     if (sort && sort.length > 0) {
@@ -18,6 +20,10 @@ export class FormSubmissionApiService {
 
     for (let f in filter) {
       params = params.set(`filter[${f}]`, filter[f]);
+    }
+
+    for (let q in (query || {})) {
+      params = params.set(q, query[q]);
     }
 
     return this.httpClient.get('form-submissions', { params });

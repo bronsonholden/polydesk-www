@@ -22,7 +22,7 @@
       [limit]="page.limit"
       (page)="onPage($event)"
       (sort)="onSort($event)"
-      [sorts]="sorts">
+      [sorts]="sortProps">
     <ngx-datatable-column
         *ngIf="data.select === 'multiple'"
         [width]="50"

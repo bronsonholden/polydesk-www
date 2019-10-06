@@ -10,10 +10,12 @@
 </mat-toolbar>
 <div id="form-submission-table-wrapper">
   <app-data-table-route-binding
+    *ngIf="data"
     [data]="data"
     [scope]="scope"
     [source]="formSubmissionApiService"
     [(selection)]="selection"
-    [filter]="filter">
+    [(filter)]="filter"
+    [query]="query">
   </app-data-table-route-binding>
 </div>
