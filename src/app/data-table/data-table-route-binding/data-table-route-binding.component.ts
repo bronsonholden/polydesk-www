@@ -112,7 +112,7 @@ export class DataTableRouteBindingComponent implements OnInit {
       return col.value;
     }
 
-    return nil;
+    return null;
   }
 
   reload() {
