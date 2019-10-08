@@ -33,43 +33,6 @@ export class DataTableCellComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngOnChanges(changes) {
-    // if (changes.row) {
-    //   if (this.columnDisplay === 'count') {
-    //     this._value = '';
-    //
-    //     this.formSubmissionApi.index(0, 1, [], this.createAggregateFilters()).subscribe((res: any) => {
-    //       this._value = res.meta['item-count'];
-    //     });
-    //   } else if (this.columnDisplay === 'sum') {
-    //     this._value = '';
-    //
-    //     this.buildSum(0, 0, 2, this.createAggregateFilters()).subscribe((res: any) => {
-    //       this._value = res;
-    //     });
-    //   }
-    // }
-  }
-  //
-  // buildSum(sum, offset, limit, filters) {
-  //   let subject = new Subject();
-  //   let newSum = sum;
-  //   this.formSubmissionApi.index(offset, limit, [], filters).subscribe((res: any) => {
-  //     // console.log(res.data.map(d => d.attributes.data.acres));
-  //     sum = res.data.reduce((total, s) => {
-  //       return total + get(s.attributes.data, this.column.dimension);
-  //     }, sum);
-  //     if (offset * limit + limit <= res.meta['item-count']) {
-  //       this.buildSum(sum, offset + 1, limit, filters).subscribe((res: any) => {
-  //         subject.next(res);
-  //       });
-  //     } else {
-  //       subject.next(sum);
-  //     }
-  //   });
-  //   return subject;
-  // }
-
   createAggregateFilters() {
     const filter = this.column.filter.reduce((combined, f) => {
       combined[f.key] = `${f.operator}:${this.resolveArg(f.operand)}`;

@@ -17,14 +17,6 @@
   {{ value }}
 </div>
 
-<div *ngIf="columnDisplay === 'count'">
-  {{ calcAggregate() }}
-</div>
-
-<div *ngIf="columnDisplay === 'sum'">
-  {{ calcSum() }}
-</div>
-
 <!-- Text -->
 <div *ngIf="columnDisplay === 'text'">
   {{ value }}
