@@ -23,8 +23,6 @@ export class DataTableCellComponent implements OnInit {
   @Input() outlet: string | null;
   @Output() pseudoLink = new EventEmitter<any>();
 
-  _value: any;
-
   constructor(public dialog: MatDialog,
               public router: Router,
               private formSubmissionApi: FormSubmissionApiService,
@@ -80,14 +78,6 @@ export class DataTableCellComponent implements OnInit {
 
   get raw(): any {
     return this.resolveArg(this.column);
-  }
-
-  calcAggregate() {
-    return this._value;
-  }
-
-  calcSum() {
-    return this._value;
   }
 
   getTooltip() {
