@@ -28,9 +28,7 @@ export class FolderSelectComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
-        type: 'id',
         pseudoLink: true,
-        pathPrefix: 'folders',
         link: {
           display: 'text',
           type: 'attribute',

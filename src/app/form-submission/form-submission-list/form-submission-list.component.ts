@@ -24,8 +24,19 @@ export class FormSubmissionListComponent implements OnInit {
       id: {
         title: 'ID',
         display: 'link',
-        type: 'id',
-        pathPrefix: '../../../form-submissions',
+        type: 'concat',
+        value: {
+          separator: '/',
+          parts: [
+            {
+              type: 'literal',
+              value: 'form-submissions'
+            },
+            {
+              type: 'id'
+            }
+          ]
+        },
         link: {
           type: 'id'
         }

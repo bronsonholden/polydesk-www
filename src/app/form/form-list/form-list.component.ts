@@ -29,7 +29,19 @@ export class FormListComponent implements OnInit {
       name: {
         title: 'Name',
         display: 'link',
-        type: 'id',
+        type: 'concat',
+        value: {
+          separator: '/',
+          parts: [
+            {
+              type: 'literal',
+              value: 'forms'
+            },
+            {
+              type: 'id'
+            }
+          ]
+        },
         link: {
           display: 'text',
           type: 'attribute',
@@ -49,6 +61,10 @@ export class FormListComponent implements OnInit {
         value: {
           separator: '/',
           parts: [
+            {
+              type: 'literal',
+              value: 'forms'
+            },
             {
               type: 'id'
             },

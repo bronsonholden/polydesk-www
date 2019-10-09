@@ -154,8 +154,19 @@ export class FolderComponent implements OnInit {
         case: {
           folders: {
             display: 'link',
-            type: 'id',
-            pathPrefix: '..',
+            type: 'concat',
+            value: {
+              separator: '/',
+              parts: [
+                {
+                  type: 'literal',
+                  value: 'folders'
+                },
+                {
+                  type: 'id'
+                }
+              ]
+            },
             link: {
               display: 'text',
               type: 'attribute',
@@ -164,8 +175,19 @@ export class FolderComponent implements OnInit {
           },
           documents: {
             display: 'link',
-            type: 'id',
-            pathPrefix: '../../documents',
+            type: 'concat',
+            value: {
+              separator: '/',
+              parts: [
+                {
+                  type: 'literal',
+                  value: 'documents'
+                },
+                {
+                  type: 'id'
+                }
+              ]
+            },
             link: {
               display: 'text',
               type: 'attribute',

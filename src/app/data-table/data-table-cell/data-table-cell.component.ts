@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { DataTableDialogComponent } from '../data-table-dialog/data-table-dialog.component';
 import { JsonAccessorService } from '../../json-accessor.service';
 import { FormSubmissionApiService } from '../../form-submission-api.service';
+import { AccountService } from '../../account.service';
 import * as Url from 'url';
 import { Subject } from 'rxjs';
 
@@ -25,6 +26,7 @@ export class DataTableCellComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               public router: Router,
+              private accountService: AccountService,
               private formSubmissionApi: FormSubmissionApiService,
               private jsonAccessorService: JsonAccessorService) { }
 
@@ -129,7 +131,8 @@ export class DataTableCellComponent implements OnInit {
   routeTo() {
     // Skip updating location if routing is occurring in a named outlet
     this.router.navigate(this.getRouterLink(), {
-      skipLocationChange: !!this.outlet
+      skipLocationChange: !!this.outlet,
+      queryParams: this.getLinkQuery()
     });
   }
 
@@ -138,11 +141,16 @@ export class DataTableCellComponent implements OnInit {
   }
 
   getLink() {
-    if (this.column.pathPrefix) {
-      return `${this.column.pathPrefix}/${this.value}`
-    } else {
-      return this.value;
+    return `/${this.accountService.account}/${this.value}`;
+  }
+
+  getLinkQuery() {
+    let q = {};
+    const queryParams = this.column.query || {};
+    for (let param in queryParams) {
+      q[param] = this.resolveArg(queryParams[param]);
     }
+    return q;
   }
 
   getRouterLink() {
