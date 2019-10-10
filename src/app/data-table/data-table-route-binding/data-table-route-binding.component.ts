@@ -75,6 +75,8 @@ export class DataTableRouteBindingComponent implements OnInit {
           }
           return result;
         }, {});
+      } else {
+        this.filter = {};
       }
 
       const sortString = params[sortParam];
@@ -153,7 +155,7 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-    const reloadChanges = [ 'scope', 'filter', 'query' ];
+    const reloadChanges = [ 'scope', 'filter', 'query', 'data', 'source' ];
 
     for (let attr of reloadChanges) {
       if (changes[attr] && !changes[attr].firstChange) {
