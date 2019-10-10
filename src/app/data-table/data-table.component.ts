@@ -110,7 +110,7 @@ export class DataTableComponent implements OnInit {
     this.pageChange.emit({
       offset: page.offset,
       limit: page.limit,
-      total: page.count
+      count: page.count
     });
   }
 
