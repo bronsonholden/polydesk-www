@@ -75,8 +75,6 @@ export class FormSubmissionListComponent implements OnInit {
     this.route.params.subscribe(params => {
       const formId = params.id;
 
-      this.scope['form-id'] = formId;
-
       this.formApiService.getForm(formId).subscribe((res: any) => {
         const submissionView = get(res.data.attributes, 'schema.options.submissionView');
 
@@ -86,6 +84,7 @@ export class FormSubmissionListComponent implements OnInit {
           this.data = this._defaultData;
         }
 
+        this.scope['form-id'] = formId;
         this.query = get(res.data.attributes, 'schema.options.queryParams');
       });
     });
