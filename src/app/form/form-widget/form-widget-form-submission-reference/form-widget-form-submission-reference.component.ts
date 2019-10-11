@@ -184,8 +184,6 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
       return result;
     }, {});
 
-    console.log(selectFilters);
-
     this.selectDialogService.selectFormSubmission({
       data: {
         formId,

@@ -105,7 +105,6 @@ export class FormEditComponent implements OnInit {
         name: this.name,
         schema: schemaObject
       }).subscribe((res: any) => {
-        console.log(res);
         this.router.navigate(['../..'], {
           relativeTo: this.activatedRoute
         });

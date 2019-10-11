@@ -120,7 +120,7 @@ export class DataTableComponent implements OnInit {
       let dir = s.dir === 'desc' ? '-' : '';
       return `${dir}${prop}`;
     });
-console.log(sorts);
+
     this.sortChange.emit(sorts);
   }
 

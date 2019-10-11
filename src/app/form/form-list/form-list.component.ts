@@ -125,11 +125,9 @@ export class FormListComponent implements OnInit {
   }
 
   filterChange(filters) {
-    console.log(filters);
   }
 
   sortChange(sorting) {
-    console.log(sorting);
   }
 
   ngOnInit() {

@@ -206,10 +206,7 @@ export class DataTableRouteBindingComponent implements OnInit {
     let outlet = this.route.outlet;
 
     // Store sort configurations
-    this.sort = sort.map(s => {
-      console.log(s);
-      return s;
-    });
+    this.sort = sort;
 
     if (sort.length > 0) {
       sortString = sort.join(',');
