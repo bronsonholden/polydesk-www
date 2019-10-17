@@ -102,7 +102,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   resolveJsonArg(obj, keys, defaultValue) {
-    return this.jsonAccessorService.access(obj, keys, defaultValue);
+    return this.jsonAccessorService.access(obj, keys || [], defaultValue);
   }
 
   resolveArg(arg) {
@@ -118,7 +118,7 @@ export class DataTableCellComponent implements OnInit {
       case 'attribute':
         return this.row.attributes[columnInfo.value];
       case 'json':
-        return this.resolveJsonArg(this.row.attributes, columnInfo.value, '');
+        return this.resolveJsonArg(this.row.attributes, columnInfo.value, this.resolveArg({ type: 'id' }));
       case 'literal':
         return columnInfo.value;
       case 'concat':

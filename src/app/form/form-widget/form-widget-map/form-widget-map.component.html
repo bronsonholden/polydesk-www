@@ -1,0 +1,79 @@
+<h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+<mat-tab-group>
+  <mat-tab label="Map">
+    <div style="padding-top: 8px;">
+      <agm-map
+          style="height: 300px; width: 100%;"
+          (mapClick)="onMapClick($event)"
+          [streetViewControl]="false"
+          [zoom]="viewport.zoom"
+          (zoomChange)="onZoomChange($event)"
+          [latitude]="viewport.lat"
+          [longitude]="viewport.lng"
+          (centerChange)="onCenterChange($event)"
+          [usePanning]="false">
+        <ng-container *ngFor="let layer of model.layers">\
+          <agm-marker
+            *ngFor="let marker of layer.markers"
+            [latitude]="marker.location.lat"
+            [longitude]="marker.location.lng">
+          </agm-marker>
+        </ng-container>
+      </agm-map>
+      <div *ngIf="!formState.disabled" class="button-row" style="padding-top: 8px;">
+        <button mat-button disabled>{{ modeName(mode) }}</button>
+        <mat-divider style="margin-right: 8px;" [vertical]="true"></mat-divider>
+        <ng-container *ngIf="mode != MapMode.View">
+          <button mat-button color="primary" (click)="viewMode()">Done</button>
+        </ng-container>
+        <ng-container *ngIf="mode === MapMode.AddMarker">
+          <button mat-button [matMenuTriggerFor]="mapAddMarkerColor" disabled>Color</button>
+          <mat-menu #mapAddMarkerColor>
+            <button mat-menu-item>Red</button>
+            <button mat-menu-item>Blue</button>
+            <button mat-menu-item>Green</button>
+            <button mat-menu-item>Yellow</button>
+            <button mat-menu-item>Other</button>
+          </mat-menu>
+        </ng-container>
+        <ng-container *ngIf="mode === MapMode.View">
+          <button mat-button (click)="saveViewport()">Save Viewport</button>
+          <button mat-button [matMenuTriggerFor]="mapLayerControl" [color]="layerButtonColor()">{{ layerButtonLabel() }}</button>
+          <mat-menu #mapLayerControl>
+            <button
+                *ngFor="let layer of model.layers; let i = index;"
+                mat-menu-item
+                (click)="activateLayer(i)">
+              <mat-icon *ngIf="currentLayer === i; else noIcon" svgIcon="chevron-right"></mat-icon>
+              <ng-template #noIcon>
+                <mat-icon></mat-icon>
+              </ng-template>
+              <span>{{ layerTitle(i) }}</span>
+            </button>
+            <mat-divider *ngIf="model.layers.length > 0"></mat-divider>
+            <button mat-menu-item (click)="addNewLayer()">New Layer</button>
+          </mat-menu>
+
+          <ng-container *ngIf="validCurrentLayer()">
+            <button mat-button [matMenuTriggerFor]="mapAddMenu">Add</button>
+            <mat-menu #mapAddMenu>
+              <button mat-menu-item (click)="addMarkerMode()">Marker</button>
+              <button mat-menu-item (click)="addPolylineMode()" disabled>Polyline</button>
+              <button mat-menu-item (click)="addPolygonMode()" disabled>Polygon</button>
+            </mat-menu>
+          </ng-container>
+        </ng-container>
+
+        <!-- Fill -->
+        <div class="h-fill"></div>
+
+        <button mat-button color="warn" (click)="clearLayer()">Clear</button>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Data">
+    <div style="padding-top: 8px;">
+      <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
+    </div>
+  </mat-tab>
+</mat-tab-group>

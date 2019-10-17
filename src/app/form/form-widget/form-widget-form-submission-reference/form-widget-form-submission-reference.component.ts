@@ -122,7 +122,7 @@ export class FormWidgetFormSubmissionReferenceComponent extends FieldType implem
 
   selectedFormSubmissionKey() {
     if (this.formSubmission) {
-      const selectKey = get(this.field, 'selectKey');
+      const selectKey = get(this.field, 'selectKey', []);
       return this.jsonAccessorService.access(this.formSubmission.attributes, selectKey, '');
     }
   }

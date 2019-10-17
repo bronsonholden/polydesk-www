@@ -9,6 +9,7 @@ import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { ApiModule } from './api.module';
 import { AngularTokenService, AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
+import { secrets } from '../secrets/secrets';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -17,6 +18,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyFlexLayoutType } from './formly-flex-layout-type';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AgmCoreModule } from '@agm/core';
 
 // Import Material components
 import {
@@ -100,6 +102,10 @@ import { FormWidgetSliderComponent } from './form/form-widget/form-widget-slider
 import { FormWidgetDatepickerComponent } from './form/form-widget/form-widget-datepicker/form-widget-datepicker.component';
 import { DataTableRouteBindingComponent } from './data-table/data-table-route-binding/data-table-route-binding.component';
 import { DataTableBindingComponent } from './data-table/data-table-binding/data-table-binding.component';
+import { FormWidgetMapPointComponent } from './form/form-widget/form-widget-map-point/form-widget-map-point.component';
+import { FormWidgetMapPolylineComponent } from './form/form-widget/form-widget-map-polyline/form-widget-map-polyline.component';
+import { FormWidgetMapComponent } from './form/form-widget/form-widget-map/form-widget-map.component';
+import { FormWidgetMapNewLayerComponent } from './form/form-widget/form-widget-map/form-widget-map-new-layer/form-widget-map-new-layer.component';
 
 const routes: Routes = [
   {
@@ -246,7 +252,11 @@ const routes: Routes = [
     FormWidgetSliderComponent,
     FormWidgetDatepickerComponent,
     DataTableRouteBindingComponent,
-    DataTableBindingComponent
+    DataTableBindingComponent,
+    FormWidgetMapPointComponent,
+    FormWidgetMapPolylineComponent,
+    FormWidgetMapComponent,
+    FormWidgetMapNewLayerComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -258,6 +268,7 @@ const routes: Routes = [
     FormSubmissionSelectComponent,
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
+    FormWidgetMapNewLayerComponent
   ],
   imports: [
     AceEditorModule,
@@ -315,14 +326,20 @@ const routes: Routes = [
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
         { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
         { name: 'slider', component: FormWidgetSliderComponent },
-        { name: 'datepicker', component: FormWidgetDatepickerComponent }
+        { name: 'datepicker', component: FormWidgetDatepickerComponent },
+        { name: 'map-point', component: FormWidgetMapPointComponent },
+        { name: 'map-polyline', component: FormWidgetMapPolylineComponent },
+        { name: 'map', component: FormWidgetMapComponent }
       ]
     }),
     FormlyMaterialModule,
     FormlyMatSliderModule,
     RouterModule.forRoot(routes),
     RouterTabModule,
-    PdfViewerModule
+    PdfViewerModule,
+    AgmCoreModule.forRoot({
+      apiKey: secrets.googleMapsApiKey
+    })
   ],
   providers: [
     AngularTokenModule

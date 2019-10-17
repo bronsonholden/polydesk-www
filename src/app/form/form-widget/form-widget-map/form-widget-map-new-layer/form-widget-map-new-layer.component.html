@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>New Layer</h1>
+<form (ngSubmit)="createNewLayer()">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Layer Name" name="name" [(ngModel)]="data.layerName" required>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button type="submit" color="primary" [mat-dialog-close]="data.layerName">Create</button>
+  </div>
+</form>

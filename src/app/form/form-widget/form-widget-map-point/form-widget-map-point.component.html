@@ -1,0 +1,27 @@
+<h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+<agm-map
+    style="height: 300px; width: 100%;"
+    (mapClick)="onMapClick($event)"
+    [streetViewControl]="false"
+    [zoom]="viewport.zoom"
+    (zoomChange)="onZoomChange($event)"
+    [latitude]="viewport.lat"
+    [longitude]="viewport.lng"
+    (centerChange)="onCenterChange($event)"
+    [usePanning]="false">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+<div *ngIf="!formState.disabled" class="button-row" style="padding-top: 8px;">
+  <button mat-button (click)="saveViewport()">Save Viewport</button>
+  <button mat-button (click)="toggleView()">View</button>
+  <button mat-button (click)="toggleDraw()">Drop Marker</button>
+
+  <!-- Fill -->
+  <div class="h-fill"></div>
+
+  <button mat-button color="warn" (click)="clearMarker()">Clear</button>
+</div>
+
+<div style="display: none;">
+  <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
+</div>

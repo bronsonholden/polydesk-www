@@ -1,0 +1,33 @@
+<h2 class="mat-h2" *ngIf="to.label" style="margin-bottom: 4px;">{{ to.label }}</h2>
+<agm-map
+    class="map-widget"
+    (mapClick)="onMapClick($event)"
+    [zoom]="1"
+    [streetViewControl]="false"
+    [usePanning]="false">
+  <agm-polyline
+      (lineMouseUp)="onLineMouseUp($event)"
+      strokeColor="red"
+      [editable]="canEdit()">
+    <agm-polyline-point
+      *ngFor="let point of path"
+      [latitude]="point.lat"
+      [longitude]="point.lng">
+    </agm-polyline-point>
+  </agm-polyline>
+</agm-map>
+<div *ngIf="!formState.disabled" class="button-row" style="padding-top: 8px;">
+  <button mat-button (click)="saveViewport()">Save Viewport</button>
+  <button mat-button (click)="toggleView()">View</button>
+  <button mat-button (click)="toggleDraw()">Draw</button>
+  <button mat-button (click)="toggleDelete()">Delete</button>
+
+  <!-- Fill -->
+  <div class="h-fill"></div>
+
+  <button mat-button color="warn" (click)="clearPolyline()">Clear</button>
+</div>
+
+<div style="display: none;">
+  <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
+</div>
