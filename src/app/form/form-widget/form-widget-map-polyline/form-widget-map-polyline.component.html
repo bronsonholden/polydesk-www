@@ -10,7 +10,7 @@
       strokeColor="red"
       [editable]="canEdit()">
     <agm-polyline-point
-      *ngFor="let point of path"
+      *ngFor="let point of model.polyline"
       [latitude]="point.lat"
       [longitude]="point.lng">
     </agm-polyline-point>

@@ -42,12 +42,14 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
     }
   };
 
+  // Input for AgmMap
   viewport = {
     lat: 0,
     lng: 0,
     zoom: 1
   };
 
+  // Track current viewport (two-way binding not supported)
   private modifiedViewport = {
     lat: 0,
     lng: 0,

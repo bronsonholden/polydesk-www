@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/material';
 
 @Component({
@@ -32,9 +32,6 @@ export class FormWidgetMapPointComponent extends FieldType implements OnInit {
     zoom: 1
   }
 
-  private markerFormGroup: FormGroup;
-  private viewportFormGroup: FormGroup;
-
   get lat(): number {
     return this.model.marker.lat;
   }
@@ -48,26 +45,16 @@ export class FormWidgetMapPointComponent extends FieldType implements OnInit {
   }
 
   ngOnInit() {
-    for (let group of this.field.fieldGroup) {
-      switch (group.key) {
-        case 'marker':
-          this.markerFormGroup = group.formControl;
-          break;
-        case 'viewport':
-          this.viewportFormGroup = group.formControl;
-          break;
-        default:
-          ;
-      }
-    }
     this.viewport.lat = this.model.viewport.center.lat;
     this.viewport.lng = this.model.viewport.center.lng;
     this.viewport.zoom = this.model.viewport.zoom;
   }
 
   onMapClick(event) {
-    this.markerFormGroup.controls.lat.setValue(event.coords.lat);
-    this.markerFormGroup.controls.lng.setValue(event.coords.lng);
+    this.model.marker.lat = event.coords.lat;
+    this.model.marker.lng = event.coords.lng;
+    this.formControl.markAsDirty();
+    (<any>this.options)._buildForm(true);
   }
 
   onZoomChange(zoom) {
@@ -83,7 +70,7 @@ export class FormWidgetMapPointComponent extends FieldType implements OnInit {
     this.model.viewport.center.lat = this.modifiedViewport.lat;
     this.model.viewport.center.lng = this.modifiedViewport.lng;
     this.model.viewport.zoom = this.modifiedViewport.zoom;
-    this.viewportFormGroup.markAsDirty();
+    this.formControl.markAsDirty();
     (<any>this.options)._buildForm(true);
   }
 

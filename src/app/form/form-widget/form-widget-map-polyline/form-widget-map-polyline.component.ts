@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
-import { debounceTime } from 'rxjs/operators';
 
 import { AgmPolyline } from '@agm/core';
 
@@ -17,54 +15,27 @@ interface Point {
 })
 export class FormWidgetMapPolylineComponent extends FieldType implements OnInit {
   defaultOptions = {
-    defaultValue: {}
+    defaultValue: {
+      polyline: [],
+      viewport: {
+        center: {
+          lat: 0,
+          lng: 0
+        },
+        zoom: 1
+      }
+    }
   };
 
   mode = 'view';
-  path: Array<Point> = [];
 
   @ViewChild(AgmPolyline) polyline;
-
-  private polylineFormControl: FormControl;
-  private viewportFormControl: FormControl;
-
-  private _lastPolylineLength = 0;
 
   constructor() {
     super();
   }
 
   ngOnInit() {
-    for (let group of this.field.fieldGroup) {
-      switch (group.key) {
-        case 'viewport':
-          this.viewportFormControl = group.formControl;
-          break;
-        case 'polyline':
-          this.polylineFormControl = group.formControl;
-          break;
-        default:
-          ;
-      }
-    }
-
-    // TODO: Warn of missing polyline/viewport form controls
-    // TODO (on API end): Validate schema always includes polyline/viewport form controls
-    // TODO: Provide a $ref schema for convenience
-
-    // ngx-formly spits out a lot of value changes. Just get the last.
-    this.polylineFormControl.valueChanges.pipe(debounceTime(100)).subscribe(newVal => {
-      // Reconstruct path on map if we're removing points
-      if (newVal.length < this._lastPolylineLength) {
-        this.path = this.model.polyline.map(p => Object.assign({}, p));
-      }
-      this._lastPolylineLength = newVal.length;
-    });
-
-    // Construct initial path
-    const value = this.model.polyline || [];
-    this._lastPolylineLength = value.length;
-    this.path = value.map(p => Object.assign({}, p));
   }
 
   canEdit(): boolean {
@@ -73,10 +44,12 @@ export class FormWidgetMapPolylineComponent extends FieldType implements OnInit 
 
   onMapClick(event) {
     if (this.mode === 'draw') {
-      this.add(this.path.length, {
+      this.model.polyline.push({
         lat: event.coords.lat,
         lng: event.coords.lng
       });
+      this.formControl.markAsDirty();
+      (<any>this.options)._buildForm(true);
     }
   }
 
@@ -88,40 +61,23 @@ export class FormWidgetMapPolylineComponent extends FieldType implements OnInit 
     }
 
     this.polyline.getPath().then(path => {
-      this.path = [];
-      this.model.polyline.value = [];
+      this.model.polyline = [];
       let i = 0;
       for (let p of path) {
-        this.add(i++, {
+        this.model.polyline.push({
           lat: p.lat(),
           lng: p.lng()
         });
       }
+      this.formControl.markAsDirty();
+      (<any>this.options)._buildForm(true);
     });
-  }
-
-  add(i?: number, model?: Point) {
-    this.path.splice(i, 0, model);
-    // Mimicking ngx-formly FieldArrayType methods
-    this.model.polyline.splice(i, 0, model);
-    this.polylineFormControl.markAsDirty();
-    (<any>this.options)._buildForm(true);
-  }
-
-  remove(i?: number) {
-    this.path.splice(i, 1);
-    // Mimicking ngx-formly FieldArrayType methods
-    this.model.polyline.splice(i, 0);
-    this.polylineFormControl.markAsDirty();
-    (<any>this.options)._buildForm(true);
   }
 
   clearPolyline() {
     if (!this.formState.disabled) {
-      this.path = [];
-      // Mimicking ngx-formly FieldArrayType methods
       this.model.polyline = [];
-      this.polylineFormControl.markAsDirty();
+      this.formControl.markAsDirty();
       (<any>this.options)._buildForm(true);
     }
   }
