@@ -163,7 +163,7 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
   }
 
   onLineMouseUp(event, i) {
-    if (this.mode === MapMode.AddPolyine && i === this.currentPolyline) {
+    if (this.mode === MapMode.AddPolyline && i === this.currentPolyline) {
       let layer = this.model.layers[this.currentLayer];
       let polyline = layer.polylines[this.currentPolyline];
     }
