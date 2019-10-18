@@ -9,7 +9,8 @@ export const environment = {
   tokenAuthConfig: {
     apiBase: 'http://localhost:3000',
     registerAccountPath: 'accounts'
-  }
+  },
+  googleMapsApiKey: 'AIzaSyDtY8H8ADfMRSAGLTs-B8PypVC8TZ9YMio'
 };
 
 /*

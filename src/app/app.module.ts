@@ -9,7 +9,6 @@ import { RouterTabModule } from './home-page/router-tab/router-tab.module';
 import { ApiModule } from './api.module';
 import { AngularTokenService, AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
-import { secrets } from '../secrets/secrets';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -338,7 +337,7 @@ const routes: Routes = [
     RouterTabModule,
     PdfViewerModule,
     AgmCoreModule.forRoot({
-      apiKey: secrets.googleMapsApiKey
+      apiKey: environment.googleMapsApiKey
     })
   ],
   providers: [

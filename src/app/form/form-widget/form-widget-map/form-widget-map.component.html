@@ -12,12 +12,23 @@
           [longitude]="viewport.lng"
           (centerChange)="onCenterChange($event)"
           [usePanning]="false">
-        <ng-container *ngFor="let layer of model.layers">\
+        <ng-container *ngFor="let layer of model.layers">
           <agm-marker
             *ngFor="let marker of layer.markers"
             [latitude]="marker.location.lat"
             [longitude]="marker.location.lng">
           </agm-marker>
+          <agm-polyline
+              *ngFor="let polyline of layer.polylines; let i = index;"
+              (lineMouseUp)="onLineMouseUp($event, i)"
+              [editable]="currentPolyline === i"
+              strokeColor="red">
+            <agm-polyline-point
+                *ngFor="let point of polyline.points"
+                [latitude]="point.location.lat"
+                [longitude]="point.location.lng">
+            </agm-polyline-point>
+          </agm-polyline>
         </ng-container>
       </agm-map>
       <div *ngIf="!formState.disabled" class="button-row" style="padding-top: 8px;">
@@ -58,7 +69,7 @@
             <button mat-button [matMenuTriggerFor]="mapAddMenu">Add</button>
             <mat-menu #mapAddMenu>
               <button mat-menu-item (click)="addMarkerMode()">Marker</button>
-              <button mat-menu-item (click)="addPolylineMode()" disabled>Polyline</button>
+              <button mat-menu-item (click)="addPolylineMode()">Polyline</button>
               <button mat-menu-item (click)="addPolygonMode()" disabled>Polygon</button>
             </mat-menu>
           </ng-container>
@@ -77,3 +88,4 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+{{ currentPolyline }}

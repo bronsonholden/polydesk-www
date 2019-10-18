@@ -56,10 +56,9 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
     zoom: 1
   };
 
-  markers: Array<Marker> = [];
-
-  mode = MapMode.View;
-  currentLayer;
+  mode: MapMode = MapMode.View;
+  currentLayer: number | null;
+  currentPolyline: number | null;
 
   constructor(private snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -163,14 +162,34 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
     this.formControl.markAsDirty();
   }
 
+  onLineMouseUp(event, i) {
+    if (this.mode === MapMode.AddPolyine && i === this.currentPolyline) {
+      let layer = this.model.layers[this.currentLayer];
+      let polyline = layer.polylines[this.currentPolyline];
+    }
+  }
+
   onMapClick(event) {
+    const location = new Location(event.coords.lat, event.coords.lng);
     switch (this.mode) {
       case MapMode.AddMarker:
-        this.addMarker(this.currentLayer, new Location(event.coords.lat, event.coords.lng));
+        this.addMarker(this.currentLayer, location);
+        break;
+      case MapMode.AddPolyline:
+        const layer = this.model.layers[this.currentLayer];
+        let polyline;
+        if (!isNil(this.currentPolyline)) {
+          polyline = layer.polylines[this.currentPolyline];
+          polyline.points.push({ location });
+        } else {
+          this.currentPolyline = layer.polylines.length;
+          this.addPolyline(this.currentLayer, [ { location }]);
+        }
         break;
       default:
         ;
     }
+    this.updateForm();
   }
 
   onZoomChange(zoom) {
@@ -218,6 +237,7 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
 
   viewMode() {
     this.mode = MapMode.View;
+    this.currentPolyline = null;
   }
 
   addMarkerMode() {
@@ -233,7 +253,13 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
   }
 
   addPolyline(layerIndex, points) {
+    let layer = this.model.layers[layerIndex];
 
+    if (!layer) {
+      return this.layerError(layerIndex);
+    }
+
+    layer.polylines.push({ points });
   }
 
   addPolygon(layerIndex, points) {

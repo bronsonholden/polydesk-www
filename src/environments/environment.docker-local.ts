@@ -6,5 +6,6 @@ export const environment = {
   tokenAuthConfig: {
     apiBase: 'https://apilocal.polydesk.io',
     registerAccountPath: 'accounts'
-  }
+  },
+  googleMapsApiKey: 'AIzaSyD3KfzlpR4YStSn1tjXUvo1tyK8eK9bxUs'
 };
