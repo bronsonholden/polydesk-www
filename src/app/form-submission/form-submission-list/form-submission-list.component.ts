@@ -5,7 +5,7 @@ import { DataTableComponent } from '../../data-table/data-table.component';
 import { FormApiService } from '../../form-api.service';
 import { FormSubmissionApiService } from '../../form-submission-api.service';
 
-import { get, merge } from 'lodash';
+import { get, merge, mapValues, isString, isArray } from 'lodash';
 
 @Component({
   selector: 'app-form-submission-list',
@@ -85,7 +85,15 @@ export class FormSubmissionListComponent implements OnInit {
         }
 
         this.scope['form-id'] = formId;
-        this.query = get(res.data.attributes, 'schema.options.queryParams');
+
+        const queryParams = get(res.data.attributes, 'schema.options.queryParams');
+        this.query = mapValues(queryParams, value => {
+          if (isString(value)) {
+            return value;
+          } else if (isArray(value)) {
+            return value.join(',')
+          }
+        });
       });
     });
   }
