@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataTableComponent } from '../../data-table/data-table.component';
@@ -69,6 +70,7 @@ export class FormSubmissionListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private formApiService: FormApiService,
+              private location: Location,
               public formSubmissionApiService: FormSubmissionApiService) { }
 
   ngOnInit() {
@@ -96,6 +98,10 @@ export class FormSubmissionListComponent implements OnInit {
         });
       });
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
