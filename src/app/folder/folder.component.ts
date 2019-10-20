@@ -6,11 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, from, forkJoin } from 'rxjs';
 import { concatMap, finalize } from 'rxjs/operators';
 import { CreateFolderComponent, CreateFolderData } from './create-folder/create-folder.component';
-import { DataTableComponent } from '../data-table/data-table.component';
 import { FolderConfirmDeleteComponent } from './folder-confirm-delete/folder-confirm-delete.component';
 import { FolderApiService } from '../folder-api.service';
 import { FolderContentApiService } from '../folder-content-api.service';
 import { SelectDialogService } from '../select-dialog.service';
+import { DataTableRouteBindingComponent } from '../data-table/data-table-route-binding/data-table-route-binding.component';
 
 export class ContentElement {
   constructor(public id: number,
@@ -46,7 +46,8 @@ export class ContentElement {
 })
 export class FolderComponent implements OnInit {
 
-  @ViewChild('folderDataTable') folderDataTable: DataTableComponent;
+  @ViewChild(DataTableRouteBindingComponent) dataTable;
+
   folderId: string;
 
   data = {
@@ -403,6 +404,7 @@ export class FolderComponent implements OnInit {
       forkJoin(from(selected).pipe(concatMap(item => this.deleteRequestFor(item)))).subscribe(result => {
         // In case deletion is quick...
         setTimeout(() => { snackBarRef.dismiss() }, 350);
+        this.dataTable.reload();
       });
     });
   }
