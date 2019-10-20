@@ -70,6 +70,13 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes) {
+    if (changes.data) {
+      // this.datatable.recalculateColumns();
+      this.datatable._offsetX.next(0);
+    }
+  }
+
   pseudoLinkClicked(row) {
     this.pseudoLink.emit(row);
   }
