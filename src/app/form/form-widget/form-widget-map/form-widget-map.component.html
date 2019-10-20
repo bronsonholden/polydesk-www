@@ -22,6 +22,7 @@
               *ngFor="let polyline of layer.polylines; let i = index;"
               (lineMouseUp)="onLineMouseUp($event, i)"
               [editable]="currentPolyline === i"
+              [clickable]="true"
               strokeColor="red">
             <agm-polyline-point
                 *ngFor="let point of polyline.points"
