@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FieldType } from '@ngx-formly/core';
 import { FormWidgetMapNewLayerComponent } from './form-widget-map-new-layer/form-widget-map-new-layer.component';
+import { AgmPolyline } from '@agm/core';
 
 import { get, isNil } from 'lodash';
 
@@ -162,13 +163,6 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
     this.formControl.markAsDirty();
   }
 
-  onLineMouseUp(event, i) {
-    if (this.mode === MapMode.AddPolyline && i === this.currentPolyline) {
-      let layer = this.model.layers[this.currentLayer];
-      let polyline = layer.polylines[this.currentPolyline];
-    }
-  }
-
   onMapClick(event) {
     const location = new Location(event.coords.lat, event.coords.lng);
     switch (this.mode) {
@@ -199,6 +193,11 @@ export class FormWidgetMapComponent extends FieldType implements OnInit {
   onCenterChange({ lat, lng }) {
     this.modifiedViewport.lat = lat;
     this.modifiedViewport.lng = lng;
+  }
+
+  onPolylineChange(event) {
+    this.formControl.markAsDirty();
+    (<any>this.options)._buildForm(true);
   }
 
   saveViewport() {

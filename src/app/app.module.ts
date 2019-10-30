@@ -105,6 +105,7 @@ import { FormWidgetMapPointComponent } from './form/form-widget/form-widget-map-
 import { FormWidgetMapPolylineComponent } from './form/form-widget/form-widget-map-polyline/form-widget-map-polyline.component';
 import { FormWidgetMapComponent } from './form/form-widget/form-widget-map/form-widget-map.component';
 import { FormWidgetMapNewLayerComponent } from './form/form-widget/form-widget-map/form-widget-map-new-layer/form-widget-map-new-layer.component';
+import { FormWidgetMapPolylineWrapperComponent } from './form/form-widget/form-widget-map/form-widget-map-polyline-wrapper/form-widget-map-polyline-wrapper.component';
 
 const routes: Routes = [
   {
@@ -255,7 +256,8 @@ const routes: Routes = [
     FormWidgetMapPointComponent,
     FormWidgetMapPolylineComponent,
     FormWidgetMapComponent,
-    FormWidgetMapNewLayerComponent
+    FormWidgetMapNewLayerComponent,
+    FormWidgetMapPolylineWrapperComponent
   ],
   entryComponents: [
     AccountCreateComponent,

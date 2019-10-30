@@ -1,0 +1,11 @@
+<agm-polyline
+    (lineMouseUp)="onLineMouseUp($event)"
+    [editable]="true"
+    [clickable]="true"
+    strokeColor="red">
+  <agm-polyline-point
+      *ngFor="let point of polyline.points"
+      [latitude]="point.location.lat"
+      [longitude]="point.location.lng">
+  </agm-polyline-point>
+</agm-polyline>

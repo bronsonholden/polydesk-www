@@ -18,18 +18,11 @@
             [latitude]="marker.location.lat"
             [longitude]="marker.location.lng">
           </agm-marker>
-          <agm-polyline
-              *ngFor="let polyline of layer.polylines; let i = index;"
-              (lineMouseUp)="onLineMouseUp($event, i)"
-              [editable]="currentPolyline === i"
-              [clickable]="true"
-              strokeColor="red">
-            <agm-polyline-point
-                *ngFor="let point of polyline.points"
-                [latitude]="point.location.lat"
-                [longitude]="point.location.lng">
-            </agm-polyline-point>
-          </agm-polyline>
+          <app-form-widget-map-polyline-wrapper
+            *ngFor="let polyline of layer.polylines; let i = index;"
+            [polyline]=polyline
+            (polylineChange)="onPolylineChange($event)">
+          </app-form-widget-map-polyline-wrapper>
         </ng-container>
       </agm-map>
       <div *ngIf="!formState.disabled" class="button-row" style="padding-top: 8px;">
