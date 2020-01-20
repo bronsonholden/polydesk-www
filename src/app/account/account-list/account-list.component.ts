@@ -60,7 +60,7 @@ export class AccountListComponent implements OnInit {
 
   selectAccount(account) {
     this.accountService.account = account.identifier;
-    this.router.navigateByUrl(`/${account.identifier}/dashboard`);
+    this.router.navigateByUrl(`/${account.identifier}/desk`);
   }
 
 }

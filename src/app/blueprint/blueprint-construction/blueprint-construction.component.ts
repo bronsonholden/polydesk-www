@@ -49,14 +49,14 @@ export class BlueprintConstructionComponent implements OnInit {
               type: 'label',
               text: 'First Name',
               templateOptions: {
-                fxFlex: '20%'
+                fxFlex: '100px'
               }
             },
             {
               type: 'input',
               key: 'name.first',
               templateOptions: {
-                fxFlex: '80%'
+                fxFlex: 'auto'
               }
             }
           ]
@@ -68,80 +68,18 @@ export class BlueprintConstructionComponent implements OnInit {
               type: 'label',
               text: 'Last Name',
               templateOptions: {
-                fxFlex: '20%'
+                fxFlex: '100px'
               }
             },
             {
               type: 'input',
               key: 'name.last',
               templateOptions: {
-                fxFlex: '80%'
-              }
-            }
-          ]
-        },
-        // +
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name 2',
-              templateOptions: {
-                fxFlex: '20%'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name',
-              templateOptions: {
-                fxFlex: '20%'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name',
-              templateOptions: {
-                fxFlex: '20%'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name',
-              templateOptions: {
-                fxFlex: '20%'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name',
-              templateOptions: {
-                fxFlex: '20%'
+                fxFlex: 'auto'
               }
             }
           ]
         }
-        // -
       ]
     }
   };
@@ -154,6 +92,10 @@ export class BlueprintConstructionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  constructPrefab() {
+    console.log(this.model);
   }
 
 }

@@ -117,6 +117,15 @@ import { PrefabFormMediaLayerComponent } from './prefab/prefab-form/prefab-form-
 import { DeskComponent } from './desk/desk.component';
 import { BlueprintComponent } from './blueprint/blueprint.component';
 import { BlueprintConstructionComponent } from './blueprint/blueprint-construction/blueprint-construction.component';
+import { PrefabViewComponent } from './prefab/prefab-view/prefab-view.component';
+import { BlueprintEditComponent } from './blueprint/blueprint-edit/blueprint-edit.component';
+import { PrefabEditComponent } from './prefab/prefab-edit/prefab-edit.component';
+import { PrefabMigrationHistoryComponent } from './prefab/prefab-migration-history/prefab-migration-history.component';
+import { PrefabMigrationEventComponent } from './prefab/prefab-migration-event/prefab-migration-event.component';
+import { BlueprintMigrationsComponent } from './blueprint/blueprint-migrations/blueprint-migrations.component';
+import { BlueprintMigrationCreateComponent } from './blueprint/blueprint-migration-create/blueprint-migration-create.component';
+import { BlueprintMigrationViewComponent } from './blueprint/blueprint-migration-view/blueprint-migration-view.component';
+import { BlueprintMigrationEditComponent } from './blueprint/blueprint-migration-edit/blueprint-migration-edit.component';
 
 const routes: Routes = [
   {
@@ -146,8 +155,64 @@ const routes: Routes = [
                 component: BlueprintComponent
               },
               {
+                path: 'edit',
+                component: BlueprintEditComponent
+              },
+              {
                 path: 'new',
                 component: BlueprintConstructionComponent
+              },
+              {
+                path: 'migrations',
+                children: [
+                  {
+                    path: '',
+                    component: BlueprintMigrationsComponent
+                  },
+                  {
+                    path: 'new',
+                    component: BlueprintMigrationCreateComponent
+                  },
+                  {
+                    path: ':id',
+                    children: [
+                      {
+                        path: '',
+                        component: BlueprintMigrationViewComponent
+                      },
+                      {
+                        path: 'edit',
+                        component: BlueprintMigrationEditComponent
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                path: ':id',
+                children: [
+                  {
+                    path: '',
+                    component: PrefabViewComponent
+                  },
+                  {
+                    path: 'edit',
+                    component: PrefabEditComponent
+                  },
+                  {
+                    path: 'migrations',
+                    children: [
+                      {
+                        path: '',
+                        component: PrefabMigrationHistoryComponent
+                      },
+                      {
+                        path: ':migration',
+                        component: PrefabMigrationEventComponent
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -305,7 +370,16 @@ const routes: Routes = [
     PrefabFormMediaLayerComponent,
     DeskComponent,
     BlueprintComponent,
-    BlueprintConstructionComponent
+    BlueprintConstructionComponent,
+    PrefabViewComponent,
+    BlueprintEditComponent,
+    PrefabEditComponent,
+    PrefabMigrationHistoryComponent,
+    PrefabMigrationEventComponent,
+    BlueprintMigrationsComponent,
+    BlueprintMigrationCreateComponent,
+    BlueprintMigrationViewComponent,
+    BlueprintMigrationEditComponent
   ],
   entryComponents: [
     AccountCreateComponent,

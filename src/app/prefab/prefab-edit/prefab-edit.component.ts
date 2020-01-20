@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-blueprint',
-  templateUrl: './blueprint.component.html',
-  styleUrls: ['./blueprint.component.scss']
+  selector: 'app-prefab-edit',
+  templateUrl: './prefab-edit.component.html',
+  styleUrls: ['./prefab-edit.component.scss']
 })
-export class BlueprintComponent implements OnInit {
+export class PrefabEditComponent implements OnInit {
 
   constructor(private location: Location) { }
 

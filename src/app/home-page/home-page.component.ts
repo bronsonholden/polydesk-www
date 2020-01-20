@@ -10,6 +10,11 @@ export class HomePageComponent implements OnInit {
 
   tabs = [
     {
+      path: 'desk',
+      label: 'Desk',
+      exact: false
+    },
+    {
       path: 'dashboard',
       label: 'Dashboard',
       exact: true
