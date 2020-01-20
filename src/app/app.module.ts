@@ -106,6 +106,17 @@ import { FormWidgetMapPolylineComponent } from './form/form-widget/form-widget-m
 import { FormWidgetMapComponent } from './form/form-widget/form-widget-map/form-widget-map.component';
 import { FormWidgetMapNewLayerComponent } from './form/form-widget/form-widget-map/form-widget-map-new-layer/form-widget-map-new-layer.component';
 import { FormWidgetMapPolylineWrapperComponent } from './form/form-widget/form-widget-map/form-widget-map-polyline-wrapper/form-widget-map-polyline-wrapper.component';
+import { PrefabComponent } from './prefab/prefab.component';
+import { PrefabFormComponent } from './prefab/prefab-form/prefab-form.component';
+import { FormWidgetLabelComponent } from './form/form-widget/form-widget-label/form-widget-label.component';
+import { FormWidgetInputComponent } from './form/form-widget/form-widget-input/form-widget-input.component';
+import { PrefabFormRowComponent } from './prefab/prefab-form/prefab-form-row/prefab-form-row.component';
+import { PrefabFormColumnComponent } from './prefab/prefab-form/prefab-form-column/prefab-form-column.component';
+import { PrefabFormContainerComponent } from './prefab/prefab-form/prefab-form-container/prefab-form-container.component';
+import { PrefabFormMediaLayerComponent } from './prefab/prefab-form/prefab-form-media-layer/prefab-form-media-layer.component';
+import { DeskComponent } from './desk/desk.component';
+import { BlueprintComponent } from './blueprint/blueprint.component';
+import { BlueprintConstructionComponent } from './blueprint/blueprint-construction/blueprint-construction.component';
 
 const routes: Routes = [
   {
@@ -120,6 +131,32 @@ const routes: Routes = [
     path: ':account',
     component: HomePageComponent,
     children: [
+      {
+        path: 'desk',
+        children: [
+          {
+            path: '',
+            component: DeskComponent,
+          },
+          {
+            path: ':namespace',
+            children: [
+              {
+                path: '',
+                component: BlueprintComponent
+              },
+              {
+                path: 'new',
+                component: BlueprintConstructionComponent
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'prefab',
+        component: PrefabFormComponent
+      },
       {
         path: 'dashboard',
         component: DashboardComponent
@@ -257,7 +294,18 @@ const routes: Routes = [
     FormWidgetMapPolylineComponent,
     FormWidgetMapComponent,
     FormWidgetMapNewLayerComponent,
-    FormWidgetMapPolylineWrapperComponent
+    FormWidgetMapPolylineWrapperComponent,
+    PrefabComponent,
+    PrefabFormComponent,
+    FormWidgetLabelComponent,
+    FormWidgetInputComponent,
+    PrefabFormRowComponent,
+    PrefabFormColumnComponent,
+    PrefabFormContainerComponent,
+    PrefabFormMediaLayerComponent,
+    DeskComponent,
+    BlueprintComponent,
+    BlueprintConstructionComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -269,7 +317,10 @@ const routes: Routes = [
     FormSubmissionSelectComponent,
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
-    FormWidgetMapNewLayerComponent
+    FormWidgetMapNewLayerComponent,
+    FormWidgetInputComponent,
+    PrefabFormColumnComponent,
+    PrefabFormRowComponent
   ],
   imports: [
     AceEditorModule,
@@ -310,6 +361,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormlyModule.forRoot({
       types: [
+        // { name: 'flex-layout', component: FormlyFlexLayoutType },
         { name: 'string', extends: 'input' },
         {
           name: 'number',
@@ -323,6 +375,7 @@ const routes: Routes = [
         { name: 'enum', extends: 'select' },
         { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },
+        { name: 'label', component: FormWidgetLabelComponent },
         { name: 'array', component: FormWidgetArrayComponent },
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
         { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
@@ -330,10 +383,13 @@ const routes: Routes = [
         { name: 'datepicker', component: FormWidgetDatepickerComponent },
         { name: 'map-point', component: FormWidgetMapPointComponent },
         { name: 'map-polyline', component: FormWidgetMapPolylineComponent },
-        { name: 'map', component: FormWidgetMapComponent }
+        { name: 'map', component: FormWidgetMapComponent },
+        { name: 'input', component: FormWidgetInputComponent },
+        { name: 'row', component: PrefabFormRowComponent },
+        { name: 'column', component: PrefabFormColumnComponent }
       ]
     }),
-    FormlyMaterialModule,
+    // FormlyMaterialModule,
     FormlyMatSliderModule,
     RouterModule.forRoot(routes),
     RouterTabModule,

@@ -1,0 +1,23 @@
+.blueprint-construction {
+  width: 100%;
+  height: 100%;
+}
+
+.blueprint-construction .prefab-form-wrapper {
+  position: absolute;
+  top: 0px;
+  bottom: 64px;
+  right: 0px;
+  left: 0px;
+  overflow-y: scroll;
+}
+
+.blueprint-construction .button-row-wrapper {
+  position: absolute;
+  top: calc(100% - 64px);
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #eee;
+  padding: 16px;
+}

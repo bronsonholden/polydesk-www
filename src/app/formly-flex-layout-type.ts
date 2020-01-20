@@ -5,14 +5,17 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-form-flex',
   template: `
     <div
-      class="content"
-      fxLayout.xs="column"
+      style="width: 100%;"
       [fxLayout]="to.fxLayout"
-      [fxLayoutGap]="to.fxLayoutGap"
       fxFlexFill>
         <div
+            fxShow
+            [style.padding-left]="'4px'"
+            [style.padding-right]="'4px'"
+            [style.min-height]="f.templateOptions.height"
+            [style.max-height]="f.templateOptions.height"
             *ngFor="let f of field.fieldGroup"
-            [attr.fxFlex]="f.templateOptions.fxFlex">
+            [fxFlex]="f.templateOptions.fxFlex">
           <formly-field [field]="f">
           </formly-field>
         </div>

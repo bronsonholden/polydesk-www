@@ -1,0 +1,11 @@
+<div style="height: 100%; width: 100%;" fxLayout="column" fxFlexFill>
+  <div
+      fxShow
+      [style.padding-left]="'4px'"
+      [style.padding-right]="'4px'"
+      *ngFor="let row of field.fieldGroup"
+      [fxFlex]="row.templateOptions?.fxFlex">
+    <formly-field [field]="row">
+    </formly-field>
+  </div>
+</div>

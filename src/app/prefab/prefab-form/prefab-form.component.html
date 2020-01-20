@@ -1,0 +1,11 @@
+<div id="prefab-form-wrapper">
+  <div class="prefab-form">
+    <app-prefab-form-media-layer
+      [view]="view"
+      [model]="model"
+      (modelChange)="modelChange.emit($event)"
+      [options]="options">
+    </app-prefab-form-media-layer>
+    {{ model | json }}
+  </div>
+</div>
