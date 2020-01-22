@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-blueprint-construction',
@@ -89,7 +90,7 @@ export class BlueprintConstructionComponent implements OnInit {
   options: any = {};
   model: any = {};
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }
