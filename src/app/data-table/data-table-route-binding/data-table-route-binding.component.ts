@@ -81,7 +81,7 @@ export class DataTableRouteBindingComponent implements OnInit {
 
       const sortString = params[sortParam];
       if (!isNil(sortString)) {
-        this.sort = params[sortParam].split(',');
+        this.sort = params[sortParam].split(',').filter(p => p !== '');
         if (this.sort.length > 0) {
           shouldReload = true;
         }
