@@ -1,4 +1,11 @@
-<a routerLink="1">1</a>
-<br>
+<div style="height: 90%; width: 100%;">
+  <app-data-table-route-binding
+    [data]="data"
+    [scope]="scope"
+    [source]="source"
+    [(selection)]="selection">
+  </app-data-table-route-binding>
+</div>
+
 <button mat-button routerLink="new">New</button>
 <button mat-button (click)="back()">Back</button>

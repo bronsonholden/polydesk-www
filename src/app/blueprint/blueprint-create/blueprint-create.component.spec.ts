@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrefabViewComponent } from './prefab-view.component';
+import { BlueprintCreateComponent } from './blueprint-create.component';
 
-describe('PrefabViewComponent', () => {
-  let component: PrefabViewComponent;
-  let fixture: ComponentFixture<PrefabViewComponent>;
+describe('BlueprintCreateComponent', () => {
+  let component: BlueprintCreateComponent;
+  let fixture: ComponentFixture<BlueprintCreateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrefabViewComponent ]
+      declarations: [ BlueprintCreateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrefabViewComponent);
+    fixture = TestBed.createComponent(BlueprintCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

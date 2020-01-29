@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-prefab',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrefabComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }

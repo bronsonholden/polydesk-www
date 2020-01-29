@@ -26,7 +26,7 @@ export class DataTableComponent implements OnInit {
     totalMessage: 'total'
   };
 
-  @Input() data: any;
+  @Input() data: any = {};
 
   @Input() filters: any = {};
 
@@ -72,7 +72,7 @@ export class DataTableComponent implements OnInit {
 
   ngOnChanges(changes) {
     if (changes.data) {
-      // this.datatable.recalculateColumns();
+      this.loadColumns();
       this.datatable._offsetX.next(0);
     }
   }
@@ -90,8 +90,15 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.data) {
+      this.loadColumns();
+    }
+  }
+
+  loadColumns() {
+    const display = this.data.display || [];
     // Convert display configuration to columns for ngx-datatable
-    this.columns = this.data.display.map(column => {
+    this.columns = display.map(column => {
       return {
         prop: column.name,
         name: this.data.columns[column.name].title

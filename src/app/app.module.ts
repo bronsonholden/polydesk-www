@@ -40,6 +40,7 @@ import {
   MatSidenavModule,
   MatSliderModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
@@ -117,7 +118,6 @@ import { PrefabFormMediaLayerComponent } from './prefab/prefab-form/prefab-form-
 import { DeskComponent } from './desk/desk.component';
 import { BlueprintComponent } from './blueprint/blueprint.component';
 import { BlueprintConstructionComponent } from './blueprint/blueprint-construction/blueprint-construction.component';
-import { PrefabViewComponent } from './prefab/prefab-view/prefab-view.component';
 import { BlueprintEditComponent } from './blueprint/blueprint-edit/blueprint-edit.component';
 import { PrefabEditComponent } from './prefab/prefab-edit/prefab-edit.component';
 import { PrefabMigrationHistoryComponent } from './prefab/prefab-migration-history/prefab-migration-history.component';
@@ -126,6 +126,8 @@ import { BlueprintMigrationsComponent } from './blueprint/blueprint-migrations/b
 import { BlueprintMigrationCreateComponent } from './blueprint/blueprint-migration-create/blueprint-migration-create.component';
 import { BlueprintMigrationViewComponent } from './blueprint/blueprint-migration-view/blueprint-migration-view.component';
 import { BlueprintMigrationEditComponent } from './blueprint/blueprint-migration-edit/blueprint-migration-edit.component';
+import { BlueprintCreateComponent } from './blueprint/blueprint-create/blueprint-create.component';
+import { BlueprintComposerComponent } from './blueprint/blueprint-composer/blueprint-composer.component';
 
 const routes: Routes = [
   {
@@ -140,6 +142,10 @@ const routes: Routes = [
     path: ':account',
     component: HomePageComponent,
     children: [
+      {
+        path: 'blueprints/new',
+        component: BlueprintCreateComponent
+      },
       {
         path: 'desk',
         children: [
@@ -193,7 +199,7 @@ const routes: Routes = [
                 children: [
                   {
                     path: '',
-                    component: PrefabViewComponent
+                    component: PrefabComponent
                   },
                   {
                     path: 'edit',
@@ -371,7 +377,6 @@ const routes: Routes = [
     DeskComponent,
     BlueprintComponent,
     BlueprintConstructionComponent,
-    PrefabViewComponent,
     BlueprintEditComponent,
     PrefabEditComponent,
     PrefabMigrationHistoryComponent,
@@ -379,7 +384,9 @@ const routes: Routes = [
     BlueprintMigrationsComponent,
     BlueprintMigrationCreateComponent,
     BlueprintMigrationViewComponent,
-    BlueprintMigrationEditComponent
+    BlueprintMigrationEditComponent,
+    BlueprintCreateComponent,
+    BlueprintComposerComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -426,6 +433,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatSliderModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,

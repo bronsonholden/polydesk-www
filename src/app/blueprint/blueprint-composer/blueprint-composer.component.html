@@ -1,0 +1,21 @@
+<div class="blueprint-composer" fxLayout="column">
+  <div class="header-row">
+    <mat-form-field>
+      <mat-label>Blueprint Part</mat-label>
+      <mat-select [(value)]="part">
+        <mat-option value="schema">Schema</mat-option>
+        <mat-option value="view">View</mat-option>
+        <mat-option value="constructionView">Construction View</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    fxFlex="auto"
+    class="json-editor"
+    ace-editor
+    mode="json"
+    theme="eclipse"
+    [text]="partText"
+    (textChange)="partTextChange($event)">
+  </div>
+</div>

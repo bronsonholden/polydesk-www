@@ -34,6 +34,12 @@ export class PrefabFormMediaLayerComponent implements OnInit {
     this.watcher.unsubscribe();
   }
 
+  ngOnChanges(changes) {
+    if (changes.view && !changes.view.firstChange) {
+      this.layout = this.bestLayoutFor(this.currentLayoutSize);
+    }
+  }
+
   bestLayoutFor(size) {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 

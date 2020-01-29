@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { BlueprintApiService } from '../../blueprint-api.service';
 
 @Component({
   selector: 'app-blueprint-construction',
@@ -8,95 +10,34 @@ import { Location } from '@angular/common';
 })
 export class BlueprintConstructionComponent implements OnInit {
 
-  view = {
-    xs: {
-      type: 'column',
-      fieldGroup: [
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'input',
-              key: 'name.first',
-              templateOptions: {
-                label: 'First Name',
-                fxFlex: '100%'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'input',
-              key: 'name.last',
-              templateOptions: {
-                label: 'Last Name',
-                fxFlex: '100%'
-              }
-            }
-          ]
-        }
-      ]
-    },
-    sm: {
-      type: 'column',
-      fieldGroup: [
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'First Name',
-              templateOptions: {
-                fxFlex: '100px'
-              }
-            },
-            {
-              type: 'input',
-              key: 'name.first',
-              templateOptions: {
-                fxFlex: 'auto'
-              }
-            }
-          ]
-        },
-        {
-          type: 'row',
-          fieldGroup: [
-            {
-              type: 'label',
-              text: 'Last Name',
-              templateOptions: {
-                fxFlex: '100px'
-              }
-            },
-            {
-              type: 'input',
-              key: 'name.last',
-              templateOptions: {
-                fxFlex: 'auto'
-              }
-            }
-          ]
-        }
-      ]
-    }
-  };
-
   schema: any = {};
-
-  options: any = {};
   model: any = {};
+  view: any = {};
+  options: any = {};
+  blueprintId: string;
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,
+              private blueprintApi: BlueprintApiService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe(res => {
+        this.blueprintId = res.data[0].id;
+        this.schema = res.data[0].attributes.schema;
+        this.view = res.data[0].attributes.view;
+      }, res => {
+        console.log(res);
+      });
+    });
   }
 
   constructPrefab() {
-    console.log(this.model);
+    this.blueprintApi.constructBlueprint(this.blueprintId, this.model).subscribe(res => {
+      console.log(res);
+    }, res => {
+      console.error(res);
+    })
   }
 
 }

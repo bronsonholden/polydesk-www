@@ -14,7 +14,7 @@ import { merge, isNil } from 'lodash';
 })
 export class DataTableRouteBindingComponent implements OnInit {
 
-  @Input() data: any = null;
+  @Input() data: any = {};
   // Service for retrieving records. Must implement an index() method
   //    index(offset, limit, sort, filter)
   @Input() source: any = null;
