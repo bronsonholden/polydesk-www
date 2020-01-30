@@ -1,2 +1,10 @@
-<a routerLink="employees">Employees</a>
-<br>
+<div style="height: 90%; width: 100%;">
+  <app-data-table-route-binding
+    [data]="data"
+    [scope]="scope"
+    [source]="blueprintApi"
+    [(selection)]="selection">
+  </app-data-table-route-binding>
+</div>
+
+<button mat-button (click)="back()">Back</button>
