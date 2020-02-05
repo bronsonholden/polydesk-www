@@ -22,7 +22,7 @@ export class BlueprintConstructionComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe(res => {
+      this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.blueprintId = res.data[0].id;
         this.schema = res.data[0].attributes.schema;
         this.view = res.data[0].attributes.view;
@@ -33,7 +33,7 @@ export class BlueprintConstructionComponent implements OnInit {
   }
 
   constructPrefab() {
-    this.blueprintApi.constructBlueprint(this.blueprintId, this.model).subscribe(res => {
+    this.blueprintApi.constructBlueprint(this.blueprintId, this.model).subscribe((res: any) => {
       console.log(res);
     }, res => {
       console.error(res);

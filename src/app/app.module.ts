@@ -454,6 +454,10 @@ const routes: Routes = [
             }
           }
         },
+        {
+          name: 'prefab',
+          extends: 'input'
+        },
         { name: 'enum', extends: 'select' },
         { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },
