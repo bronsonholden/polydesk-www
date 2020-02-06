@@ -1,10 +1,14 @@
 <div class="blueprint-edit" fxLayout="column">
   <div fxFlex="auto">
-    <app-blueprint-composer></app-blueprint-composer>
+    <app-blueprint-composer
+      [(schema)]="schema"
+      [(view)]="view"
+      [(constructionView)]="constructionView">
+    </app-blueprint-composer>
   </div>
   <div class="button-row-wrapper">
     <div class="button-row">
-      <button type="button" mat-raised-button color="primary">Update</button>
+      <button type="button" mat-raised-button color="primary" (click)="updateBlueprint()">Update</button>
       <div class="h-fill"></div>
       <button type="button" mat-raised-button (click)="location.back()">Cancel</button>
     </div>

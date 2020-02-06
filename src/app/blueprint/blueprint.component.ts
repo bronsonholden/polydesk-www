@@ -22,7 +22,7 @@ export class BlueprintComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe(res => {
+      this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.data = res.data[0].attributes['list-view'];
         this.scope.namespace = params.namespace;
         this.source = this.prefabApi;

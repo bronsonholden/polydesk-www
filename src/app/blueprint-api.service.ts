@@ -46,6 +46,16 @@ export class BlueprintApiService {
     });
   }
 
+  updateBlueprint(id, attributes) {
+    return this.httpClient.patch(`blueprints/${id}`, {
+      data: {
+        id: id,
+        type: 'blueprints',
+        attributes: attributes
+      }
+    });
+  }
+
   constructBlueprint(id, data) {
     return this.httpClient.post('prefabs', {
       data: {
