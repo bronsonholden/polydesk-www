@@ -1,5 +1,16 @@
-<p>
-  prefab works!
-</p>
-<button mat-button routerLink="migrations">Migrations</button>
-<button mat-button (click)="location.back()">Back</button>
+<div class="blueprint-construction">
+  <div class="prefab-form-wrapper">
+    <app-prefab-form
+      [model]="model"
+      options="options"
+      [view]="view"
+      [schema]="schema">
+    </app-prefab-form>
+  </div>
+  <div class="button-row-wrapper">
+    <div class="button-row">
+      <button mat-button routerLink="migrations">Migrations</button>
+      <button mat-button (click)="location.back()">Back</button>
+    </div>
+  </div>
+</div>

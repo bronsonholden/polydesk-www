@@ -9,6 +9,10 @@ export class PrefabApiService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getPrefabByUid(namespace, tag) {
+    return this.index(0, 1, null, { namespace, tag });
+  }
+
   index(offset, limit, sort, filter) {
     let params = new HttpParams().set('page[offset]', offset).set('page[limit]', limit);
 

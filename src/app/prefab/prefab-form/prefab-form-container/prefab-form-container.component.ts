@@ -38,6 +38,14 @@ export class PrefabFormContainerComponent implements OnInit {
     if (changes.layout && !changes.layout.firstChange) {
       this.fields = [Object.assign({}, this.layout)];
     }
+
+    // In case fields is changed in the same tick, wait until next tick to
+    // update form group value so form controls will have been created.
+    if (changes.model && !changes.model.firstChange) {
+      setTimeout(() => {
+        this.form.setValue(changes.model.currentValue);
+      }, 0);
+    }
   }
 
   _modelChange(model) {

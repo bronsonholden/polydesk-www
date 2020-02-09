@@ -195,7 +195,7 @@ const routes: Routes = [
                 ]
               },
               {
-                path: ':id',
+                path: ':tag',
                 children: [
                   {
                     path: '',
