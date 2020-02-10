@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
-import { merge, isNil } from 'lodash';
+import { without, merge, isNil } from 'lodash';
 
 /**
  * A wrapper that binds data table pagination, filtering, and sorting to query
@@ -32,7 +33,8 @@ export class DataTableRouteBindingComponent implements OnInit {
   private outlet: string | null;
 
   constructor(private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if (this.route.outlet !== 'primary') {
@@ -85,15 +87,7 @@ export class DataTableRouteBindingComponent implements OnInit {
         if (this.sort.length > 0) {
           shouldReload = true;
         }
-        this.sortProps = this.sort.map(s => {
-          let prop = s;
-          let dir = 'asc';
-          if (prop.startsWith('-')) {
-            dir = 'desc';
-            prop = prop.slice(1);
-          }
-          return { dir, prop };
-        });
+        this.updateDataTableSortProps(this.sort);
       } else if (this.sort) {
         this.sort = [];
         shouldReload = true;
@@ -102,6 +96,21 @@ export class DataTableRouteBindingComponent implements OnInit {
       if (shouldReload) {
         this.reload();
       }
+    });
+  }
+
+  // Update the internal ngx-datatable property sort settings. This affects
+  // how column headers are displayed, and is downstream from the 'sort'
+  // query parameter.
+  updateDataTableSortProps(sort) {
+    this.sortProps = sort.map(s => {
+      let prop = s;
+      let dir = 'asc';
+      if (prop.startsWith('-')) {
+        dir = 'desc';
+        prop = prop.slice(1);
+      }
+      return { dir, prop };
     });
   }
 
@@ -120,7 +129,10 @@ export class DataTableRouteBindingComponent implements OnInit {
   reload() {
     if (this.source) {
       const filter = merge(this.filter, this.scope);
-      let sortArray = this.sort || [];
+      let sortArray = this.scrubSort(this.sort || []);
+      this.sort = sortArray;
+      this.updateSortParam(this.sort);
+      // console.log(this.sort);
       const sort = sortArray.map(s => {
         let prop = s;
         let dir = '';
@@ -201,15 +213,50 @@ export class DataTableRouteBindingComponent implements OnInit {
     this.selectionChange.emit(selection);
   }
 
-  sortChange(sort) {
-    let sortString;
-    let outlet = this.route.outlet;
+  scrubSort(sort) {
+    let filteredSort = [];
 
-    // Store sort configurations
-    this.sort = sort;
+    // Warn about invalid sorts
+    sort.forEach(col => {
+      let colId = col;
+
+      if (colId.startsWith('-')) {
+        colId = colId.slice(1);
+      }
+
+      const sortedCol = this.data.columns[colId];
+
+      // Bring up snackbar(s) on next tick in case scrub on page init
+      // triggers one.
+      if (!sortedCol) {
+        setTimeout(() => {
+          this.snackBar.open(`We can't sort by '${colId}'; it does not exist.`, null, {
+            duration: 5000
+          });
+        }, 0);
+      } else if (sortedCol.type !== 'attribute' && sortedCol.type !== 'json') {
+        setTimeout(() => {
+          this.snackBar.open(`We can't sort by '${colId}'; it is not sortable.`, null, {
+            duration: 5000
+          });
+        }, 0);
+      } else {
+        filteredSort.push(col);
+      }
+    });
+
+    this.updateDataTableSortProps(filteredSort);
+
+    return filteredSort;
+  }
+
+  // Update the 'sort' query param using the given sort array.
+  updateSortParam(sort) {
+    let outlet = this.route.outlet;
+    let sortString;
 
     if (sort.length > 0) {
-      sortString = sort.join(',');
+      sortString = this.sort.join(',');
     }
 
     if (outlet !== 'primary') {
@@ -232,6 +279,14 @@ export class DataTableRouteBindingComponent implements OnInit {
         queryParamsHandling: 'merge'
       });
     }
+  }
+
+  // Triggers when a column is sorted by clicking on the column header.
+  sortChange(sort) {
+    // Scrub and store new sort configuration
+    this.sort = this.scrubSort(sort);
+
+    this.updateSortParam(sort);
   }
 
 }
