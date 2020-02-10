@@ -230,13 +230,13 @@ export class DataTableRouteBindingComponent implements OnInit {
       // triggers one.
       if (!sortedCol) {
         setTimeout(() => {
-          this.snackBar.open(`We can't sort by '${colId}'; it does not exist.`, null, {
+          this.snackBar.open(`We can't sort by column '${colId}'; it does not exist.`, null, {
             duration: 5000
           });
         }, 0);
       } else if (sortedCol.type !== 'attribute' && sortedCol.type !== 'json') {
         setTimeout(() => {
-          this.snackBar.open(`We can't sort by '${colId}'; it is not sortable.`, null, {
+          this.snackBar.open(`We can't sort by column '${colId}'; it is not sortable.`, null, {
             duration: 5000
           });
         }, 0);
@@ -268,7 +268,8 @@ export class DataTableRouteBindingComponent implements OnInit {
         },
         relativeTo: this.route,
         skipLocationChange: true,
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
+        replaceUrl: true
       });
     } else {
       this.router.navigate(['.'], {
@@ -276,7 +277,8 @@ export class DataTableRouteBindingComponent implements OnInit {
         queryParams: {
           'sort': sortString
         },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
+        replaceUrl: true
       });
     }
   }
