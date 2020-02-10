@@ -12,6 +12,7 @@ export class BlueprintCreateComponent implements OnInit {
   schema = '';
   view = ''
   constructionView = '';
+  listView = '';
 
   constructor(private location: Location, private blueprintApi: BlueprintApiService) { }
 

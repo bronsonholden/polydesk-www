@@ -13,6 +13,7 @@ export class BlueprintEditComponent implements OnInit {
   schema: any;
   view: any;
   constructionView: any;
+  listView: any;
   blueprintId: string | null;
 
   constructor(private location: Location,
@@ -28,6 +29,7 @@ export class BlueprintEditComponent implements OnInit {
         this.schema = JSON.stringify(blueprint.attributes.schema, null, '    ');
         this.view = JSON.stringify(blueprint.attributes.view, null, '    ');
         this.constructionView = JSON.stringify(blueprint.attributes['construction-view'], null, '    ');
+        this.listView = JSON.stringify(blueprint.attributes['list-view'], null, '    ');
       }, (res: any) => {
         console.error(res);
       });
@@ -38,7 +40,8 @@ updateBlueprint() {
   this.blueprintApi.updateBlueprint(this.blueprintId, {
     schema: JSON.parse(this.schema),
     view: JSON.parse(this.view),
-    'construction-view': JSON.parse(this.constructionView)
+    'construction-view': JSON.parse(this.constructionView),
+    'list-view': JSON.parse(this.listView)
   }).subscribe((res: any) => {
     console.log(res);
   }, (res: any) => {

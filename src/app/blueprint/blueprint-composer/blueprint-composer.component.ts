@@ -11,9 +11,11 @@ export class BlueprintComposerComponent implements OnInit {
   @Input() schema: string = '';
   @Input() view: string = '';
   @Input() constructionView: string = '';
+  @Input() listView: string = '';
   @Output() schemaChange = new EventEmitter<any>();
   @Output() viewChange = new EventEmitter<any>();
   @Output() constructionViewChange = new EventEmitter<any>();
+  @Output() listViewChange = new EventEmitter<any>();
 
   constructor() { }
 
@@ -28,6 +30,8 @@ export class BlueprintComposerComponent implements OnInit {
         return this.view;
       case 'constructionView':
         return this.constructionView;
+      case 'listView':
+        return this.listView;
       default:
         return '';
     }
@@ -43,6 +47,9 @@ export class BlueprintComposerComponent implements OnInit {
         break;
       case 'constructionView':
         this.constructionViewChange.emit(text);
+        break
+      case 'listView':
+        this.listViewChange.emit(text);
         break;
       default:
         break;
