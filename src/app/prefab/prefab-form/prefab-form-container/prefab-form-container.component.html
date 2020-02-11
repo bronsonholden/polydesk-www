@@ -2,8 +2,8 @@
   <form [formGroup]="form">
     <formly-form
       [form]="form"
-      [model]="_model"
-      (modelChange)="_modelChange($event)"
+      [model]="model"
+      (modelChange)="modelChange.emit($event)"
       [fields]="fields">
     </formly-form>
   </form>
