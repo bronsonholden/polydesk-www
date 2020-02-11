@@ -56,11 +56,22 @@ export class DataTableComponent implements OnInit {
 
   visible = false;
 
+  pageSize: string = '25';
+
   constructor(private http: HttpClient,
               private snackBar: MatSnackBar,
               private tokenService: AngularTokenService,
               private route: ActivatedRoute,
               private router: Router) { }
+
+  pageSizeChange(size) {
+    this.pageSize = size;
+    this.pageChange.emit({
+      offset: this.page.offset,
+      limit: parseInt(size),
+      count: this.page.total
+    });
+  }
 
   defaultIfUndefined(setting, defaultValue): any {
     if (typeof setting === 'undefined') {
@@ -74,6 +85,25 @@ export class DataTableComponent implements OnInit {
     if (changes.data) {
       this.loadColumns();
       this.datatable._offsetX.next(0);
+    }
+
+    if (changes.page) {
+      const limit = changes.page.currentValue.limit;
+      const offset = changes.page.currentValue.offset;
+      const total = changes.page.currentValue.total;
+
+      this.pageSize = `${limit}`;
+
+      // Correct offset if there are no results at the current offset. The
+      // API will simply return no results, but page navigation doesn't
+      // display properly with invalid offset/limit parameters.
+      if (offset * limit >= total) {
+        this.pageChange.emit({
+          offset: Math.ceil(total / limit) - 1, // Last page offset
+          count: total,
+          limit: limit
+        });
+      }
     }
   }
 

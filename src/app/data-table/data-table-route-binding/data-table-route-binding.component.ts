@@ -205,7 +205,8 @@ export class DataTableRouteBindingComponent implements OnInit {
       relativeTo: this.route,
       queryParams: queryParams,
       skipLocationChange: outlet !== 'primary',
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
+      replaceUrl: true
     });
   }
 

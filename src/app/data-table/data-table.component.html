@@ -1,83 +1,97 @@
 <span class="mat-typography">
-  <ngx-datatable
-      id="dataTable"
-      class="material"
-      [rows]="rows"
-      columnMode="standard"
-      [headerHeight]="50"
-      [footerHeight]="50"
-      [rowHeight]="50"
-      [scrollbarH]="true"
-      [scrollbarV]="true"
-      [selected]="selection"
-      (select)="onSelect($event)"
-      selectionType="checkbox"
-      [sortType]="SortType.multi"
-      [messages]="messages"
-      [externalPaging]="true"
-      [externalSorting]="true"
-      [virtualization]="false"
-      [offset]="page.offset"
-      [count]="page.total"
-      [limit]="page.limit"
-      (page)="onPage($event)"
-      (sort)="onSort($event)"
-      [sorts]="sortProps">
-    <ngx-datatable-column
-        *ngIf="data.select === 'multiple'"
-        [width]="50"
-        [sortable]="false"
-        [canAutoResize]="false"
-        [resizeable]="false">
-      <ng-template
-          ngx-datatable-header-template
-          let-value="value"
-          let-allRowsSelected="allRowsSelected"
-          let-selectFn="selectFn">
-        <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
-      </ng-template>
-      <ng-template
-          ngx-datatable-cell-template
-          let-value="value"
-          let-isSelected="isSelected"
-          let-onCheckboxChangeFn="onCheckboxChangeFn">
-        <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column
-        *ngIf="data.select === 'single'"
-        [width]="50"
-        [sortable]="false"
-        [canAutoResize]="false"
-        [resizeable]="false">
-      <ng-template
-          ngx-datatable-cell-template
-          let-row="row"
-          let-isSelected="isSelected">
-        <mat-radio-button [checked]="isSelected" (change)="onRadioChangeFn($event, row)"></mat-radio-button>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column
-        *ngFor="let display of getDisplayedColumns()"
-        [name]="display.name"
-        [width]="defaultIfUndefined(display.width, 200)"
-        [minWidth]="display.minWidth"
-        [maxWidth]="display.maxWidth"
-        [resizeable]="defaultIfUndefined(display.resizeable, true)"
-        [sortable]="defaultIfUndefined(display.sortable, false)">
-      <ng-template ngx-datatable-header-template let-sort="sortFn">
-        <span class="text-no-select" (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
-          {{ getColumnInfo(display.name).title }}
-        </span>
-        <ng-template #noSortHeader>
-          <span class="text-no-select">
+  <div fxLayout="column" fxFlexFill>
+    <div class="button-row">
+      <button mat-button>Button</button>
+      <div class="h-fill"></div>
+      <mat-form-field>
+        <mat-select placeholder="Page Size" [value]="pageSize" (valueChange)="pageSizeChange($event)">
+          <mat-option value="5">5</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="25">25</mat-option>
+          <mat-option value="50">50</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ngx-datatable
+        fxFlex
+        class="material"
+        [rows]="rows"
+        columnMode="standard"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="50"
+        [scrollbarH]="true"
+        [scrollbarV]="true"
+        [selected]="selection"
+        (select)="onSelect($event)"
+        selectionType="checkbox"
+        [sortType]="SortType.multi"
+        [messages]="messages"
+        [externalPaging]="true"
+        [externalSorting]="true"
+        [virtualization]="false"
+        [offset]="page.offset"
+        [count]="page.total"
+        [limit]="page.limit"
+        (page)="onPage($event)"
+        (sort)="onSort($event)"
+        [sorts]="sortProps">
+      <ngx-datatable-column
+          *ngIf="data.select === 'multiple'"
+          [width]="50"
+          [sortable]="false"
+          [canAutoResize]="false"
+          [resizeable]="false">
+        <ng-template
+            ngx-datatable-header-template
+            let-value="value"
+            let-allRowsSelected="allRowsSelected"
+            let-selectFn="selectFn">
+          <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
+        </ng-template>
+        <ng-template
+            ngx-datatable-cell-template
+            let-value="value"
+            let-isSelected="isSelected"
+            let-onCheckboxChangeFn="onCheckboxChangeFn">
+          <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column
+          *ngIf="data.select === 'single'"
+          [width]="50"
+          [sortable]="false"
+          [canAutoResize]="false"
+          [resizeable]="false">
+        <ng-template
+            ngx-datatable-cell-template
+            let-row="row"
+            let-isSelected="isSelected">
+          <mat-radio-button [checked]="isSelected" (change)="onRadioChangeFn($event, row)"></mat-radio-button>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column
+          *ngFor="let display of getDisplayedColumns()"
+          [name]="display.name"
+          [width]="defaultIfUndefined(display.width, 200)"
+          [minWidth]="display.minWidth"
+          [maxWidth]="display.maxWidth"
+          [resizeable]="defaultIfUndefined(display.resizeable, true)"
+          [sortable]="defaultIfUndefined(display.sortable, false)">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="text-no-select" (click)="sort()" style="cursor: pointer;" *ngIf="defaultIfUndefined(display.sortable, false); else noSortHeader">
             {{ getColumnInfo(display.name).title }}
           </span>
+          <ng-template #noSortHeader>
+            <span class="text-no-select">
+              {{ getColumnInfo(display.name).title }}
+            </span>
+          </ng-template>
         </ng-template>
-      </ng-template>
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        <app-data-table-cell (pseudoLink)="pseudoLinkClicked($event)" [outlet]="outlet" [data]="data" [row]="row" [column]="getColumnInfo(display.name)"></app-data-table-cell>
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <app-data-table-cell (pseudoLink)="pseudoLinkClicked($event)" [outlet]="outlet" [data]="data" [row]="row" [column]="getColumnInfo(display.name)"></app-data-table-cell>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
 </span>

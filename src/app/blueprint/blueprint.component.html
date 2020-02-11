@@ -1,11 +1,14 @@
-<div style="height: 90%; width: 100%;">
-  <app-data-table-route-binding
-    [data]="data"
-    [scope]="scope"
-    [source]="source"
-    [(selection)]="selection">
-  </app-data-table-route-binding>
+<div fxLayout="column" fxFlexFill>
+  <div fxFlex>
+    <app-data-table-route-binding
+      [data]="data"
+      [scope]="scope"
+      [source]="source"
+      [(selection)]="selection">
+    </app-data-table-route-binding>
+  </div>
+  <div class="button-row">
+    <button mat-button routerLink="new">New</button>
+    <button mat-button (click)="back()">Back</button>
+  </div>
 </div>
-
-<button mat-button routerLink="new">New</button>
-<button mat-button (click)="back()">Back</button>
