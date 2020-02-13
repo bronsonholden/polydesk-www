@@ -1,7 +1,9 @@
 <span class="mat-typography">
   <div fxLayout="column" fxFlexFill>
     <div class="button-row">
-      <button mat-button>Button</button>
+      <div style="margin-top: auto; margin-bottom: auto;">
+        <button mat-raised-button>Filters</button>
+      </div>
       <div class="h-fill"></div>
       <mat-form-field>
         <mat-select placeholder="Page Size" [value]="pageSize" (valueChange)="pageSizeChange($event)">
