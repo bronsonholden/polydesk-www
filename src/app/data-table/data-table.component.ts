@@ -97,9 +97,9 @@ export class DataTableComponent implements OnInit {
       // Correct offset if there are no results at the current offset. The
       // API will simply return no results, but page navigation doesn't
       // display properly with invalid offset/limit parameters.
-      if (offset * limit >= total) {
+      if (total > 0 && offset * limit >= total) {
         this.pageChange.emit({
-          offset: Math.ceil(total / limit) - 1, // Last page offset
+          offset: Math.max(0, Math.ceil(total / limit) - 1), // Last page offset
           count: total,
           limit: limit
         });
