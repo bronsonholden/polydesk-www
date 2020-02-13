@@ -235,14 +235,22 @@ export class DataTableRouteBindingComponent implements OnInit {
             duration: 5000
           });
         }, 0);
-      } else if (sortedCol.type !== 'attribute' && sortedCol.type !== 'json') {
-        setTimeout(() => {
-          this.snackBar.open(`We can't sort by column '${colId}'; it is not sortable.`, null, {
-            duration: 5000
-          });
-        }, 0);
       } else {
-        filteredSort.push(col);
+        let colRef = sortedCol;
+
+        if (colRef.display == 'link') {
+          colRef = colRef.link;
+        }
+
+        if (colRef.type !== 'id' && colRef.type !== 'attribute' && colRef.type !== 'json') {
+          setTimeout(() => {
+            this.snackBar.open(`We can't sort by column '${colId}'; it is not sortable.`, null, {
+              duration: 5000
+            });
+          }, 0);
+        } else {
+          filteredSort.push(col);
+        }
       }
     });
 
