@@ -15,11 +15,6 @@ export class DeskComponent implements OnInit {
   data: any = {
     select: 'multiple',
     columns: {
-      id: {
-        title: 'ID',
-        display: 'text',
-        type: 'id'
-      },
       name: {
         title: 'Name',
         display: 'link',
@@ -45,12 +40,6 @@ export class DeskComponent implements OnInit {
       }
     },
     display: [
-      {
-        name: 'id',
-        width: 60,
-        resizeable: false,
-        sortable: true
-      },
       {
         name: 'name',
         width: 150,
