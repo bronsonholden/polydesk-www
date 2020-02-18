@@ -214,6 +214,9 @@ export class DataTableRouteBindingComponent implements OnInit {
     this.selectionChange.emit(selection);
   }
 
+  // TODO: This should occur in raw data table, not route-bound data table
+  // wrapper. Latter should pass sort in, and the former should reject it,
+  // the same way invalid pagination is rejected and corrected.
   scrubSort(sort) {
     let filteredSort = [];
 
