@@ -50,8 +50,8 @@ export class DeskComponent implements OnInit {
   };
 
   constructor(private activatedRoute: ActivatedRoute,
-              private location: Location,
-              private blueprintApi: BlueprintApiService) { }
+              public location: Location,
+              public blueprintApi: BlueprintApiService) { }
 
   ngOnInit() {
   }

@@ -16,7 +16,7 @@ export class BlueprintConstructionComponent implements OnInit {
   options: any = {};
   blueprintId: string;
 
-  constructor(private location: Location,
+  constructor(public location: Location,
               private blueprintApi: BlueprintApiService,
               private activatedRoute: ActivatedRoute) { }
 

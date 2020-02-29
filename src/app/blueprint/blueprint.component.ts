@@ -14,8 +14,9 @@ export class BlueprintComponent implements OnInit {
   scope: any = {};
   data: any = {};
   source: any = null;
+  selection = [];
 
-  constructor(private location: Location,
+  constructor(public location: Location,
               private activatedRoute: ActivatedRoute,
               private prefabApi: PrefabApiService,
               private blueprintApi: BlueprintApiService) { }

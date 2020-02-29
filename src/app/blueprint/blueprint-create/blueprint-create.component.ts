@@ -14,7 +14,8 @@ export class BlueprintCreateComponent implements OnInit {
   constructionView = '';
   listView = '';
 
-  constructor(private location: Location, private blueprintApi: BlueprintApiService) { }
+  constructor(public location: Location,
+              private blueprintApi: BlueprintApiService) { }
 
   ngOnInit() {
   }

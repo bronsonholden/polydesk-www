@@ -16,7 +16,7 @@ export class BlueprintEditComponent implements OnInit {
   listView: any;
   blueprintId: string | null;
 
-  constructor(private location: Location,
+  constructor(public location: Location,
               private activatedRoute: ActivatedRoute,
               private blueprintApi: BlueprintApiService) { }
 

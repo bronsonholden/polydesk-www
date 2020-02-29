@@ -14,7 +14,7 @@ export class PrefabComponent implements OnInit {
   view: any = {};
   schema: any = {};
 
-  constructor(private location: Location,
+  constructor(public location: Location,
               private activatedRoute: ActivatedRoute,
               private prefabApi: PrefabApiService) { }
 
