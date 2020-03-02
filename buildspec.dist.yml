@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - ng build --prod
+  post_build:
+    commands:
+      - aws s3 sync dist s3://polydesk-www
+      - aws s3 sync dist s3://polydesk-www --delete
