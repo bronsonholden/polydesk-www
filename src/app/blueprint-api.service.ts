@@ -31,7 +31,7 @@ export class BlueprintApiService {
     return this.httpClient.get(`blueprints?filter[namespace]=${namespace}`);
   }
 
-  createBlueprint(name, namespace, schema, view, constructionView) {
+  createBlueprint(name, namespace, schema, view, constructionView, listView) {
     return this.httpClient.post('blueprints', {
       data: {
         type: 'blueprints',
@@ -40,7 +40,8 @@ export class BlueprintApiService {
           namespace: namespace,
           schema: schema,
           view: view,
-          'construction-view': constructionView
+          'construction-view': constructionView,
+          'list-view': listView
         }
       }
     });

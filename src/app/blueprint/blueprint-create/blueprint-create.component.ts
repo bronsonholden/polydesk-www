@@ -21,7 +21,7 @@ export class BlueprintCreateComponent implements OnInit {
   }
 
   create() {
-    this.blueprintApi.createBlueprint('Employees', 'employees', JSON.parse(this.schema), JSON.parse(this.view), JSON.parse(this.constructionView)).subscribe(res => {
+    this.blueprintApi.createBlueprint('Employees', 'employees', JSON.parse(this.schema), JSON.parse(this.view), JSON.parse(this.constructionView), JSON.parse(this.listView)).subscribe(res => {
       console.log(res);
     }, res => {
       console.error(res);
