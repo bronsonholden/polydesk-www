@@ -20,11 +20,6 @@ export class HomePageComponent implements OnInit {
       exact: true
     },
     {
-      path: 'folders',
-      label: 'Browse',
-      exact: false
-    },
-    {
       path: 'reports',
       label: 'Reports',
       exact: false
@@ -32,11 +27,6 @@ export class HomePageComponent implements OnInit {
     {
       path: 'workflows',
       label: 'Workflows',
-      exact: false
-    },
-    {
-      path: 'forms',
-      label: 'Forms',
       exact: false
     }
   ];
