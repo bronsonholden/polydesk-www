@@ -341,7 +341,9 @@ export class FolderComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.folderId = params.folder;
       this.scope = {
-        'folder-id': params.folder
+        filter: {
+          'folder-id': params.folder
+        }
       };
     });
   }

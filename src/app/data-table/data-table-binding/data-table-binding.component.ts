@@ -70,7 +70,8 @@ export class DataTableBindingComponent implements OnInit {
   }
 
   reload() {
-    const filter = merge(this.filter, this.scope);
+    const query = merge({ filter: this.filter }, this.query);
+    const filter = query.filter;
     let sort;
 
     if (this.sort.length > 0) {

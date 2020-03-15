@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { BlueprintApiService } from '../blueprint-api.service';
 import { PrefabApiService } from '../prefab-api.service';
 
+import { set } from 'lodash';
+
 @Component({
   selector: 'app-blueprint',
   templateUrl: './blueprint.component.html',
@@ -26,8 +28,8 @@ export class BlueprintComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.data = res.data[0].attributes['list-view'];
-        this.scope.namespace = params.namespace;
-        this.query.generate = this.data.generate;
+        set(this.query, 'filter.namespace', params.namespace);
+        set(this.query, 'generate', this.data.generate);
         this.source = this.prefabApi;
       })
     });

@@ -6,7 +6,7 @@ import { DataTableComponent } from '../../data-table/data-table.component';
 import { FormApiService } from '../../form-api.service';
 import { FormSubmissionApiService } from '../../form-submission-api.service';
 
-import { get, merge, mapValues, isString, isArray } from 'lodash';
+import { get, set, merge, mapValues, isString, isArray } from 'lodash';
 
 @Component({
   selector: 'app-form-submission-list',
@@ -86,7 +86,7 @@ export class FormSubmissionListComponent implements OnInit {
           this.data = this._defaultData;
         }
 
-        this.scope['form-id'] = formId;
+        set(this.scope, 'filter.form-id', formId);
 
         const queryParams = get(res.data.attributes, 'schema.options.queryParams');
         this.query = mapValues(queryParams, value => {
