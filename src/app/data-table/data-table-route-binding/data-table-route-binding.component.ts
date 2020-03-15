@@ -153,7 +153,7 @@ export class DataTableRouteBindingComponent implements OnInit {
 
         return `${dir}${prop}`;
       });
-      this.source.index(this.page.offset || 0, this.page.limit || 25, sort, filter, this.query).subscribe(res => {
+      this.source.index(this.page.offset || 0, this.page.limit || 25, sort, merge({ filter }, this.query)).subscribe(res => {
         this.rows = res.data;
         this.page = {
           offset: res.meta['page-offset'],

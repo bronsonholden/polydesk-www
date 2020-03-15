@@ -11,6 +11,7 @@ import { PrefabApiService } from '../prefab-api.service';
 })
 export class BlueprintComponent implements OnInit {
 
+  query: any = {};
   scope: any = {};
   data: any = {};
   source: any = null;
@@ -26,6 +27,7 @@ export class BlueprintComponent implements OnInit {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.data = res.data[0].attributes['list-view'];
         this.scope.namespace = params.namespace;
+        this.query.generate = this.data.generate;
         this.source = this.prefabApi;
       })
     });
