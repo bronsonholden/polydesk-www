@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class PrefabApiService extends ResourceApi{
 
-  constructor(private httpClient: HttpClient) {
+  constructor(protected httpClient: HttpClient) {
     super(httpClient);
   }
 

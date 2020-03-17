@@ -7,52 +7,59 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 })
 export class BlueprintComposerComponent implements OnInit {
 
-  part = 'schema';
+  @Input() name: string = '';
+  @Input() namespace: string = '';
   @Input() schema: string = '';
   @Input() view: string = '';
   @Input() constructionView: string = '';
   @Input() listView: string = '';
+  @Output() nameChange = new EventEmitter<any>();
+  @Output() namespaceChange = new EventEmitter<any>();
   @Output() schemaChange = new EventEmitter<any>();
   @Output() viewChange = new EventEmitter<any>();
   @Output() constructionViewChange = new EventEmitter<any>();
   @Output() listViewChange = new EventEmitter<any>();
+
+  jsonSections = [
+    {
+      key: 'schema',
+      title: 'Schema',
+      text: this.schema,
+      textChange: this.schemaChange
+    },
+    {
+      key: 'view',
+      title: 'View',
+      text: this.view,
+      textChange: this.viewChange
+    },
+    {
+      key: 'constructionView',
+      title: 'Construction View',
+      text: this.constructionView,
+      textChange: this.constructionViewChange
+    },
+    {
+      key: 'listView',
+      title: 'List View',
+      text: this.listView,
+      textChange: this.listViewChange
+    }
+  ];
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  get partText() {
-    switch (this.part) {
-      case 'schema':
-        return this.schema;
-      case 'view':
-        return this.view;
-      case 'constructionView':
-        return this.constructionView;
-      case 'listView':
-        return this.listView;
-      default:
-        return '';
-    }
-  }
-
-  partTextChange(text) {
-    switch (this.part) {
-      case 'schema':
-        this.schemaChange.emit(text);
-        break;
-      case 'view':
-        this.viewChange.emit(text);
-        break;
-      case 'constructionView':
-        this.constructionViewChange.emit(text);
-        break
-      case 'listView':
-        this.listViewChange.emit(text);
-        break;
-      default:
-        break;
+  ngOnChanges(changes) {
+    for (let part in changes) {
+      const value = changes[part];
+      if (!value.firstChange) {
+        this.jsonSections.filter(section => section.key === part).forEach(section => {
+          section.text = value.currentValue;
+        });
+      }
     }
   }
 

@@ -14,6 +14,8 @@ export class BlueprintEditComponent implements OnInit {
   view: any;
   constructionView: any;
   listView: any;
+  name: any;
+  namespace: any;
   blueprintId: string | null;
 
   constructor(public location: Location,
@@ -26,6 +28,8 @@ export class BlueprintEditComponent implements OnInit {
         const blueprint = res.data[0];
 
         this.blueprintId = blueprint.id;
+        this.name = blueprint.attributes.name;
+        this.namespace = blueprint.attributes.namespace;
         this.schema = JSON.stringify(blueprint.attributes.schema, null, '    ');
         this.view = JSON.stringify(blueprint.attributes.view, null, '    ');
         this.constructionView = JSON.stringify(blueprint.attributes['construction-view'], null, '    ');

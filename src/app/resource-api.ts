@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 export abstract class ResourceApi {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(protected httpClient: HttpClient) { }
 
   abstract resourceName(): string;
 

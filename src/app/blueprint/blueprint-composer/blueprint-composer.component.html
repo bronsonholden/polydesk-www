@@ -1,22 +1,23 @@
 <div class="blueprint-composer" fxLayout="column">
-  <div class="header-row">
-    <mat-form-field>
-      <mat-label>Blueprint Part</mat-label>
-      <mat-select [(value)]="part">
-        <mat-option value="schema">Schema</mat-option>
-        <mat-option value="view">View</mat-option>
-        <mat-option value="constructionView">Construction View</mat-option>
-        <mat-option value="listView">List View</mat-option>
-      </mat-select>
+  <div class="blueprint-section">
+    <mat-form-field appearance="standard">
+      <mat-label>Blueprint Name</mat-label>
+      <input matInput type="text" [ngModel]="name" (ngModelChange)="nameChange.emit($event)">
+    </mat-form-field>
+  </div>
+  <div class="blueprint-section">
+    <mat-form-field appearance="standard">
+      <mat-label>Namespace</mat-label>
+      <input matInput type="text" [ngModel]="namespace" (ngModelChange)="namespaceChange.emit($event)">
     </mat-form-field>
   </div>
   <div
-    fxFlex="auto"
-    class="json-editor"
-    ace-editor
-    mode="json"
-    theme="eclipse"
-    [text]="partText"
-    (textChange)="partTextChange($event)">
+      *ngFor="let section of jsonSections"
+      class="blueprint-json-section">
+    <span class="mat-h2">{{ section.title }}</span>
+    <app-blueprint-composer-json-editor
+      [text]="section.text"
+      (textChange)="section.textChange.emit($event)">
+    </app-blueprint-composer-json-editor>
   </div>
 </div>

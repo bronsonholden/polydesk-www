@@ -13,6 +13,8 @@ export class BlueprintCreateComponent implements OnInit {
   view = ''
   constructionView = '';
   listView = '';
+  name = '';
+  namespace = '';
 
   constructor(public location: Location,
               private blueprintApi: BlueprintApiService) { }
@@ -21,7 +23,7 @@ export class BlueprintCreateComponent implements OnInit {
   }
 
   create() {
-    this.blueprintApi.createBlueprint('Employees', 'employees', JSON.parse(this.schema), JSON.parse(this.view), JSON.parse(this.constructionView), JSON.parse(this.listView)).subscribe(res => {
+    this.blueprintApi.createBlueprint(this.name, this.namespace, JSON.parse(this.schema), JSON.parse(this.view), JSON.parse(this.constructionView), JSON.parse(this.listView)).subscribe(res => {
       console.log(res);
     }, res => {
       console.error(res);

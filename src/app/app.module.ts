@@ -128,6 +128,7 @@ import { BlueprintMigrationViewComponent } from './blueprint/blueprint-migration
 import { BlueprintMigrationEditComponent } from './blueprint/blueprint-migration-edit/blueprint-migration-edit.component';
 import { BlueprintCreateComponent } from './blueprint/blueprint-create/blueprint-create.component';
 import { BlueprintComposerComponent } from './blueprint/blueprint-composer/blueprint-composer.component';
+import { BlueprintComposerJsonEditorComponent } from './blueprint/blueprint-composer/blueprint-composer-json-editor/blueprint-composer-json-editor.component';
 
 const routes: Routes = [
   {
@@ -386,7 +387,8 @@ const routes: Routes = [
     BlueprintMigrationViewComponent,
     BlueprintMigrationEditComponent,
     BlueprintCreateComponent,
-    BlueprintComposerComponent
+    BlueprintComposerComponent,
+    BlueprintComposerJsonEditorComponent
   ],
   entryComponents: [
     AccountCreateComponent,
@@ -495,5 +497,6 @@ export class AppModule {
     matIconRegistry.addSvgIcon('folder-open-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/folder-open-outline.svg'));
     matIconRegistry.addSvgIcon('file-pdf-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-pdf-outline.svg'));
     matIconRegistry.addSvgIcon('file-image-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-image-outline.svg'));
+    matIconRegistry.addSvgIcon('resize-vertical', domSanitizer.bypassSecurityTrustResourceUrl('../assets/resize-vertical.svg'));
   }
 }

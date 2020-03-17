@@ -1,6 +1,8 @@
 <div class="blueprint-create" fxLayout="column">
   <div fxFlex="auto">
     <app-blueprint-composer
+      [(name)]="name"
+      [(namespace)]="namespace"
       [(schema)]="schema"
       [(view)]="view"
       [(constructionView)]="constructionView"

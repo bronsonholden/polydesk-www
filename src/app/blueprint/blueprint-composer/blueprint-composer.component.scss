@@ -3,12 +3,16 @@
   height: 100%;
 }
 
-.json-editor {
-  height: 100%;
-}
-
 .blueprint-composer .header-row {
   padding-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.blueprint-composer .blueprint-json-section {
+  margin: 16px;
+}
+
+.blueprint-composer .blueprint-section {
+  margin: 4px 16px 4px 16px;
 }
