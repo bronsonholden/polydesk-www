@@ -129,8 +129,13 @@ import { BlueprintMigrationEditComponent } from './blueprint/blueprint-migration
 import { BlueprintCreateComponent } from './blueprint/blueprint-create/blueprint-create.component';
 import { BlueprintComposerComponent } from './blueprint/blueprint-composer/blueprint-composer.component';
 import { BlueprintComposerJsonEditorComponent } from './blueprint/blueprint-composer/blueprint-composer-json-editor/blueprint-composer-json-editor.component';
+import { MapTestComponent } from './map-test/map-test.component';
 
 const routes: Routes = [
+  {
+    path: 'maptest',
+    component: MapTestComponent
+  },
   {
     path: 'confirmations/:confirmationToken',
     component: ConfirmationsComponent
@@ -388,7 +393,8 @@ const routes: Routes = [
     BlueprintMigrationEditComponent,
     BlueprintCreateComponent,
     BlueprintComposerComponent,
-    BlueprintComposerJsonEditorComponent
+    BlueprintComposerJsonEditorComponent,
+    MapTestComponent
   ],
   entryComponents: [
     AccountCreateComponent,
