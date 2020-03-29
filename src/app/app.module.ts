@@ -142,175 +142,180 @@ const routes: Routes = [
   },
   {
     path: 'accounts',
-    component: AccountListComponent
-  },
-  {
-    path: ':account',
-    component: HomePageComponent,
     children: [
       {
-        path: 'blueprints/new',
-        component: BlueprintCreateComponent
+        path: '',
+        component: AccountListComponent
       },
       {
-        path: 'desk',
+        path: ':account',
+        component: HomePageComponent,
         children: [
           {
-            path: '',
-            component: DeskComponent,
+            path: 'blueprints/new',
+            component: BlueprintCreateComponent
           },
           {
-            path: ':namespace',
+            path: 'desk',
             children: [
               {
                 path: '',
-                component: BlueprintComponent
+                component: DeskComponent,
               },
               {
-                path: 'edit',
-                component: BlueprintEditComponent
-              },
-              {
-                path: 'new',
-                component: BlueprintConstructionComponent
-              },
-              {
-                path: 'migrations',
+                path: ':namespace',
                 children: [
                   {
                     path: '',
-                    component: BlueprintMigrationsComponent
-                  },
-                  {
-                    path: 'new',
-                    component: BlueprintMigrationCreateComponent
-                  },
-                  {
-                    path: ':id',
-                    children: [
-                      {
-                        path: '',
-                        component: BlueprintMigrationViewComponent
-                      },
-                      {
-                        path: 'edit',
-                        component: BlueprintMigrationEditComponent
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                path: ':tag',
-                children: [
-                  {
-                    path: '',
-                    component: PrefabComponent
+                    component: BlueprintComponent
                   },
                   {
                     path: 'edit',
-                    component: PrefabEditComponent
+                    component: BlueprintEditComponent
+                  },
+                  {
+                    path: 'new',
+                    component: BlueprintConstructionComponent
                   },
                   {
                     path: 'migrations',
                     children: [
                       {
                         path: '',
-                        component: PrefabMigrationHistoryComponent
+                        component: BlueprintMigrationsComponent
                       },
                       {
-                        path: ':migration',
-                        component: PrefabMigrationEventComponent
+                        path: 'new',
+                        component: BlueprintMigrationCreateComponent
+                      },
+                      {
+                        path: ':id',
+                        children: [
+                          {
+                            path: '',
+                            component: BlueprintMigrationViewComponent
+                          },
+                          {
+                            path: 'edit',
+                            component: BlueprintMigrationEditComponent
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    path: ':tag',
+                    children: [
+                      {
+                        path: '',
+                        component: PrefabComponent
+                      },
+                      {
+                        path: 'edit',
+                        component: PrefabEditComponent
+                      },
+                      {
+                        path: 'migrations',
+                        children: [
+                          {
+                            path: '',
+                            component: PrefabMigrationHistoryComponent
+                          },
+                          {
+                            path: ':migration',
+                            component: PrefabMigrationEventComponent
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        path: 'prefab',
-        component: PrefabFormComponent
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'folders',
-        component: DocumentBrowserComponent,
-        children: [
-          {
-            path: '',
-            component: FolderComponent
           },
           {
-            path: 'upload',
+            path: 'prefab',
+            component: PrefabFormComponent
+          },
+          {
+            path: 'dashboard',
+            component: DashboardComponent
+          },
+          {
+            path: 'folders',
+            component: DocumentBrowserComponent,
+            children: [
+              {
+                path: '',
+                component: FolderComponent
+              },
+              {
+                path: 'upload',
+                component: DocumentCreateComponent
+              },
+              {
+                path: ':folder',
+                component: FolderComponent
+              },
+              {
+                path: ':folder/upload',
+                component: DocumentCreateComponent
+              }
+            ]
+          },
+          {
+            path: 'reports',
+            component: ReportListComponent
+          },
+          {
+            path: 'documents/upload',
             component: DocumentCreateComponent
           },
           {
-            path: ':folder',
-            component: FolderComponent
+            path: 'documents/:id',
+            component: DocumentComponent
           },
           {
-            path: ':folder/upload',
-            component: DocumentCreateComponent
-          }
-        ]
-      },
-      {
-        path: 'reports',
-        component: ReportListComponent
-      },
-      {
-        path: 'documents/upload',
-        component: DocumentCreateComponent
-      },
-      {
-        path: 'documents/:id',
-        component: DocumentComponent
-      },
-      {
-        path: 'workflows',
-        component: WorkflowListComponent
-      },
-      {
-        path: 'form-submissions',
-        children: [
-          {
-            path: '',
-            component: WorkflowListComponent // TODO
+            path: 'workflows',
+            component: WorkflowListComponent
           },
           {
-            path: ':form-submission',
-            component: FormSubmissionComponent
-          }
-        ]
-      },
-      {
-        path: 'forms',
-        children: [
-          {
-            path: '',
-            component: FormListComponent,
+            path: 'form-submissions',
+            children: [
+              {
+                path: '',
+                component: WorkflowListComponent // TODO
+              },
+              {
+                path: ':form-submission',
+                component: FormSubmissionComponent
+              }
+            ]
           },
           {
-            path: 'new',
-            component: FormEditComponent
-          },
-          {
-            path: ':id',
-            component: FormComponent,
-          },
-          {
-            path: ':id/edit',
-            component: FormEditComponent
-          },
-          {
-            path: ':id/form-submissions',
-            component: FormSubmissionListComponent
+            path: 'forms',
+            children: [
+              {
+                path: '',
+                component: FormListComponent,
+              },
+              {
+                path: 'new',
+                component: FormEditComponent
+              },
+              {
+                path: ':id',
+                component: FormComponent,
+              },
+              {
+                path: ':id/edit',
+                component: FormEditComponent
+              },
+              {
+                path: ':id/form-submissions',
+                component: FormSubmissionListComponent
+              }
+            ]
           }
         ]
       }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../account.service';
 import { AngularTokenService } from 'angular-token';
 
 @Component({
@@ -31,9 +33,14 @@ export class HomePageComponent implements OnInit {
     }
   ];
 
-  constructor(public tokenService: AngularTokenService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private accountService: AccountService,
+              public tokenService: AngularTokenService) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.accountService.account = params.account;
+    });
   }
 
 }

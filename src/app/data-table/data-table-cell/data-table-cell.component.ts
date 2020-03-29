@@ -141,7 +141,7 @@ export class DataTableCellComponent implements OnInit {
   }
 
   getLink() {
-    return `/${this.accountService.account}/${this.value}`;
+    return `/accounts/${this.accountService.account}/${this.value}`;
   }
 
   getLinkQuery() {
