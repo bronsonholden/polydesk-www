@@ -28,7 +28,7 @@ export class BlueprintApiService {
   }
 
   getBlueprintByNamespace(namespace) {
-    return this.httpClient.get(`blueprints?filter[namespace]=${namespace}`);
+    return this.httpClient.get(`blueprints?filter[]=prop('namespace')=='${namespace}'`);
   }
 
   createBlueprint(name, namespace, schema, view, constructionView, listView) {
