@@ -8,6 +8,10 @@ import { ResourceApi } from './resource-api';
 })
 export class BlueprintApiService extends ResourceApi {
 
+  constructor(protected httpClient: HttpClient) {
+    super(httpClient);
+  }
+
   resourceName(): string {
     return 'blueprints';
   }

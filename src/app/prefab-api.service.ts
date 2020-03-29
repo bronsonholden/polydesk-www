@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PrefabApiService extends ResourceApi{
+export class PrefabApiService extends ResourceApi {
 
   constructor(protected httpClient: HttpClient) {
     super(httpClient);
