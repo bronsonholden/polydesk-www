@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { BlueprintApiService } from '../blueprint-api.service';
 import { PrefabApiService } from '../prefab-api.service';
 
-import { set } from 'lodash';
+import { get, set, isArray } from 'lodash';
 
 @Component({
   selector: 'app-blueprint',
@@ -28,8 +28,20 @@ export class BlueprintComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.data = res.data[0].attributes['list-view'];
-        set(this.query, 'filter.namespace', params.namespace);
+
+        // Set filter query parameter
+        const expr = `prop('namespace') == '${params.namespace}'`;
+
+        let filter = get(this.query, 'filter');
+        if (isArray(filter)) {
+          filter.push(expr);
+        } else {
+          set(this.query, 'filter', [expr]);
+        }
+
+        // Set generate query parameter
         set(this.query, 'generate', this.data.generate);
+
         this.source = this.prefabApi;
       })
     });

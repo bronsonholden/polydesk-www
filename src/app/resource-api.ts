@@ -15,14 +15,24 @@ export abstract class ResourceApi {
     }
 
     const hashParams = [
-      'filter',
       'generate'
     ];
+
+    const arrayParams = [
+      'filter'
+    ]
 
     for (let param of hashParams) {
       const hash = query[param] || {};
       for (let key in hash) {
         params = params.set(`${param}[${key}]`, hash[key]);
+      }
+    }
+
+    for (let param of arrayParams) {
+      const array = query[param] || [];
+      for (let val of array) {
+        params = params.set(`${param}[]`, val);
       }
     }
 
