@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInjector } from './api.injector';
 import { TokenValidationInjector } from './token-validation.injector';
+import { ApiErrorService } from './api-error.service';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,11 @@ import { TokenValidationInjector } from './token-validation.injector';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenValidationInjector,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiErrorService,
       multi: true
     }
   ]
