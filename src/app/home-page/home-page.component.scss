@@ -12,10 +12,14 @@
 }
 
 .home-wrapper {
+  overflow-y: hidden;
+}
+
+.home-content {
   position: absolute;
   top: 49px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }

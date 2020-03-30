@@ -19,6 +19,14 @@ mat-toolbar.actionbar button, .button-row button:not(:last-child) {
   flex-direction: column;
 }
 
+/* At certain heights, the ngx-datatable footer will have vertical overflow.
+ * The contents themselves are still visible so this just gets rid of the
+ * pesky scrollbar.
+ */
+.ngx-datatable.material .datatable-footer {
+  overflow-y: hidden;
+}
+
 .text-no-select {
   -webkit-user-select: none;
   -moz-user-select: none;
