@@ -19,34 +19,7 @@ import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AgmCoreModule } from '@agm/core';
 
-// Import Material components
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatGridListModule,
-  MatIconModule,
-  MatIconRegistry,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSnackBarModule,
-  MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule
-} from '@angular/material';
+import { MaterialModule } from './material.module';
 
 import { AccountService } from './account.service';
 import { DocumentApiService } from './document-api.service';
@@ -428,30 +401,7 @@ const routes: Routes = [
     // start with the configured apiBase and not apply auth headers.
     ApiModule,
     AngularTokenModule.forRoot(environment.tokenAuthConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
+    MaterialModule,
     NgxDatatableModule,
     ReactiveFormsModule,
     FormlyModule.forRoot({
@@ -503,11 +453,4 @@ const routes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
-    matIconRegistry.addSvgIcon('folder-open-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/folder-open-outline.svg'));
-    matIconRegistry.addSvgIcon('file-pdf-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-pdf-outline.svg'));
-    matIconRegistry.addSvgIcon('file-image-outline', domSanitizer.bypassSecurityTrustResourceUrl('../assets/file-image-outline.svg'));
-    matIconRegistry.addSvgIcon('resize-vertical', domSanitizer.bypassSecurityTrustResourceUrl('../assets/resize-vertical.svg'));
-  }
 }
