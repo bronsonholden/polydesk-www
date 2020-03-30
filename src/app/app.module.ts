@@ -162,7 +162,7 @@ const routes: Routes = [
                         component: BlueprintMigrationCreateComponent
                       },
                       {
-                        path: ':id',
+                        path: ':migration',
                         children: [
                           {
                             path: '',
@@ -207,10 +207,6 @@ const routes: Routes = [
             ]
           },
           {
-            path: 'prefab',
-            component: PrefabFormComponent
-          },
-          {
             path: 'dashboard',
             component: DashboardComponent
           },
@@ -251,44 +247,6 @@ const routes: Routes = [
           {
             path: 'workflows',
             component: WorkflowListComponent
-          },
-          {
-            path: 'form-submissions',
-            children: [
-              {
-                path: '',
-                component: WorkflowListComponent // TODO
-              },
-              {
-                path: ':form-submission',
-                component: FormSubmissionComponent
-              }
-            ]
-          },
-          {
-            path: 'forms',
-            children: [
-              {
-                path: '',
-                component: FormListComponent,
-              },
-              {
-                path: 'new',
-                component: FormEditComponent
-              },
-              {
-                path: ':id',
-                component: FormComponent,
-              },
-              {
-                path: ':id/edit',
-                component: FormEditComponent
-              },
-              {
-                path: ':id/form-submissions',
-                component: FormSubmissionListComponent
-              }
-            ]
           }
         ]
       }
