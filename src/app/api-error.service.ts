@@ -12,6 +12,12 @@ export class ApiErrorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError((error: HttpErrorResponse) => {
+      if (error.status === 0) {
+        return this.snackBar.open('Unable to connect to API server', 'OK', {
+          duration: 5000
+        });
+      }
+
       let messages = error.error.errors.map(item => {
         if (typeof item === 'string') {
           return item;
