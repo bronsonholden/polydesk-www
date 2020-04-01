@@ -103,8 +103,13 @@ import { BlueprintCreateComponent } from './blueprint/blueprint-create/blueprint
 import { BlueprintComposerComponent } from './blueprint/blueprint-composer/blueprint-composer.component';
 import { BlueprintComposerJsonEditorComponent } from './blueprint/blueprint-composer/blueprint-composer-json-editor/blueprint-composer-json-editor.component';
 import { MapTestComponent } from './map-test/map-test.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 const routes: Routes = [
+  {
+    path: 'documentation',
+    component: DocumentationComponent
+  },
   {
     path: 'maptest',
     component: MapTestComponent
@@ -330,7 +335,8 @@ const routes: Routes = [
     BlueprintCreateComponent,
     BlueprintComposerComponent,
     BlueprintComposerJsonEditorComponent,
-    MapTestComponent
+    MapTestComponent,
+    DocumentationComponent
   ],
   entryComponents: [
     AccountCreateComponent,
