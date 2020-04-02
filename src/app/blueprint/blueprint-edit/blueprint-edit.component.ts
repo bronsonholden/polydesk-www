@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AccountService } from '../../account.service';
 import { BlueprintApiService } from '../../blueprint-api.service';
 
 @Component({
@@ -20,7 +21,9 @@ export class BlueprintEditComponent implements OnInit {
 
   constructor(public location: Location,
               private activatedRoute: ActivatedRoute,
-              private blueprintApi: BlueprintApiService) { }
+              private blueprintApi: BlueprintApiService,
+              private accountService: AccountService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -48,6 +51,8 @@ updateBlueprint() {
     'list-view': JSON.parse(this.listView)
   }).subscribe((res: any) => {
     console.log(res);
+
+    this.router.navigateByUrl(`/accounts/${this.accountService.account}/desk`);
   }, (res: any) => {
     console.error(res);
   });
