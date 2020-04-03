@@ -141,7 +141,11 @@ export class DataTableCellComponent implements OnInit {
   }
 
   getLink() {
-    return `/accounts/${this.accountService.account}/${this.value}`;
+    if (this.column.link.absolute) {
+      return `/${this.value}`;
+    } else {
+      return `/accounts/${this.accountService.account}/${this.value}`;
+    }
   }
 
   getLinkQuery() {
