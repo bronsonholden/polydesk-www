@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { AccountCreateComponent } from '../account-create/account-create.component';
 import { AccountService } from '../../account.service';
-import { AccountModel } from '../account.component';
+import { AccountApiService } from '../../account-api.service';
+import { DataTableRouteBindingComponent } from '../../data-table/data-table-route-binding/data-table-route-binding.component';
 
 @Component({
   selector: 'app-account-list',
@@ -13,19 +13,61 @@ import { AccountModel } from '../account.component';
 })
 export class AccountListComponent implements OnInit {
 
-  public accounts: AccountModel[] = [];
+  @ViewChild(DataTableRouteBindingComponent) dataTable;
+
+  data: any = {
+    select: 'multiple',
+    columns: {
+      accountName: {
+        title: 'Account Name',
+        display: 'link',
+        type: 'concat',
+        value: {
+          separator: '/',
+          parts: [
+            {
+              type: 'literal',
+              value: 'accounts'
+            },
+            {
+              type: 'attribute',
+              value: 'identifier'
+            },
+            {
+              type: 'literal',
+              value: 'desk'
+            }
+          ]
+        },
+        link: {
+          display: 'text',
+          type: 'attribute',
+          value: 'name',
+          absolute: true
+        }
+      }
+    },
+    display: [
+      {
+        name: 'accountName',
+        width: 150,
+        resizeable: true,
+        sortable: true
+      }
+    ]
+  };
+  scope: any = {};
+  selection: any = {};
+
 
   constructor(public dialog: MatDialog,
-              private httpClient: HttpClient,
               private accountService: AccountService,
-              private snackBar: MatSnackBar,
-              private router: Router) { }
+              public accountApi: AccountApiService,
+              private httpClient: HttpClient,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.accountService.account = null;
-    this.httpClient.get('accounts').subscribe((result: any) => {
-      this.accounts = result.data.map(account => new AccountModel(account.attributes.name, account.attributes.identifier));
-    });
   }
 
   openAccountCreateDialog() {
@@ -49,18 +91,13 @@ export class AccountListComponent implements OnInit {
         }
       }).subscribe((result: any) => {
         const account = result.data;
-        this.accounts.push(new AccountModel(account.attributes.name, account.attributes.identifier));
+        this.dataTable.reload();
       }, result => {
         this.snackBar.open(result.error.errors[0].title, 'OK', {
           duration: 3000
         });
       });
     });
-  }
-
-  selectAccount(account) {
-    this.accountService.account = account.identifier;
-    this.router.navigateByUrl(`/accounts/${account.identifier}/desk`);
   }
 
 }
