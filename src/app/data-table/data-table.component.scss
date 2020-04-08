@@ -9,3 +9,12 @@
 .button-row {
   margin: 8px;
 }
+
+.filter-icon {
+  transform: scale(0.66);
+  opacity: 0.5;
+}
+
+.filter-icon:hover {
+  opacity: 1;
+}

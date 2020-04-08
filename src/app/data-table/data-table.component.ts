@@ -168,4 +168,7 @@ export class DataTableComponent implements OnInit {
     this.sortChange.emit(sorts);
   }
 
+  openFilterDialog() {
+  }
+
 }
