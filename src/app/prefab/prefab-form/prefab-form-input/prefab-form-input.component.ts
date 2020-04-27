@@ -5,11 +5,11 @@ import { FieldType } from '@ngx-formly/material/form-field';
 import { get } from 'lodash';
 
 @Component({
-  selector: 'app-form-widget-input',
-  templateUrl: './form-widget-input.component.html',
-  styleUrls: ['./form-widget-input.component.scss']
+  selector: 'app-prefab-form-input',
+  templateUrl: './prefab-form-input.component.html',
+  styleUrls: ['./prefab-form-input.component.scss']
 })
-export class FormWidgetInputComponent extends FieldType implements OnInit {
+export class PrefabFormInputComponent extends FieldType implements OnInit {
   @ViewChild(MatInput, <any> { static: true }) formFieldControl!: MatInput;
 
   constructor() {

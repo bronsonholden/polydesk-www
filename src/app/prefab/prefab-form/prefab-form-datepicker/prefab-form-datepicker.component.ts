@@ -6,15 +6,15 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-form-widget-datepicker',
-  templateUrl: './form-widget-datepicker.component.html',
-  styleUrls: ['./form-widget-datepicker.component.scss'],
+  selector: 'app-prefab-form-datepicker',
+  templateUrl: './prefab-form-datepicker.component.html',
+  styleUrls: ['./prefab-form-datepicker.component.scss'],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [ MAT_DATE_LOCALE ] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ]
 })
-export class FormWidgetDatepickerComponent extends FieldType implements OnInit {
+export class PrefabFormDatepickerComponent extends FieldType implements OnInit {
 
   constructor() {
     super();

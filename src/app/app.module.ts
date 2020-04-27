@@ -73,7 +73,7 @@ import { FormWidgetFormSubmissionReferenceComponent } from './form/form-widget/f
 import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';
 import { FormEmbedComponent } from './form/form-embed/form-embed.component';
 import { FormWidgetSliderComponent } from './form/form-widget/form-widget-slider/form-widget-slider.component';
-import { FormWidgetDatepickerComponent } from './form/form-widget/form-widget-datepicker/form-widget-datepicker.component';
+import { PrefabFormDatepickerComponent } from './prefab/prefab-form/prefab-form-datepicker/prefab-form-datepicker.component';
 import { DataTableRouteBindingComponent } from './data-table/data-table-route-binding/data-table-route-binding.component';
 import { DataTableBindingComponent } from './data-table/data-table-binding/data-table-binding.component';
 import { FormWidgetMapPointComponent } from './form/form-widget/form-widget-map-point/form-widget-map-point.component';
@@ -84,7 +84,7 @@ import { FormWidgetMapPolylineWrapperComponent } from './form/form-widget/form-w
 import { PrefabComponent } from './prefab/prefab.component';
 import { PrefabFormComponent } from './prefab/prefab-form/prefab-form.component';
 import { FormWidgetLabelComponent } from './form/form-widget/form-widget-label/form-widget-label.component';
-import { FormWidgetInputComponent } from './form/form-widget/form-widget-input/form-widget-input.component';
+import { PrefabFormInputComponent } from './prefab/prefab-form/prefab-form-input/prefab-form-input.component';
 import { PrefabFormRowComponent } from './prefab/prefab-form/prefab-form-row/prefab-form-row.component';
 import { PrefabFormColumnComponent } from './prefab/prefab-form/prefab-form-column/prefab-form-column.component';
 import { PrefabFormContainerComponent } from './prefab/prefab-form/prefab-form-container/prefab-form-container.component';
@@ -306,7 +306,7 @@ const routes: Routes = [
     FormSubmissionSelectComponent,
     FormEmbedComponent,
     FormWidgetSliderComponent,
-    FormWidgetDatepickerComponent,
+    PrefabFormDatepickerComponent,
     DataTableRouteBindingComponent,
     DataTableBindingComponent,
     FormWidgetMapPointComponent,
@@ -317,7 +317,7 @@ const routes: Routes = [
     PrefabComponent,
     PrefabFormComponent,
     FormWidgetLabelComponent,
-    FormWidgetInputComponent,
+    PrefabFormInputComponent,
     PrefabFormRowComponent,
     PrefabFormColumnComponent,
     PrefabFormContainerComponent,
@@ -350,7 +350,7 @@ const routes: Routes = [
     FormConfirmDeleteComponent,
     TopbarActionsComponent,
     FormWidgetMapNewLayerComponent,
-    FormWidgetInputComponent,
+    PrefabFormInputComponent,
     PrefabFormColumnComponent,
     PrefabFormRowComponent
   ],
@@ -395,11 +395,11 @@ const routes: Routes = [
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
         { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
         { name: 'slider', component: FormWidgetSliderComponent },
-        { name: 'datepicker', component: FormWidgetDatepickerComponent },
+        { name: 'datepicker', component: PrefabFormDatepickerComponent },
         { name: 'map-point', component: FormWidgetMapPointComponent },
         { name: 'map-polyline', component: FormWidgetMapPolylineComponent },
         { name: 'map', component: FormWidgetMapComponent },
-        { name: 'input', component: FormWidgetInputComponent },
+        { name: 'input', component: PrefabFormInputComponent },
         { name: 'row', component: PrefabFormRowComponent },
         { name: 'column', component: PrefabFormColumnComponent }
       ]

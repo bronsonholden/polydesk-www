@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormWidgetInputComponent } from './form-widget-input.component';
+import { PrefabFormInputComponent } from './prefab-form-input.component';
 
-describe('FormWidgetInputComponent', () => {
-  let component: FormWidgetInputComponent;
-  let fixture: ComponentFixture<FormWidgetInputComponent>;
+describe('PrefabFormInputComponent', () => {
+  let component: PrefabFormInputComponent;
+  let fixture: ComponentFixture<PrefabFormInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormWidgetInputComponent ]
+      declarations: [ PrefabFormInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormWidgetInputComponent);
+    fixture = TestBed.createComponent(PrefabFormInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
