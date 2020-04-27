@@ -25,7 +25,7 @@ export class BlueprintConstructionComponent implements OnInit {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.blueprintId = res.data[0].id;
         this.schema = res.data[0].attributes.schema;
-        this.view = res.data[0].attributes.view;
+        this.view = res.data[0].attributes['construction-view'];
       }, res => {
         console.log(res);
       });
