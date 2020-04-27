@@ -1,13 +1,14 @@
 <div class="blueprint-composer-json-editor">
-  <div
+  <ace-editor
+      #editor
       class="json-editor"
-      ace-editor
+      (resized)="resizeEditor($event)"
       mode="json"
       theme="eclipse"
       [text]="text"
       (textChange)="textChange.emit($event)">
-    <div class="resize-icon">
-      <mat-icon style="opacity: 0.3; transform: scale(0.7)" svgIcon="resize-vertical"></mat-icon>
-    </div>
+  </ace-editor>
+  <div class="resize-icon">
+    <mat-icon style="opacity: 0.3; transform: scale(0.7)" svgIcon="resize-vertical"></mat-icon>
   </div>
 </div>

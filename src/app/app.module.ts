@@ -18,6 +18,7 @@ import { FormlyFlexLayoutType } from './formly-flex-layout-type';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AgmCoreModule } from '@agm/core';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 import { MaterialModule } from './material.module';
 
@@ -355,6 +356,7 @@ const routes: Routes = [
   ],
   imports: [
     AceEditorModule,
+    AngularResizedEventModule,
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
