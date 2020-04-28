@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormWidgetLabelComponent } from './form-widget-label.component';
+import { PrefabFormLabelComponent } from './prefab-form-label.component';
 
-describe('FormWidgetLabelComponent', () => {
-  let component: FormWidgetLabelComponent;
-  let fixture: ComponentFixture<FormWidgetLabelComponent>;
+describe('PrefabFormLabelComponent', () => {
+  let component: PrefabFormLabelComponent;
+  let fixture: ComponentFixture<PrefabFormLabelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormWidgetLabelComponent ]
+      declarations: [ PrefabFormLabelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormWidgetLabelComponent);
+    fixture = TestBed.createComponent(PrefabFormLabelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

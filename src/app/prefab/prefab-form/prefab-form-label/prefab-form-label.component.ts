@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/material/form-field';
 
 @Component({
-  selector: 'app-form-widget-label',
-  templateUrl: './form-widget-label.component.html',
-  styleUrls: ['./form-widget-label.component.scss']
+  selector: 'app-prefab-form-label',
+  templateUrl: './prefab-form-label.component.html',
+  styleUrls: ['./prefab-form-label.component.scss']
 })
-export class FormWidgetLabelComponent extends FieldType implements OnInit {
+export class PrefabFormLabelComponent extends FieldType implements OnInit {
 
   constructor() {
     super();

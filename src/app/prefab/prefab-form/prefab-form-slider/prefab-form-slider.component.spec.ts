@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormWidgetSliderComponent } from './form-widget-slider.component';
+import { PrefabFormSliderComponent } from './prefab-form-slider.component';
 
-describe('FormWidgetSliderComponent', () => {
-  let component: FormWidgetSliderComponent;
-  let fixture: ComponentFixture<FormWidgetSliderComponent>;
+describe('PrefabFormSliderComponent', () => {
+  let component: PrefabFormSliderComponent;
+  let fixture: ComponentFixture<PrefabFormSliderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormWidgetSliderComponent ]
+      declarations: [ PrefabFormSliderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormWidgetSliderComponent);
+    fixture = TestBed.createComponent(PrefabFormSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

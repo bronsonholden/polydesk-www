@@ -4,11 +4,11 @@ import { MatSlider } from '@angular/material';
 import { get } from 'lodash';
 
 @Component({
-  selector: 'app-form-widget-slider',
-  templateUrl: './form-widget-slider.component.html',
-  styleUrls: ['./form-widget-slider.component.scss']
+  selector: 'app-prefab-form-slider',
+  templateUrl: './prefab-form-slider.component.html',
+  styleUrls: ['./prefab-form-slider.component.scss']
 })
-export class FormWidgetSliderComponent extends FieldType implements OnInit {
+export class PrefabFormSliderComponent extends FieldType implements OnInit {
 
   @ViewChild(MatSlider) slider!: MatSlider;
   baseLabel: string;
