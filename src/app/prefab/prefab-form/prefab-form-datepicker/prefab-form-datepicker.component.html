@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field style="width: 100%;">
   <mat-datepicker #datepicker></mat-datepicker>
   <input matInput [placeholder]="to.title" (dateChange)="onDateChange($event)" [matDatepicker]="datepicker" [formlyAttributes]="field">
   <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
