@@ -1,0 +1,11 @@
+table.prefab-form-array tr:not(:last-child) > td > div {
+  padding-bottom: 12px;
+}
+
+table.prefab-form-array tr > td.remove-cell {
+  border-left: 2px solid transparent;
+}
+
+table.prefab-form-array tr > td.remove-cell:hover {
+  border-left: 2px solid #f4f4f4;
+}

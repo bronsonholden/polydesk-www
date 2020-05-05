@@ -65,7 +65,7 @@ import { AccountCreateComponent } from './account/account-create/account-create.
 import { AccountListComponent } from './account/account-list/account-list.component';
 import { FormConfirmDeleteComponent } from './form-confirm-delete/form-confirm-delete.component';
 import { FormWidgetObjectComponent } from './form/form-widget/form-widget-object/form-widget-object.component';
-import { FormWidgetArrayComponent } from './form/form-widget/form-widget-array/form-widget-array.component';
+import { PrefabFormArrayComponent } from './prefab/prefab-form/prefab-form-array/prefab-form-array.component';
 import { FormWidgetFolderReferenceComponent } from './form/form-widget/form-widget-folder-reference/form-widget-folder-reference.component';
 import { FormSubmissionComponent } from './form-submission/form-submission.component';
 import { FormSubmissionListComponent } from './form-submission/form-submission-list/form-submission-list.component';
@@ -298,7 +298,7 @@ const routes: Routes = [
     FormlyFlexLayoutType,
     FormConfirmDeleteComponent,
     FormWidgetObjectComponent,
-    FormWidgetArrayComponent,
+    PrefabFormArrayComponent,
     FormWidgetFolderReferenceComponent,
     FormSubmissionComponent,
     FormSubmissionListComponent,
@@ -391,7 +391,7 @@ const routes: Routes = [
         { name: 'boolean', extends: 'checkbox' },
         { name: 'object', component: FormWidgetObjectComponent },
         { name: 'label', component: PrefabFormLabelComponent },
-        { name: 'array', component: FormWidgetArrayComponent },
+        { name: 'array', component: PrefabFormArrayComponent },
         { name: 'polydesk-folder', component: FormWidgetFolderReferenceComponent },
         { name: 'polydesk-form-submission', component: FormWidgetFormSubmissionReferenceComponent },
         { name: 'slider', component: PrefabFormSliderComponent },
