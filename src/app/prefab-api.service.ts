@@ -8,16 +8,19 @@ import { Subject } from 'rxjs';
 })
 export class PrefabApiService extends ResourceApi {
 
+  public namespace;
+
   constructor(protected httpClient: HttpClient) {
     super(httpClient);
   }
 
   resourceName() {
-    return 'prefabs';
+    return `prefabs/${this.namespace}`;
   }
 
   getPrefabByUid(namespace, tag) {
-    return this.index(0, 1, null, { filter: { namespace, tag } });
+    this.namespace = namespace;
+    return this.index(0, 1, null, { filter: { id: tag } });
   }
 
 }
