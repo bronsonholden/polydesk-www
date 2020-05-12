@@ -50,8 +50,8 @@ export class BlueprintApiService extends ResourceApi {
     });
   }
 
-  constructBlueprint(id, data) {
-    return this.httpClient.post('prefabs', {
+  constructBlueprint(id, namespace, data) {
+    return this.httpClient.post(`prefabs/${namespace}`, {
       data: {
         type: 'prefabs',
         attributes: {

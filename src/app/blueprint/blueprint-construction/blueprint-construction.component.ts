@@ -15,6 +15,7 @@ export class BlueprintConstructionComponent implements OnInit {
   view: any = {};
   options: any = {};
   blueprintId: string;
+  blueprintNamespace: string;
 
   constructor(public location: Location,
               private blueprintApi: BlueprintApiService,
@@ -24,6 +25,7 @@ export class BlueprintConstructionComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
         this.blueprintId = res.data[0].id;
+        this.blueprintNamespace = res.data[0].attributes.namespace;
         this.schema = res.data[0].attributes.schema;
         this.view = res.data[0].attributes['construction-view'];
       }, res => {
@@ -33,7 +35,7 @@ export class BlueprintConstructionComponent implements OnInit {
   }
 
   constructPrefab() {
-    this.blueprintApi.constructBlueprint(this.blueprintId, this.model).subscribe((res: any) => {
+    this.blueprintApi.constructBlueprint(this.blueprintId, this.blueprintNamespace, this.model).subscribe((res: any) => {
       console.log(res);
     }, res => {
       console.error(res);
