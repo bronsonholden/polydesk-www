@@ -18,9 +18,9 @@ export class PrefabApiService extends ResourceApi {
     return `prefabs/${this.namespace}`;
   }
 
-  getPrefabByUid(namespace, tag) {
+  getPrefabByUid(namespace, id) {
     this.namespace = namespace;
-    return this.index(0, 1, null, { filter: { id: tag } });
+    return this.httpClient.get(`prefabs/${namespace}/${id}`);
   }
 
 }
