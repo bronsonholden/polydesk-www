@@ -9,7 +9,8 @@ import { get, set, isArray } from 'lodash';
 @Component({
   selector: 'app-blueprint',
   templateUrl: './blueprint.component.html',
-  styleUrls: ['./blueprint.component.scss']
+  styleUrls: ['./blueprint.component.scss'],
+  providers: [PrefabApiService]
 })
 export class BlueprintComponent implements OnInit {
 
@@ -42,8 +43,9 @@ export class BlueprintComponent implements OnInit {
         // Set generate query parameter
         set(this.query, 'generate', this.data.generate);
 
+        this.prefabApi.namespace = params.namespace;
         this.source = this.prefabApi;
-      })
+      });
     });
   }
 
