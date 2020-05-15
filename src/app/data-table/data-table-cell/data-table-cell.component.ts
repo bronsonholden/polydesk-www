@@ -113,6 +113,7 @@ export class DataTableCellComponent implements OnInit {
         return this.row.id;
       case 'type':
         return this.row.type;
+      case 'generated':
       case 'meta':
         return this.row.meta[columnInfo.value];
       case 'attribute':

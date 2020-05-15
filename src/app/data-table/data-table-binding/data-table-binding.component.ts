@@ -70,15 +70,9 @@ export class DataTableBindingComponent implements OnInit {
   }
 
   reload() {
-    const query = merge({ filter: this.filter }, this.query);
-    const filter = query.filter;
-    let sort;
+    const query = merge({ filter: this.filter, sort: this.sort }, this.query);
 
-    if (this.sort.length > 0) {
-      sort = this.sort.join(',');
-    }
-
-    this.source.index(this.page.offset || 0, this.page.limit || 25, sort, filter, this.query).subscribe(res => {
+    this.source.index(this.page.offset || 0, this.page.limit || 25, query).subscribe(res => {
       // Any time the table changes, remove selection
       this.onSelectionChange([]);
       this.rows = res.data;

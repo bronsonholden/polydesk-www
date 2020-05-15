@@ -119,8 +119,14 @@ export class DataTableRouteBindingComponent implements OnInit {
       return this.getColDataPath(col.link);
     }
 
-    if (col.type === 'json' || col.type === 'attribute') {
-      return col.value;
+    switch (col.type) {
+      case 'json':
+      case 'attribute':
+        return `prop('${col.value}')`;
+      case 'generated':
+        return this.data.generate[col.value];
+      default:
+        ;
     }
 
     return null;
@@ -132,28 +138,31 @@ export class DataTableRouteBindingComponent implements OnInit {
       let sortArray = this.scrubSort(this.sort || []);
       this.sort = sortArray;
       this.updateSortParam(this.sort);
-      // console.log(this.sort);
       const sort = sortArray.map(s => {
         let prop = s;
-        let dir = '';
+        let dir = 'asc';
         if (prop.startsWith('-')) {
           prop = prop.slice(1);
-          dir = '-';
+          dir = 'desc';
         }
         const col = this.data.columns[prop];
 
         if (col.sortAs) {
-          return `${dir}${col.sortAs}`
+          return `${dir}(${col.sortAs})`
         }
 
         let v = this.getColDataPath(col);
         if (v) {
-          return `${dir}${v}`;
+          return `${dir}(${v})`;
+        } else {
+          setTimeout(() => {
+            this.snackBar.open(`We can't sort by column '${prop}'; its source (${col.type}) is not sortable.`, null, {
+              duration: 5000
+            });
+          });
         }
-
-        return `${dir}${prop}`;
       });
-      this.source.index(this.page.offset || 0, this.page.limit || 25, sort, merge({ filter }, this.query)).subscribe(res => {
+      this.source.index(this.page.offset || 0, this.page.limit || 25, merge({ sort, filter }, this.query)).subscribe(res => {
         this.rows = res.data;
         this.page = {
           offset: res.meta['page-offset'],
@@ -245,15 +254,7 @@ export class DataTableRouteBindingComponent implements OnInit {
           colRef = colRef.link;
         }
 
-        if (colRef.type !== 'id' && colRef.type !== 'attribute' && colRef.type !== 'json') {
-          setTimeout(() => {
-            this.snackBar.open(`We can't sort by column '${colId}'; it is not sortable.`, null, {
-              duration: 5000
-            });
-          }, 0);
-        } else {
-          filteredSort.push(col);
-        }
+        filteredSort.push(col);
       }
     });
 
