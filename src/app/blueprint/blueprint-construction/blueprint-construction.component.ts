@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AccountService } from '../../account.service';
 import { BlueprintApiService } from '../../blueprint-api.service';
 
 @Component({
@@ -18,6 +19,8 @@ export class BlueprintConstructionComponent implements OnInit {
   blueprintNamespace: string;
 
   constructor(public location: Location,
+              private router: Router,
+              private accountService: AccountService,
               private blueprintApi: BlueprintApiService,
               private activatedRoute: ActivatedRoute) { }
 
@@ -36,7 +39,7 @@ export class BlueprintConstructionComponent implements OnInit {
 
   constructPrefab() {
     this.blueprintApi.constructBlueprint(this.blueprintId, this.blueprintNamespace, this.model).subscribe((res: any) => {
-      console.log(res);
+      this.router.navigateByUrl(`/accounts/${this.accountService.account}/desk/${this.blueprintNamespace}`);
     }, res => {
       console.error(res);
     })
