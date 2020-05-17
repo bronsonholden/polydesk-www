@@ -45,6 +45,7 @@ export class BlueprintEditComponent implements OnInit {
 
 updateBlueprint() {
   this.blueprintApi.updateBlueprint(this.blueprintId, {
+    name: this.name,
     schema: JSON.parse(this.schema),
     view: JSON.parse(this.view),
     'construction-view': JSON.parse(this.constructionView),
