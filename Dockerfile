@@ -1,9 +1,9 @@
-FROM node:8.12.0 as build
+FROM node:10.16.3 as build
 WORKDIR /polydesk-www
 ENV PATH /polydesk-www/node_modules/.bin:$PATH
 COPY package.json /polydesk-www/package.json
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
+RUN npm install -g @angular/cli@9.1.6
 COPY . /polydesk-www
 RUN ng build --output-path=dist --configuration=docker
 
