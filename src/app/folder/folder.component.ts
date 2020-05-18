@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, from, forkJoin } from 'rxjs';

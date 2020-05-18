@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FieldType } from '@ngx-formly/core';
 import { FormWidgetMapNewLayerComponent } from './form-widget-map-new-layer/form-widget-map-new-layer.component';
 import { AgmPolyline } from '@agm/core';

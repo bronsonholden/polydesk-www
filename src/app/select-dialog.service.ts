@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { FolderSelectComponent } from './folder/folder-select/folder-select.component';
 import { FormSubmissionSelectComponent } from './form-submission/form-submission-select/form-submission-select.component';

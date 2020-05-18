@@ -10,7 +10,7 @@ import { get } from 'lodash';
   styleUrls: ['./prefab-form-input.component.scss']
 })
 export class PrefabFormInputComponent extends FieldType implements OnInit {
-  @ViewChild(MatInput, <any> { static: true }) formFieldControl!: MatInput;
+  @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
 
   constructor() {
     super();

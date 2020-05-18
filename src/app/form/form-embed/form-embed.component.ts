@@ -4,7 +4,7 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { get, isArray } from 'lodash';
 

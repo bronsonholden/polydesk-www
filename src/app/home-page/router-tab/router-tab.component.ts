@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ContentChildren, Directive, Input, OnDestroy, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { MatTab, MatTabGroup } from '@angular/material';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 

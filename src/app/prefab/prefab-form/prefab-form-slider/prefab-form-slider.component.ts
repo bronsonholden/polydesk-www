@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
-import { MatSlider } from '@angular/material';
+import { MatSlider } from '@angular/material/slider';
 import { get } from 'lodash';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularTokenService } from 'angular-token';
 import { DatatableComponent as NgxDatatableComponent, SortType } from '@swimlane/ngx-datatable';
 
@@ -19,7 +19,7 @@ export class DataTableComponent implements OnInit {
 
   SortType = SortType;
 
-  @ViewChild(NgxDatatableComponent) datatable: NgxDatatableComponent
+  @ViewChild(NgxDatatableComponent, { static: true }) datatable: NgxDatatableComponent;
 
   readonly messages = {
     emptyMessage: '',

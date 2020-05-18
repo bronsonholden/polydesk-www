@@ -3,7 +3,8 @@ import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { AngularTokenService } from 'angular-token';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatSnackBar, MatDialog } from '@angular/material'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from  'rxjs/operators';
 import { FolderSelectComponent } from '../folder/folder-select/folder-select.component';
