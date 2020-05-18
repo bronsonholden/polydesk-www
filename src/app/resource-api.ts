@@ -28,7 +28,6 @@ export abstract class ResourceApi {
 
     for (let param of arrayParams) {
       const array = query[param] || [];
-      console.log(array);
       for (let val of array) {
         params = params.append(`${param}[]`, val);
       }
