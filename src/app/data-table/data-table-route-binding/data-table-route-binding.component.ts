@@ -115,11 +115,14 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   getColDataPath(col) {
-    if (col.display === 'link') {
-      return this.getColDataPath(col.link);
-    }
-
     switch (col.type) {
+      case 'id':
+        return "prop('id')";
+      case 'link':
+        // Prevent infinite loops
+        if (col.link.type !== 'link') {
+          return this.getColDataPath(col.link);
+        }
       case 'json':
       case 'attribute':
         return `prop('${col.value}')`;
@@ -162,7 +165,7 @@ export class DataTableRouteBindingComponent implements OnInit {
           });
         }
       });
-      this.source.index(this.page.offset || 0, this.page.limit || 25, merge({ sort, filter }, this.query)).subscribe(res => {
+      this.source.index(this.page.offset || 0, this.page.limit || 25, merge({ sort }, this.query)).subscribe(res => {
         this.rows = res.data;
         this.page = {
           offset: res.meta['page-offset'],

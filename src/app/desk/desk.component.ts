@@ -19,6 +19,7 @@ export class DeskComponent implements OnInit {
         title: 'Name',
         display: 'link',
         type: 'concat',
+        sortAs: "prop('name')",
         value: {
           separator: '/',
           parts: [
