@@ -23,6 +23,7 @@ export class AccountListComponent implements OnInit {
         title: 'Account Name',
         display: 'link',
         type: 'concat',
+        sortAs: "prop('name')",
         value: {
           separator: '/',
           parts: [
