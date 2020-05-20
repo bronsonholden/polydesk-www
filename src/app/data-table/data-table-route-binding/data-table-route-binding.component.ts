@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { without, merge, isNil } from 'lodash';
+import { without, merge, mergeWith, isNil, isArray } from 'lodash';
 
 /**
  * A wrapper that binds data table pagination, filtering, and sorting to query
@@ -21,7 +21,7 @@ export class DataTableRouteBindingComponent implements OnInit {
   @Input() source: any = null;
   @Input() selection: any = [];
   @Output() selectionChange = new EventEmitter<any>();
-  @Input() filter: any = {};
+  @Input() filter: any = [];
   @Input() query: any = {};
   // An intrinsic filter that can't be overridden with filter query params
   @Input() scope: any = {};
@@ -60,25 +60,20 @@ export class DataTableRouteBindingComponent implements OnInit {
 
       let hasFilterParams = false;
 
-      for (let key of Object.keys(params)) {
-        if (key.match(/^filter\[(.*)\]$/)) {
-          hasFilterParams = true;
-          break;
-        }
+      if (params.filter) {
+        hasFilterParams = true;
       }
 
       if (hasFilterParams) {
         shouldReload = true;
-        const filterKeys = Object.keys(params).filter(k => k.startsWith(`${filterParam}[`) && k.endsWith(']')).map(k => k.replace(filterParam, 'filter'));
-        this.filter = filterKeys.reduce((result, filter) => {
-          const res = filter.match(/^filter\[(.*)\]$/);
-          if (res) {
-            result[res[1]] = params[filter];
-          }
-          return result;
-        }, {});
+
+        this.filter = params.filter;
+
+        if (!isArray(this.filter)) {
+          this.filter = [this.filter]
+        }
       } else {
-        this.filter = {};
+        this.filter = [];
       }
 
       const sortString = params[sortParam];
@@ -137,7 +132,6 @@ export class DataTableRouteBindingComponent implements OnInit {
 
   reload() {
     if (this.source) {
-      const filter = merge(this.filter, this.scope);
       let sortArray = this.scrubSort(this.sort || []);
       this.sort = sortArray;
       this.updateSortParam(this.sort);
@@ -165,7 +159,23 @@ export class DataTableRouteBindingComponent implements OnInit {
           });
         }
       });
-      this.source.index(this.page.offset || 0, this.page.limit || 25, merge({ sort }, this.query)).subscribe(res => {
+      const filter = this.filter.map(filter => {
+        let columns = this.data.columns || {};
+        for (let colId in columns) {
+          let col = columns[colId];
+          // TODO: Better placeholder replacement for column expression
+          filter = filter.replace(`col(${colId})`, this.getColDataPath(col))
+        }
+        return filter;
+      });
+      const query = mergeWith({ sort, filter }, this.query, (lval, rval) => {
+        if (isArray(lval) && isArray(rval)) {
+          return lval.concat(rval);
+        } else {
+          return rval;
+        }
+      });
+      this.source.index(this.page.offset || 0, this.page.limit || 25, query).subscribe(res => {
         this.rows = res.data;
         this.page = {
           offset: res.meta['page-offset'],
