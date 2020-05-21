@@ -38,11 +38,23 @@ export class DeskComponent implements OnInit {
           type: 'attribute',
           value: 'name'
         }
+      },
+      namespace: {
+        title: 'Namespace',
+        display: 'text',
+        type: 'attribute',
+        value: 'namespace'
       }
     },
     display: [
       {
         name: 'name',
+        width: 250,
+        resizeable: true,
+        sortable: true
+      },
+      {
+        name: 'namespace',
         width: 150,
         resizeable: true,
         sortable: true
