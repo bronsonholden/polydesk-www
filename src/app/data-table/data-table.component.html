@@ -82,7 +82,7 @@
           [resizeable]="defaultIfUndefined(display.resizeable, true)"
           [sortable]="defaultIfUndefined(display.sortable, false)">
         <ng-template ngx-datatable-header-template let-sort="sortFn">
-          <span>
+          <span *ngIf="defaultIfUndefined(display.filterable, false)">
             <span class="sort-btn" (click)="openFilterDialog()">
               <mat-icon class="filter-icon" svgIcon="filter-outline"></mat-icon>
             </span>
