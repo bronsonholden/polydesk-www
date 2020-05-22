@@ -34,7 +34,11 @@
 </div>
 
 <!-- Icon -->
-<mat-icon *ngIf="columnDisplay === 'icon'" class="document-list-icon" [svgIcon]="value" [matTooltip]="getTooltip()"></mat-icon>
+<div mat-icon-button *ngIf="columnDisplay === 'icon'">
+  <button mat-icon-button class="data-table-cell-button">
+    <mat-icon class="data-table-cell-icon" [svgIcon]="value" [matTooltip]="getTooltip()"></mat-icon>
+  </button>
+</div>
 
 <div *ngIf="columnDisplay === 'modal'">
   <button mat-icon-button class="primary-color mat-body-2" (click)="openRelationshipDialog()"><mat-icon svgIcon="magnify"></mat-icon></button>

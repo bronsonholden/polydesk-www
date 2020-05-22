@@ -44,6 +44,12 @@ export class DeskComponent implements OnInit {
         display: 'text',
         type: 'attribute',
         value: 'namespace'
+      },
+      edit: {
+        title: 'Edit',
+        display: 'icon',
+        type: 'literal',
+        value: 'pencil'
       }
     },
     display: [
@@ -58,6 +64,12 @@ export class DeskComponent implements OnInit {
         width: 150,
         resizeable: true,
         sortable: true
+      },
+      {
+        name: 'edit',
+        width: 80,
+        resizeable: false,
+        sortable: false
       }
     ]
   };
