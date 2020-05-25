@@ -34,9 +34,9 @@
 </div>
 
 <!-- Icon -->
-<div mat-icon-button *ngIf="columnDisplay === 'icon'">
-  <button mat-icon-button class="data-table-cell-button">
-    <mat-icon class="data-table-cell-icon" [svgIcon]="value" [matTooltip]="getTooltip()"></mat-icon>
+<div mat-icon-button *ngIf="columnDisplay === 'link-icon'">
+  <button mat-icon-button [routerLink]="getRouterLink()" class="data-table-cell-button">
+    <mat-icon class="data-table-cell-icon" [svgIcon]="resolveArg(column.link)" [matTooltip]="getTooltip()"></mat-icon>
   </button>
 </div>
 

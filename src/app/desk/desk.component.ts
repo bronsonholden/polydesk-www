@@ -47,9 +47,29 @@ export class DeskComponent implements OnInit {
       },
       edit: {
         title: 'Edit',
-        display: 'icon',
-        type: 'literal',
-        value: 'pencil'
+        display: 'link-icon',
+        type: 'concat',
+        value: {
+          separator: '/',
+          parts: [
+            {
+              type: 'literal',
+              value: 'desk'
+            },
+            {
+              type: 'attribute',
+              value: 'namespace'
+            },
+            {
+              type: 'literal',
+              value: 'edit'
+            }
+          ]
+        },
+        link: {
+          type: 'literal',
+          value: 'pencil'
+        }
       }
     },
     display: [
