@@ -18,7 +18,7 @@ export class FormListComponent implements OnInit {
 
   @ViewChild('formDataTable') formDataTable: DataTableComponent;
 
-  data = {
+  tableConfig = {
     resource: 'forms',
     select: 'multiple',
     columns: {

@@ -1,7 +1,7 @@
 <div id="data-table-binding-wrapper">
   <app-data-table
     (pseudoLink)="pseudoLinkClicked($event)"
-    [data]="data"
+    [tableConfig]="tableConfig"
     [page]="page"
     [(selection)]="selection"
     (pageChange)="onPageChange($event)"

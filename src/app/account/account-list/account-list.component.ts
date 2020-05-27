@@ -16,7 +16,7 @@ export class AccountListComponent implements OnInit {
 
   @ViewChild(DataTableRouteBindingComponent) dataTable;
 
-  data: any = {
+  tableConfig: any = {
     select: 'multiple',
     columns: {
       accountName: {

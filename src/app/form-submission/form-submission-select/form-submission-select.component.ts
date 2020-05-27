@@ -10,7 +10,7 @@ import { FormSubmissionApiService } from '../../form-submission-api.service';
 })
 export class FormSubmissionSelectComponent implements OnInit {
 
-  data: any = {
+  tableConfig: any = {
     resource: 'form-submissions',
     select: 'single',
     columns: {
@@ -68,7 +68,7 @@ export class FormSubmissionSelectComponent implements OnInit {
   ngOnInit() {
     this.filter = Object.assign({}, this.dialogData.filters || {});
     this.filter['form-id'] = this.dialogData.formId;
-    this.data.columns.key.value = this.dialogData.selectKey;
+    this.tableConfig.columns.key.value = this.dialogData.selectKey;
   }
 
   cancelSelection() {

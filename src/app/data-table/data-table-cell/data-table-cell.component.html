@@ -30,7 +30,7 @@
 <!-- Switch -->
 <div *ngIf="columnDisplay === 'switch'">
   <!-- {{ row._source | json }} -->
-  <app-data-table-cell (pseudoLink)="pseudoLinkClicked()" [outlet]="outlet" [data]="data" [row]="row" [column]="value"></app-data-table-cell>
+  <app-data-table-cell (pseudoLink)="pseudoLinkClicked()" [outlet]="outlet" [tableConfig]="tableConfig" [row]="row" [column]="value"></app-data-table-cell>
 </div>
 
 <!-- Icon -->

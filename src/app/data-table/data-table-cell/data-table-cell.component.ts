@@ -18,7 +18,7 @@ import { get, merge } from 'lodash';
 })
 export class DataTableCellComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() tableConfig: any;
   @Input() row: any;
   @Input() column: any;
   @Input() outlet: string | null;

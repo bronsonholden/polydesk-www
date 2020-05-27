@@ -15,7 +15,7 @@ import { without, merge, mergeWith, isNil, isArray } from 'lodash';
 })
 export class DataTableRouteBindingComponent implements OnInit {
 
-  @Input() data: any = {};
+  @Input() tableConfig: any = {};
   // Service for retrieving records. Must implement an index() method
   //    index(offset, limit, sort, filter)
   @Input() source: any = null;
@@ -122,7 +122,7 @@ export class DataTableRouteBindingComponent implements OnInit {
       case 'attribute':
         return `prop('${col.value}')`;
       case 'generated':
-        return this.data.generate[col.value];
+        return this.tableConfig.generate[col.value];
       default:
         ;
     }
@@ -142,7 +142,7 @@ export class DataTableRouteBindingComponent implements OnInit {
           prop = prop.slice(1);
           dir = 'desc';
         }
-        const col = this.data.columns[prop];
+        const col = this.tableConfig.columns[prop];
 
         if (col.sortAs) {
           return `${dir}(${col.sortAs})`
@@ -160,7 +160,7 @@ export class DataTableRouteBindingComponent implements OnInit {
         }
       });
       const filter = this.filter.map(filter => {
-        let columns = this.data.columns || {};
+        let columns = this.tableConfig.columns || {};
         for (let colId in columns) {
           let col = columns[colId];
           // TODO: Better placeholder replacement for column expression
@@ -189,7 +189,7 @@ export class DataTableRouteBindingComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-    const reloadChanges = [ 'scope', 'filter', 'query', 'data', 'source' ];
+    const reloadChanges = [ 'scope', 'filter', 'query', 'tableConfig', 'source' ];
 
     for (let attr of reloadChanges) {
       if (changes[attr] && !changes[attr].firstChange) {
@@ -250,7 +250,7 @@ export class DataTableRouteBindingComponent implements OnInit {
         colId = colId.slice(1);
       }
 
-      const sortedCol = this.data.columns[colId];
+      const sortedCol = this.tableConfig.columns[colId];
 
       // Bring up snackbar(s) on next tick in case scrub on page init
       // triggers one.

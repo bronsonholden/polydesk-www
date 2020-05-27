@@ -17,7 +17,7 @@ export class FormSubmissionListComponent implements OnInit {
 
   @ViewChild('formSubmissionDataTable') formSubmissionDataTable: DataTableComponent;
 
-  data: any;
+  tableConfig: any;
   _defaultData = {
     resource: 'form-submissions',
     select: 'multiple',
@@ -81,9 +81,9 @@ export class FormSubmissionListComponent implements OnInit {
         const submissionView = get(res.data.attributes, 'schema.options.submissionView');
 
         if (submissionView) {
-          this.data = submissionView;
+          this.tableConfig = submissionView;
         } else {
-          this.data = this._defaultData;
+          this.tableConfig = this._defaultData;
         }
 
         set(this.scope, 'filter.form-id', formId);

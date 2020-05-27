@@ -12,7 +12,7 @@ export class DeskComponent implements OnInit {
 
   selection: any = [];
   scope: any = {};
-  data: any = {
+  tableConfig: any = {
     select: 'multiple',
     columns: {
       name: {

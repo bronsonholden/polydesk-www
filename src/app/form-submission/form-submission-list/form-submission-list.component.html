@@ -10,8 +10,8 @@
 </mat-toolbar>
 <div id="form-submission-table-wrapper">
   <app-data-table-route-binding
-    *ngIf="data"
-    [data]="data"
+    *ngIf="tableConfig"
+    [tableConfig]="tableConfig"
     [scope]="scope"
     [source]="formSubmissionApiService"
     [(selection)]="selection"

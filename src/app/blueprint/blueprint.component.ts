@@ -16,7 +16,7 @@ export class BlueprintComponent implements OnInit {
 
   query: any = {};
   scope: any = {};
-  data: any = {};
+  tableConfig: any = {};
   source: any = null;
   selection = [];
 
@@ -28,7 +28,7 @@ export class BlueprintComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.blueprintApi.getBlueprintByNamespace(params.namespace).subscribe((res: any) => {
-        this.data = res.data[0].attributes['list-view'];
+        this.tableConfig = res.data[0].attributes['list-view'];
 
         // Set filter query parameter
         const expr = `prop('namespace') == '${params.namespace}'`;
@@ -41,7 +41,7 @@ export class BlueprintComponent implements OnInit {
         }
 
         // Set generate query parameter
-        set(this.query, 'generate', this.data.generate);
+        set(this.query, 'generate', this.tableConfig.generate);
 
         this.prefabApi.namespace = params.namespace;
         this.source = this.prefabApi;

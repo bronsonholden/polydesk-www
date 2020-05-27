@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportListComponent implements OnInit {
 
-  reportListData = {
+  tableConfig = {
     resource: 'reports',
     selectable: true,
     columns: {

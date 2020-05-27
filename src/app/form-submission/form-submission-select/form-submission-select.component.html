@@ -7,7 +7,7 @@
 <div id="select-wrapper" class="mat-typography">
   <app-data-table-binding
     *ngIf="showTable"
-    [data]="data"
+    [tableConfig]="tableConfig"
     [source]="formSubmissionApiService"
     [page]="page"
     [scope]="filter"

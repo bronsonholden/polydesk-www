@@ -51,7 +51,7 @@ export class FolderComponent implements OnInit {
 
   folderId: string;
 
-  data = {
+  tableConfig = {
     resource: 'content',
     select: 'multiple',
     columns: {

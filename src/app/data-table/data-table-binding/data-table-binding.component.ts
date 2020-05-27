@@ -8,7 +8,7 @@ import { merge } from 'lodash';
 })
 export class DataTableBindingComponent implements OnInit {
 
-  @Input() data: any = {};
+  @Input() tableConfig: any = {};
   @Input() page: any = {};
   @Input() source: any = null;
   @Input() selection: any = [];

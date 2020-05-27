@@ -15,7 +15,7 @@
   <app-data-table-binding
     *ngIf="showTable"
     (pseudoLink)="folderClicked($event)"
-    [data]="data"
+    [tableConfig]="tableConfig"
     [source]="folderApiService"
     [scope]="scope"
     [(filter)]="filter"
