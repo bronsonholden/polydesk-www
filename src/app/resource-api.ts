@@ -11,7 +11,6 @@ export abstract class ResourceApi {
     let params = new HttpParams().set('page[offset]', offset).set('page[limit]', limit);
 
     const hashParams = [
-      'generate'
     ];
 
     const arrayParams = [
@@ -33,7 +32,24 @@ export abstract class ResourceApi {
       }
     }
 
-    return this.httpClient.get(this.resourceName(), { params });
+    let paramObj = {};
+
+    params.keys().forEach(key => {
+      paramObj[key] = params.getAll(key);
+    });
+
+    // Handle generate expressions (need to be encoded completely, not
+    // partially like Angular does by default with all query param values)
+    const generators = query['generate'];
+
+    if (!!generators) {
+      // paramObj['generate'] = {};
+      Object.keys(generators).forEach(key => {
+        paramObj[`generate[${encodeURIComponent(key)}]`] = encodeURIComponent(generators[key]);
+      });
+    }
+
+    return this.httpClient.get(this.resourceName(), { params: paramObj });
   }
 
 }
