@@ -7,5 +7,4 @@ phases:
       - ng build --prod
   post_build:
     commands:
-      - aws s3 sync dist/polydesk-www s3://www.polydesk.io
       - aws s3 sync dist/polydesk-www s3://www.polydesk.io --delete
